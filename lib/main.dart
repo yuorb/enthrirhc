@@ -15,7 +15,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Ithkuil Helper',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: Colors.deepPurple,
+        brightness: Brightness.light,
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        colorSchemeSeed: Colors.deepPurple,
+        brightness: Brightness.dark,
         useMaterial3: true,
       ),
       home: const RootPage(),
@@ -37,7 +43,6 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(["Search", "Construct", "Settings"][_currentPageIndex]),
       ),
       body: [
