@@ -1,4 +1,4 @@
-package com.example.ithkuil_helper
+package org.yuorb.ithkuil_helper
 
 import io.flutter.embedding.android.FlutterActivity
 
