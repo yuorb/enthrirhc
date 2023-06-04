@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+
+import '../common/types.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -26,12 +32,29 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: const Icon(Icons.upload_file),
         title: const Text("Import Lexicon JSON"),
         subtitle: const Text("Alternative for users with Internet issues"),
-        onTap: () => showDialog(
-          context: context,
-          builder: (BuildContext context) => const AlertDialog(
-            title: Text("WIP"),
-          ),
-        ),
+        onTap: () async {
+          FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+          if (result == null) return;
+          if (result.files.single.path == null) return;
+          String? path = result.files.single.path;
+          if (path == null) return;
+
+          File file = File(path);
+          String text = await file.readAsString();
+          List<Root> lexicon = (jsonDecode(text) as List<dynamic>)
+              .map((root) => Root.fromJson(root))
+              .toList();
+          if (context.mounted) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Success"),
+                content: Text("Imported ${lexicon.length.toString()} roots."),
+              ),
+            );
+          }
+        },
       ),
       const Divider(),
       ListTile(
