@@ -40,15 +40,3 @@ class Root {
     );
   }
 }
-
-// type Root = {
-//   root: string;
-//   refers?: string;
-//   stems?: [
-//     Specs | string,
-//     Specs | string,
-//     Specs | string,
-//   ];
-//   notes?: string;
-//   see?: string;
-// }[];
