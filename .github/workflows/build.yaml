@@ -30,7 +30,7 @@ jobs:
           flutter-version: '3.10.3'
       - run: flutter pub get
       - run: dart run build_runner build
-      - run: flutter build web
+      - run: flutter build web --base-href "/ithkuil-helper-flutter/"
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
