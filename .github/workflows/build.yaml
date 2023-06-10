@@ -14,6 +14,7 @@ jobs:
         with:
           flutter-version: '3.10.3'
       - run: flutter pub get
+      - run: dart run build_runner build
       - run: flutter build apk --split-per-abi
       - uses: actions/upload-artifact@v3
         with:
@@ -28,8 +29,9 @@ jobs:
         with:
           flutter-version: '3.10.3'
       - run: flutter pub get
+      - run: dart run build_runner build
       - run: flutter build web
-      - uses: JamesIves/github-pages-deploy-action@4
+      - uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build/web
