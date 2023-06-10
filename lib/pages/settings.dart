@@ -52,6 +52,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 .database
                 .init(lexicon);
           }
+          if (context.mounted) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text("Success"),
+                content: Text(
+                  "Imported ${lexicon.length.toString()} roots successfully.",
+                ),
+              ),
+            );
+          }
         },
       ),
       const Divider(),
