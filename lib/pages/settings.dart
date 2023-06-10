@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:provider/provider.dart';
 
+import '../common/store.dart';
 import '../common/types.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -46,13 +48,9 @@ class _SettingsPageState extends State<SettingsPage> {
               .map((root) => Root.fromJson(root))
               .toList();
           if (context.mounted) {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Success"),
-                content: Text("Imported ${lexicon.length.toString()} roots."),
-              ),
-            );
+            await Provider.of<LexiconModel>(context, listen: false)
+                .database
+                .init(lexicon);
           }
         },
       ),

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ithkuil_helper/pages/construct.dart';
 import 'package:ithkuil_helper/pages/search.dart';
 import 'package:ithkuil_helper/pages/settings.dart';
+import 'package:provider/provider.dart';
+
+import 'common/store.dart';
 
 void main() {
   runApp(const App());
@@ -24,7 +27,10 @@ class App extends StatelessWidget {
         brightness: Brightness.dark,
         useMaterial3: true,
       ),
-      home: const RootPage(),
+      home: ChangeNotifierProvider(
+        create: (context) => LexiconModel(),
+        child: const RootPage(),
+      ),
     );
   }
 }
