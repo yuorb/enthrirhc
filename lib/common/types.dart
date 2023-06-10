@@ -20,7 +20,7 @@ class Root {
 
   final String root;
   final String? refers;
-  final dynamic stems;
+  final List<dynamic>? stems;
   final String? notes;
   final String? see;
 
