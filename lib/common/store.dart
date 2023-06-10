@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:ithkuil_helper/database/lexicon.dart';
+import 'package:ithkuil_helper/database/shared.dart';
 
 class LexiconModel extends ChangeNotifier {
-  final Database database = Database();
+  final Database database = constructDb();
 }

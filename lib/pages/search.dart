@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ithkuil_helper/common/store.dart';
 
 import '../common/types.dart';
-import '../database/lexicon.dart';
+import '../database/shared.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

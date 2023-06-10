@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -38,12 +37,9 @@ class _SettingsPageState extends State<SettingsPage> {
           FilePickerResult? result = await FilePicker.platform.pickFiles();
 
           if (result == null) return;
-          if (result.files.single.path == null) return;
-          String? path = result.files.single.path;
-          if (path == null) return;
-
-          File file = File(path);
-          String text = await file.readAsString();
+          final bytes = result.files.single.bytes;
+          if (bytes == null) return;
+          final text = String.fromCharCodes(bytes);
           List<Root> lexicon = (jsonDecode(text) as List<dynamic>)
               .map((root) => Root.fromJson(root))
               .toList();
