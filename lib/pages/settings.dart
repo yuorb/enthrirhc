@@ -34,7 +34,10 @@ class _SettingsPageState extends State<SettingsPage> {
         title: const Text("Import Lexicon JSON"),
         subtitle: const Text("Alternative for users with Internet issues"),
         onTap: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles();
+          FilePickerResult? result = await FilePicker.platform.pickFiles(
+            type: FileType.custom,
+            allowedExtensions: ['json'],
+          );
 
           if (result == null) return;
           final bytes = result.files.single.bytes;
