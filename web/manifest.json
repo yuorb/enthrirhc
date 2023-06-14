@@ -1,11 +1,11 @@
 {
-    "name": "ithkuil_helper",
-    "short_name": "ithkuil_helper",
+    "name": "Enţrirç",
+    "short_name": "Enţrirç",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#7f47dd",
     "theme_color": "#7f47dd",
-    "description": "A new Flutter project.",
+    "description": "Enţrirç (Ithkuil Helper)",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

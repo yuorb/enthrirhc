@@ -16,7 +16,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ithkuil Helper',
+      title: 'Enţrirç',
       theme: ThemeData(
         colorSchemeSeed: Colors.deepPurple,
         brightness: Brightness.light,
