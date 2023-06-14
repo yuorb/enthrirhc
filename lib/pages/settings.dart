@@ -37,15 +37,30 @@ class _SettingsPageState extends State<SettingsPage> {
           FilePickerResult? result = await FilePicker.platform.pickFiles(
             type: FileType.custom,
             allowedExtensions: ['json'],
+            withData: true,
           );
 
           if (result == null) return;
           final bytes = result.files.single.bytes;
           if (bytes == null) return;
           final text = String.fromCharCodes(bytes);
-          List<Root> lexicon = (jsonDecode(text) as List<dynamic>)
-              .map((root) => Root.fromJson(root))
-              .toList();
+          List<Root> lexicon;
+          try {
+            lexicon = (jsonDecode(text) as List<dynamic>)
+                .map((root) => Root.fromJson(root))
+                .toList();
+          } catch (e) {
+            if (context.mounted) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Error"),
+                  content: Text("Invalid JSON file (${e.runtimeType})"),
+                ),
+              );
+            }
+            return;
+          }
           if (context.mounted) {
             await Provider.of<LexiconModel>(context, listen: false)
                 .database
