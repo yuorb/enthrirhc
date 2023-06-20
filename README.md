@@ -8,9 +8,9 @@ Enţrirç (Ithkuil IV word for "an utility set", pronounced `/enθɾiɾç/`, lik
 | --------- | ------ |
 | Android   | ✅     |
 | Web(PWA) | ✅     |
-| macOS     | 🆗     |
 | Linux     | 🆗     |
 | Windows   | 🆗     |
+| macOS     | ❌     |
 | iOS       | ❌     |
 
 ✅ = First Class Support, 🆗 = Support, ❌ = Not Support

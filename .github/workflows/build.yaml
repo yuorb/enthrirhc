@@ -39,16 +39,3 @@ jobs:
         with:
           name: web
           path: build/web/
-
-  macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.10.3'
-          architecture: x64
-      - run: flutter pub get
-      - run: dart run build_runner build
-      - run: flutter config --enable-macos-desktop
-      - run: flutter build macos
