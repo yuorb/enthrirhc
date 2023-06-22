@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide SearchBar;
 import 'package:ithkuil_helper/pages/construct.dart';
-import 'package:ithkuil_helper/pages/search.dart';
+import 'package:ithkuil_helper/pages/search/index.dart';
+import 'package:ithkuil_helper/pages/search/app_bar.dart';
 import 'package:ithkuil_helper/pages/settings.dart';
 import 'package:provider/provider.dart';
 
@@ -48,9 +49,15 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(["Search", "Construct", "Settings"][_currentPageIndex]),
-      ),
+      appBar: [
+        SearchBar(),
+        AppBar(
+          title: const Text("Construct"),
+        ),
+        AppBar(
+          title: const Text("Settings"),
+        )
+      ][_currentPageIndex],
       body: [
         const SearchPage(),
         const ConstructPage(),
