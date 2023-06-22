@@ -10,6 +10,12 @@ class ConstructPage extends StatefulWidget {
 class _ConstructPageState extends State<ConstructPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("WIP"));
+    return Column(
+      children: [
+        AppBar(title: const Text("Construct")),
+        const SizedBox(height: 268),
+        const Text("Work In Progress"),
+      ],
+    );
   }
 }

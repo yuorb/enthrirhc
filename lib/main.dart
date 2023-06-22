@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:ithkuil_helper/pages/construct.dart';
 import 'package:ithkuil_helper/pages/search/index.dart';
-import 'package:ithkuil_helper/pages/search/app_bar.dart';
 import 'package:ithkuil_helper/pages/settings.dart';
 import 'package:provider/provider.dart';
 
@@ -49,20 +48,13 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: [
-        SearchBar(),
-        AppBar(
-          title: const Text("Construct"),
-        ),
-        AppBar(
-          title: const Text("Settings"),
-        )
-      ][_currentPageIndex],
-      body: [
-        const SearchPage(),
-        const ConstructPage(),
-        const SettingsPage(),
-      ][_currentPageIndex],
+      body: SafeArea(
+        child: [
+          const SearchPage(),
+          const ConstructPage(),
+          const SettingsPage(),
+        ][_currentPageIndex],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPageIndex,
         destinations: const [

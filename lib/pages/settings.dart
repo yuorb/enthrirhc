@@ -20,6 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        AppBar(title: const Text("Settings")),
         Container(
           padding: const EdgeInsets.fromLTRB(16, 24, 0, 8),
           child: Text(
@@ -65,9 +66,8 @@ class _SettingsPageState extends State<SettingsPage> {
             final text = String.fromCharCodes(bytes);
             List<Root> lexicon;
             try {
-              lexicon = (jsonDecode(text) as List<dynamic>)
-                  .map((root) => Root.fromJson(root))
-                  .toList();
+              lexicon =
+                  (jsonDecode(text) as List<dynamic>).map((root) => Root.fromJson(root)).toList();
             } catch (e) {
               if (context.mounted) {
                 showDialog(
@@ -81,9 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
               return;
             }
             if (context.mounted) {
-              await Provider.of<LexiconModel>(context, listen: false)
-                  .database
-                  .init(lexicon);
+              await Provider.of<LexiconModel>(context, listen: false).database.init(lexicon);
             }
             if (context.mounted) {
               showDialog(
