@@ -13,23 +13,21 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  List roots = [];
+  final SearchController controller = SearchController();
 
-  void search(Database database) async {
-    final rows = await database.search();
-    setState(() {
-      roots = rows
-          .map(
-            (row) => Root(
-              root: row.root,
-              refers: row.refers,
-              stems: [row.stem1, row.stem2, row.stem3],
-              notes: row.notes,
-              see: row.see,
-            ),
-          )
-          .toList();
-    });
+  Future<List<Root>> search(Database database) async {
+    final rows = await database.search(controller.text);
+    return rows
+        .map(
+          (row) => Root(
+            root: row.root,
+            refers: row.refers,
+            stems: [row.stem1, row.stem2, row.stem3],
+            notes: row.notes,
+            see: row.see,
+          ),
+        )
+        .toList();
   }
 
   @override
@@ -47,17 +45,35 @@ class _SearchPageState extends State<SearchPage> {
           title: Consumer<LexiconModel>(
             builder: (context, lexicon, child) {
               return SearchAnchor.bar(
+                searchController: controller,
                 barHintText: "Search roots...",
+                // TODO: https://github.com/flutter/flutter/issues/126531
                 suggestionsBuilder: (BuildContext context, SearchController controller) {
-                  return List<Widget>.generate(
-                    5,
-                    (int index) {
-                      return ListTile(
-                        titleAlignment: ListTileTitleAlignment.center,
-                        title: Text('Initial list item $index'),
-                      );
-                    },
-                  );
+                  final searchFuture = search(lexicon.database);
+                  return [
+                    FutureBuilder(
+                      future: searchFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          final list = snapshot.data;
+                          if (list != null) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: list.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ListTile(
+                                  titleAlignment: ListTileTitleAlignment.center,
+                                  title: Text(list[index].root),
+                                );
+                              },
+                            );
+                          }
+                        }
+                        return const LinearProgressIndicator();
+                      },
+                    )
+                  ];
                 },
               );
             },

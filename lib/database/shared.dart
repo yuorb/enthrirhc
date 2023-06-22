@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import '../common/types.dart';
 
-export 'unsupported.dart'
-    if (dart.library.ffi) 'native.dart'
-    if (dart.library.html) 'web.dart';
+export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.html) 'web.dart';
 
 part 'shared.g.dart';
 
@@ -36,15 +34,12 @@ class Database extends _$Database {
           (root) => LexiconCompanion.insert(
             root: root.root,
             refers: Value(root.refers),
-            stem1: Value((root.stems?[0] is String)
-                ? (root.stems?[0])
-                : json.encode(root.stems?[0])),
-            stem2: Value((root.stems?[1] is String)
-                ? (root.stems?[1])
-                : json.encode(root.stems?[1])),
-            stem3: Value((root.stems?[2] is String)
-                ? (root.stems?[2])
-                : json.encode(root.stems?[2])),
+            stem1:
+                Value((root.stems?[0] is String) ? (root.stems?[0]) : json.encode(root.stems?[0])),
+            stem2:
+                Value((root.stems?[1] is String) ? (root.stems?[1]) : json.encode(root.stems?[1])),
+            stem3:
+                Value((root.stems?[2] is String) ? (root.stems?[2]) : json.encode(root.stems?[2])),
             notes: Value(root.notes),
             see: Value(root.see),
           ),
@@ -53,7 +48,11 @@ class Database extends _$Database {
     });
   }
 
-  Future<List<RootRow>> search() async {
-    return select(lexicon).get();
+  Future<List<RootRow>> search(String keywords) async {
+    return (select(lexicon)
+          ..where((tbl) {
+            return tbl.root.contains(keywords);
+          }))
+        .get();
   }
 }
