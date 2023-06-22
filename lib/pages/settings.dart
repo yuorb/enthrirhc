@@ -63,7 +63,7 @@ class _SettingsPageState extends State<SettingsPage> {
             if (result == null) return;
             final bytes = result.files.single.bytes;
             if (bytes == null) return;
-            final text = String.fromCharCodes(bytes);
+            final text = utf8.decode(bytes);
             List<Root> lexicon;
             try {
               lexicon =
