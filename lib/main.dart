@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart' hide SearchBar;
+import 'package:flutter/services.dart';
 import 'package:ithkuil_helper/pages/construct.dart';
-import 'package:ithkuil_helper/pages/search/index.dart';
+import 'package:ithkuil_helper/pages/search.dart';
 import 'package:ithkuil_helper/pages/settings.dart';
 import 'package:provider/provider.dart';
 
 import 'common/store.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(const App());
 }
 
