@@ -16,6 +16,10 @@ class _SearchPageState extends State<SearchPage> {
   final SearchController controller = SearchController();
 
   Future<List<Root>> search(Database database) async {
+    if (controller.text.isEmpty) {
+      return [];
+    }
+
     final rows = await database.search(controller.text);
     return rows
         .map(
