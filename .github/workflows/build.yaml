@@ -13,6 +13,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.12.0'
+          channel: 'beta'
       - run: flutter pub get
       - run: dart run build_runner build
       - run: flutter build apk --split-per-abi
