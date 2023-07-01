@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ithkuil_helper/pages/root.dart';
 import 'package:provider/provider.dart';
 import 'package:ithkuil_helper/common/store.dart';
 
@@ -64,7 +65,12 @@ class _SearchPageState extends State<SearchPage> {
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RootPage(root)),
+                        );
+                      },
                     ),
                   );
                 },
