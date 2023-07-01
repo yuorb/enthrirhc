@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:ithkuil_helper/pages/communities.dart';
 import 'package:provider/provider.dart';
 
 import '../common/store.dart';
@@ -101,6 +102,20 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Text(
             "Others",
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.people),
+          title: const Text("Communities"),
+          subtitle: Text(
+            "List of Ithkuil communities",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CommunitiesPage()),
           ),
         ),
         ListTile(

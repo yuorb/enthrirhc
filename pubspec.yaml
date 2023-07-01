@@ -17,6 +17,8 @@ dependencies:
   provider: 6.0.5
   sqlite3_flutter_libs: ^0.5.15
   sqlite3: ^1.11.2
+  flutter_svg: ^2.0.7
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_lints: 2.0.1
@@ -25,6 +27,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/discord.svg
+    - assets/github.svg
+    - assets/reddit.svg
+    - assets/telegram.svg
+    - assets/tencentqq.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
