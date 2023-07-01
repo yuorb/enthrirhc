@@ -51,33 +51,22 @@ class _SearchPageState extends State<SearchPage> {
               return SearchAnchor.bar(
                 searchController: controller,
                 barHintText: "Search roots...",
-                // TODO: https://github.com/flutter/flutter/issues/126531
-                suggestionsBuilder: (BuildContext context, SearchController controller) {
-                  final searchFuture = search(lexicon.database);
-                  return [
-                    FutureBuilder(
-                      future: searchFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          final list = snapshot.data;
-                          if (list != null) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: list.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ListTile(
-                                  titleAlignment: ListTileTitleAlignment.center,
-                                  title: Text(list[index].root),
-                                );
-                              },
-                            );
-                          }
-                        }
-                        return const LinearProgressIndicator();
-                      },
-                    )
-                  ];
+                suggestionsBuilder: (BuildContext context, SearchController controller) async {
+                  final result = await search(lexicon.database);
+                  return result.map(
+                    (root) => ListTile(
+                      leading: const Icon(Icons.article),
+                      title: Text(root.root),
+                      subtitle: Text(
+                        root.refers ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                      onTap: () {},
+                    ),
+                  );
                 },
               );
             },
