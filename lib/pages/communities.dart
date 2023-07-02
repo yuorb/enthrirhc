@@ -17,8 +17,10 @@ class CommunityTile extends StatelessWidget {
       leading: icon != null
           ? SvgPicture.asset(
               "assets/$icon.svg",
-              colorFilter:
-                  ColorFilter.mode(Theme.of(context).colorScheme.onSurface, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.onSurfaceVariant,
+                BlendMode.srcIn,
+              ),
             )
           : const Icon(Icons.article),
       title: Text(name),
