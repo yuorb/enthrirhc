@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ithkuil_helper/pages/root.dart';
 import 'package:provider/provider.dart';
@@ -22,17 +24,24 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     final rows = await database.search(controller.text);
-    return rows
-        .map(
-          (row) => Root(
-            root: row.root,
-            refers: row.refers,
-            stems: [row.stem1, row.stem2, row.stem3],
-            notes: row.notes,
-            see: row.see,
-          ),
-        )
-        .toList();
+    return rows.map(
+      (row) {
+        final List<Stem>? stems;
+        if (row.stems != null) {
+          final List<dynamic> decodeStems = jsonDecode(row.stems!);
+          stems = decodeStems.map((stem) => Stem.from(stem)).toList();
+        } else {
+          stems = null;
+        }
+        return Root(
+          root: row.root,
+          refers: row.refers,
+          stems: stems,
+          notes: row.notes,
+          see: row.see,
+        );
+      },
+    ).toList();
   }
 
   @override

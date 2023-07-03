@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:drift/drift.dart';
 import '../common/types.dart';
 
@@ -11,9 +12,7 @@ class Lexicon extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get root => text()();
   TextColumn get refers => text().nullable()();
-  TextColumn get stem1 => text().nullable()();
-  TextColumn get stem2 => text().nullable()();
-  TextColumn get stem3 => text().nullable()();
+  TextColumn get stems => text().nullable()();
   TextColumn get notes => text().nullable()();
   TextColumn get see => text().nullable()();
 }
@@ -34,12 +33,7 @@ class Database extends _$Database {
           (root) => LexiconCompanion.insert(
             root: root.root,
             refers: Value(root.refers),
-            stem1:
-                Value((root.stems?[0] is String) ? (root.stems?[0]) : json.encode(root.stems?[0])),
-            stem2:
-                Value((root.stems?[1] is String) ? (root.stems?[1]) : json.encode(root.stems?[1])),
-            stem3:
-                Value((root.stems?[2] is String) ? (root.stems?[2]) : json.encode(root.stems?[2])),
+            stems: Value(jsonEncode(root.stems)),
             notes: Value(root.notes),
             see: Value(root.see),
           ),

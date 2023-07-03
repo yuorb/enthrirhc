@@ -65,10 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
             final bytes = result.files.single.bytes;
             if (bytes == null) return;
             final text = utf8.decode(bytes);
-            List<Root> lexicon;
+            List<dynamic> decodedJson;
             try {
-              lexicon =
-                  (jsonDecode(text) as List<dynamic>).map((root) => Root.fromJson(root)).toList();
+              decodedJson = jsonDecode(text);
             } catch (e) {
               if (context.mounted) {
                 showDialog(
@@ -81,6 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
               }
               return;
             }
+            List<Root> lexicon = decodedJson.map((root) => Root.fromJson(root)).toList();
             if (context.mounted) {
               await Provider.of<LexiconModel>(context, listen: false).database.init(lexicon);
             }
