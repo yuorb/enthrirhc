@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:ithkuil_helper/pages/communities.dart';
+import 'package:enthrirch/pages/communities.dart';
 import 'package:provider/provider.dart';
 
 import '../common/store.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
-import 'package:ithkuil_helper/pages/construct.dart';
-import 'package:ithkuil_helper/pages/search.dart';
-import 'package:ithkuil_helper/pages/settings.dart';
+import 'package:enthrirch/pages/construct.dart';
+import 'package:enthrirch/pages/search.dart';
+import 'package:enthrirch/pages/settings.dart';
 import 'package:provider/provider.dart';
 
 import 'common/store.dart';

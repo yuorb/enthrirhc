@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ithkuil_helper/common/types.dart';
+import 'package:enthrirch/common/types.dart';
 
 class RootPage extends StatefulWidget {
   final Root root;

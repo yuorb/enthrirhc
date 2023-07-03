@@ -1,4 +1,4 @@
-package org.yuorb.ithkuil_helper
+package org.yuorb.enthrirch
 
 import io.flutter.embedding.android.FlutterActivity
 

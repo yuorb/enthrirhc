@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ithkuil_helper/pages/root.dart';
+import 'package:enthrirch/pages/root.dart';
 import 'package:provider/provider.dart';
-import 'package:ithkuil_helper/common/store.dart';
+import 'package:enthrirch/common/store.dart';
 
 import '../common/types.dart';
 import '../database/shared.dart';
