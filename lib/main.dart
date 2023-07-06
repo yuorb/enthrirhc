@@ -4,15 +4,34 @@ import 'package:enthrirch/pages/construct.dart';
 import 'package:enthrirch/pages/search.dart';
 import 'package:enthrirch/pages/settings.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'common/store.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  runApp(const App());
+
+  final darkTheme = await getInitialDarkTheme();
+
+  runApp(ChangeNotifierProvider(
+    create: (_) => ThemeProvider(darkTheme: darkTheme),
+    child: const App(),
+  ));
+}
+
+Future<int> getInitialDarkTheme() async {
+  final prefs = await SharedPreferences.getInstance();
+  final theme = prefs.getInt('darkTheme');
+  if (theme != null) {
+    return theme;
+  } else {
+    prefs.setInt('darkTheme', 1);
+    return 1;
+  }
 }
 
 class App extends StatelessWidget {
@@ -20,21 +39,40 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Enţrirç',
-      theme: ThemeData(
-        colorSchemeSeed: Colors.deepPurple,
-        brightness: Brightness.light,
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.deepPurple,
-        brightness: Brightness.dark,
-        useMaterial3: true,
-      ),
-      home: ChangeNotifierProvider(
-        create: (context) => LexiconModel(),
-        child: const RootPage(),
+    return Consumer<ThemeProvider>(
+      builder: (context, theme, child) => MaterialApp(
+        title: 'Enţrirç',
+        theme: ThemeData(
+          colorSchemeSeed: Colors.deepPurple,
+          brightness: Brightness.light,
+          useMaterial3: true,
+        ),
+        darkTheme: theme.darkTheme == 2
+            ? ThemeData(
+                colorScheme: const ColorScheme(
+                  brightness: Brightness.dark,
+                  primary: Colors.grey,
+                  onPrimary: Colors.grey,
+                  secondary: Colors.black,
+                  onSecondary: Colors.grey,
+                  error: Colors.grey,
+                  onError: Colors.grey,
+                  background: Colors.black,
+                  onBackground: Colors.grey,
+                  surface: Colors.black,
+                  onSurface: Colors.grey,
+                ),
+                useMaterial3: true,
+              )
+            : ThemeData(
+                colorSchemeSeed: Colors.deepPurple,
+                brightness: Brightness.dark,
+                useMaterial3: true,
+              ),
+        home: ChangeNotifierProvider(
+          create: (context) => LexiconModel(),
+          child: const RootPage(),
+        ),
       ),
     );
   }

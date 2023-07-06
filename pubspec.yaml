@@ -19,6 +19,7 @@ dependencies:
   sqlite3: ^1.11.2
   flutter_svg: ^2.0.7
   url_launcher: ^6.1.11
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_lints: 2.0.1
