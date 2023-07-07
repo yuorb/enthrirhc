@@ -32,7 +32,7 @@ class Database extends _$Database {
           (root) => RootsCompanion.insert(
             root: root.root,
             refers: Value(root.refers),
-            stems: Value(jsonEncode(root.stems)),
+            stems: Value(root.stems != null ? jsonEncode(root.stems) : null),
             notes: Value(root.notes),
             see: Value(root.see),
           ),

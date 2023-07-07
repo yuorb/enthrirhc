@@ -47,23 +47,16 @@ class StrStem extends Stem {
 }
 
 class Root {
-  Root({
+  const Root({
     required this.root,
     this.refers,
-    List<Stem>? stems,
+    this.stems,
     this.notes,
     this.see,
-  }) {
-    if (stems != null) {
-      assert(stems.length == 3);
-      this.stems = stems;
-    } else {
-      this.stems = List<Stem>.filled(3, const StrStem(''));
-    }
-  }
+  });
 
   final String root;
-  late final List<Stem>? stems;
+  final List<Stem>? stems;
   final String? refers;
   final String? notes;
   final String? see;
