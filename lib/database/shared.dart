@@ -7,8 +7,8 @@ export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.h
 
 part 'shared.g.dart';
 
-@DataClassName('RootRow')
-class Lexicon extends Table {
+@DataClassName('RootItem')
+class Roots extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get root => text()();
   TextColumn get refers => text().nullable()();
@@ -17,20 +17,19 @@ class Lexicon extends Table {
   TextColumn get see => text().nullable()();
 }
 
-@DriftDatabase(tables: [Lexicon])
+@DriftDatabase(tables: [Roots])
 class Database extends _$Database {
   Database(QueryExecutor e) : super(e);
 
   @override
   int get schemaVersion => 1;
 
-  Future<void> init(List<Root> roots) async {
-    await delete(lexicon).go();
+  Future<void> init(List<Root> newRoots) async {
     await batch((batch) {
       batch.insertAll(
-        lexicon,
-        roots.map(
-          (root) => LexiconCompanion.insert(
+        roots,
+        newRoots.map(
+          (root) => RootsCompanion.insert(
             root: root.root,
             refers: Value(root.refers),
             stems: Value(jsonEncode(root.stems)),
@@ -43,7 +42,7 @@ class Database extends _$Database {
   }
 
   Future<List<Root>> search(String keywords) async {
-    final rows = await (select(lexicon)..where((tbl) => tbl.root.contains(keywords))).get();
+    final rows = await (select(roots)..where((tbl) => tbl.root.contains(keywords))).get();
     return rows.map(
       (row) {
         final List<Stem>? stems;
@@ -65,9 +64,13 @@ class Database extends _$Database {
   }
 
   Future<int> rootCount() async {
-    final countExpr = lexicon.id.count();
-    final query = selectOnly(lexicon)..addColumns([countExpr]);
+    final countExpr = roots.id.count();
+    final query = selectOnly(roots)..addColumns([countExpr]);
     final result = await query.map((row) => row.read(countExpr)).getSingle();
     return result!;
+  }
+
+  Future<int> clearRoots() async {
+    return delete(roots).go();
   }
 }

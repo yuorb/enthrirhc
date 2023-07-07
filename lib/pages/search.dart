@@ -93,40 +93,38 @@ class _SearchPageState extends State<SearchPage> {
           actions: [
             Container(
               margin: const EdgeInsets.all(12),
-              child: Consumer<LexiconModel>(
-                builder: (context, lexicon, child) {
-                  return SearchAnchor(
-                    searchController: controller,
-                    suggestionsBuilder: (BuildContext context, SearchController controller) async {
-                      final result = await lexicon.database.search(controller.text);
-                      return result.map(
-                        (root) => ListTile(
-                          leading: const Icon(Icons.article),
-                          title: Text(root.root),
-                          subtitle: Text(
-                            root.refers ?? '',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => RootPage(root)),
-                            );
-                          },
+              child: SearchAnchor(
+                searchController: controller,
+                suggestionsBuilder: (BuildContext context, SearchController controller) async {
+                  final result = await Provider.of<LexiconModel>(context, listen: false)
+                      .database
+                      .search(controller.text);
+                  return result.map(
+                    (root) => ListTile(
+                      leading: const Icon(Icons.article),
+                      title: Text(root.root),
+                      subtitle: Text(
+                        root.refers ?? '',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
-                      );
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RootPage(root)),
+                        );
+                      },
+                    ),
+                  );
+                },
+                builder: (BuildContext context, SearchController controller) {
+                  return IconButton(
+                    onPressed: () {
+                      controller.openView();
                     },
-                    builder: (BuildContext context, SearchController controller) {
-                      return IconButton(
-                        onPressed: () {
-                          controller.openView();
-                        },
-                        icon: const Icon(Icons.search),
-                      );
-                    },
+                    icon: const Icon(Icons.search),
                   );
                 },
               ),
@@ -191,7 +189,7 @@ class _SearchPageState extends State<SearchPage> {
                     // Save and update the lexicon data
                     if (!context.mounted) return;
                     await Provider.of<LexiconModel>(context, listen: false).database.init(lexicon);
-                    setState(() => rootCount = lexicon.length);
+                    setState(() => rootCount += lexicon.length);
 
                     // Pop up the success dialog
                     if (!context.mounted) return;
@@ -202,21 +200,61 @@ class _SearchPageState extends State<SearchPage> {
                         content: Text(
                           "Imported ${lexicon.length.toString()} roots successfully.",
                         ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("Ok"),
+                          ),
+                        ],
                       ),
                     );
                   },
                 ),
                 const SizedBox(height: 8),
                 LexiconActionButton(
-                  icon: Icons.delete_forever,
-                  label: "Clear the lexicon",
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (BuildContext context) => const AlertDialog(
-                      title: Text("WIP"),
-                    ),
-                  ),
-                ),
+                    icon: Icons.delete_forever,
+                    label: "Clear the lexicon",
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext dialogContext) => AlertDialog(
+                          title: const Text("Warning"),
+                          content: const Text(
+                              "Are you sure to clear all the roots and affixes from your device?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(dialogContext),
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () async {
+                                Navigator.pop(dialogContext);
+                                final count =
+                                    await Provider.of<LexiconModel>(context, listen: false)
+                                        .database
+                                        .clearRoots();
+                                setState(() => rootCount -= count);
+                                if (!context.mounted) return;
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => AlertDialog(
+                                    title: const Text("Success"),
+                                    content: Text("$count roots have been cleared."),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text("Ok"),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: const Text("Ok"),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
               ],
             ),
           ),
