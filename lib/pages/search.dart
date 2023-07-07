@@ -95,7 +95,7 @@ class _SearchPageState extends State<SearchPage> {
               margin: const EdgeInsets.all(12),
               child: SearchAnchor(
                 searchController: controller,
-                suggestionsBuilder: (BuildContext context, SearchController controller) async {
+                suggestionsBuilder: (suggestionsContext, SearchController controller) async {
                   final result = await Provider.of<LexiconModel>(context, listen: false)
                       .database
                       .search(controller.text);
@@ -107,12 +107,12 @@ class _SearchPageState extends State<SearchPage> {
                         root.refers ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          color: Theme.of(suggestionsContext).colorScheme.onSurfaceVariant,
                         ),
                       ),
                       onTap: () {
                         Navigator.push(
-                          context,
+                          suggestionsContext,
                           MaterialPageRoute(builder: (context) => RootPage(root)),
                         );
                       },
