@@ -42,11 +42,32 @@ class Database extends _$Database {
     });
   }
 
-  Future<List<RootRow>> search(String keywords) async {
-    return (select(lexicon)
-          ..where((tbl) {
-            return tbl.root.contains(keywords);
-          }))
-        .get();
+  Future<List<Root>> search(String keywords) async {
+    final rows = await (select(lexicon)..where((tbl) => tbl.root.contains(keywords))).get();
+    return rows.map(
+      (row) {
+        final List<Stem>? stems;
+        if (row.stems != null) {
+          final List<dynamic> decodeStems = jsonDecode(row.stems!);
+          stems = decodeStems.map((stem) => Stem.from(stem)).toList();
+        } else {
+          stems = null;
+        }
+        return Root(
+          root: row.root,
+          refers: row.refers,
+          stems: stems,
+          notes: row.notes,
+          see: row.see,
+        );
+      },
+    ).toList();
+  }
+
+  Future<int> rootCount() async {
+    final countExpr = lexicon.id.count();
+    final query = selectOnly(lexicon)..addColumns([countExpr]);
+    final result = await query.map((row) => row.read(countExpr)).getSingle();
+    return result!;
   }
 }
