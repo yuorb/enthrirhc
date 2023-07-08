@@ -59,7 +59,9 @@ class Database extends _$Database {
   }
 
   Future<List<Root>> search(String keywords) async {
-    final rows = await (select(roots)..where((tbl) => tbl.root.contains(keywords))).get();
+    final rows = await (select(roots)
+          ..where((tbl) => tbl.root.contains(keywords) | tbl.refers.contains(keywords)))
+        .get();
     return rows.map((row) => rowToRoot(row)).toList();
   }
 
