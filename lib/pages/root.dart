@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:enthrirch/common/types.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 
 import '../common/store.dart';
@@ -41,103 +42,114 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final provider = context.read<LexiconModel>();
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.root.root),
-          actions: [
-            seeAlso != null
-                ? IconButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
-                          value: provider,
-                          builder: (context, child) => RootPage(seeAlso!),
-                        ),
+      appBar: AppBar(
+        title: Text(widget.root.root),
+        actions: [
+          seeAlso != null
+              ? IconButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
+                        value: provider,
+                        builder: (context, child) => RootPage(seeAlso!),
                       ),
                     ),
-                    icon: const Icon(Icons.emoji_objects),
-                    tooltip: "See Also",
-                  )
-                : Container()
-          ],
-        ),
-        body: Column(children: [
-          widget.root.refers != null
-              ? Container(
-                  margin: const EdgeInsets.all(12),
-                  child: Wrap(
-                    spacing: 12,
-                    children: widget.root.refers!
-                        .split(' / ')
-                        .map((refer) => Chip(label: Text(refer)))
-                        .toList(),
                   ),
-                )
-              : Container(),
-          widget.root.stems != null
-              ? TabBar(
-                  controller: _tabController,
-                  tabs: const <Widget>[
-                    Tab(text: "Stem 1"),
-                    Tab(text: "Stem 2"),
-                    Tab(text: "Stem 3"),
-                  ],
-                )
-              : Container(),
-          widget.root.stems != null
-              ? Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: widget.root.stems!
-                        .map((stem) => switch (stem) {
-                              Specs() => ListView(children: [
-                                  ListTile(
-                                    leading: const Icon(Icons.menu_book),
-                                    title: const Text("BSC"),
-                                    isThreeLine: true,
-                                    subtitle: Text(stem.bsc),
-                                    onLongPress: () =>
-                                        Clipboard.setData(ClipboardData(text: stem.bsc)),
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.subject),
-                                    title: const Text("CTE"),
-                                    isThreeLine: true,
-                                    subtitle: Text(stem.cte),
-                                    onLongPress: () =>
-                                        Clipboard.setData(ClipboardData(text: stem.cte)),
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.import_contacts),
-                                    title: const Text("CSV"),
-                                    isThreeLine: true,
-                                    subtitle: Text(stem.csv),
-                                    onLongPress: () =>
-                                        Clipboard.setData(ClipboardData(text: stem.csv)),
-                                  ),
-                                  ListTile(
-                                    leading: const Icon(Icons.book),
-                                    title: const Text("OBJ"),
-                                    isThreeLine: true,
-                                    subtitle: Text(stem.obj),
-                                    onLongPress: () =>
-                                        Clipboard.setData(ClipboardData(text: stem.obj)),
-                                  ),
-                                ]),
-                              StrStem() => ListView(children: [
-                                  ListTile(
-                                    leading: const Icon(Icons.info),
-                                    title: const Text("General"),
-                                    subtitle: Text(stem.value),
-                                    onLongPress: () =>
-                                        Clipboard.setData(ClipboardData(text: stem.value)),
-                                  )
-                                ])
-                            })
-                        .toList(),
-                  ),
+                  icon: const Icon(Icons.emoji_objects),
+                  tooltip: "See Also",
                 )
               : Container()
-        ]));
+        ],
+      ),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverToBoxAdapter(
+              child: widget.root.refers != null
+                  ? Container(
+                      margin: const EdgeInsets.all(12),
+                      child: Wrap(
+                        spacing: 12,
+                        children: widget.root.refers!
+                            .split(' / ')
+                            .map((refer) => Chip(label: Text(refer)))
+                            .toList(),
+                      ),
+                    )
+                  : Container(),
+            ),
+            SliverToBoxAdapter(
+              child: widget.root.notes != null
+                  ? Container(
+                      margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+                      child: MarkdownBody(data: widget.root.notes!),
+                    )
+                  : Container(),
+            ),
+            SliverToBoxAdapter(
+              child: widget.root.stems != null
+                  ? TabBar(
+                      controller: _tabController,
+                      tabs: const <Widget>[
+                        Tab(text: "Stem 1"),
+                        Tab(text: "Stem 2"),
+                        Tab(text: "Stem 3"),
+                      ],
+                    )
+                  : Container(),
+            ),
+          ];
+        },
+        body: widget.root.stems != null
+            ? TabBarView(
+                controller: _tabController,
+                children: widget.root.stems!
+                    .map((stem) => switch (stem) {
+                          Specs() => ListView(children: [
+                              ListTile(
+                                leading: const Icon(Icons.menu_book),
+                                title: const Text("BSC"),
+                                isThreeLine: true,
+                                subtitle: Text(stem.bsc),
+                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.bsc)),
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.subject),
+                                title: const Text("CTE"),
+                                isThreeLine: true,
+                                subtitle: Text(stem.cte),
+                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.cte)),
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.import_contacts),
+                                title: const Text("CSV"),
+                                isThreeLine: true,
+                                subtitle: Text(stem.csv),
+                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.csv)),
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.book),
+                                title: const Text("OBJ"),
+                                isThreeLine: true,
+                                subtitle: Text(stem.obj),
+                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.obj)),
+                              ),
+                            ]),
+                          StrStem() => ListView(children: [
+                              ListTile(
+                                leading: const Icon(Icons.info),
+                                title: const Text("General"),
+                                subtitle: Text(stem.value),
+                                onLongPress: () =>
+                                    Clipboard.setData(ClipboardData(text: stem.value)),
+                              )
+                            ])
+                        })
+                    .toList(),
+              )
+            : Container(),
+      ),
+    );
   }
 }
