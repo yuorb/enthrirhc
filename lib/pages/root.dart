@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:enthrirch/common/types.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../common/store.dart';
@@ -95,24 +96,32 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     title: const Text("BSC"),
                                     isThreeLine: true,
                                     subtitle: Text(stem.bsc),
+                                    onLongPress: () =>
+                                        Clipboard.setData(ClipboardData(text: stem.bsc)),
                                   ),
                                   ListTile(
                                     leading: const Icon(Icons.subject),
                                     title: const Text("CTE"),
                                     isThreeLine: true,
                                     subtitle: Text(stem.cte),
+                                    onLongPress: () =>
+                                        Clipboard.setData(ClipboardData(text: stem.cte)),
                                   ),
                                   ListTile(
                                     leading: const Icon(Icons.import_contacts),
                                     title: const Text("CSV"),
                                     isThreeLine: true,
                                     subtitle: Text(stem.csv),
+                                    onLongPress: () =>
+                                        Clipboard.setData(ClipboardData(text: stem.csv)),
                                   ),
                                   ListTile(
                                     leading: const Icon(Icons.book),
                                     title: const Text("OBJ"),
                                     isThreeLine: true,
                                     subtitle: Text(stem.obj),
+                                    onLongPress: () =>
+                                        Clipboard.setData(ClipboardData(text: stem.obj)),
                                   ),
                                 ]),
                               StrStem() => ListView(children: [
