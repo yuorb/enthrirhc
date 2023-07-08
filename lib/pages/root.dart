@@ -129,6 +129,8 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     leading: const Icon(Icons.info),
                                     title: const Text("General"),
                                     subtitle: Text(stem.value),
+                                    onLongPress: () =>
+                                        Clipboard.setData(ClipboardData(text: stem.value)),
                                   )
                                 ])
                             })
