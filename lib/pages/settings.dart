@@ -1,7 +1,11 @@
 import 'package:enthrirch/common/store.dart';
+import 'package:enthrirch/components/list_group_title.dart';
 import 'package:flutter/material.dart';
 import 'package:enthrirch/pages/communities.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+
+import 'about.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -17,13 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppBar(title: const Text("Settings")),
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 24, 0, 8),
-          child: Text(
-            "General",
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
+        const ListGroupTitle("General"),
         Consumer<ThemeProvider>(
           builder: (context, theme, child) {
             return PopupMenuButton(
@@ -54,13 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
             );
           },
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 24, 0, 8),
-          child: Text(
-            "Others",
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
+        const ListGroupTitle("Others"),
         ListTile(
           leading: const Icon(Icons.people),
           title: const Text("Communities"),
@@ -78,17 +70,26 @@ class _SettingsPageState extends State<SettingsPage> {
         ListTile(
           leading: const Icon(Icons.info),
           title: const Text("About"),
-          subtitle: Text(
-            "1.0.0 (dev)",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
+          subtitle: FutureBuilder<PackageInfo>(
+            future: PackageInfo.fromPlatform(),
+            builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Text(
+                  snapshot.hasError
+                      ? "Error: ${snapshot.error}"
+                      : "Version: ${snapshot.data!.version}",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
-          onTap: () => showDialog(
-            context: context,
-            builder: (BuildContext context) => const AlertDialog(
-              title: Text("WIP"),
-            ),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AboutPage()),
           ),
         ),
       ],

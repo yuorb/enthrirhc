@@ -21,6 +21,7 @@ dependencies:
   url_launcher: ^6.1.11
   shared_preferences: ^2.2.0
   flutter_markdown: ^0.6.17
+  package_info_plus: ^4.0.2
 
 dev_dependencies:
   flutter_lints: 2.0.1
@@ -36,6 +37,7 @@ flutter:
     - assets/reddit.svg
     - assets/telegram.svg
     - assets/tencentqq.svg
+    - assets/logo.svg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,3 +1,4 @@
+import 'package:enthrirch/components/list_group_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,52 +59,40 @@ class _CommunitiesPageState extends State<CommunitiesPage> {
       appBar: AppBar(
         title: const Text("Communities"),
       ),
-      body: ListView(children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 24, 0, 8),
-          child: Text(
-            "English",
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        const CommunityTile(
+      body: ListView(children: const [
+        ListGroupTitle("English"),
+        CommunityTile(
           name: "Discord",
           link: "https://discord.com/invite/WgFrX8J",
           icon: "discord",
         ),
-        const CommunityTile(
+        CommunityTile(
           name: "Reddit",
           link: "https://www.reddit.com/r/Ithkuil/",
           icon: "reddit",
         ),
-        const CommunityTile(
+        CommunityTile(
           name: "Official Website",
           link: "http://ithkuil.net/",
           icon: null,
         ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 24, 0, 8),
-          child: Text(
-            "Chinese",
-            style: TextStyle(color: Theme.of(context).colorScheme.primary),
-          ),
-        ),
-        const CommunityTile(
+        ListGroupTitle("Chinese"),
+        CommunityTile(
           name: "QQ",
           code: "865538600",
           icon: "tencentqq",
         ),
-        const CommunityTile(
+        CommunityTile(
           name: "Telegram",
           link: "https://t.me/ithkuil_cn",
           icon: "telegram",
         ),
-        const CommunityTile(
+        CommunityTile(
           name: "Github",
           link: "https://github.com/yuorb/",
           icon: "github",
         ),
-        const CommunityTile(
+        CommunityTile(
           name: "Official Website",
           link: "https://yuorb.github.io/",
           icon: null,
