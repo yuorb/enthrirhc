@@ -52,14 +52,14 @@ class Root {
     this.refers,
     this.stems,
     this.notes,
-    this.see,
+    this.seeAlso,
   });
 
   final String root;
   final List<Stem>? stems;
   final String? refers;
   final String? notes;
-  final String? see;
+  final String? seeAlso;
 
   factory Root.fromJson(Map<String, dynamic> data) {
     final List<Stem>? stems;
@@ -76,7 +76,7 @@ class Root {
       refers: data['refers'],
       stems: stems,
       notes: data['notes'],
-      see: data['see'],
+      seeAlso: data['see'],
     );
   }
 }

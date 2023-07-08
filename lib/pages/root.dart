@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:enthrirch/common/types.dart';
+import 'package:provider/provider.dart';
+
+import '../common/store.dart';
 
 class RootPage extends StatefulWidget {
   final Root root;
@@ -12,11 +15,19 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
   late final TabController _tabController;
+  Root? seeAlso;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    if (widget.root.seeAlso != null) {
+      context
+          .read<LexiconModel>()
+          .database
+          .exactSearch(widget.root.seeAlso!)
+          .then((value) => setState(() => seeAlso = value));
+    }
   }
 
   @override
@@ -27,9 +38,27 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<LexiconModel>();
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.root.root),
+          actions: [
+            seeAlso != null
+                ? IconButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
+                          value: provider,
+                          builder: (context, child) => RootPage(seeAlso!),
+                        ),
+                      ),
+                    ),
+                    icon: const Icon(Icons.emoji_objects),
+                    tooltip: "See Also",
+                  )
+                : Container()
+          ],
         ),
         body: Column(children: [
           widget.root.refers != null

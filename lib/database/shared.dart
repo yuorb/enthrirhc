@@ -7,6 +7,23 @@ export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.h
 
 part 'shared.g.dart';
 
+Root rowToRoot(RootRow row) {
+  final List<Stem>? stems;
+  if (row.stems != null) {
+    final List<dynamic> decodeStems = jsonDecode(row.stems!);
+    stems = decodeStems.map((stem) => Stem.from(stem)).toList();
+  } else {
+    stems = null;
+  }
+  return Root(
+    root: row.root,
+    refers: row.refers,
+    stems: stems,
+    notes: row.notes,
+    seeAlso: row.see,
+  );
+}
+
 @DataClassName('RootItem')
 class Roots extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -34,7 +51,7 @@ class Database extends _$Database {
             refers: Value(root.refers),
             stems: Value(root.stems != null ? jsonEncode(root.stems) : null),
             notes: Value(root.notes),
-            see: Value(root.see),
+            see: Value(root.seeAlso),
           ),
         ),
       );
@@ -43,24 +60,12 @@ class Database extends _$Database {
 
   Future<List<Root>> search(String keywords) async {
     final rows = await (select(roots)..where((tbl) => tbl.root.contains(keywords))).get();
-    return rows.map(
-      (row) {
-        final List<Stem>? stems;
-        if (row.stems != null) {
-          final List<dynamic> decodeStems = jsonDecode(row.stems!);
-          stems = decodeStems.map((stem) => Stem.from(stem)).toList();
-        } else {
-          stems = null;
-        }
-        return Root(
-          root: row.root,
-          refers: row.refers,
-          stems: stems,
-          notes: row.notes,
-          see: row.see,
-        );
-      },
-    ).toList();
+    return rows.map((row) => rowToRoot(row)).toList();
+  }
+
+  Future<Root?> exactSearch(String root) async {
+    final row = await (select(roots)..where((tbl) => tbl.root.equals(root))).getSingleOrNull();
+    return row != null ? rowToRoot(row) : null;
   }
 
   Future<int> rootCount() async {

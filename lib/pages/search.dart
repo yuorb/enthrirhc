@@ -74,7 +74,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<LexiconModel>(context, listen: false)
+    context
+        .read<LexiconModel>()
         .database
         .rootCount()
         .then((count) => setState(() => rootCount = count));
@@ -95,10 +96,9 @@ class _SearchPageState extends State<SearchPage> {
               margin: const EdgeInsets.all(12),
               child: SearchAnchor(
                 searchController: controller,
-                suggestionsBuilder: (suggestionsContext, SearchController controller) async {
-                  final result = await Provider.of<LexiconModel>(context, listen: false)
-                      .database
-                      .search(controller.text);
+                suggestionsBuilder: (suggestionsContext, controller) async {
+                  final provider = context.read<LexiconModel>();
+                  final result = await provider.database.search(controller.text);
                   return result.map(
                     (root) => ListTile(
                       leading: const Icon(Icons.article),
@@ -113,7 +113,12 @@ class _SearchPageState extends State<SearchPage> {
                       onTap: () {
                         Navigator.push(
                           suggestionsContext,
-                          MaterialPageRoute(builder: (context) => RootPage(root)),
+                          MaterialPageRoute(
+                            builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
+                              value: provider,
+                              builder: (context, child) => RootPage(root),
+                            ),
+                          ),
                         );
                       },
                     ),
@@ -188,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
 
                     // Save and update the lexicon data
                     if (!context.mounted) return;
-                    await Provider.of<LexiconModel>(context, listen: false).database.init(lexicon);
+                    await context.read<LexiconModel>().database.init(lexicon);
                     setState(() => rootCount += lexicon.length);
 
                     // Pop up the success dialog
@@ -230,9 +235,7 @@ class _SearchPageState extends State<SearchPage> {
                               onPressed: () async {
                                 Navigator.pop(dialogContext);
                                 final count =
-                                    await Provider.of<LexiconModel>(context, listen: false)
-                                        .database
-                                        .clearRoots();
+                                    await context.read<LexiconModel>().database.clearRoots();
                                 setState(() => rootCount -= count);
                                 if (!context.mounted) return;
                                 showDialog(
