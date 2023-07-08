@@ -7,7 +7,7 @@ export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.h
 
 part 'shared.g.dart';
 
-Root rowToRoot(RootRow row) {
+Root rowToRoot(RootItem row) {
   final List<Stem>? stems;
   if (row.stems != null) {
     final List<dynamic> decodeStems = jsonDecode(row.stems!);
