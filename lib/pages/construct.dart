@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../common/ithkuil_svg.dart';
+
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});
 
@@ -13,8 +15,15 @@ class _ConstructPageState extends State<ConstructPage> {
     return Column(
       children: [
         AppBar(title: const Text("Construct")),
-        const SizedBox(height: 268),
-        const Text("Work In Progress"),
+        const SizedBox(height: 16),
+        IthkuilSvg(
+          [
+            Secondary.from("bp_"),
+            Secondary.from("_tn"),
+            Secondary.from("_k_"),
+            Secondary.from("žčš"),
+          ],
+        ),
       ],
     );
   }
