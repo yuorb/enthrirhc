@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../common/ithkuil_svg.dart';
+import 'package:enthrirch/common/character/mod.dart';
+import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});
@@ -18,9 +19,10 @@ class _ConstructPageState extends State<ConstructPage> {
         const SizedBox(height: 16),
         IthkuilSvg(
           [
-            Secondary.from("bp_"),
-            Secondary.from("_tn"),
+            Primary(),
+            Secondary.from("çhç"),
             Secondary.from("_k_"),
+            Secondary.from("chç"),
             Secondary.from("žčš"),
           ],
         ),
