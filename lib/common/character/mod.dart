@@ -57,17 +57,17 @@ class Secondary extends Character {
       '''
       <use href="#${core}_core" x="$coreX" y="$coreY" fill="$fillColor" />
       <use
-        href="#${start}_ext_${coreLetter.top.orientation.filename()}"
+        href="#${start}_ext_${coreLetter.top.orientation.filename}"
         x="$extStartX"
         y="$extStartY" 
-        transform="rotate(${coreLetter.top.orientation.rotation()}, $extStartX, $extStartY)"
+        transform="rotate(${coreLetter.top.orientation.rotation}, $extStartX, $extStartY)"
         fill="$fillColor"
       />
       <use
-        href="#${end}_ext_${coreLetter.bottom.orientation.filename()}"
+        href="#${end}_ext_${coreLetter.bottom.orientation.filename}"
         x="$extEndX"
         y="$extEndY"
-        transform="rotate(${coreLetter.bottom.orientation.rotation()}, $extEndX, $extEndY)"
+        transform="rotate(${coreLetter.bottom.orientation.rotation}, $extEndX, $extEndY)"
         fill="$fillColor"
       />
     ''',

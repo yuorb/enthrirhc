@@ -1,29 +1,14 @@
 enum AnchorOrientation {
-  up,
-  down,
-  right,
-  upperLeft,
-  lowerRight;
+  up('up', 0),
+  down('up', 180),
+  right('left', 180),
+  upperLeft('diag', 0),
+  lowerRight('diag', 180);
 
-  String filename() {
-    return switch (this) {
-      up => 'up',
-      down => 'up',
-      right => 'left',
-      upperLeft => 'diag',
-      lowerRight => 'diag',
-    };
-  }
+  final String filename;
+  final int rotation;
 
-  int rotation() {
-    return switch (this) {
-      up => 0,
-      down => 180,
-      right => 180,
-      upperLeft => 0,
-      lowerRight => 180,
-    };
-  }
+  const AnchorOrientation(this.filename, this.rotation);
 }
 
 class Anchor {
