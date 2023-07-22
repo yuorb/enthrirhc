@@ -11,7 +11,7 @@ sealed class Character {
 
 class Secondary extends Character {
   final String start;
-  final String core;
+  final CoreLetter core;
   final String end;
 
   const Secondary({
@@ -20,11 +20,17 @@ class Secondary extends Character {
     required this.end,
   });
 
-  factory Secondary.from(String secondary) {
-    assert(secondary.length == 3);
+  static Secondary? from(String secondary) {
+    if (secondary.length != 3) {
+      return null;
+    }
+    final core = CoreLetter.from(secondary[1]);
+    if (core == null) {
+      return null;
+    }
     return Secondary(
       start: secondary[0],
-      core: secondary[1],
+      core: core,
       end: secondary[2],
     );
   }
@@ -33,41 +39,30 @@ class Secondary extends Character {
   (String, double) getSvg(double baseX, double height, String fillColor) {
     final Secondary(:core, :start, :end) = this;
 
-    final Core? coreLetter = coreLetterCode[core];
-    if (coreLetter == null) {
-      const errorPlaceholderWidth = 50.0;
-      return (
-        '''
-        <rect x="$baseX" y="0" height="$height" width="$errorPlaceholderWidth" style="fill: red" />
-      ''',
-        errorPlaceholderWidth
-      );
-    }
-
     final secondaryBoundary = getSecondaryBoundary(this);
     final coreX = baseX - secondaryBoundary.$1;
     final coreY = height / 2;
-    final extStartX = coreX + coreLetter.top.x;
-    final extStartY = coreY + coreLetter.top.y;
-    final extEndX = coreX + coreLetter.bottom.x + 0;
-    final extEndY = coreY + coreLetter.bottom.y + 0;
+    final extStartX = coreX + core.top.x;
+    final extStartY = coreY + core.top.y;
+    final extEndX = coreX + core.bottom.x + 0;
+    final extEndY = coreY + core.bottom.y + 0;
 
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core}_core" x="$coreX" y="$coreY" fill="$fillColor" />
+      <use href="#${core.romanizedLetters[0]}_core" x="$coreX" y="$coreY" fill="$fillColor" />
       <use
-        href="#${start}_ext_${coreLetter.top.orientation.filename}"
+        href="#${start}_ext_${core.top.orientation.filename}"
         x="$extStartX"
         y="$extStartY" 
-        transform="rotate(${coreLetter.top.orientation.rotation}, $extStartX, $extStartY)"
+        transform="rotate(${core.top.orientation.rotation}, $extStartX, $extStartY)"
         fill="$fillColor"
       />
       <use
-        href="#${end}_ext_${coreLetter.bottom.orientation.filename}"
+        href="#${end}_ext_${core.bottom.orientation.filename}"
         x="$extEndX"
         y="$extEndY"
-        transform="rotate(${coreLetter.bottom.orientation.rotation}, $extEndX, $extEndY)"
+        transform="rotate(${core.bottom.orientation.rotation}, $extEndX, $extEndY)"
         fill="$fillColor"
       />
     ''',
@@ -84,8 +79,7 @@ class Primary extends Character {
 }
 
 (double, double) getSecondaryBoundary(Secondary secondary) {
-  final Secondary(core: coreStr, start: startStr, end: endStr) = secondary;
-  final Core core = coreLetterCode[coreStr]!;
+  final Secondary(core: core, start: startStr, end: endStr) = secondary;
   final Extensions? topExts = extLetterCode[startStr];
   final Extensions? bottomExts = extLetterCode[endStr];
 

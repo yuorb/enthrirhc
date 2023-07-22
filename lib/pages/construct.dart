@@ -20,10 +20,10 @@ class _ConstructPageState extends State<ConstructPage> {
         IthkuilSvg(
           [
             Primary(),
-            Secondary.from("çhç"),
-            Secondary.from("_k_"),
-            Secondary.from("chç"),
-            Secondary.from("žčš"),
+            Secondary.from("çhç")!,
+            Secondary.from("_k_")!,
+            Secondary.from("chç")!,
+            Secondary.from("žčš")!,
           ],
         ),
       ],

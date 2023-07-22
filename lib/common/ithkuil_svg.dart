@@ -1,5 +1,4 @@
 import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/letters/core.dart';
 import 'package:enthrirch/common/letters/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -43,9 +42,7 @@ class IthkuilSvg extends StatelessWidget {
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
           ${usedCores.map(
-            (e) => coreLetterCode.containsKey(e)
-                ? '<path stroke="none" id="${e}_core" d="${coreLetterCode[e]!.path}" />'
-                : '',
+            (e) => '<path stroke="none" id="${e.romanizedLetters[0]}_core" d="${e.path}" />',
           ).join('')}
           ${usedExtensions.map(
             (e) => extLetterCode.containsKey(e)
