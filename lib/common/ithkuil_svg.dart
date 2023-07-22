@@ -60,34 +60,35 @@ class IthkuilSvg extends StatelessWidget {
         leftCoord += errorPlaceholderWidth + horizontalGap;
         continue;
       }
-      final Anchor coreTopAnchor = coreLetter.top;
-      final Anchor coreBottomAnchor = coreLetter.bottom;
 
-      final coreX = leftCoord;
+      final secondaryBoundary = getSecondaryBoundary(secondaries[i]);
+      final coreX = leftCoord - secondaryBoundary.$1;
       const coreY = baseHeight / 2;
-      final extStartX = coreX + coreTopAnchor.x;
-      final extStartY = coreY + coreTopAnchor.y;
-      final extEndX = coreX + coreBottomAnchor.x + 0;
-      final extEndY = coreY + coreBottomAnchor.y + 0;
-      leftCoord += getSecondaryWidth(secondaries[i]) + horizontalGap;
+      final extStartX = coreX + coreLetter.top.x;
+      final extStartY = coreY + coreLetter.top.y;
+      final extEndX = coreX + coreLetter.bottom.x + 0;
+      final extEndY = coreY + coreLetter.bottom.y + 0;
 
       charImages.add('''
         <use href="#${core}_core" x="$coreX" y="$coreY" fill="$fillColor" />
         <use
-          href="#${start}_ext_${coreTopAnchor.orientation.filename()}"
+          href="#${start}_ext_${coreLetter.top.orientation.filename()}"
           x="$extStartX"
           y="$extStartY" 
-          transform="rotate(${coreTopAnchor.orientation.rotation()}, $extStartX, $extStartY)"
+          transform="rotate(${coreLetter.top.orientation.rotation()}, $extStartX, $extStartY)"
           fill="$fillColor"
         />
         <use
-          href="#${end}_ext_${coreBottomAnchor.orientation.filename()}"
+          href="#${end}_ext_${coreLetter.bottom.orientation.filename()}"
           x="$extEndX"
           y="$extEndY"
-          transform="rotate(${coreBottomAnchor.orientation.rotation()}, $extEndX, $extEndY)"
+          transform="rotate(${coreLetter.bottom.orientation.rotation()}, $extEndX, $extEndY)"
           fill="$fillColor"
         />
       ''');
+
+      final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
+      leftCoord += secondaryWidth + horizontalGap;
     }
     final baseWidth = leftCoord - horizontalGap + horizontalPadding;
 
@@ -117,7 +118,7 @@ class IthkuilSvg extends StatelessWidget {
   }
 }
 
-double getSecondaryWidth(Secondary secondary) {
+(double, double) getSecondaryBoundary(Secondary secondary) {
   final Secondary(core: coreStr, start: startStr, end: endStr) = secondary;
   final Core core = coreLetterCode[coreStr]!;
   final Extensions? topExts = extLetterCode[startStr];
@@ -127,27 +128,25 @@ double getSecondaryWidth(Secondary secondary) {
   final (topExtLeft, topExtRight) = getExtensionBoundary(topExts, core.top.orientation);
   final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(bottomExts, core.bottom.orientation);
 
-  final left = [coreLeft, core.top.x + topExtLeft, core.top.x + bottomExtLeft].reduce(min);
-  final right = [coreRight, core.top.x + topExtRight, core.top.x + bottomExtRight].reduce(max);
+  final left = [coreLeft, core.top.x + topExtLeft, core.bottom.x + bottomExtLeft].reduce(min);
+  final right = [coreRight, core.top.x + topExtRight, core.bottom.x + bottomExtRight].reduce(max);
 
-  return right - left;
+  return (left, right);
 }
 
 (double, double) getCoreBoundary(String path) {
   final list = path.split(" ").map((v) => tryParseString(v)).toList();
-  double left = double.infinity;
   double right = -double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {
     if (list[index] is String) continue;
     if (i % 2 != 0) {
       double coordX = list[index];
-      if (coordX < left) left = coordX;
       if (coordX > right) right = coordX;
     }
     i++;
   }
-
-  return (left, right);
+  // Core must start from axis `x = 0`;
+  return (0, right);
 }
 
 (double, double) getExtensionBoundary(Extensions? extensions, AnchorOrientation orientation) {
