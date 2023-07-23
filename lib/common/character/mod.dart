@@ -1,3 +1,6 @@
+import 'package:enthrirch/common/character/primary/specification.dart';
+import 'package:enthrirch/common/utils.dart';
+
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
@@ -98,8 +101,34 @@ class Secondary extends Character {
 }
 
 class Primary extends Character {
+  final Specification specification;
+
+  const Primary({required this.specification});
+
   @override
   (String, double) getSvg(double baseX, double height, String fillColor) {
-    return ('', 0.0);
+    final (left, right) = getCoreBoundary(specification.path);
+    final width = right - left;
+    return (
+      '''
+        <use href="#${specification.abbr}" x="$baseX" y="${height / 2}" fill="$fillColor" />
+      ''',
+      width,
+    );
   }
+}
+
+(double, double) getCoreBoundary(String path) {
+  final list = path.split(" ").map((v) => tryParseString(v)).toList();
+  double right = -double.infinity;
+  for (int i = 1, index = 0; index < list.length; index++) {
+    if (list[index] is String) continue;
+    if (i % 2 != 0) {
+      double coordX = list[index];
+      if (coordX > right) right = coordX;
+    }
+    i++;
+  }
+  // Core must start from axis `x = 0`;
+  return (0, right);
 }

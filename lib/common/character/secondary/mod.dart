@@ -19,21 +19,6 @@ import 'letter.dart';
   return (left, right);
 }
 
-(double, double) getCoreBoundary(String path) {
-  final list = path.split(" ").map((v) => tryParseString(v)).toList();
-  double right = -double.infinity;
-  for (int i = 1, index = 0; index < list.length; index++) {
-    if (list[index] is String) continue;
-    if (i % 2 != 0) {
-      double coordX = list[index];
-      if (coordX > right) right = coordX;
-    }
-    i++;
-  }
-  // Core must start from axis `x = 0`;
-  return (0, right);
-}
-
 (double, double) getExtensionBoundary(Letter? letter, AnchorOrientation orientation) {
   if (letter == null) return (0, 0);
   final isToRotate = switch (orientation) {

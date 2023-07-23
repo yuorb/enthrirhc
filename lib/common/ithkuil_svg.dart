@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
+import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
   final List<Character> characters;
@@ -17,30 +18,30 @@ class IthkuilSvg extends StatelessWidget {
     const double baseHeight = 140;
     const double horizontalPadding = 20;
     const double horizontalGap = 10;
-    const String fillColor = "white";
+    final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
+    // final String fillColor = "#e6e1e6";
 
+    final usedSpecifications =
+        characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
     final List<(String, String)> usedExtensions = characters
+        .whereType<Secondary>()
         .map<List<(String, String)?>>((s) {
-          if (s is Secondary) {
-            final start = s.start;
-            final end = s.end;
-            return [
-              start != null
-                  ? (
-                      "${start.phoneme.romanizedLetters[0]}_ext_${s.startAnchor.orientation.filename}",
-                      start.path
-                    )
-                  : null,
-              end != null
-                  ? (
-                      "${end.phoneme.romanizedLetters[0]}_ext_${s.endAnchor.orientation.filename}",
-                      end.path
-                    )
-                  : null
-            ];
-          } else {
-            return [];
-          }
+          final start = s.start;
+          final end = s.end;
+          return [
+            start != null
+                ? (
+                    "${start.phoneme.romanizedLetters[0]}_ext_${s.startAnchor.orientation.filename}",
+                    start.path
+                  )
+                : null,
+            end != null
+                ? (
+                    "${end.phoneme.romanizedLetters[0]}_ext_${s.endAnchor.orientation.filename}",
+                    end.path
+                  )
+                : null
+          ];
         })
         .expand((element) => element)
         .whereType<(String, String)>()
@@ -52,7 +53,11 @@ class IthkuilSvg extends StatelessWidget {
     double leftCoord = horizontalPadding;
     for (int i = 0; i < characters.length; i++) {
       final character = characters[i];
-      if (character is Secondary) {
+      if (character is Primary) {
+        final (svgString, svgWidth) = character.getSvg(leftCoord, baseHeight, fillColor);
+        charImages.add(svgString);
+        leftCoord += svgWidth + horizontalGap;
+      } else if (character is Secondary) {
         final (svgString, svgWidth) = character.getSvg(leftCoord, baseHeight, fillColor);
         charImages.add(svgString);
         leftCoord += svgWidth + horizontalGap;
@@ -63,6 +68,9 @@ class IthkuilSvg extends StatelessWidget {
     return SvgPicture.string(
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
+          ${usedSpecifications.map(
+            (e) => '<path stroke="none" id="${e.abbr}" d="${e.path}" />',
+          ).join('')}
           ${usedCores.map(
             (e) =>
                 '<path stroke="none" id="${e.phoneme.romanizedLetters[0]}_core" d="${e.path}" />',

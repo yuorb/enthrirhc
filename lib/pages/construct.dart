@@ -1,3 +1,4 @@
+import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
@@ -19,9 +20,11 @@ class _ConstructPageState extends State<ConstructPage> {
         const SizedBox(height: 16),
         IthkuilSvg(
           [
-            Primary(),
-            Secondary.from("çhç")!,
-            Secondary.from("_k_")!,
+            const Primary(
+              specification: Specification.constitutive,
+            ),
+            Secondary.from("zvw")!,
+            Secondary.from("zxr")!,
             Secondary.from("chç")!,
             Secondary.from("žčš")!,
           ],
