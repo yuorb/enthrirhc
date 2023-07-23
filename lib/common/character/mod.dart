@@ -71,10 +71,10 @@ class Secondary extends Character {
     final secondaryBoundary = getSecondaryBoundary(this);
     final coreX = baseX - secondaryBoundary.$1;
     final coreY = height / 2;
-    final extStartX = coreX + startAnchor.x;
-    final extStartY = coreY + startAnchor.y;
-    final extEndX = coreX + endAnchor.x + 0;
-    final extEndY = coreY + endAnchor.y + 0;
+    final extStartX = coreX + startAnchor.coord.x;
+    final extStartY = coreY + startAnchor.coord.y;
+    final extEndX = coreX + endAnchor.coord.x + 0;
+    final extEndY = coreY + endAnchor.coord.y + 0;
 
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (

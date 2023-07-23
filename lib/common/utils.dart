@@ -11,3 +11,10 @@ dynamic tryParseString(String str) {
 String colorToHex(Color color) {
   return "#${color.toString().substring(10, 16)}";
 }
+
+class Coord {
+  final double x;
+  final double y;
+
+  const Coord(this.x, this.y);
+}

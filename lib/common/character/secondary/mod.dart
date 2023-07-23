@@ -13,8 +13,16 @@ import 'letter.dart';
   final (topExtLeft, topExtRight) = getExtensionBoundary(startExt, startAnchor.orientation);
   final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(endExt, endAnchor.orientation);
 
-  final left = [coreLeft, startAnchor.x + topExtLeft, endAnchor.x + bottomExtLeft].reduce(min);
-  final right = [coreRight, startAnchor.x + topExtRight, endAnchor.x + bottomExtRight].reduce(max);
+  final left = [
+    coreLeft,
+    startAnchor.coord.x + topExtLeft,
+    endAnchor.coord.x + bottomExtLeft,
+  ].reduce(min);
+  final right = [
+    coreRight,
+    startAnchor.coord.x + topExtRight,
+    endAnchor.coord.x + bottomExtRight,
+  ].reduce(max);
 
   return (left, right);
 }
