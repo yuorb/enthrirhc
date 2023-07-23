@@ -26,7 +26,9 @@ enum Phoneme {
   th(['ṭ', "ţ", 'ŧ']),
   x(["x"]),
   z(["z"]),
-  zh(["ž"]);
+  zh(["ž"]),
+  w(["w"]),
+  y(["y"]);
 
   final List<String> romanizedLetters;
 
@@ -40,4 +42,11 @@ enum Phoneme {
     }
     return null;
   }
+}
+
+class Letter {
+  final Phoneme phoneme;
+  final String path;
+
+  const Letter(this.phoneme, this.path);
 }

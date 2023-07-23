@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:enthrirch/common/letters/core.dart';
-import 'package:enthrirch/common/letters/extension.dart';
+import 'secondary/core.dart';
+import 'secondary/extension.dart';
+import 'secondary/letter.dart';
 
 sealed class Character {
   const Character();
@@ -10,14 +11,18 @@ sealed class Character {
 }
 
 class Secondary extends Character {
-  final String start;
-  final CoreLetter core;
-  final String end;
+  final Letter? start;
+  final Letter core;
+  final Letter? end;
+  final Anchor startAnchor;
+  final Anchor endAnchor;
 
   const Secondary({
     required this.start,
     required this.core,
     required this.end,
+    required this.startAnchor,
+    required this.endAnchor,
   });
 
   static Secondary? from(String secondary) {
@@ -28,43 +33,65 @@ class Secondary extends Character {
     if (core == null) {
       return null;
     }
+    final startExts = ExtLetter.from(secondary[0]);
+    final endExts = ExtLetter.from(secondary[2]);
+    final start = startExts != null
+        ? Letter(
+            startExts.phoneme,
+            switch (core.start.orientation.filename) {
+              "up" => startExts.up,
+              "left" => startExts.left,
+              _ => startExts.diag
+            })
+        : null;
+    final end = endExts != null
+        ? Letter(
+            endExts.phoneme,
+            switch (core.end.orientation.filename) {
+              "up" => endExts.up,
+              "left" => endExts.left,
+              _ => endExts.diag
+            })
+        : null;
     return Secondary(
-      start: secondary[0],
-      core: core,
-      end: secondary[2],
+      start: start,
+      core: core.letter,
+      end: end,
+      startAnchor: core.start,
+      endAnchor: core.end,
     );
   }
 
   @override
   (String, double) getSvg(double baseX, double height, String fillColor) {
-    final Secondary(:core, :start, :end) = this;
+    final Secondary(:core, :start, :end, :startAnchor, :endAnchor) = this;
 
     final secondaryBoundary = getSecondaryBoundary(this);
     final coreX = baseX - secondaryBoundary.$1;
     final coreY = height / 2;
-    final extStartX = coreX + core.top.x;
-    final extStartY = coreY + core.top.y;
-    final extEndX = coreX + core.bottom.x + 0;
-    final extEndY = coreY + core.bottom.y + 0;
+    final extStartX = coreX + startAnchor.x;
+    final extStartY = coreY + startAnchor.y;
+    final extEndX = coreX + endAnchor.x + 0;
+    final extEndY = coreY + endAnchor.y + 0;
 
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
       <use href="#${core.phoneme.romanizedLetters[0]}_core" x="$coreX" y="$coreY" fill="$fillColor" />
-      <use
-        href="#${start}_ext_${core.top.orientation.filename}"
+      ${start != null ? '''<use
+        href="#${start.phoneme.romanizedLetters[0]}_ext_${startAnchor.orientation.filename}"
         x="$extStartX"
         y="$extStartY" 
-        transform="rotate(${core.top.orientation.rotation}, $extStartX, $extStartY)"
+        transform="rotate(${startAnchor.orientation.rotation}, $extStartX, $extStartY)"
         fill="$fillColor"
-      />
-      <use
-        href="#${end}_ext_${core.bottom.orientation.filename}"
+      />''' : ''}
+      ${end != null ? '''<use
+        href="#${end.phoneme.romanizedLetters[0]}_ext_${endAnchor.orientation.filename}"
         x="$extEndX"
         y="$extEndY"
-        transform="rotate(${core.bottom.orientation.rotation}, $extEndX, $extEndY)"
+        transform="rotate(${endAnchor.orientation.rotation}, $extEndX, $extEndY)"
         fill="$fillColor"
-      />
+      />''' : ''}
     ''',
       secondaryWidth
     );
@@ -79,16 +106,14 @@ class Primary extends Character {
 }
 
 (double, double) getSecondaryBoundary(Secondary secondary) {
-  final Secondary(core: core, start: startStr, end: endStr) = secondary;
-  final Extensions? topExts = extLetterCode[startStr];
-  final Extensions? bottomExts = extLetterCode[endStr];
+  final Secondary(:core, start: startExt, end: endExt, :startAnchor, :endAnchor) = secondary;
 
   final (coreLeft, coreRight) = getCoreBoundary(core.path);
-  final (topExtLeft, topExtRight) = getExtensionBoundary(topExts, core.top.orientation);
-  final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(bottomExts, core.bottom.orientation);
+  final (topExtLeft, topExtRight) = getExtensionBoundary(startExt, startAnchor.orientation);
+  final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(endExt, endAnchor.orientation);
 
-  final left = [coreLeft, core.top.x + topExtLeft, core.bottom.x + bottomExtLeft].reduce(min);
-  final right = [coreRight, core.top.x + topExtRight, core.bottom.x + bottomExtRight].reduce(max);
+  final left = [coreLeft, startAnchor.x + topExtLeft, endAnchor.x + bottomExtLeft].reduce(min);
+  final right = [coreRight, startAnchor.x + topExtRight, endAnchor.x + bottomExtRight].reduce(max);
 
   return (left, right);
 }
@@ -108,15 +133,8 @@ class Primary extends Character {
   return (0, right);
 }
 
-(double, double) getExtensionBoundary(Extensions? extensions, AnchorOrientation orientation) {
-  if (extensions == null) return (0, 0);
-  final path = switch (orientation) {
-    AnchorOrientation.up => extensions.up,
-    AnchorOrientation.down => extensions.up,
-    AnchorOrientation.right => extensions.left,
-    AnchorOrientation.upperLeft => extensions.diag,
-    AnchorOrientation.lowerRight => extensions.diag,
-  };
+(double, double) getExtensionBoundary(Letter? letter, AnchorOrientation orientation) {
+  if (letter == null) return (0, 0);
   final isToRotate = switch (orientation) {
     AnchorOrientation.up => false,
     AnchorOrientation.down => true,
@@ -124,7 +142,7 @@ class Primary extends Character {
     AnchorOrientation.upperLeft => false,
     AnchorOrientation.lowerRight => true,
   };
-  final list = path.split(" ").map((v) => tryParseString(v)).toList();
+  final list = letter.path.split(" ").map((v) => tryParseString(v)).toList();
   double left = double.infinity;
   double right = -double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {

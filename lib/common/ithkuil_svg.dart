@@ -1,7 +1,7 @@
-import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/letters/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'character/mod.dart';
 
 class IthkuilSvg extends StatelessWidget {
   final List<Character> characters;
@@ -19,9 +19,31 @@ class IthkuilSvg extends StatelessWidget {
     const double horizontalGap = 10;
     const String fillColor = "white";
 
-    final List<String> usedExtensions = characters
-        .map<List<String>>((s) => s is Secondary ? [s.start, s.end] : [])
+    final List<(String, String)> usedExtensions = characters
+        .map<List<(String, String)?>>((s) {
+          if (s is Secondary) {
+            final start = s.start;
+            final end = s.end;
+            return [
+              start != null
+                  ? (
+                      "${start.phoneme.romanizedLetters[0]}_ext_${s.startAnchor.orientation.filename}",
+                      start.path
+                    )
+                  : null,
+              end != null
+                  ? (
+                      "${end.phoneme.romanizedLetters[0]}_ext_${s.endAnchor.orientation.filename}",
+                      end.path
+                    )
+                  : null
+            ];
+          } else {
+            return [];
+          }
+        })
         .expand((element) => element)
+        .whereType<(String, String)>()
         .toSet()
         .toList();
     final usedCores = characters.whereType<Secondary>().map((s) => s.core).toSet().toList();
@@ -46,13 +68,7 @@ class IthkuilSvg extends StatelessWidget {
                 '<path stroke="none" id="${e.phoneme.romanizedLetters[0]}_core" d="${e.path}" />',
           ).join('')}
           ${usedExtensions.map(
-            (e) => extLetterCode.containsKey(e)
-                ? [
-                    '<path stroke="none" id="${e}_ext_up" d="${extLetterCode[e]!.up}" />',
-                    '<path stroke="none" id="${e}_ext_diag" d="${extLetterCode[e]!.diag}" />',
-                    '<path stroke="none" id="${e}_ext_left" d="${extLetterCode[e]!.left}" />',
-                  ].join('')
-                : '',
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>
         <rect x="0" y="0" height="$baseHeight" width="$baseWidth" style="fill: transparent" />
