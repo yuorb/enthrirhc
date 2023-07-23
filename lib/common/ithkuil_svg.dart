@@ -69,7 +69,7 @@ class IthkuilSvg extends StatelessWidget {
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
           ${usedSpecifications.map(
-            (e) => '<path stroke="none" id="${e.abbr}" d="${e.path}" />',
+            (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
           ).join('')}
           ${usedCores.map(
             (e) =>

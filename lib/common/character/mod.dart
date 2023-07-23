@@ -111,7 +111,7 @@ class Primary extends Character {
     final width = right - left;
     return (
       '''
-        <use href="#${specification.abbr}" x="$baseX" y="${height / 2}" fill="$fillColor" />
+        <use href="#${specification.name}" x="$baseX" y="${height / 2}" fill="$fillColor" />
       ''',
       width,
     );

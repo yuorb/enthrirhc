@@ -21,7 +21,7 @@ class _ConstructPageState extends State<ConstructPage> {
         IthkuilSvg(
           [
             const Primary(
-              specification: Specification.constitutive,
+              specification: Specification.obj,
             ),
             Secondary.from("zvw")!,
             Secondary.from("zxr")!,
