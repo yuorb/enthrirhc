@@ -42,7 +42,8 @@ class IthkuilSvg extends StatelessWidget {
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
           ${usedCores.map(
-            (e) => '<path stroke="none" id="${e.romanizedLetters[0]}_core" d="${e.path}" />',
+            (e) =>
+                '<path stroke="none" id="${e.phoneme.romanizedLetters[0]}_core" d="${e.path}" />',
           ).join('')}
           ${usedExtensions.map(
             (e) => extLetterCode.containsKey(e)

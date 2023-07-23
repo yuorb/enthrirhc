@@ -50,7 +50,7 @@ class Secondary extends Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core.romanizedLetters[0]}_core" x="$coreX" y="$coreY" fill="$fillColor" />
+      <use href="#${core.phoneme.romanizedLetters[0]}_core" x="$coreX" y="$coreY" fill="$fillColor" />
       <use
         href="#${start}_ext_${core.top.orientation.filename}"
         x="$extStartX"
