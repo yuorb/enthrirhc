@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
-import 'character/primary/bAnchor.dart';
+import 'character/primary/b_anchor.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {

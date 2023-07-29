@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/primary/bAnchor.dart';
+import 'package:enthrirch/common/character/primary/b_anchor.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/ithkuil_svg.dart';
 

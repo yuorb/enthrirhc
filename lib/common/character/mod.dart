@@ -1,7 +1,7 @@
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/utils.dart';
 
-import 'primary/bAnchor.dart';
+import 'primary/b_anchor.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
