@@ -2,6 +2,7 @@ import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/utils.dart';
 
 import 'primary/b_anchor.dart';
+import 'primary/c_anchor.dart';
 import 'primary/d_anchor.dart';
 import 'primary/utils.dart';
 import 'secondary/core.dart';
@@ -108,6 +109,9 @@ class Primary extends Character {
   // Properties for B Anchor
   final Perspective perspective;
   final Extension extension;
+  // Properties for C Anchor
+  final Separability separability;
+  final Similarity similarity;
   // Properties for D Anchor
   final FunctionEnum function;
   final Version version;
@@ -118,6 +122,8 @@ class Primary extends Character {
     required this.specification,
     required this.perspective,
     required this.extension,
+    required this.separability,
+    required this.similarity,
     required this.function,
     required this.version,
     required this.plexity,
@@ -129,17 +135,21 @@ class Primary extends Character {
     final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
     final bAnchorName = '${perspective.name}_${extension.name}';
+    final cAnchorName = '${separability.name}_${similarity.name}';
     final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final specificationX = baseX - left;
     final specificationY = height / 2;
     final bAnchorX = specificationX + specification.bAnchor.x;
-    final bAnchorY = height / 2 + specification.bAnchor.y;
+    final bAnchorY = specificationY + specification.bAnchor.y;
+    final cAnchorX = specificationX + specification.cAnchor.x;
+    final cAnchorY = specificationY + specification.cAnchor.y;
     final dAnchorX = specificationX + specification.dAnchor.x;
-    final dAnchorY = height / 2 + specification.dAnchor.y;
+    final dAnchorY = specificationY + specification.dAnchor.y;
     return (
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
         <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
+        <use href="#$cAnchorName" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />
         <use href="#$dAnchorName" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
       ''',
       width,

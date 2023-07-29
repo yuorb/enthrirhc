@@ -1,3 +1,4 @@
+import 'package:enthrirch/common/character/primary/c_anchor.dart';
 import 'package:enthrirch/common/character/primary/d_anchor.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +24,15 @@ class _ConstructPageState extends State<ConstructPage> {
         IthkuilSvg(
           [
             const Primary(
-              specification: Specification.obj,
+              specification: Specification.cte,
               perspective: Perspective.m,
-              extension: Extension.dpl,
-              function: FunctionEnum.dyn,
-              version: Version.cpt,
-              plexity: Plexity.d,
-              stem: Stem.s3,
+              extension: Extension.prx,
+              similarity: Similarity.d,
+              separability: Separability.s,
+              function: FunctionEnum.sta,
+              version: Version.prc,
+              plexity: Plexity.um,
+              stem: Stem.s2,
             ),
             Secondary.from("zčw")!,
             Secondary.from("zxr")!,
