@@ -24,7 +24,7 @@ class IthkuilSvg extends StatelessWidget {
 
     final usedSpecifications =
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
-    final List<(String, String)> usedPerspectiveExtension = characters
+    final List<(String, String)> usedBAnchors = characters
         .whereType<Primary>()
         .map(
           (s) => (
@@ -79,7 +79,7 @@ class IthkuilSvg extends StatelessWidget {
     return SvgPicture.string(
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
-          ${usedPerspectiveExtension.map(
+          ${usedBAnchors.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedSpecifications.map(
