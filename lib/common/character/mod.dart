@@ -113,7 +113,7 @@ class Primary extends Character {
   final Separability separability;
   final Similarity similarity;
   // Properties for D Anchor
-  final FunctionEnum function;
+  final Function$ function;
   final Version version;
   final Plexity plexity;
   final Stem stem;

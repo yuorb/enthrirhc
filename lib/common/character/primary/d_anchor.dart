@@ -1,4 +1,4 @@
-enum FunctionEnum {
+enum Function$ {
   /// The Stative Function
   sta,
 

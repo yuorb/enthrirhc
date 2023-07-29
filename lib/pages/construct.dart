@@ -29,7 +29,7 @@ class _ConstructPageState extends State<ConstructPage> {
               extension: Extension.prx,
               similarity: Similarity.d,
               separability: Separability.s,
-              function: FunctionEnum.sta,
+              function: Function$.sta,
               version: Version.prc,
               plexity: Plexity.um,
               stem: Stem.s2,
