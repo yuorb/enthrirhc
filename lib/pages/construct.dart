@@ -31,7 +31,7 @@ class _ConstructPageState extends State<ConstructPage> {
               plexity: Plexity.d,
               stem: Stem.s3,
             ),
-            Secondary.from("zvw")!,
+            Secondary.from("zčw")!,
             Secondary.from("zxr")!,
             Secondary.from("chç")!,
           ],

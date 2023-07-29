@@ -3,10 +3,11 @@ import 'package:enthrirch/common/utils.dart';
 
 import 'primary/b_anchor.dart';
 import 'primary/d_anchor.dart';
+import 'primary/utils.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
-import 'secondary/mod.dart';
+import 'secondary/utils.dart';
 
 sealed class Character {
   const Character();
@@ -125,17 +126,19 @@ class Primary extends Character {
 
   @override
   (String, double) getSvg(double baseX, double height, String fillColor) {
-    final (left, right) = getCoreBoundary(specification.path);
+    final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
     final bAnchorName = '${perspective.name}_${extension.name}';
     final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
-    final bAnchorX = baseX + specification.bAnchor.x;
+    final specificationX = baseX - left;
+    final specificationY = height / 2;
+    final bAnchorX = specificationX + specification.bAnchor.x;
     final bAnchorY = height / 2 + specification.bAnchor.y;
-    final dAnchorX = baseX + specification.dAnchor.x;
+    final dAnchorX = specificationX + specification.dAnchor.x;
     final dAnchorY = height / 2 + specification.dAnchor.y;
     return (
       '''
-        <use href="#${specification.name}" x="$baseX" y="${height / 2}" fill="$fillColor" />
+        <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
         <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
         <use href="#$dAnchorName" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
       ''',
