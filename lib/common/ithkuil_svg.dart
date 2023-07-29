@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
+import 'character/primary/a_anchor.dart';
 import 'character/primary/b_anchor.dart';
 import 'character/primary/c_anchor.dart';
 import 'character/primary/d_anchor.dart';
@@ -26,6 +27,17 @@ class IthkuilSvg extends StatelessWidget {
 
     final usedSpecifications =
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
+
+    final List<(String, String)> usedAAnchors = characters
+        .whereType<Primary>()
+        .map(
+          (s) => (
+            '${s.essence.name}_${s.affiliation.name}',
+            aAnchorData[s.essence.name]![s.affiliation.name]!
+          ),
+        )
+        .toSet()
+        .toList();
     final List<(String, String)> usedBAnchors = characters
         .whereType<Primary>()
         .map(
@@ -101,6 +113,12 @@ class IthkuilSvg extends StatelessWidget {
     return SvgPicture.string(
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
+          ${usedSpecifications.map(
+            (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
+          ).join('')}
+          ${usedAAnchors.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
           ${usedBAnchors.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
@@ -109,9 +127,6 @@ class IthkuilSvg extends StatelessWidget {
           ).join('')}
           ${usedDAnchors.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedSpecifications.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
           ).join('')}
           ${usedCores.map(
             (e) =>

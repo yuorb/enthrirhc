@@ -1,9 +1,10 @@
-import 'package:enthrirch/common/character/primary/c_anchor.dart';
-import 'package:enthrirch/common/character/primary/d_anchor.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
+import 'package:enthrirch/common/character/primary/a_anchor.dart';
 import 'package:enthrirch/common/character/primary/b_anchor.dart';
+import 'package:enthrirch/common/character/primary/c_anchor.dart';
+import 'package:enthrirch/common/character/primary/d_anchor.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/ithkuil_svg.dart';
 
@@ -25,6 +26,8 @@ class _ConstructPageState extends State<ConstructPage> {
           [
             const Primary(
               specification: Specification.cte,
+              essence: Essence.nrm,
+              affiliation: Affiliation.coa,
               perspective: Perspective.m,
               extension: Extension.prx,
               similarity: Similarity.d,
