@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
+import 'character/primary/bAnchor.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -23,6 +24,16 @@ class IthkuilSvg extends StatelessWidget {
 
     final usedSpecifications =
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
+    final List<(String, String)> usedPerspectiveExtension = characters
+        .whereType<Primary>()
+        .map(
+          (s) => (
+            '${s.perspective.name}_${s.extension.name}',
+            perspectiveExtensionData[s.perspective.name]![s.extension.name]!
+          ),
+        )
+        .toSet()
+        .toList();
     final List<(String, String)> usedExtensions = characters
         .whereType<Secondary>()
         .map<List<(String, String)?>>((s) {
@@ -68,6 +79,9 @@ class IthkuilSvg extends StatelessWidget {
     return SvgPicture.string(
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
+          ${usedPerspectiveExtension.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
           ${usedSpecifications.map(
             (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
           ).join('')}

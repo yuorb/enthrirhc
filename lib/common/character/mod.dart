@@ -1,6 +1,7 @@
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/utils.dart';
 
+import 'primary/bAnchor.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
@@ -102,16 +103,26 @@ class Secondary extends Character {
 
 class Primary extends Character {
   final Specification specification;
+  final Perspective perspective;
+  final Extension extension;
 
-  const Primary({required this.specification});
+  const Primary({
+    required this.specification,
+    required this.perspective,
+    required this.extension,
+  });
 
   @override
   (String, double) getSvg(double baseX, double height, String fillColor) {
     final (left, right) = getCoreBoundary(specification.path);
     final width = right - left;
+    final bAnchorName = "#${perspective.name}_${extension.name}";
+    final bAnchorX = baseX + specification.bAnchor.x;
+    final bAnchorY = height / 2 + specification.bAnchor.y;
     return (
       '''
         <use href="#${specification.name}" x="$baseX" y="${height / 2}" fill="$fillColor" />
+        <use href="$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
       ''',
       width,
     );

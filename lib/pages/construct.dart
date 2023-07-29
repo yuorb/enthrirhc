@@ -1,7 +1,8 @@
-import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
+import 'package:enthrirch/common/character/primary/bAnchor.dart';
+import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class ConstructPage extends StatefulWidget {
@@ -22,6 +23,8 @@ class _ConstructPageState extends State<ConstructPage> {
           [
             const Primary(
               specification: Specification.obj,
+              perspective: Perspective.m,
+              extension: Extension.dpl,
             ),
             Secondary.from("zvw")!,
             Secondary.from("zxr")!,
