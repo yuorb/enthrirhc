@@ -29,7 +29,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.perspective.name}_${s.extension.name}',
-            perspectiveExtensionData[s.perspective.name]![s.extension.name]!
+            bAnchorData[s.perspective.name]![s.extension.name]!
           ),
         )
         .toSet()

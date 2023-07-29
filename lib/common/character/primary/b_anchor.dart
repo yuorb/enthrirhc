@@ -32,7 +32,7 @@ enum Extension {
   dpl;
 }
 
-const Map<String, Map<String, String>> perspectiveExtensionData = {
+const Map<String, Map<String, String>> bAnchorData = {
   "m": {
     "del": "",
     "prx":
