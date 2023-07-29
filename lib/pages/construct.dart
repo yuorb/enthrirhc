@@ -1,3 +1,4 @@
+import 'package:enthrirch/common/character/primary/d_anchor.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
@@ -25,11 +26,14 @@ class _ConstructPageState extends State<ConstructPage> {
               specification: Specification.obj,
               perspective: Perspective.m,
               extension: Extension.dpl,
+              function: FunctionEnum.dyn,
+              version: Version.cpt,
+              plexity: Plexity.d,
+              stem: Stem.s3,
             ),
             Secondary.from("zvw")!,
             Secondary.from("zxr")!,
             Secondary.from("chç")!,
-            Secondary.from("žčš")!,
           ],
         ),
       ],

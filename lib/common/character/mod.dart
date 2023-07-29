@@ -2,6 +2,7 @@ import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/utils.dart';
 
 import 'primary/b_anchor.dart';
+import 'primary/d_anchor.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
@@ -103,26 +104,40 @@ class Secondary extends Character {
 
 class Primary extends Character {
   final Specification specification;
+  // Properties for B Anchor
   final Perspective perspective;
   final Extension extension;
+  // Properties for D Anchor
+  final FunctionEnum function;
+  final Version version;
+  final Plexity plexity;
+  final Stem stem;
 
   const Primary({
     required this.specification,
     required this.perspective,
     required this.extension,
+    required this.function,
+    required this.version,
+    required this.plexity,
+    required this.stem,
   });
 
   @override
   (String, double) getSvg(double baseX, double height, String fillColor) {
     final (left, right) = getCoreBoundary(specification.path);
     final width = right - left;
-    final bAnchorName = "#${perspective.name}_${extension.name}";
+    final bAnchorName = '${perspective.name}_${extension.name}';
+    final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final bAnchorX = baseX + specification.bAnchor.x;
     final bAnchorY = height / 2 + specification.bAnchor.y;
+    final dAnchorX = baseX + specification.dAnchor.x;
+    final dAnchorY = height / 2 + specification.dAnchor.y;
     return (
       '''
         <use href="#${specification.name}" x="$baseX" y="${height / 2}" fill="$fillColor" />
-        <use href="$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
+        <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
+        <use href="#$dAnchorName" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
       ''',
       width,
     );

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
 import 'character/primary/b_anchor.dart';
+import 'character/primary/d_anchor.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -30,6 +31,16 @@ class IthkuilSvg extends StatelessWidget {
           (s) => (
             '${s.perspective.name}_${s.extension.name}',
             bAnchorData[s.perspective.name]![s.extension.name]!
+          ),
+        )
+        .toSet()
+        .toList();
+    final List<(String, String)> usedDAnchors = characters
+        .whereType<Primary>()
+        .map(
+          (s) => (
+            '${s.function.name}_${s.version.name}_${s.plexity.name}_${s.stem.name}',
+            dAnchorData[s.function.name]![s.version.name]![s.plexity.name]![s.stem.name]!,
           ),
         )
         .toSet()
@@ -80,6 +91,9 @@ class IthkuilSvg extends StatelessWidget {
       '''<svg width="$baseWidth" height="$baseHeight">
         <defs>
           ${usedBAnchors.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
+          ${usedDAnchors.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedSpecifications.map(
