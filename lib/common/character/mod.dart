@@ -5,6 +5,7 @@ import 'primary/a_anchor.dart';
 import 'primary/b_anchor.dart';
 import 'primary/c_anchor.dart';
 import 'primary/d_anchor.dart';
+import 'primary/top.dart';
 import 'primary/utils.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
@@ -14,7 +15,7 @@ import 'secondary/utils.dart';
 sealed class Character {
   const Character();
 
-  (String, double) getSvg(double baseX, double height, String fillColor);
+  (String, double) getSvg(double baseX, double baseY, String fillColor);
 }
 
 class Secondary extends Character {
@@ -70,12 +71,12 @@ class Secondary extends Character {
   }
 
   @override
-  (String, double) getSvg(double baseX, double height, String fillColor) {
+  (String, double) getSvg(double baseX, double baseY, String fillColor) {
     final Secondary(:core, :start, :end, :startAnchor, :endAnchor) = this;
 
     final secondaryBoundary = getSecondaryBoundary(this);
     final coreX = baseX - secondaryBoundary.$1;
-    final coreY = height / 2;
+    final coreY = baseY;
     final extStartX = coreX + startAnchor.coord.x;
     final extStartY = coreY + startAnchor.coord.y;
     final extEndX = coreX + endAnchor.coord.x + 0;
@@ -107,6 +108,7 @@ class Secondary extends Character {
 
 class Primary extends Character {
   final Specification specification;
+  final Context context;
   // Properties for A Anchor
   final Essence essence;
   final Affiliation affiliation;
@@ -124,6 +126,7 @@ class Primary extends Character {
 
   const Primary({
     required this.specification,
+    required this.context,
     required this.essence,
     required this.affiliation,
     required this.perspective,
@@ -137,26 +140,30 @@ class Primary extends Character {
   });
 
   @override
-  (String, double) getSvg(double baseX, double height, String fillColor) {
+  (String, double) getSvg(double baseX, double baseY, String fillColor) {
     final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
+    final topName = context.name;
     final aAnchorName = '${essence.name}_${affiliation.name}';
     final bAnchorName = '${perspective.name}_${extension.name}';
     final cAnchorName = '${separability.name}_${similarity.name}';
     final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final specificationX = baseX - left;
-    final specificationY = height / 2;
+    final specificationY = baseY;
+    final topX = specificationX + specification.centerX;
+    final topY = specificationY;
     final aAnchorX = specificationX + specification.centerX;
-    final aAnchorY = specificationY + 0;
+    final aAnchorY = specificationY;
     final bAnchorX = specificationX + specification.bAnchor.x;
     final bAnchorY = specificationY + specification.bAnchor.y;
     final cAnchorX = specificationX + specification.centerX;
-    final cAnchorY = specificationY + 0;
+    final cAnchorY = specificationY;
     final dAnchorX = specificationX + specification.dAnchor.x;
     final dAnchorY = specificationY + specification.dAnchor.y;
     return (
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
+        <use href="#$topName" x="$topX" y="$topY" fill="$fillColor" />
         <use href="#$aAnchorName" x="$aAnchorX" y="$aAnchorY" fill="$fillColor" />
         <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
         <use href="#$cAnchorName" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />

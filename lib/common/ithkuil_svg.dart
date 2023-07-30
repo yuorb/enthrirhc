@@ -6,6 +6,7 @@ import 'character/primary/a_anchor.dart';
 import 'character/primary/b_anchor.dart';
 import 'character/primary/c_anchor.dart';
 import 'character/primary/d_anchor.dart';
+import 'character/primary/top.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -19,7 +20,8 @@ class IthkuilSvg extends StatelessWidget {
     // core letter height = 2 unit height = 70
     // full letter height = 4 unit height = 140
     // full letter with padding height = 6 unit height = 210
-    const double baseHeight = 140;
+    const double unitHeight = 35;
+    const double verticalPadding = unitHeight;
     const double horizontalPadding = 20;
     const double horizontalGap = 10;
     final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
@@ -27,7 +29,11 @@ class IthkuilSvg extends StatelessWidget {
 
     final usedSpecifications =
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
-
+    final List<(String, String)> usedPrimaryTops = characters
+        .whereType<Primary>()
+        .map((s) => (s.context.name, topData[s.context.name]!))
+        .toSet()
+        .toList();
     final List<(String, String)> usedAAnchors = characters
         .whereType<Primary>()
         .map(
@@ -99,11 +105,13 @@ class IthkuilSvg extends StatelessWidget {
     for (int i = 0; i < characters.length; i++) {
       final character = characters[i];
       if (character is Primary) {
-        final (svgString, svgWidth) = character.getSvg(leftCoord, baseHeight, fillColor);
+        final (svgString, svgWidth) =
+            character.getSvg(leftCoord, verticalPadding + unitHeight * 2, fillColor);
         charImages.add(svgString);
         leftCoord += svgWidth + horizontalGap;
       } else if (character is Secondary) {
-        final (svgString, svgWidth) = character.getSvg(leftCoord, baseHeight, fillColor);
+        final (svgString, svgWidth) =
+            character.getSvg(leftCoord, verticalPadding + unitHeight * 2, fillColor);
         charImages.add(svgString);
         leftCoord += svgWidth + horizontalGap;
       }
@@ -111,10 +119,13 @@ class IthkuilSvg extends StatelessWidget {
     final baseWidth = leftCoord - horizontalGap + horizontalPadding;
 
     return SvgPicture.string(
-      '''<svg width="$baseWidth" height="$baseHeight">
+      '''<svg width="$baseWidth" height="${unitHeight * 6}">
         <defs>
           ${usedSpecifications.map(
             (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
+          ).join('')}
+          ${usedPrimaryTops.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedAAnchors.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
@@ -136,7 +147,7 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>
-        <rect x="0" y="0" height="$baseHeight" width="$baseWidth" style="fill: transparent" />
+        <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
         ${charImages.join('\n')}
       </svg>''',
       width: MediaQuery.of(context).size.width - 32,

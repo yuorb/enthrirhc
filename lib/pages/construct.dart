@@ -1,3 +1,4 @@
+import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
@@ -26,8 +27,9 @@ class _ConstructPageState extends State<ConstructPage> {
           [
             const Primary(
               specification: Specification.cte,
-              essence: Essence.nrm,
-              affiliation: Affiliation.coa,
+              context: Context.fnc,
+              essence: Essence.rpv,
+              affiliation: Affiliation.var$,
               perspective: Perspective.m,
               extension: Extension.prx,
               similarity: Similarity.d,
@@ -35,7 +37,7 @@ class _ConstructPageState extends State<ConstructPage> {
               function: Function$.sta,
               version: Version.prc,
               plexity: Plexity.um,
-              stem: Stem.s2,
+              stem: Stem.s1,
             ),
             Secondary.from("zčw")!,
             Secondary.from("zxr")!,
