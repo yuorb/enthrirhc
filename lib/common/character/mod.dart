@@ -146,12 +146,12 @@ class Primary extends Character {
     final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final specificationX = baseX - left;
     final specificationY = height / 2;
-    final aAnchorX = specificationX + specification.aAnchor.x;
-    final aAnchorY = specificationY + specification.aAnchor.y;
+    final aAnchorX = specificationX + specification.centerX;
+    final aAnchorY = specificationY + 0;
     final bAnchorX = specificationX + specification.bAnchor.x;
     final bAnchorY = specificationY + specification.bAnchor.y;
-    final cAnchorX = specificationX + specification.cAnchor.x;
-    final cAnchorY = specificationY + specification.cAnchor.y;
+    final cAnchorX = specificationX + specification.centerX;
+    final cAnchorY = specificationY + 0;
     final dAnchorX = specificationX + specification.dAnchor.x;
     final dAnchorY = specificationY + specification.dAnchor.y;
     return (

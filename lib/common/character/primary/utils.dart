@@ -39,16 +39,16 @@ import 'd_anchor.dart';
 
   final left = [
     coreLeft,
-    primary.specification.aAnchor.x + aAnchorLeft,
+    primary.specification.centerX + aAnchorLeft,
     primary.specification.bAnchor.x + bAnchorLeft,
-    primary.specification.cAnchor.x + cAnchorLeft,
+    primary.specification.centerX + cAnchorLeft,
     primary.specification.dAnchor.x + dAnchorLeft,
   ].reduce(min);
   final right = [
     coreRight,
-    primary.specification.aAnchor.x + aAnchorRight,
+    primary.specification.centerX + aAnchorRight,
     primary.specification.bAnchor.x + bAnchorRight,
-    primary.specification.cAnchor.x + cAnchorRight,
+    primary.specification.centerX + cAnchorRight,
     primary.specification.dAnchor.x + dAnchorRight,
   ].reduce(max);
 
