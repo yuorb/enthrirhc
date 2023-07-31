@@ -185,8 +185,8 @@ class Quarternary extends Character {
     final width = right - left;
     final coreX = baseX - left;
     final coreY = baseY;
-    final topX = baseX + coreTopAnchor.x;
-    final topY = baseY + coreTopAnchor.y;
+    final topX = coreX + coreTopAnchor.x;
+    final topY = coreY + coreTopAnchor.y;
     return (
       '''
         <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
