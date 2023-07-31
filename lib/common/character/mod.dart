@@ -7,6 +7,8 @@ import 'primary/c_anchor.dart';
 import 'primary/d_anchor.dart';
 import 'primary/top.dart';
 import 'primary/utils.dart';
+import 'quarternary/mod.dart';
+import 'quarternary/utils.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
 import 'secondary/letter.dart';
@@ -174,6 +176,29 @@ class Primary extends Character {
   }
 }
 
+class Quarternary extends Character {
+  final QuarternaryTop top;
+
+  @override
+  (String, double) getSvg(double baseX, double baseY, String fillColor) {
+    final (left, right) = getQuarternaryBoundary(this);
+    final width = right - left;
+    final coreX = baseX - left;
+    final coreY = baseY;
+    final topX = baseX + coreTopAnchor.x;
+    final topY = baseY + coreTopAnchor.y;
+    return (
+      '''
+        <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
+        <use href="#quarternary_${top.name}" x="$topX" y="$topY" fill="$fillColor" />
+      ''',
+      width,
+    );
+  }
+
+  const Quarternary({required this.top});
+}
+
 (double, double) getCoreBoundary(String path) {
   final list = path.split(" ").map((v) => tryParseString(v)).toList();
   double right = -double.infinity;
@@ -187,4 +212,21 @@ class Primary extends Character {
   }
   // Core must start from axis `x = 0`;
   return (0, right);
+}
+
+(double, double) getExtensionBoundary(String path) {
+  final list = path.split(" ").map((v) => tryParseString(v)).toList();
+  double left = double.infinity;
+  double right = -double.infinity;
+  for (int i = 1, index = 0; index < list.length; index++) {
+    if (list[index] is String) continue;
+    if (i % 2 != 0) {
+      double coordX = list[index];
+      if (coordX < left) left = coordX;
+      if (coordX > right) right = coordX;
+    }
+    i++;
+  }
+
+  return (left, right);
 }
