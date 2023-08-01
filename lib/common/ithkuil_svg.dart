@@ -8,6 +8,8 @@ import 'character/primary/c_anchor.dart';
 import 'character/primary/d_anchor.dart';
 import 'character/primary/top.dart';
 import 'character/quarternary/mod.dart';
+import 'character/quarternary/top.dart';
+import 'character/quarternary/bottom.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -105,6 +107,10 @@ class IthkuilSvg extends StatelessWidget {
         .whereType<Quarternary>()
         .map((s) => ("quarternary_${s.top.name}", quarternaryTopPaths[s.top.name]!))
         .toList();
+    final List<(String, String)> usedQuarternaryBottoms = characters
+        .whereType<Quarternary>()
+        .map((s) => ("quarternary_${s.bottom.name}", quarternaryBottomPaths[s.bottom.name]!))
+        .toList();
 
     List<String> charImages = [];
     double leftCoord = horizontalPadding;
@@ -161,6 +167,9 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedQuarternaryTops.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
+          ${usedQuarternaryBottoms.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>

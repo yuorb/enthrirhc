@@ -1,5 +1,6 @@
 import 'package:enthrirch/common/character/primary/top.dart';
-import 'package:enthrirch/common/character/quarternary/mod.dart';
+import 'package:enthrirch/common/character/quarternary/bottom.dart';
+import 'package:enthrirch/common/character/quarternary/top.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/common/character/mod.dart';
@@ -41,8 +42,11 @@ class _ConstructPageState extends State<ConstructPage> {
               stem: Stem.s1,
             ),
             Secondary.from("zčw")!,
-            Secondary.from("clš")!,
-            const Quarternary(top: QuarternaryTop.cnj),
+            // Secondary.from("_l_")!,
+            const Quarternary(
+              top: QuarternaryTop.spatioTemporal2,
+              bottom: QuarternaryBottom.ima,
+            ),
           ],
         ),
       ],

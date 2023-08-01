@@ -7,7 +7,9 @@ import 'primary/c_anchor.dart';
 import 'primary/d_anchor.dart';
 import 'primary/top.dart';
 import 'primary/utils.dart';
+import 'quarternary/bottom.dart';
 import 'quarternary/mod.dart';
+import 'quarternary/top.dart';
 import 'quarternary/utils.dart';
 import 'secondary/core.dart';
 import 'secondary/extension.dart';
@@ -178,6 +180,7 @@ class Primary extends Character {
 
 class Quarternary extends Character {
   final QuarternaryTop top;
+  final QuarternaryBottom bottom;
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
@@ -187,16 +190,19 @@ class Quarternary extends Character {
     final coreY = baseY;
     final topX = coreX + coreTopAnchor.x;
     final topY = coreY + coreTopAnchor.y;
+    final bottomX = coreX + coreBottomAnchor.x;
+    final bottomY = coreY + coreBottomAnchor.y;
     return (
       '''
         <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
         <use href="#quarternary_${top.name}" x="$topX" y="$topY" fill="$fillColor" />
+        <use href="#quarternary_${bottom.name}" x="$bottomX" y="$bottomY" fill="$fillColor" />
       ''',
       width,
     );
   }
 
-  const Quarternary({required this.top});
+  const Quarternary({required this.top, required this.bottom});
 }
 
 (double, double) getCoreBoundary(String path) {
