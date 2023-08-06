@@ -23,6 +23,12 @@ class Anchor {
 }
 
 enum CoreLetter {
+  placeholder(
+    letter: Letter(Phoneme.placeholder,
+        "M 20.00 -11.15 L 10.00 -1.15 10.00 -35.00 0.00 -25.00 0.00 11.20 10.00 1.25 10.00 35.00 20.00 25.00 20.00 -11.15 Z"),
+    start: Anchor(AnchorOrientation.up, Coord(0, -25)),
+    end: Anchor(AnchorOrientation.down, Coord(20, 25)),
+  ),
   f(
     letter: Letter(
       Phoneme.f,
@@ -259,12 +265,22 @@ enum CoreLetter {
     required this.end,
   });
 
-  static CoreLetter? from(String letter) {
+  @Deprecated("Use `CoreLetter.from()` instead")
+  static CoreLetter? fromChar(String letter) {
     for (final value in CoreLetter.values) {
       if (value.letter.phoneme.romanizedLetters.contains(letter)) {
         return value;
       }
     }
     return null;
+  }
+
+  static CoreLetter from(Phoneme phoneme) {
+    for (final value in CoreLetter.values) {
+      if (value.letter.phoneme == phoneme) {
+        return value;
+      }
+    }
+    throw UnimplementedError('Unreachable');
   }
 }

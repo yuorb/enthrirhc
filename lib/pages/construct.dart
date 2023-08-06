@@ -1,6 +1,7 @@
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/quarternary/bottom.dart';
 import 'package:enthrirch/common/character/quarternary/top.dart';
+import 'package:enthrirch/common/character/secondary/letter.dart';
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,11 @@ class _ConstructPageState extends State<ConstructPage> {
               plexity: Plexity.um,
               stem: Stem.s1,
             ),
-            Secondary.from("zčw")!,
+            Secondary(
+              Phoneme.b,
+              Phoneme.placeholder,
+              Phoneme.c,
+            ),
             const Tertiary(
               valence: Valence.mno,
               top: TertiaryExtension.aspectPrs,

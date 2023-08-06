@@ -1,6 +1,12 @@
 import 'letter.dart';
 
 enum ExtLetter {
+  placeholder(
+    phoneme: Phoneme.placeholder,
+    left: "",
+    up: "",
+    diag: "",
+  ),
   p(
     phoneme: Phoneme.p,
     left:
@@ -253,12 +259,22 @@ enum ExtLetter {
     required this.up,
   });
 
-  static ExtLetter? from(String letter) {
+  @Deprecated("Use `ExtLetter.from()` instead")
+  static ExtLetter? fromChar(String letter) {
     for (final value in ExtLetter.values) {
       if (value.phoneme.romanizedLetters.contains(letter)) {
         return value;
       }
     }
     return null;
+  }
+
+  static ExtLetter from(Phoneme phoneme) {
+    for (final value in ExtLetter.values) {
+      if (value.phoneme == phoneme) {
+        return value;
+      }
+    }
+    throw UnimplementedError('Unreachable');
   }
 }

@@ -100,7 +100,7 @@ class Secondary extends Character {
   final Anchor startAnchor;
   final Anchor endAnchor;
 
-  const Secondary({
+  const Secondary._({
     required this.start,
     required this.core,
     required this.end,
@@ -108,35 +108,29 @@ class Secondary extends Character {
     required this.endAnchor,
   });
 
-  static Secondary? from(String secondary) {
-    if (secondary.length != 3) {
-      return null;
-    }
-    final core = CoreLetter.from(secondary[1]);
-    if (core == null) {
-      return null;
-    }
-    final startExts = ExtLetter.from(secondary[0]);
-    final endExts = ExtLetter.from(secondary[2]);
-    final start = startExts != null
-        ? Letter(
-            startExts.phoneme,
-            switch (core.start.orientation.filename) {
-              "up" => startExts.up,
-              "left" => startExts.left,
-              _ => startExts.diag
-            })
-        : null;
-    final end = endExts != null
-        ? Letter(
-            endExts.phoneme,
-            switch (core.end.orientation.filename) {
-              "up" => endExts.up,
-              "left" => endExts.left,
-              _ => endExts.diag
-            })
-        : null;
-    return Secondary(
+  factory Secondary(
+    Phoneme startPhoneme,
+    Phoneme corePhoneme,
+    Phoneme endPhoneme,
+  ) {
+    final core = CoreLetter.from(corePhoneme);
+    final startExts = ExtLetter.from(corePhoneme);
+    final endExts = ExtLetter.from(endPhoneme);
+    final start = Letter(
+        startExts.phoneme,
+        switch (core.start.orientation.filename) {
+          "up" => startExts.up,
+          "left" => startExts.left,
+          _ => startExts.diag
+        });
+    final end = Letter(
+        endExts.phoneme,
+        switch (core.end.orientation.filename) {
+          "up" => endExts.up,
+          "left" => endExts.left,
+          _ => endExts.diag
+        });
+    return Secondary._(
       start: start,
       core: core.letter,
       end: end,

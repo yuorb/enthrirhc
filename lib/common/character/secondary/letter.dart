@@ -1,4 +1,5 @@
 enum Phoneme {
+  placeholder(["_"]),
   f(["f"]),
   v(["v"]),
   c(["c"]),
@@ -34,7 +35,7 @@ enum Phoneme {
 
   const Phoneme(this.romanizedLetters);
 
-  static Phoneme? from(String letter) {
+  static Phoneme? fromChar(String letter) {
     for (final value in Phoneme.values) {
       if (value.romanizedLetters.contains(letter)) {
         return value;
