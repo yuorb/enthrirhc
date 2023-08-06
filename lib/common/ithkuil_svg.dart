@@ -10,6 +10,8 @@ import 'character/primary/top.dart';
 import 'character/quarternary/mod.dart';
 import 'character/quarternary/top.dart';
 import 'character/quarternary/bottom.dart';
+import 'character/tertiary/extensions.dart';
+import 'character/tertiary/valence.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -102,6 +104,13 @@ class IthkuilSvg extends StatelessWidget {
         .toSet()
         .toList();
     final usedCores = characters.whereType<Secondary>().map((s) => s.core).toSet().toList();
+    final usedValences = characters.whereType<Tertiary>().map((s) => s.valence).toSet().toList();
+    final usedTertiaryExtensions = characters
+        .whereType<Tertiary>()
+        .map((s) => [s.top, s.bottom])
+        .expand((element) => element)
+        .toSet()
+        .toList();
     final hasQuarternary = characters.whereType<Quarternary>().isNotEmpty;
     final List<(String, String)> usedQuarternaryTops = characters
         .whereType<Quarternary>()
@@ -117,23 +126,9 @@ class IthkuilSvg extends StatelessWidget {
     for (int i = 0; i < characters.length; i++) {
       final character = characters[i];
       const centerY = verticalPadding + unitHeight * 2;
-      switch (character) {
-        case Primary():
-          final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
-          charImages.add(svgString);
-          leftCoord += svgWidth + horizontalGap;
-          break;
-        case Secondary():
-          final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
-          charImages.add(svgString);
-          leftCoord += svgWidth + horizontalGap;
-          break;
-        case Quarternary():
-          final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
-          charImages.add(svgString);
-          leftCoord += svgWidth + horizontalGap;
-          break;
-      }
+      final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
+      charImages.add(svgString);
+      leftCoord += svgWidth + horizontalGap;
     }
     final baseWidth = leftCoord - horizontalGap + horizontalPadding;
 
@@ -165,6 +160,12 @@ class IthkuilSvg extends StatelessWidget {
           ).join('')}
           ${usedExtensions.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
+          ${usedValences.map(
+            (e) => '<path stroke="none" id="${e.name}" d="${valencePaths[e.name]}" />',
+          ).join('')}
+          ${usedTertiaryExtensions.map(
+            (e) => '<path stroke="none" id="${e.name}" d="${tertiaryExtensionPaths[e.name]}" />',
           ).join('')}
           ${usedQuarternaryTops.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
