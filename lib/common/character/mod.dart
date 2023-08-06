@@ -114,7 +114,7 @@ class Secondary extends Character {
     Phoneme endPhoneme,
   ) {
     final core = CoreLetter.from(corePhoneme);
-    final startExts = ExtLetter.from(corePhoneme);
+    final startExts = ExtLetter.from(startPhoneme);
     final endExts = ExtLetter.from(endPhoneme);
     final start = Letter(
         startExts.phoneme,
