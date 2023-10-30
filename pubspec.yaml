@@ -22,11 +22,14 @@ dependencies:
   shared_preferences: ^2.2.0
   flutter_markdown: ^0.6.17
   package_info_plus: ^4.0.2
+  ffi: ^2.1.0
+  flutter_rust_bridge: ^1.82.3
 
 dev_dependencies:
   flutter_lints: 2.0.1
   drift_dev: 2.8.3
   build_runner: 2.4.5
+  ffigen: ^9.0.1
 
 flutter:
   uses-material-design: true
