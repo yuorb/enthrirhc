@@ -16,6 +16,10 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: dart run build_runner build
+      - run: flutter_rust_bridge_codegen \
+                --rust-input native\src\api.rs \
+                --dart-output .\lib\bridge_generated.dart \
+                --dart-decl-output .\lib\bridge_definitions.dart
       - run: flutter build apk --split-per-abi
       - uses: actions/upload-artifact@v3
         with:
@@ -32,6 +36,11 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: dart run build_runner build
+      - run: flutter_rust_bridge_codegen \
+                --rust-input native\src\api.rs \
+                --dart-output .\lib\bridge_generated.dart \
+                --dart-decl-output .\lib\bridge_definitions.dart \
+                --wasm
       - run: flutter build web --base-href "/enthrirch/"
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
