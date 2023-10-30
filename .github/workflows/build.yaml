@@ -18,6 +18,7 @@ jobs:
         id: setup-ndk
         with:
           ndk-version: r26b
+      - run: echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" > ~/.gradle/gradle.properties
       - run: flutter pub get
       - run: dart run build_runner build
       - run: cargo install cargo-expand
@@ -27,8 +28,6 @@ jobs:
               --dart-output ./lib/bridge_generated.dart
               --dart-decl-output ./lib/bridge_definitions.dart
       - run: flutter build apk --split-per-abi
-        env:
-          ANDROID_NDK: ${{ steps.setup-ndk.outputs.ndk-path }}
       - uses: actions/upload-artifact@v3
         with:
           name: android
