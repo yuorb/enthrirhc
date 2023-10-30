@@ -26,5 +26,8 @@
         "variative",
         "verificative"
     ],
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "rust-analyzer.linkedProjects": [
+        ".\\native\\Cargo.toml"
+    ]
 }
