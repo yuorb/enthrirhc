@@ -20,6 +20,7 @@ jobs:
           ndk-version: r26b
       - run: rustup target add armv7-linux-androideabi
       - run: rustup target add aarch64-linux-android
+      - run: rustup target add i686-linux-android
       - run: cargo install cargo-expand
       - run: cargo install cargo-ndk
       - run: cargo install flutter_rust_bridge_codegen
