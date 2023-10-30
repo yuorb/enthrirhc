@@ -16,6 +16,7 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: dart run build_runner build
+      - run: cargo install flutter_rust_bridge_codegen
       - run: flutter_rust_bridge_codegen \
                 --rust-input native\src\api.rs \
                 --dart-output .\lib\bridge_generated.dart \
@@ -36,6 +37,7 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
       - run: dart run build_runner build
+      - run: cargo install flutter_rust_bridge_codegen
       - run: flutter_rust_bridge_codegen \
                 --rust-input native\src\api.rs \
                 --dart-output .\lib\bridge_generated.dart \
