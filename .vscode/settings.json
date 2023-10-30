@@ -25,5 +25,6 @@
         "uniplex",
         "variative",
         "verificative"
-    ]
+    ],
+    "cmake.configureOnOpen": false
 }
