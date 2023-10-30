@@ -18,7 +18,7 @@ jobs:
         id: setup-ndk
         with:
           ndk-version: r26b
-      - run: echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" > ~/.gradle/gradle.properties
+      - run: mkdir -p ~/.gradle && echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" > ~/.gradle/gradle.properties
       - run: flutter pub get
       - run: dart run build_runner build
       - run: cargo install cargo-expand
