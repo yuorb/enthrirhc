@@ -18,10 +18,11 @@ jobs:
         id: setup-ndk
         with:
           ndk-version: r26b
-      - run: echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" >> ~/.gradle/gradle.properties
+      - run: mkdir -p ~/.gradle && echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" > ~/.gradle/gradle.properties
       - run: flutter pub get
       - run: dart run build_runner build
       - run: cargo install cargo-expand
+      - run: cargo install cargo-ndk
       - run: cargo install flutter_rust_bridge_codegen
       - run: flutter_rust_bridge_codegen
               --rust-input native/src/api.rs
