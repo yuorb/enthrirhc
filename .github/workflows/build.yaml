@@ -14,6 +14,9 @@ jobs:
         with:
           flutter-version: '3.12.0'
           channel: 'beta'
+      - uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r26b
       - run: flutter pub get
       - run: dart run build_runner build
       - run: cargo install flutter_rust_bridge_codegen
