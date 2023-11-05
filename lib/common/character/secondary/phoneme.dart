@@ -44,10 +44,3 @@ enum Phoneme {
     return null;
   }
 }
-
-class Letter {
-  final Phoneme phoneme;
-  final String path;
-
-  const Letter(this.phoneme, this.path);
-}

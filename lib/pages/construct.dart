@@ -3,7 +3,8 @@ import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/quarternary/bottom.dart';
 import 'package:enthrirch/common/character/quarternary/mod.dart';
 import 'package:enthrirch/common/character/quarternary/top.dart';
-import 'package:enthrirch/common/character/secondary/letter.dart';
+import 'package:enthrirch/common/character/secondary/core_letter.dart';
+import 'package:enthrirch/common/character/secondary/ext_letter.dart';
 import 'package:enthrirch/common/character/secondary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
 import 'package:enthrirch/common/character/tertiary/mod.dart';
@@ -31,9 +32,9 @@ class _ConstructPageState extends State<ConstructPage> {
       children: [
         AppBar(title: const Text("Construct")),
         const SizedBox(height: 16),
-        IthkuilSvg(
+        const IthkuilSvg(
           [
-            const Primary(
+            Primary(
               specification: Specification.cte,
               context: Context.fnc,
               essence: Essence.rpv,
@@ -48,16 +49,16 @@ class _ConstructPageState extends State<ConstructPage> {
               stem: Stem.s1,
             ),
             Secondary(
-              Phoneme.b,
-              Phoneme.placeholder,
-              Phoneme.c,
+              start: ExtLetter.b,
+              core: CoreLetter.placeholder,
+              end: ExtLetter.c,
             ),
-            const Tertiary(
+            Tertiary(
               valence: Valence.mno,
               top: TertiaryExtension.aspectPrs,
               bottom: TertiaryExtension.aspectAtp,
             ),
-            const Quarternary(
+            Quarternary(
               top: QuarternaryTop.spatioTemporal2,
               bottom: QuarternaryBottom.ima,
             ),

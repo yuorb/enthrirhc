@@ -84,14 +84,14 @@ class IthkuilSvg extends StatelessWidget {
           return [
             start != null
                 ? (
-                    "${start.phoneme.romanizedLetters[0]}_ext_${s.startAnchor.orientation.filename}",
-                    start.path
+                    "${start.phoneme.romanizedLetters[0]}_ext_${s.core.start.orientation.filename}",
+                    s.getStartExtPath()!
                   )
                 : null,
             end != null
                 ? (
-                    "${end.phoneme.romanizedLetters[0]}_ext_${s.endAnchor.orientation.filename}",
-                    end.path
+                    "${end.phoneme.romanizedLetters[0]}_ext_${s.core.end.orientation.filename}",
+                    s.getEndExtPath()!
                   )
                 : null
           ];
