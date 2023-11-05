@@ -1,12 +1,15 @@
+import 'package:enthrirch/common/character/primary/mod.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/quarternary/bottom.dart';
+import 'package:enthrirch/common/character/quarternary/mod.dart';
 import 'package:enthrirch/common/character/quarternary/top.dart';
 import 'package:enthrirch/common/character/secondary/letter.dart';
+import 'package:enthrirch/common/character/secondary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
+import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/common/character/mod.dart';
 import 'package:enthrirch/common/character/primary/a_anchor.dart';
 import 'package:enthrirch/common/character/primary/b_anchor.dart';
 import 'package:enthrirch/common/character/primary/c_anchor.dart';

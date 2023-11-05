@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:enthrirch/common/character/mod.dart';
+import 'package:enthrirch/common/character/primary/mod.dart';
 
 import 'a_anchor.dart';
 import 'b_anchor.dart';

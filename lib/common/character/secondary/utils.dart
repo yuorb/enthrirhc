@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:enthrirch/common/character/secondary/mod.dart';
 import 'package:enthrirch/common/utils.dart';
 
 import '../mod.dart';

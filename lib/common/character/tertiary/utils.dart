@@ -1,10 +1,9 @@
 import 'dart:math';
 
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
+import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 import 'package:enthrirch/common/utils.dart';
-
-import '../mod.dart';
 
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
   final (valenceLeft, valenceRight) = getHorizontalBoundary(valencePaths[tertiary.valence.name]!);

@@ -1,3 +1,6 @@
+import 'package:enthrirch/common/character/primary/mod.dart';
+import 'package:enthrirch/common/character/secondary/mod.dart';
+import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
