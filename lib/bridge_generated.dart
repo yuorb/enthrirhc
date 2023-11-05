@@ -20,31 +20,10 @@ class NativeImpl implements Native {
   factory NativeImpl.wasm(FutureOr<WasmModule> module) =>
       NativeImpl(module as ExternalLibrary);
   NativeImpl.raw(this._platform);
-  Future<bool> primary({dynamic hint}) {
-    return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_primary(port_),
-      parseSuccessData: _wire2api_bool,
-      parseErrorData: null,
-      constMeta: kPrimaryConstMeta,
-      argValues: [],
-      hint: hint,
-    ));
-  }
-
-  FlutterRustBridgeTaskConstMeta get kPrimaryConstMeta =>
-      const FlutterRustBridgeTaskConstMeta(
-        debugName: "primary",
-        argNames: [],
-      );
-
   void dispose() {
     _platform.dispose();
   }
 // Section: wire2api
-
-  bool _wire2api_bool(dynamic raw) {
-    return raw as bool;
-  }
 }
 
 // Section: api2wire

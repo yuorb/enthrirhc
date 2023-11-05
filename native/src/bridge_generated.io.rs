@@ -1,11 +1,6 @@
 use super::*;
 // Section: wire functions
 
-#[no_mangle]
-pub extern "C" fn wire_primary(port_: i64) {
-    wire_primary_impl(port_)
-}
-
 // Section: allocate functions
 
 // Section: related functions

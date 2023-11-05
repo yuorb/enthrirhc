@@ -1,11 +1,6 @@
 use super::*;
 // Section: wire functions
 
-#[wasm_bindgen]
-pub fn wire_primary(port_: MessagePort) {
-    wire_primary_impl(port_)
-}
-
 // Section: allocate functions
 
 // Section: related functions

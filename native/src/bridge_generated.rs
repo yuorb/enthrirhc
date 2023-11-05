@@ -22,16 +22,6 @@ use std::sync::Arc;
 
 // Section: wire functions
 
-fn wire_primary_impl(port_: MessagePort) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap::<_, _, _, bool, _>(
-        WrapInfo {
-            debug_name: "primary",
-            port: Some(port_),
-            mode: FfiCallMode::Normal,
-        },
-        move || move |task_callback| Result::<_, ()>::Ok(primary()),
-    )
-}
 // Section: wrapper structs
 
 // Section: static checks
