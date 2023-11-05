@@ -11,7 +11,7 @@ enum Context {
   /// The Amalgamative Context
   amg;
 
-  String getSvg() {
+  String getPath() {
     return switch (this) {
       Context.exs => "",
       Context.fnc => "M -7.50 -40.00 L 0.00 -32.50 7.50 -40.00 0.00 -47.50 -7.50 -40.00 Z",

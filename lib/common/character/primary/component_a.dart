@@ -29,7 +29,7 @@ class ComponentA {
     required this.affiliation,
   });
 
-  String getSvg() {
+  String getPath() {
     return switch (essence) {
       Essence.nrm => switch (affiliation) {
           Affiliation.csl => "",

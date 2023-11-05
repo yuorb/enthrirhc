@@ -33,7 +33,7 @@ class IthkuilSvg extends StatelessWidget {
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
     final List<(String, String)> usedPrimaryTops = characters
         .whereType<Primary>()
-        .map((s) => (s.context.name, s.context.getSvg()))
+        .map((s) => (s.context.name, s.context.getPath()))
         .toSet()
         .toList();
     final List<(String, String)> usedAAnchors = characters
@@ -41,7 +41,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.essence.name}_${s.affiliation.name}',
-            s.componentA().getSvg(),
+            s.componentA().getPath(),
           ),
         )
         .toSet()
@@ -51,7 +51,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.perspective.name}_${s.extension.name}',
-            s.componentB().getSvg(),
+            s.componentB().getPath(),
           ),
         )
         .toSet()
@@ -61,7 +61,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.separability.name}_${s.similarity.name}',
-            s.componentC().getSvg(),
+            s.componentC().getPath(),
           ),
         )
         .toSet()
@@ -71,7 +71,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.function.name}_${s.version.name}_${s.plexity.name}_${s.stem.name}',
-            s.componentD().getSvg()
+            s.componentD().getPath()
           ),
         )
         .toSet()
@@ -159,7 +159,7 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedValences.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${e.getSvg()}" />',
+            (e) => '<path stroke="none" id="${e.name}" d="${e.getPath()}" />',
           ).join('')}
           ${usedTertiaryExtensions.map(
             (e) => '<path stroke="none" id="${e.name}" d="${tertiaryExtensionPaths[e.name]}" />',

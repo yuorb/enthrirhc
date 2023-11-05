@@ -41,7 +41,7 @@ class ComponentB {
     required this.extension,
   });
 
-  String getSvg() {
+  String getPath() {
     return switch (perspective) {
       Perspective.m => switch (extension) {
           Extension.del => "",
