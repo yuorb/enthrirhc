@@ -10,22 +10,22 @@ import 'core_letter.dart';
   final (coreLeft, coreRight) = getCoreBoundary(secondary.core.path);
   final (topExtLeft, topExtRight) = getExtensionBoundary(
     secondary.getStartExtPath() ?? '',
-    secondary.core.start.orientation,
+    secondary.core.startAnchor.orientation,
   );
   final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(
     secondary.getEndExtPath() ?? '',
-    secondary.core.end.orientation,
+    secondary.core.endAnchor.orientation,
   );
 
   final left = [
     coreLeft,
-    secondary.core.start.coord.x + topExtLeft,
-    secondary.core.end.coord.x + bottomExtLeft,
+    secondary.core.startAnchor.coord.x + topExtLeft,
+    secondary.core.endAnchor.coord.x + bottomExtLeft,
   ].reduce(min);
   final right = [
     coreRight,
-    secondary.core.start.coord.x + topExtRight,
-    secondary.core.end.coord.x + bottomExtRight,
+    secondary.core.startAnchor.coord.x + topExtRight,
+    secondary.core.endAnchor.coord.x + bottomExtRight,
   ].reduce(max);
 
   return (left, right);

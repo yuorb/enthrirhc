@@ -15,18 +15,18 @@ class Secondary with Character {
   });
 
   String? getStartExtPath() {
-    return switch (core.start.orientation.filename) {
-      "up" => start?.up,
-      "left" => start?.left,
-      _ => start?.diag
+    return switch (core.startAnchor.orientation.type) {
+      AnchorType.up => start?.up,
+      AnchorType.left => start?.left,
+      AnchorType.diag => start?.diag
     };
   }
 
   String? getEndExtPath() {
-    return switch (core.end.orientation.filename) {
-      "up" => end?.up,
-      "left" => end?.left,
-      _ => end?.diag
+    return switch (core.endAnchor.orientation.type) {
+      AnchorType.up => end?.up,
+      AnchorType.left => end?.left,
+      AnchorType.diag => end?.diag
     };
   }
 
@@ -37,27 +37,27 @@ class Secondary with Character {
     final secondaryBoundary = getSecondaryBoundary(this);
     final coreX = baseX - secondaryBoundary.$1;
     final coreY = baseY;
-    final extStartX = coreX + core.start.coord.x;
-    final extStartY = coreY + core.start.coord.y;
-    final extEndX = coreX + core.end.coord.x + 0;
-    final extEndY = coreY + core.end.coord.y + 0;
+    final extStartX = coreX + core.startAnchor.coord.x;
+    final extStartY = coreY + core.startAnchor.coord.y;
+    final extEndX = coreX + core.endAnchor.coord.x + 0;
+    final extEndY = coreY + core.endAnchor.coord.y + 0;
 
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
       <use href="#${core.phoneme.romanizedLetters[0]}_core" x="$coreX" y="$coreY" fill="$fillColor" />
       ${start != null ? '''<use
-        href="#${start.phoneme.romanizedLetters[0]}_ext_${core.start.orientation.filename}"
+        href="#${start.phoneme.romanizedLetters[0]}_ext_${core.startAnchor.orientation.type}"
         x="$extStartX"
         y="$extStartY" 
-        transform="rotate(${core.start.orientation.rotation}, $extStartX, $extStartY)"
+        transform="rotate(${core.startAnchor.getRotation()}, $extStartX, $extStartY)"
         fill="$fillColor"
       />''' : ''}
       ${end != null ? '''<use
-        href="#${end.phoneme.romanizedLetters[0]}_ext_${core.end.orientation.filename}"
+        href="#${end.phoneme.romanizedLetters[0]}_ext_${core.endAnchor.orientation.type}"
         x="$extEndX"
         y="$extEndY"
-        transform="rotate(${core.end.orientation.rotation}, $extEndX, $extEndY)"
+        transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
         fill="$fillColor"
       />''' : ''}
     ''',
