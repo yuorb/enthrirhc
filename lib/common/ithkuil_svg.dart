@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
-import 'character/primary/top.dart';
 import 'character/quarternary/mod.dart';
 import 'character/quarternary/top.dart';
 import 'character/quarternary/bottom.dart';
 import 'character/tertiary/extensions.dart';
-import 'character/tertiary/valence.dart';
 import 'utils.dart';
 
 class IthkuilSvg extends StatelessWidget {
@@ -35,7 +33,7 @@ class IthkuilSvg extends StatelessWidget {
         characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
     final List<(String, String)> usedPrimaryTops = characters
         .whereType<Primary>()
-        .map((s) => (s.context.name, topData[s.context.name]!))
+        .map((s) => (s.context.name, s.context.getSvg()))
         .toSet()
         .toList();
     final List<(String, String)> usedAAnchors = characters
@@ -161,7 +159,7 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedValences.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${valencePaths[e.name]}" />',
+            (e) => '<path stroke="none" id="${e.name}" d="${e.getSvg()}" />',
           ).join('')}
           ${usedTertiaryExtensions.map(
             (e) => '<path stroke="none" id="${e.name}" d="${tertiaryExtensionPaths[e.name]}" />',
