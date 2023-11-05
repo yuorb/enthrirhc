@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
-import 'character/primary/a_anchor.dart';
-import 'character/primary/b_anchor.dart';
-import 'character/primary/c_anchor.dart';
-import 'character/primary/d_anchor.dart';
 import 'character/primary/top.dart';
 import 'character/quarternary/mod.dart';
 import 'character/quarternary/top.dart';
@@ -47,7 +43,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.essence.name}_${s.affiliation.name}',
-            aAnchorData[s.essence.name]![s.affiliation.name]!
+            s.componentA().getSvg(),
           ),
         )
         .toSet()
@@ -57,7 +53,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.perspective.name}_${s.extension.name}',
-            bAnchorData[s.perspective.name]![s.extension.name]!
+            s.componentB().getSvg(),
           ),
         )
         .toSet()
@@ -67,7 +63,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.separability.name}_${s.similarity.name}',
-            cAnchorData[s.similarity.name]![s.separability.name]!
+            s.componentC().getSvg(),
           ),
         )
         .toSet()
@@ -77,7 +73,7 @@ class IthkuilSvg extends StatelessWidget {
         .map(
           (s) => (
             '${s.function.name}_${s.version.name}_${s.plexity.name}_${s.stem.name}',
-            dAnchorData[s.function.name]![s.version.name]![s.plexity.name]![s.stem.name]!,
+            s.componentD().getSvg()
           ),
         )
         .toSet()

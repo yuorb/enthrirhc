@@ -3,36 +3,30 @@ import 'dart:math';
 import 'package:enthrirch/common/character/mod.dart';
 import 'package:enthrirch/common/character/primary/mod.dart';
 
-import 'a_anchor.dart';
-import 'b_anchor.dart';
-import 'c_anchor.dart';
-import 'd_anchor.dart';
-
 (double, double) getPrimaryBoundary(Primary primary) {
-  final aAnchorPath = aAnchorData[primary.essence.name]![primary.affiliation.name]!;
-  final bAnchorPath = bAnchorData[primary.perspective.name]![primary.extension.name]!;
-  final cAnchorPath = cAnchorData[primary.similarity.name]![primary.separability.name]!;
-  final dAnchorPath = dAnchorData[primary.function.name]![primary.version.name]![
-      primary.plexity.name]![primary.stem.name]!;
+  final componentAPath = primary.componentA().getSvg();
+  final componentBPath = primary.componentB().getSvg();
+  final componentCPath = primary.componentC().getSvg();
+  final componentDPath = primary.componentD().getSvg();
   final (coreLeft, coreRight) = getCoreBoundary(primary.specification.path);
-  final (aAnchorLeft, aAnchorRight) = getExtensionBoundary(aAnchorPath);
-  final (bAnchorLeft, bAnchorRight) = getExtensionBoundary(bAnchorPath);
-  final (cAnchorLeft, cAnchorRight) = getExtensionBoundary(cAnchorPath);
-  final (dAnchorLeft, dAnchorRight) = getExtensionBoundary(dAnchorPath);
+  final (componentALeft, componentARight) = getExtensionBoundary(componentAPath);
+  final (componentBLeft, componentBRight) = getExtensionBoundary(componentBPath);
+  final (componentCLeft, componentCRight) = getExtensionBoundary(componentCPath);
+  final (componentDLeft, componentDRight) = getExtensionBoundary(componentDPath);
 
   final left = [
     coreLeft,
-    primary.specification.centerX + aAnchorLeft,
-    primary.specification.bAnchor.x + bAnchorLeft,
-    primary.specification.centerX + cAnchorLeft,
-    primary.specification.dAnchor.x + dAnchorLeft,
+    primary.specification.centerX + componentALeft,
+    primary.specification.bAnchor.x + componentBLeft,
+    primary.specification.centerX + componentCLeft,
+    primary.specification.dAnchor.x + componentDLeft,
   ].reduce(min);
   final right = [
     coreRight,
-    primary.specification.centerX + aAnchorRight,
-    primary.specification.bAnchor.x + bAnchorRight,
-    primary.specification.centerX + cAnchorRight,
-    primary.specification.dAnchor.x + dAnchorRight,
+    primary.specification.centerX + componentARight,
+    primary.specification.bAnchor.x + componentBRight,
+    primary.specification.centerX + componentCRight,
+    primary.specification.dAnchor.x + componentDRight,
   ].reduce(max);
 
   return (left, right);

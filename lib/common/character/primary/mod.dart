@@ -1,8 +1,8 @@
 import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/primary/a_anchor.dart';
-import 'package:enthrirch/common/character/primary/b_anchor.dart';
-import 'package:enthrirch/common/character/primary/c_anchor.dart';
-import 'package:enthrirch/common/character/primary/d_anchor.dart';
+import 'package:enthrirch/common/character/primary/component_a.dart';
+import 'package:enthrirch/common/character/primary/component_b.dart';
+import 'package:enthrirch/common/character/primary/component_c.dart';
+import 'package:enthrirch/common/character/primary/component_d.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/primary/utils.dart';
@@ -39,6 +39,36 @@ class Primary with Character {
     required this.plexity,
     required this.stem,
   });
+
+  ComponentA componentA() {
+    return ComponentA(
+      essence: essence,
+      affiliation: affiliation,
+    );
+  }
+
+  ComponentB componentB() {
+    return ComponentB(
+      perspective: perspective,
+      extension: extension,
+    );
+  }
+
+  ComponentC componentC() {
+    return ComponentC(
+      separability: separability,
+      similarity: similarity,
+    );
+  }
+
+  ComponentD componentD() {
+    return ComponentD(
+      function: function,
+      version: version,
+      plexity: plexity,
+      stem: stem,
+    );
+  }
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {

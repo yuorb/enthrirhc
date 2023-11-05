@@ -10,10 +10,10 @@ import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/common/character/primary/a_anchor.dart';
-import 'package:enthrirch/common/character/primary/b_anchor.dart';
-import 'package:enthrirch/common/character/primary/c_anchor.dart';
-import 'package:enthrirch/common/character/primary/d_anchor.dart';
+import 'package:enthrirch/common/character/primary/component_a.dart';
+import 'package:enthrirch/common/character/primary/component_b.dart';
+import 'package:enthrirch/common/character/primary/component_c.dart';
+import 'package:enthrirch/common/character/primary/component_d.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/ithkuil_svg.dart';
 
