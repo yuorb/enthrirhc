@@ -180,6 +180,11 @@ class IthkuilSvg extends StatelessWidget {
           ).join('')}
         </defs>
         <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
+        <line x1="0" y1="${unitHeight * 1}" x2="400" y2="${unitHeight * 1}" stroke="red" />
+        <line x1="0" y1="${unitHeight * 2}" x2="400" y2="${unitHeight * 2}" stroke="red" />
+        <line x1="0" y1="${unitHeight * 3}" x2="400" y2="${unitHeight * 3}" stroke="red" />
+        <line x1="0" y1="${unitHeight * 4}" x2="400" y2="${unitHeight * 4}" stroke="red" />
+        <line x1="0" y1="${unitHeight * 5}" x2="400" y2="${unitHeight * 5}" stroke="red" />
         ${charImages.join('\n')}
       </svg>''',
       width: MediaQuery.of(context).size.width - 32,

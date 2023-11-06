@@ -37,9 +37,9 @@ class _ConstructPageState extends State<ConstructPage> {
           [
             Primary(
               specification: Specification.cte,
-              context: Context.fnc,
+              context: Context.rps,
               essence: Essence.rpv,
-              affiliation: Affiliation.var$,
+              affiliation: Affiliation.csl,
               perspective: Perspective.m,
               extension: Extension.prx,
               similarity: Similarity.d,
@@ -56,11 +56,11 @@ class _ConstructPageState extends State<ConstructPage> {
             ),
             Tertiary(
               valence: Valence.mno,
-              top: TertiaryExtension.aspectPrs,
+              top: TertiaryExtension.aspectAtp,
               bottom: TertiaryExtension.aspectAtp,
               level: Level(
-                comparison: Comparison.relative,
-                comparisonOperator: ComparisonOperator.spq,
+                comparison: Comparison.absolute,
+                comparisonOperator: ComparisonOperator.equ,
               ),
             ),
             Quarternary(

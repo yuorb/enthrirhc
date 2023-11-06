@@ -3,6 +3,7 @@ import 'package:enthrirch/common/character/tertiary/extensions.dart';
 import 'package:enthrirch/common/character/tertiary/level.dart';
 import 'package:enthrirch/common/character/tertiary/utils.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
+import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class Tertiary with Character {
   final Valence valence;
@@ -24,12 +25,12 @@ class Tertiary with Character {
     final valenceX = baseX - left;
     final valenceY = baseY;
     final topX = valenceX;
-    final topY = valenceY - 12 - getExtensionBottom(top);
+    final topY = valenceY - 8 - getExtensionBottom(top);
     final bottomX = valenceX;
-    final bottomY = valenceY + 12 - getExtensionTop(bottom);
+    final bottomY = valenceY + 8 - getExtensionTop(bottom);
     final levelX = valenceX;
     final isAbsolute = level.comparison == Comparison.relative;
-    final levelY = valenceY + 65 * (isAbsolute ? 1 : -1);
+    final levelY = valenceY + unitHeight * 2 * (isAbsolute ? 1 : -1);
     return (
       '''
         <use href="#${valence.name}" x="$valenceX" y="$valenceY" fill="$fillColor" />

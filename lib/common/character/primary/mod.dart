@@ -6,6 +6,7 @@ import 'package:enthrirch/common/character/primary/component_d.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/primary/utils.dart';
+import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class Primary with Character {
   final Specification specification;
@@ -82,13 +83,13 @@ class Primary with Character {
     final specificationX = baseX - left;
     final specificationY = baseY;
     final topX = specificationX + specification.centerX;
-    final topY = specificationY;
+    final topY = specificationY - unitHeight * 2;
     final aAnchorX = specificationX + specification.centerX;
-    final aAnchorY = specificationY;
+    final aAnchorY = specificationY - 5;
     final bAnchorX = specificationX + specification.bAnchor.x;
     final bAnchorY = specificationY + specification.bAnchor.y;
     final cAnchorX = specificationX + specification.centerX;
-    final cAnchorY = specificationY;
+    final cAnchorY = specificationY + 5;
     final dAnchorX = specificationX + specification.dAnchor.x;
     final dAnchorY = specificationY + specification.dAnchor.y;
     return (
