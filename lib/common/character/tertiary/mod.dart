@@ -1,5 +1,6 @@
 import 'package:enthrirch/common/character/mod.dart';
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
+import 'package:enthrirch/common/character/tertiary/level.dart';
 import 'package:enthrirch/common/character/tertiary/utils.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 
@@ -7,11 +8,13 @@ class Tertiary with Character {
   final Valence valence;
   final TertiaryExtension top;
   final TertiaryExtension bottom;
+  final Level level;
 
   const Tertiary({
     required this.valence,
     required this.top,
     required this.bottom,
+    required this.level,
   });
 
   @override
@@ -24,11 +27,15 @@ class Tertiary with Character {
     final topY = valenceY - 12 - getExtensionBottom(top);
     final bottomX = valenceX;
     final bottomY = valenceY + 12 - getExtensionTop(bottom);
+    final levelX = valenceX;
+    final isAbsolute = level.comparison == Comparison.relative;
+    final levelY = valenceY + 65 * (isAbsolute ? 1 : -1);
     return (
       '''
         <use href="#${valence.name}" x="$valenceX" y="$valenceY" fill="$fillColor" />
         <use href="#${top.name}" x="$topX" y="$topY" fill="$fillColor" />
         <use href="#${bottom.name}" x="$bottomX" y="$bottomY" fill="$fillColor" />
+        <use href="#level_${level.comparisonOperator.name}" x="$levelX" y="$levelY" fill="$fillColor" />
       ''',
       width,
     );

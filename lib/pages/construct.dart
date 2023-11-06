@@ -7,6 +7,7 @@ import 'package:enthrirch/common/character/secondary/core_letter.dart';
 import 'package:enthrirch/common/character/secondary/ext_letter.dart';
 import 'package:enthrirch/common/character/secondary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/extensions.dart';
+import 'package:enthrirch/common/character/tertiary/level.dart';
 import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,10 @@ class _ConstructPageState extends State<ConstructPage> {
               valence: Valence.mno,
               top: TertiaryExtension.aspectPrs,
               bottom: TertiaryExtension.aspectAtp,
+              level: Level(
+                comparison: Comparison.relative,
+                comparisonOperator: ComparisonOperator.spq,
+              ),
             ),
             Quarternary(
               top: QuarternaryTop.spatioTemporal2,

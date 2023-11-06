@@ -11,6 +11,11 @@ import 'character/quarternary/bottom.dart';
 import 'character/tertiary/extensions.dart';
 import 'utils.dart';
 
+const double unitHeight = 35;
+const double verticalPadding = unitHeight;
+const double horizontalPadding = 20;
+const double horizontalGap = 10;
+
 class IthkuilSvg extends StatelessWidget {
   final List<Character> characters;
 
@@ -22,10 +27,6 @@ class IthkuilSvg extends StatelessWidget {
     // core letter height = 2 unit height = 70
     // full letter height = 4 unit height = 140
     // full letter with padding height = 6 unit height = 210
-    const double unitHeight = 35;
-    const double verticalPadding = unitHeight;
-    const double horizontalPadding = 20;
-    const double horizontalGap = 10;
     final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
     // final String fillColor = "#e6e1e6";
 
@@ -117,6 +118,10 @@ class IthkuilSvg extends StatelessWidget {
         .whereType<Quarternary>()
         .map((s) => ("quarternary_${s.bottom.name}", quarternaryBottomPaths[s.bottom.name]!))
         .toList();
+    final List<(String, String)> usedLevels = characters
+        .whereType<Tertiary>()
+        .map((s) => ("level_${s.level.comparisonOperator.name}", s.level.comparisonOperator.path))
+        .toList();
 
     List<String> charImages = [];
     double leftCoord = horizontalPadding;
@@ -168,6 +173,9 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedQuarternaryBottoms.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
+          ${usedLevels.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>
