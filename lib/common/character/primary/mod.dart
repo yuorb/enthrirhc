@@ -3,6 +3,7 @@ import 'package:enthrirch/common/character/primary/component_a.dart';
 import 'package:enthrirch/common/character/primary/component_b.dart';
 import 'package:enthrirch/common/character/primary/component_c.dart';
 import 'package:enthrirch/common/character/primary/component_d.dart';
+import 'package:enthrirch/common/character/primary/concatenation.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/primary/utils.dart';
@@ -11,6 +12,7 @@ import 'package:enthrirch/common/ithkuil_svg.dart';
 class Primary with Character {
   final Specification specification;
   final Context context;
+  final Concatenation concatenation;
   // Properties for A Anchor
   final Essence essence;
   final Affiliation affiliation;
@@ -29,6 +31,7 @@ class Primary with Character {
   const Primary({
     required this.specification,
     required this.context,
+    required this.concatenation,
     required this.essence,
     required this.affiliation,
     required this.perspective,
@@ -76,6 +79,7 @@ class Primary with Character {
     final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
     final topName = context.name;
+    final bottomName = "concatenation_${concatenation.name}";
     final aAnchorName = '${essence.name}_${affiliation.name}';
     final bAnchorName = '${perspective.name}_${extension.name}';
     final cAnchorName = '${separability.name}_${similarity.name}';
@@ -84,6 +88,8 @@ class Primary with Character {
     final specificationY = baseY;
     final topX = specificationX + specification.centerX;
     final topY = specificationY - unitHeight * 2;
+    final bottomX = specificationX + specification.centerX;
+    final bottomY = specificationY + unitHeight * 2;
     final aAnchorX = specificationX + specification.centerX;
     final aAnchorY = specificationY - 5;
     final bAnchorX = specificationX + specification.bAnchor.x;
@@ -96,6 +102,7 @@ class Primary with Character {
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
         <use href="#$topName" x="$topX" y="$topY" fill="$fillColor" />
+        <use href="#$bottomName" x="$bottomX" y="$bottomY" fill="$fillColor" />
         <use href="#$aAnchorName" x="$aAnchorX" y="$aAnchorY" fill="$fillColor" />
         <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
         <use href="#$cAnchorName" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />

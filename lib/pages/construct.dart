@@ -1,3 +1,4 @@
+import 'package:enthrirch/common/character/primary/concatenation.dart';
 import 'package:enthrirch/common/character/primary/mod.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/quarternary/bottom.dart';
@@ -38,6 +39,7 @@ class _ConstructPageState extends State<ConstructPage> {
             Primary(
               specification: Specification.cte,
               context: Context.rps,
+              concatenation: Concatenation.type2,
               essence: Essence.rpv,
               affiliation: Affiliation.csl,
               perspective: Perspective.m,

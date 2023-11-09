@@ -113,14 +113,22 @@ class IthkuilSvg extends StatelessWidget {
     final List<(String, String)> usedQuarternaryTops = characters
         .whereType<Quarternary>()
         .map((s) => ("quarternary_${s.top.name}", quarternaryTopPaths[s.top.name]!))
+        .toSet()
         .toList();
     final List<(String, String)> usedQuarternaryBottoms = characters
         .whereType<Quarternary>()
         .map((s) => ("quarternary_${s.bottom.name}", quarternaryBottomPaths[s.bottom.name]!))
+        .toSet()
         .toList();
     final List<(String, String)> usedLevels = characters
         .whereType<Tertiary>()
         .map((s) => ("level_${s.level.comparisonOperator.name}", s.level.comparisonOperator.path))
+        .toSet()
+        .toList();
+    final List<(String, String)> usedConcatenations = characters
+        .whereType<Primary>()
+        .map((s) => ("concatenation_${s.concatenation.name}", s.concatenation.path))
+        .toSet()
         .toList();
 
     List<String> charImages = [];
@@ -176,6 +184,9 @@ class IthkuilSvg extends StatelessWidget {
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
           ${usedLevels.map(
+            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
+          ).join('')}
+          ${usedConcatenations.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>
