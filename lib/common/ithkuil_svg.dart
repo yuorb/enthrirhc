@@ -66,8 +66,7 @@ class IthkuilSvg extends StatelessWidget {
 
     List<String> charImages = [];
     double leftCoord = horizontalPadding;
-    for (int i = 0; i < characters.length; i++) {
-      final character = characters[i];
+    for (final character in characters) {
       const centerY = verticalPadding + unitHeight * 2;
       final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
       charImages.add(svgString);
