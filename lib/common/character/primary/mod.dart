@@ -3,7 +3,7 @@ import 'package:enthrirch/common/character/primary/component_a.dart';
 import 'package:enthrirch/common/character/primary/component_b.dart';
 import 'package:enthrirch/common/character/primary/component_c.dart';
 import 'package:enthrirch/common/character/primary/component_d.dart';
-import 'package:enthrirch/common/character/primary/concatenation.dart';
+import 'package:enthrirch/common/character/primary/formative.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/primary/utils.dart';
@@ -12,7 +12,7 @@ import 'package:enthrirch/common/ithkuil_svg.dart';
 class Primary with Character {
   final Specification specification;
   final Context context;
-  final Concatenation concatenation;
+  final Formative formativeType;
   // Properties for A Anchor
   final Essence essence;
   final Affiliation affiliation;
@@ -31,7 +31,7 @@ class Primary with Character {
   const Primary({
     required this.specification,
     required this.context,
-    required this.concatenation,
+    required this.formativeType,
     required this.essence,
     required this.affiliation,
     required this.perspective,
@@ -79,7 +79,7 @@ class Primary with Character {
     final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
     final topName = context.name;
-    final bottomName = "concatenation_${concatenation.name}";
+    final bottomName = formativeType.name();
     final aAnchorName = '${essence.name}_${affiliation.name}';
     final bAnchorName = '${perspective.name}_${extension.name}';
     final cAnchorName = '${separability.name}_${similarity.name}';

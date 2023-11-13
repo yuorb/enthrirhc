@@ -125,9 +125,9 @@ class IthkuilSvg extends StatelessWidget {
         .map((s) => ("level_${s.level.comparisonOperator.name}", s.level.comparisonOperator.path))
         .toSet()
         .toList();
-    final List<(String, String)> usedConcatenations = characters
+    final List<(String, String)> usedPrimaryBottoms = characters
         .whereType<Primary>()
-        .map((s) => ("concatenation_${s.concatenation.name}", s.concatenation.path))
+        .map((s) => (s.formativeType.name(), s.formativeType.path()))
         .toSet()
         .toList();
 
@@ -186,7 +186,7 @@ class IthkuilSvg extends StatelessWidget {
           ${usedLevels.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
-          ${usedConcatenations.map(
+          ${usedPrimaryBottoms.map(
             (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
           ).join('')}
         </defs>
