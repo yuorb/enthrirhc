@@ -49,7 +49,7 @@ class ComponentD {
     required this.stem,
   });
 
-  String getPath() {
+  String path() {
     return switch (function) {
       Function$.sta => switch (version) {
           Version.prc => switch (plexity) {

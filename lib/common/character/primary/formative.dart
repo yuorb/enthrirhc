@@ -18,7 +18,7 @@ enum Concatenation {
 sealed class Formative {
   const Formative();
 
-  String name() {
+  String id() {
     return switch (this) {
       Standalone(relation: final relation) => "relation_${relation.name}",
       Parent(relation: final relation) => "relation_${relation.name}",

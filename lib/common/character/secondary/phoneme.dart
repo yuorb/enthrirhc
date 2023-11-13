@@ -43,4 +43,8 @@ enum Phoneme {
     }
     return null;
   }
+
+  String defaultLetter() {
+    return romanizedLetters[0];
+  }
 }

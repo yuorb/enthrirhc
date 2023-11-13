@@ -29,7 +29,7 @@ class ComponentA {
     required this.affiliation,
   });
 
-  String getPath() {
+  String path() {
     return switch (essence) {
       Essence.nrm => switch (affiliation) {
           Affiliation.csl => "",

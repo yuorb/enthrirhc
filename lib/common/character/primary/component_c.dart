@@ -29,7 +29,7 @@ class ComponentC {
     required this.similarity,
   });
 
-  String getPath() {
+  String path() {
     return switch (similarity) {
       Similarity.s => switch (separability) {
           Separability.s => "M -32.50 12.50 L -12.50 32.50 -5.00 25.00 -25.00 5.00 -32.50 12.50 Z",

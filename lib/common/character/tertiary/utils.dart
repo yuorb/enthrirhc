@@ -5,7 +5,7 @@ import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:enthrirch/common/utils.dart';
 
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
-  final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.getPath());
+  final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.path());
   final (topExtLeft, topExtRight) =
       getHorizontalBoundary(tertiaryExtensionPaths[tertiary.top.name]!);
   final (bottomExtLeft, bottomExtRight) =

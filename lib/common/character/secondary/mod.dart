@@ -14,12 +14,28 @@ class Secondary with Character {
     required this.end,
   });
 
+  String? getStartExtId() {
+    if (start != null) {
+      return "${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}";
+    } else {
+      return null;
+    }
+  }
+
   String? getStartExtPath() {
     return switch (core.startAnchor.orientation.type) {
       AnchorType.up => start?.up,
       AnchorType.left => start?.left,
       AnchorType.diag => start?.diag
     };
+  }
+
+  String? getEndExtId() {
+    if (end != null) {
+      return "${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}";
+    } else {
+      return null;
+    }
   }
 
   String? getEndExtPath() {

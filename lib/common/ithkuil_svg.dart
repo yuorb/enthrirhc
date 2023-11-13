@@ -30,106 +30,39 @@ class IthkuilSvg extends StatelessWidget {
     final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
     // final String fillColor = "#e6e1e6";
 
-    final usedSpecifications =
-        characters.whereType<Primary>().map((s) => s.specification).toSet().toList();
-    final List<(String, String)> usedPrimaryTops = characters
-        .whereType<Primary>()
-        .map((s) => (s.context.name, s.context.getPath()))
-        .toSet()
-        .toList();
-    final List<(String, String)> usedAAnchors = characters
-        .whereType<Primary>()
-        .map(
-          (s) => (
-            '${s.essence.name}_${s.affiliation.name}',
-            s.componentA().getPath(),
-          ),
-        )
-        .toSet()
-        .toList();
-    final List<(String, String)> usedBAnchors = characters
-        .whereType<Primary>()
-        .map(
-          (s) => (
-            '${s.perspective.name}_${s.extension.name}',
-            s.componentB().getPath(),
-          ),
-        )
-        .toSet()
-        .toList();
-    final List<(String, String)> usedCAnchors = characters
-        .whereType<Primary>()
-        .map(
-          (s) => (
-            '${s.separability.name}_${s.similarity.name}',
-            s.componentC().getPath(),
-          ),
-        )
-        .toSet()
-        .toList();
-    final List<(String, String)> usedDAnchors = characters
-        .whereType<Primary>()
-        .map(
-          (s) => (
-            '${s.function.name}_${s.version.name}_${s.plexity.name}_${s.stem.name}',
-            s.componentD().getPath()
-          ),
-        )
-        .toSet()
-        .toList();
-    final List<(String, String)> usedExtensions = characters
-        .whereType<Secondary>()
-        .map<List<(String, String)?>>((s) {
-          final start = s.start;
-          final end = s.end;
-          return [
-            start != null
-                ? (
-                    "${start.phoneme.romanizedLetters[0]}_ext_${s.core.startAnchor.orientation.type}",
-                    s.getStartExtPath()!
-                  )
-                : null,
-            end != null
-                ? (
-                    "${end.phoneme.romanizedLetters[0]}_ext_${s.core.endAnchor.orientation.type}",
-                    s.getEndExtPath()!
-                  )
-                : null
-          ];
-        })
-        .expand((element) => element)
-        .whereType<(String, String)>()
-        .toSet()
-        .toList();
-    final usedCores = characters.whereType<Secondary>().map((s) => s.core).toSet().toList();
-    final usedValences = characters.whereType<Tertiary>().map((s) => s.valence).toSet().toList();
-    final usedTertiaryExtensions = characters
-        .whereType<Tertiary>()
-        .map((s) => [s.top, s.bottom])
-        .expand((element) => element)
-        .toSet()
-        .toList();
-    final hasQuarternary = characters.whereType<Quarternary>().isNotEmpty;
-    final List<(String, String)> usedQuarternaryTops = characters
-        .whereType<Quarternary>()
-        .map((s) => ("quarternary_${s.top.name}", quarternaryTopPaths[s.top.name]!))
-        .toSet()
-        .toList();
-    final List<(String, String)> usedQuarternaryBottoms = characters
-        .whereType<Quarternary>()
-        .map((s) => ("quarternary_${s.bottom.name}", quarternaryBottomPaths[s.bottom.name]!))
-        .toSet()
-        .toList();
-    final List<(String, String)> usedLevels = characters
-        .whereType<Tertiary>()
-        .map((s) => ("level_${s.level.comparisonOperator.name}", s.level.comparisonOperator.path))
-        .toSet()
-        .toList();
-    final List<(String, String)> usedPrimaryBottoms = characters
-        .whereType<Primary>()
-        .map((s) => (s.formativeType.name(), s.formativeType.path()))
-        .toSet()
-        .toList();
+    final Map<String, String> usedRadicals = {};
+    for (final p in characters.whereType<Primary>()) {
+      usedRadicals[p.specification.name] = p.specification.path;
+      usedRadicals[p.context.name] = p.context.path();
+      usedRadicals[p.formativeType.id()] = p.formativeType.path();
+      usedRadicals['${p.essence.name}_${p.affiliation.name}'] = p.componentA().path();
+      usedRadicals['${p.perspective.name}_${p.extension.name}'] = p.componentB().path();
+      usedRadicals['${p.separability.name}_${p.similarity.name}'] = p.componentC().path();
+      usedRadicals['${p.function.name}_${p.version.name}_${p.plexity.name}_${p.stem.name}'] =
+          p.componentD().path();
+    }
+    for (final s in characters.whereType<Secondary>()) {
+      usedRadicals["${s.core.phoneme.defaultLetter()}_core"] = s.core.path;
+      if (s.start != null) {
+        usedRadicals[s.getStartExtId()!] = s.getStartExtPath()!;
+      }
+      if (s.end != null) {
+        usedRadicals[s.getEndExtId()!] = s.getEndExtPath()!;
+      }
+    }
+    for (final t in characters.whereType<Tertiary>()) {
+      usedRadicals[t.top.name] = tertiaryExtensionPaths[t.top.name]!;
+      usedRadicals[t.bottom.name] = tertiaryExtensionPaths[t.bottom.name]!;
+      usedRadicals["valence_${t.valence.name}"] = t.valence.path();
+      usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path;
+    }
+    for (final q in characters.whereType<Quarternary>()) {
+      usedRadicals["quarternary_${q.top.name}"] = quarternaryTopPaths[q.top.name]!;
+      usedRadicals["quarternary_${q.bottom.name}"] = quarternaryBottomPaths[q.bottom.name]!;
+    }
+    if (characters.whereType<Quarternary>().isNotEmpty) {
+      usedRadicals["quarternary_core"] = corePath;
+    }
 
     List<String> charImages = [];
     double leftCoord = horizontalPadding;
@@ -145,50 +78,9 @@ class IthkuilSvg extends StatelessWidget {
     return SvgPicture.string(
       '''<svg width="$baseWidth" height="${unitHeight * 6}">
         <defs>
-          ${hasQuarternary ? '<path stroke="none" id="quarternary_core" d="$corePath" />' : ''}
-          ${usedSpecifications.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${e.path}" />',
-          ).join('')}
-          ${usedPrimaryTops.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedAAnchors.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedBAnchors.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedCAnchors.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedDAnchors.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedCores.map(
-            (e) =>
-                '<path stroke="none" id="${e.phoneme.romanizedLetters[0]}_core" d="${e.path}" />',
-          ).join('')}
-          ${usedExtensions.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedValences.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${e.getPath()}" />',
-          ).join('')}
-          ${usedTertiaryExtensions.map(
-            (e) => '<path stroke="none" id="${e.name}" d="${tertiaryExtensionPaths[e.name]}" />',
-          ).join('')}
-          ${usedQuarternaryTops.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedQuarternaryBottoms.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedLevels.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
-          ${usedPrimaryBottoms.map(
-            (e) => '<path stroke="none" id="${e.$1}" d="${e.$2}" />',
-          ).join('')}
+          ${usedRadicals.entries.map(
+            (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
+          ).join('\n')}
         </defs>
         <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
         <line x1="0" y1="${unitHeight * 1}" x2="400" y2="${unitHeight * 1}" stroke="red" />

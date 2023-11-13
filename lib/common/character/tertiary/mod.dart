@@ -33,9 +33,9 @@ class Tertiary with Character {
     final levelY = valenceY + unitHeight * 2 * (isAbsolute ? 1 : -1);
     return (
       '''
-        <use href="#${valence.name}" x="$valenceX" y="$valenceY" fill="$fillColor" />
         <use href="#${top.name}" x="$topX" y="$topY" fill="$fillColor" />
         <use href="#${bottom.name}" x="$bottomX" y="$bottomY" fill="$fillColor" />
+        <use href="#valence_${valence.name}" x="$valenceX" y="$valenceY" fill="$fillColor" />
         <use href="#level_${level.comparisonOperator.name}" x="$levelX" y="$levelY" fill="$fillColor" />
       ''',
       width,

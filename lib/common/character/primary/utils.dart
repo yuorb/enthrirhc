@@ -4,10 +4,10 @@ import 'package:enthrirch/common/character/mod.dart';
 import 'package:enthrirch/common/character/primary/mod.dart';
 
 (double, double) getPrimaryBoundary(Primary primary) {
-  final componentAPath = primary.componentA().getPath();
-  final componentBPath = primary.componentB().getPath();
-  final componentCPath = primary.componentC().getPath();
-  final componentDPath = primary.componentD().getPath();
+  final componentAPath = primary.componentA().path();
+  final componentBPath = primary.componentB().path();
+  final componentCPath = primary.componentC().path();
+  final componentDPath = primary.componentD().path();
   final (coreLeft, coreRight) = getCoreBoundary(primary.specification.path);
   final (componentALeft, componentARight) = getExtensionBoundary(componentAPath);
   final (componentBLeft, componentBRight) = getExtensionBoundary(componentBPath);

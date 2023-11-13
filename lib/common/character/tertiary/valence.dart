@@ -9,7 +9,7 @@ enum Valence {
   cng,
   pti;
 
-  String getPath() {
+  String path() {
     return switch (this) {
       Valence.mno => "M -20.00 -5.00 L -30.00 5.00 20.00 5.00 30.00 -5.00 -20.00 -5.00 Z",
       Valence.prl =>

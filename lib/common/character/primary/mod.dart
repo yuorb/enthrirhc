@@ -78,12 +78,12 @@ class Primary with Character {
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
     final (left, right) = getPrimaryBoundary(this);
     final width = right - left;
-    final topName = context.name;
-    final bottomName = formativeType.name();
-    final aAnchorName = '${essence.name}_${affiliation.name}';
-    final bAnchorName = '${perspective.name}_${extension.name}';
-    final cAnchorName = '${separability.name}_${similarity.name}';
-    final dAnchorName = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
+    final topId = context.name;
+    final bottomId = formativeType.id();
+    final aAnchorId = '${essence.name}_${affiliation.name}';
+    final bAnchorId = '${perspective.name}_${extension.name}';
+    final cAnchorId = '${separability.name}_${similarity.name}';
+    final dAnchorId = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final specificationX = baseX - left;
     final specificationY = baseY;
     final topX = specificationX + specification.centerX;
@@ -101,12 +101,12 @@ class Primary with Character {
     return (
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
-        <use href="#$topName" x="$topX" y="$topY" fill="$fillColor" />
-        <use href="#$bottomName" x="$bottomX" y="$bottomY" fill="$fillColor" />
-        <use href="#$aAnchorName" x="$aAnchorX" y="$aAnchorY" fill="$fillColor" />
-        <use href="#$bAnchorName" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
-        <use href="#$cAnchorName" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />
-        <use href="#$dAnchorName" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
+        <use href="#$topId" x="$topX" y="$topY" fill="$fillColor" />
+        <use href="#$bottomId" x="$bottomX" y="$bottomY" fill="$fillColor" />
+        <use href="#$aAnchorId" x="$aAnchorX" y="$aAnchorY" fill="$fillColor" />
+        <use href="#$bAnchorId" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
+        <use href="#$cAnchorId" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />
+        <use href="#$dAnchorId" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
       ''',
       width,
     );
