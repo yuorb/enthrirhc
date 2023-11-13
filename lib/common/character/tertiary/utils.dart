@@ -6,10 +6,8 @@ import 'package:enthrirch/common/utils.dart';
 
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
   final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.path());
-  final (topExtLeft, topExtRight) =
-      getHorizontalBoundary(tertiaryExtensionPaths[tertiary.top.name]!);
-  final (bottomExtLeft, bottomExtRight) =
-      getHorizontalBoundary(tertiaryExtensionPaths[tertiary.bottom.name]!);
+  final (topExtLeft, topExtRight) = getHorizontalBoundary(tertiary.top.path);
+  final (bottomExtLeft, bottomExtRight) = getHorizontalBoundary(tertiary.bottom.path);
 
   final left = [
     valenceLeft,
@@ -31,8 +29,7 @@ double getExtensionBottom(TertiaryExtension ext) {
   if (ext == TertiaryExtension.aspectCss) {
     return 7;
   }
-  final path = tertiaryExtensionPaths[ext.name]!;
-  final list = path.split(" ").map((v) => tryParseString(v)).toList();
+  final list = ext.path.split(" ").map((v) => tryParseString(v)).toList();
   double bottom = -double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {
     if (list[index] is String) continue;
@@ -51,8 +48,7 @@ double getExtensionTop(TertiaryExtension ext) {
   if (ext == TertiaryExtension.aspectPrs) {
     return -7;
   }
-  final path = tertiaryExtensionPaths[ext.name]!;
-  final list = path.split(" ").map((v) => tryParseString(v)).toList();
+  final list = ext.path.split(" ").map((v) => tryParseString(v)).toList();
   double top = double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {
     if (list[index] is String) continue;

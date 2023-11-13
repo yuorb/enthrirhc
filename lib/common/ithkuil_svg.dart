@@ -1,14 +1,11 @@
-import 'package:enthrirch/common/character/primary/mod.dart';
-import 'package:enthrirch/common/character/secondary/mod.dart';
-import 'package:enthrirch/common/character/tertiary/mod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'character/mod.dart';
+import 'character/primary/mod.dart';
+import 'character/secondary/mod.dart';
+import 'character/tertiary/mod.dart';
 import 'character/quarternary/mod.dart';
-import 'character/quarternary/top.dart';
-import 'character/quarternary/bottom.dart';
-import 'character/tertiary/extensions.dart';
 import 'utils.dart';
 
 const double unitHeight = 35;
@@ -33,7 +30,7 @@ class IthkuilSvg extends StatelessWidget {
     final Map<String, String> usedRadicals = {};
     for (final p in characters.whereType<Primary>()) {
       usedRadicals[p.specification.name] = p.specification.path;
-      usedRadicals[p.context.name] = p.context.path();
+      usedRadicals[p.context.name] = p.context.path;
       usedRadicals[p.formativeType.id()] = p.formativeType.path();
       usedRadicals['${p.essence.name}_${p.affiliation.name}'] = p.componentA().path();
       usedRadicals['${p.perspective.name}_${p.extension.name}'] = p.componentB().path();
@@ -51,14 +48,14 @@ class IthkuilSvg extends StatelessWidget {
       }
     }
     for (final t in characters.whereType<Tertiary>()) {
-      usedRadicals[t.top.name] = tertiaryExtensionPaths[t.top.name]!;
-      usedRadicals[t.bottom.name] = tertiaryExtensionPaths[t.bottom.name]!;
+      usedRadicals[t.top.name] = t.top.path;
+      usedRadicals[t.bottom.name] = t.bottom.path;
       usedRadicals["valence_${t.valence.name}"] = t.valence.path();
       usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path;
     }
     for (final q in characters.whereType<Quarternary>()) {
-      usedRadicals["quarternary_${q.top.name}"] = quarternaryTopPaths[q.top.name]!;
-      usedRadicals["quarternary_${q.bottom.name}"] = quarternaryBottomPaths[q.bottom.name]!;
+      usedRadicals["quarternary_${q.top.name}"] = q.top.path;
+      usedRadicals["quarternary_${q.bottom.name}"] = q.bottom.path;
     }
     if (characters.whereType<Quarternary>().isNotEmpty) {
       usedRadicals["quarternary_core"] = corePath;
