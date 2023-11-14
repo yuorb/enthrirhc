@@ -41,6 +41,10 @@ class ComponentB {
     required this.extension,
   });
 
+  String id() {
+    return '${perspective.name}_${extension.name}';
+  }
+
   String path() {
     return switch (perspective) {
       Perspective.m => switch (extension) {

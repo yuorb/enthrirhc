@@ -29,6 +29,10 @@ class ComponentC {
     required this.similarity,
   });
 
+  String id() {
+    return '${separability.name}_${similarity.name}';
+  }
+
   String path() {
     return switch (similarity) {
       Similarity.s => switch (separability) {

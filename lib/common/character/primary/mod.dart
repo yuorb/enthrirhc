@@ -80,33 +80,29 @@ class Primary with Character {
     final width = right - left;
     final topId = context.name;
     final bottomId = formativeType.id();
-    final aAnchorId = '${essence.name}_${affiliation.name}';
-    final bAnchorId = '${perspective.name}_${extension.name}';
-    final cAnchorId = '${separability.name}_${similarity.name}';
-    final dAnchorId = '${function.name}_${version.name}_${plexity.name}_${stem.name}';
     final specificationX = baseX - left;
     final specificationY = baseY;
     final topX = specificationX + specification.centerX;
     final topY = specificationY - unitHeight * 2;
     final bottomX = specificationX + specification.centerX;
     final bottomY = specificationY + unitHeight * 2;
-    final aAnchorX = specificationX + specification.centerX;
-    final aAnchorY = specificationY - 5;
-    final bAnchorX = specificationX + specification.bAnchor.x;
-    final bAnchorY = specificationY + specification.bAnchor.y;
-    final cAnchorX = specificationX + specification.centerX;
-    final cAnchorY = specificationY + 5;
-    final dAnchorX = specificationX + specification.dAnchor.x;
-    final dAnchorY = specificationY + specification.dAnchor.y;
+    final anchorAX = specificationX + specification.centerX;
+    final anchorAY = specificationY - 5;
+    final anchorBX = specificationX + specification.bAnchor.x;
+    final anchorBY = specificationY + specification.bAnchor.y;
+    final anchorCX = specificationX + specification.centerX;
+    final anchorCY = specificationY + 5;
+    final anchorDX = specificationX + specification.dAnchor.x;
+    final anchorDY = specificationY + specification.dAnchor.y;
     return (
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />
         <use href="#$topId" x="$topX" y="$topY" fill="$fillColor" />
         <use href="#$bottomId" x="$bottomX" y="$bottomY" fill="$fillColor" />
-        <use href="#$aAnchorId" x="$aAnchorX" y="$aAnchorY" fill="$fillColor" />
-        <use href="#$bAnchorId" x="$bAnchorX" y="$bAnchorY" fill="$fillColor" />
-        <use href="#$cAnchorId" x="$cAnchorX" y="$cAnchorY" fill="$fillColor" />
-        <use href="#$dAnchorId" x="$dAnchorX" y="$dAnchorY" fill="$fillColor" />
+        <use href="#${componentA().id()}" x="$anchorAX" y="$anchorAY" fill="$fillColor" />
+        <use href="#${componentB().id()}" x="$anchorBX" y="$anchorBY" fill="$fillColor" />
+        <use href="#${componentC().id()}" x="$anchorCX" y="$anchorCY" fill="$fillColor" />
+        <use href="#${componentD().id()}" x="$anchorDX" y="$anchorDY" fill="$fillColor" />
       ''',
       width,
     );

@@ -49,6 +49,10 @@ class ComponentD {
     required this.stem,
   });
 
+  String id() {
+    return '${function.name}_${version.name}_${plexity.name}_${stem.name}';
+  }
+
   String path() {
     return switch (function) {
       Function$.sta => switch (version) {

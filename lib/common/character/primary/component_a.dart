@@ -29,6 +29,10 @@ class ComponentA {
     required this.affiliation,
   });
 
+  String id() {
+    return '${essence.name}_${affiliation.name}';
+  }
+
   String path() {
     return switch (essence) {
       Essence.nrm => switch (affiliation) {

@@ -32,11 +32,10 @@ class IthkuilSvg extends StatelessWidget {
       usedRadicals[p.specification.name] = p.specification.path;
       usedRadicals[p.context.name] = p.context.path;
       usedRadicals[p.formativeType.id()] = p.formativeType.path();
-      usedRadicals['${p.essence.name}_${p.affiliation.name}'] = p.componentA().path();
-      usedRadicals['${p.perspective.name}_${p.extension.name}'] = p.componentB().path();
-      usedRadicals['${p.separability.name}_${p.similarity.name}'] = p.componentC().path();
-      usedRadicals['${p.function.name}_${p.version.name}_${p.plexity.name}_${p.stem.name}'] =
-          p.componentD().path();
+      usedRadicals[p.componentA().id()] = p.componentA().path();
+      usedRadicals[p.componentB().id()] = p.componentB().path();
+      usedRadicals[p.componentC().id()] = p.componentC().path();
+      usedRadicals[p.componentD().id()] = p.componentD().path();
     }
     for (final s in characters.whereType<Secondary>()) {
       usedRadicals["${s.core.phoneme.defaultLetter()}_core"] = s.core.path;
