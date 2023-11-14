@@ -1,14 +1,14 @@
+import 'package:enthrirch/common/character/primary/mod.dart';
+import 'package:enthrirch/common/character/secondary/mod.dart';
+import 'package:enthrirch/common/character/tertiary/mod.dart';
+import 'package:enthrirch/common/character/quarternary/mod.dart';
+import 'package:enthrirch/common/utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'character/mod.dart';
-import 'character/primary/mod.dart';
-import 'character/secondary/mod.dart';
-import 'character/tertiary/mod.dart';
-import 'character/quarternary/mod.dart';
-import 'utils.dart';
+import '../common/character/mod.dart';
 
-const double unitHeight = 35;
 const double verticalPadding = unitHeight;
 const double horizontalPadding = 20;
 const double horizontalGap = 10;
@@ -20,12 +20,20 @@ class IthkuilSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
+    // final String fillColor = "#e6e1e6";
+
+    return SvgPicture.string(
+      _generate(characters, fillColor),
+      width: MediaQuery.of(context).size.width - 32,
+    );
+  }
+
+  String _generate(List<Character> characters, String fillColor) {
     // 1 unit height = 35
     // core letter height = 2 unit height = 70
     // full letter height = 4 unit height = 140
     // full letter with padding height = 6 unit height = 210
-    final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
-    // final String fillColor = "#e6e1e6";
 
     final Map<String, String> usedRadicals = {};
     for (final p in characters.whereType<Primary>()) {
@@ -70,22 +78,19 @@ class IthkuilSvg extends StatelessWidget {
     }
     final baseWidth = leftCoord - horizontalGap + horizontalPadding;
 
-    return SvgPicture.string(
-      '''<svg width="$baseWidth" height="${unitHeight * 6}">
-        <defs>
-          ${usedRadicals.entries.map(
-            (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
-          ).join('\n')}
-        </defs>
-        <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
-        <line x1="0" y1="${unitHeight * 1}" x2="400" y2="${unitHeight * 1}" stroke="red" />
-        <line x1="0" y1="${unitHeight * 2}" x2="400" y2="${unitHeight * 2}" stroke="red" />
-        <line x1="0" y1="${unitHeight * 3}" x2="400" y2="${unitHeight * 3}" stroke="red" />
-        <line x1="0" y1="${unitHeight * 4}" x2="400" y2="${unitHeight * 4}" stroke="red" />
-        <line x1="0" y1="${unitHeight * 5}" x2="400" y2="${unitHeight * 5}" stroke="red" />
-        ${charImages.join('\n')}
-      </svg>''',
-      width: MediaQuery.of(context).size.width - 32,
-    );
+    return '''<svg width="$baseWidth" height="${unitHeight * 6}">
+      <defs>
+        ${usedRadicals.entries.map(
+              (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
+            ).join('\n')}
+      </defs>
+      <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
+      <line x1="0" y1="${unitHeight * 1}" x2="400" y2="${unitHeight * 1}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 2}" x2="400" y2="${unitHeight * 2}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 3}" x2="400" y2="${unitHeight * 3}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 4}" x2="400" y2="${unitHeight * 4}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 5}" x2="400" y2="${unitHeight * 5}" stroke="red" />
+      ${charImages.join('\n')}
+    </svg>''';
   }
 }

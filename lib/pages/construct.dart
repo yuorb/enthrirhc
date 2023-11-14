@@ -18,7 +18,7 @@ import 'package:enthrirch/common/character/primary/component_b.dart';
 import 'package:enthrirch/common/character/primary/component_c.dart';
 import 'package:enthrirch/common/character/primary/component_d.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
-import 'package:enthrirch/common/ithkuil_svg.dart';
+import 'package:enthrirch/components/ithkuil_svg.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});

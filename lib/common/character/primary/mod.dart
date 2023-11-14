@@ -7,7 +7,6 @@ import 'package:enthrirch/common/character/primary/formative.dart';
 import 'package:enthrirch/common/character/primary/specification.dart';
 import 'package:enthrirch/common/character/primary/top.dart';
 import 'package:enthrirch/common/character/primary/utils.dart';
-import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class Primary with Character {
   final Specification specification;

@@ -1,5 +1,7 @@
 import 'package:enthrirch/common/utils.dart';
 
+const double unitHeight = 35;
+
 mixin Character {
   (String, double) getSvg(double baseX, double baseY, String fillColor);
 }

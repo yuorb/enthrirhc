@@ -3,7 +3,6 @@ import 'package:enthrirch/common/character/tertiary/extensions.dart';
 import 'package:enthrirch/common/character/tertiary/level.dart';
 import 'package:enthrirch/common/character/tertiary/utils.dart';
 import 'package:enthrirch/common/character/tertiary/valence.dart';
-import 'package:enthrirch/common/ithkuil_svg.dart';
 
 class Tertiary with Character {
   final Valence valence;
