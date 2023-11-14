@@ -6,7 +6,7 @@ import 'package:enthrirch/pages/settings.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'common/store.dart';
+import 'utils/store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

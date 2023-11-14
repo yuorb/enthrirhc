@@ -1,13 +1,13 @@
-import 'package:enthrirch/common/character/primary/mod.dart';
-import 'package:enthrirch/common/character/secondary/mod.dart';
-import 'package:enthrirch/common/character/tertiary/mod.dart';
-import 'package:enthrirch/common/character/quarternary/mod.dart';
-import 'package:enthrirch/common/utils.dart';
+import 'package:enthrirch/utils/character/primary/mod.dart';
+import 'package:enthrirch/utils/character/secondary/mod.dart';
+import 'package:enthrirch/utils/character/tertiary/mod.dart';
+import 'package:enthrirch/utils/character/quarternary/mod.dart';
+import 'package:enthrirch/libs/mod.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../common/character/mod.dart';
+import '../utils/character/mod.dart';
 
 const double verticalPadding = unitHeight;
 const double horizontalPadding = 20;

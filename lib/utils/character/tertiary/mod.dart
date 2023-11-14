@@ -1,8 +1,8 @@
-import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/tertiary/extensions.dart';
-import 'package:enthrirch/common/character/tertiary/level.dart';
-import 'package:enthrirch/common/character/tertiary/utils.dart';
-import 'package:enthrirch/common/character/tertiary/valence.dart';
+import 'package:enthrirch/utils/character/mod.dart';
+import 'package:enthrirch/utils/character/tertiary/extensions.dart';
+import 'package:enthrirch/utils/character/tertiary/level.dart';
+import 'package:enthrirch/utils/character/tertiary/utils.dart';
+import 'package:enthrirch/utils/character/tertiary/valence.dart';
 
 class Tertiary with Character {
   final Valence valence;

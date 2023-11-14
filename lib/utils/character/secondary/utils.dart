@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:enthrirch/common/character/secondary/mod.dart';
-import 'package:enthrirch/common/utils.dart';
+import 'package:enthrirch/utils/character/secondary/mod.dart';
+import 'package:enthrirch/libs/mod.dart';
 
 import '../mod.dart';
 import 'core_letter.dart';

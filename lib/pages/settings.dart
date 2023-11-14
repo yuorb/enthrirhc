@@ -1,4 +1,4 @@
-import 'package:enthrirch/common/store.dart';
+import 'package:enthrirch/utils/store.dart';
 import 'package:enthrirch/components/list_group_title.dart';
 import 'package:flutter/material.dart';
 import 'package:enthrirch/pages/communities.dart';

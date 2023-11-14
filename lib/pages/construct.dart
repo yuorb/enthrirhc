@@ -1,23 +1,23 @@
-import 'package:enthrirch/common/character/primary/formative.dart';
-import 'package:enthrirch/common/character/primary/mod.dart';
-import 'package:enthrirch/common/character/primary/top.dart';
-import 'package:enthrirch/common/character/quarternary/bottom.dart';
-import 'package:enthrirch/common/character/quarternary/mod.dart';
-import 'package:enthrirch/common/character/quarternary/top.dart';
-import 'package:enthrirch/common/character/secondary/core_letter.dart';
-import 'package:enthrirch/common/character/secondary/ext_letter.dart';
-import 'package:enthrirch/common/character/secondary/mod.dart';
-import 'package:enthrirch/common/character/tertiary/extensions.dart';
-import 'package:enthrirch/common/character/tertiary/level.dart';
-import 'package:enthrirch/common/character/tertiary/mod.dart';
-import 'package:enthrirch/common/character/tertiary/valence.dart';
+import 'package:enthrirch/utils/character/primary/formative.dart';
+import 'package:enthrirch/utils/character/primary/mod.dart';
+import 'package:enthrirch/utils/character/primary/top.dart';
+import 'package:enthrirch/utils/character/quarternary/bottom.dart';
+import 'package:enthrirch/utils/character/quarternary/mod.dart';
+import 'package:enthrirch/utils/character/quarternary/top.dart';
+import 'package:enthrirch/utils/character/secondary/core_letter.dart';
+import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
+import 'package:enthrirch/utils/character/secondary/mod.dart';
+import 'package:enthrirch/utils/character/tertiary/extensions.dart';
+import 'package:enthrirch/utils/character/tertiary/level.dart';
+import 'package:enthrirch/utils/character/tertiary/mod.dart';
+import 'package:enthrirch/utils/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/common/character/primary/component_a.dart';
-import 'package:enthrirch/common/character/primary/component_b.dart';
-import 'package:enthrirch/common/character/primary/component_c.dart';
-import 'package:enthrirch/common/character/primary/component_d.dart';
-import 'package:enthrirch/common/character/primary/specification.dart';
+import 'package:enthrirch/utils/character/primary/component_a.dart';
+import 'package:enthrirch/utils/character/primary/component_b.dart';
+import 'package:enthrirch/utils/character/primary/component_c.dart';
+import 'package:enthrirch/utils/character/primary/component_d.dart';
+import 'package:enthrirch/utils/character/primary/specification.dart';
 import 'package:enthrirch/components/ithkuil_svg.dart';
 
 class ConstructPage extends StatefulWidget {

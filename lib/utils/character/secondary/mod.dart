@@ -1,7 +1,7 @@
-import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/secondary/core_letter.dart';
-import 'package:enthrirch/common/character/secondary/ext_letter.dart';
-import 'package:enthrirch/common/character/secondary/utils.dart';
+import 'package:enthrirch/utils/character/mod.dart';
+import 'package:enthrirch/utils/character/secondary/core_letter.dart';
+import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
+import 'package:enthrirch/utils/character/secondary/utils.dart';
 
 class Secondary with Character {
   final ExtLetter? start;

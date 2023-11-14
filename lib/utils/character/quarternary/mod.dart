@@ -1,8 +1,8 @@
-import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/quarternary/bottom.dart';
-import 'package:enthrirch/common/character/quarternary/top.dart';
-import 'package:enthrirch/common/character/quarternary/utils.dart';
-import 'package:enthrirch/common/utils.dart';
+import 'package:enthrirch/utils/character/mod.dart';
+import 'package:enthrirch/utils/character/quarternary/bottom.dart';
+import 'package:enthrirch/utils/character/quarternary/top.dart';
+import 'package:enthrirch/utils/character/quarternary/utils.dart';
+import 'package:enthrirch/libs/mod.dart';
 
 const String corePath = "M 10.00 -35.00 L 0.00 -25.00 0.00 35.00 10.00 25.00 10.00 -35.00 Z";
 

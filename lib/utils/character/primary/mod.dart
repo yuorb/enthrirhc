@@ -1,12 +1,12 @@
-import 'package:enthrirch/common/character/mod.dart';
-import 'package:enthrirch/common/character/primary/component_a.dart';
-import 'package:enthrirch/common/character/primary/component_b.dart';
-import 'package:enthrirch/common/character/primary/component_c.dart';
-import 'package:enthrirch/common/character/primary/component_d.dart';
-import 'package:enthrirch/common/character/primary/formative.dart';
-import 'package:enthrirch/common/character/primary/specification.dart';
-import 'package:enthrirch/common/character/primary/top.dart';
-import 'package:enthrirch/common/character/primary/utils.dart';
+import 'package:enthrirch/utils/character/mod.dart';
+import 'package:enthrirch/utils/character/primary/component_a.dart';
+import 'package:enthrirch/utils/character/primary/component_b.dart';
+import 'package:enthrirch/utils/character/primary/component_c.dart';
+import 'package:enthrirch/utils/character/primary/component_d.dart';
+import 'package:enthrirch/utils/character/primary/formative.dart';
+import 'package:enthrirch/utils/character/primary/specification.dart';
+import 'package:enthrirch/utils/character/primary/top.dart';
+import 'package:enthrirch/utils/character/primary/utils.dart';
 
 class Primary with Character {
   final Specification specification;

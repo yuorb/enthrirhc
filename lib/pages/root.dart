@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:enthrirch/common/types.dart';
+import 'package:enthrirch/utils/types.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 
-import '../common/store.dart';
+import '../utils/store.dart';
 
 class RootPage extends StatefulWidget {
   final Root root;
