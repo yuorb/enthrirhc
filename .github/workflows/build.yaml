@@ -14,12 +14,9 @@ jobs:
         with:
           flutter-version: '3.12.0'
           channel: 'beta'
-      - uses: hustcer/setup-nu@v3.8
-        with:
-          version: "0.86"
       - run: flutter pub get
       - run: dart run build_runner build
-      - run: nu build_svg.nu
+      - run: dart run vector_graphics_compiler --input-dir assets/icons --out-dir assets/icons_compiled
       - run: flutter build apk --split-per-abi
       - uses: actions/upload-artifact@v3
         with:
@@ -34,12 +31,9 @@ jobs:
         with:
           flutter-version: '3.12.0'
           channel: 'beta'
-      - uses: hustcer/setup-nu@v3.8
-        with:
-          version: "0.86"
       - run: flutter pub get
       - run: dart run build_runner build
-      - run: nu build_svg.nu
+      - run: dart run vector_graphics_compiler --input-dir assets/icons --out-dir assets/icons_compiled
       - run: flutter build web --base-href "/enthrirch/"
       - uses: JamesIves/github-pages-deploy-action@v4
         with:

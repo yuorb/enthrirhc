@@ -30,7 +30,7 @@ Before building, run:
 ```command
 flutter pub get
 dart run build_runner build
-nu build_svg.nu
+dart run vector_graphics_compiler --input-dir assets/icons --out-dir assets/icons_compiled
 ```
 
 ### Android
