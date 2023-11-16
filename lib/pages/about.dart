@@ -1,8 +1,11 @@
-import 'package:enthrirch/components/list_group_title.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vector_graphics/vector_graphics.dart';
+
+import 'package:enthrirch/components/list_group_title.dart';
 
 class License extends StatelessWidget {
   final String name;
@@ -52,8 +55,8 @@ class _AboutPageState extends State<AboutPage> {
       body: ListView(
         children: [
           const SizedBox(height: 18),
-          SvgPicture.asset(
-            "assets/logo.svg",
+          const SvgPicture(
+            AssetBytesLoader('assets/icons_compiled/logo.svg.vec'),
             width: 96,
           ),
           const SizedBox(height: 12),
@@ -101,8 +104,8 @@ class _AboutPageState extends State<AboutPage> {
           ),
           const ListGroupTitle("Source Code"),
           ListTile(
-            leading: SvgPicture.asset(
-              "assets/github.svg",
+            leading: SvgPicture(
+              const AssetBytesLoader('assets/icons_compiled/github.svg.vec'),
               colorFilter: ColorFilter.mode(
                 Theme.of(context).colorScheme.onSurfaceVariant,
                 BlendMode.srcIn,

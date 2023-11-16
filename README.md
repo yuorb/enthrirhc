@@ -30,6 +30,7 @@ Before building, run:
 ```command
 flutter pub get
 dart run build_runner build
+nu build_svg.nu
 ```
 
 ### Android

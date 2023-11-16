@@ -1,8 +1,11 @@
-import 'package:enthrirch/components/list_group_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vector_graphics/vector_graphics.dart';
+
+import 'package:enthrirch/components/list_group_title.dart';
 
 class CommunityTile extends StatelessWidget {
   const CommunityTile({required this.name, this.link, this.code, this.icon, super.key});
@@ -16,8 +19,8 @@ class CommunityTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: icon != null
-          ? SvgPicture.asset(
-              "assets/$icon.svg",
+          ? SvgPicture(
+              AssetBytesLoader('assets/icons_compiled/$icon.svg.vec'),
               colorFilter: ColorFilter.mode(
                 Theme.of(context).colorScheme.onSurfaceVariant,
                 BlendMode.srcIn,
