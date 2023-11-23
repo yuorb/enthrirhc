@@ -4,6 +4,7 @@ import 'package:enthrirch/utils/character/primary/top.dart';
 import 'package:enthrirch/utils/character/quarternary/bottom.dart';
 import 'package:enthrirch/utils/character/quarternary/mod.dart';
 import 'package:enthrirch/utils/character/quarternary/top.dart';
+import 'package:enthrirch/utils/character/secondary/affixes.dart';
 import 'package:enthrirch/utils/character/secondary/core_letter.dart';
 import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
 import 'package:enthrirch/utils/character/secondary/mod.dart';
@@ -51,10 +52,24 @@ class _ConstructPageState extends State<ConstructPage> {
               plexity: Plexity.um,
               stem: Stem.s1,
             ),
-            Secondary(
+            Root(
               start: ExtLetter.b,
               core: CoreLetter.placeholder,
               end: ExtLetter.c,
+            ),
+            CsVxAffixes(
+              start: ExtLetter.d,
+              core: CoreLetter.s,
+              end: ExtLetter.k,
+              degree: Degree.d1,
+              affixType: AffixType.type2,
+            ),
+            VxCsAffixes(
+              start: ExtLetter.d,
+              core: CoreLetter.s,
+              end: ExtLetter.k,
+              degree: Degree.d2,
+              affixType: AffixType.type3,
             ),
             Tertiary(
               valence: Valence.mno,

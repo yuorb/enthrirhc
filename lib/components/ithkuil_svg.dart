@@ -45,7 +45,8 @@ class IthkuilSvg extends StatelessWidget {
       usedRadicals[p.componentC().id()] = p.componentC().path();
       usedRadicals[p.componentD().id()] = p.componentD().path();
     }
-    for (final s in characters.whereType<Secondary>()) {
+    final secondaries = characters.whereType<Secondary>();
+    for (final s in secondaries) {
       usedRadicals["${s.core.phoneme.defaultLetter()}_core"] = s.core.path;
       if (s.start != null) {
         usedRadicals[s.getStartExtId()!] = s.getStartExtPath()!;
@@ -54,17 +55,26 @@ class IthkuilSvg extends StatelessWidget {
         usedRadicals[s.getEndExtId()!] = s.getEndExtPath()!;
       }
     }
+    for (final s in secondaries.whereType<CsVxAffixes>()) {
+      usedRadicals["degree_${s.degree.name}"] = s.degree.path;
+      usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
+    }
+    for (final s in secondaries.whereType<VxCsAffixes>()) {
+      usedRadicals["degree_${s.degree.name}"] = s.degree.path;
+      usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
+    }
     for (final t in characters.whereType<Tertiary>()) {
       usedRadicals[t.top.name] = t.top.path;
       usedRadicals[t.bottom.name] = t.bottom.path;
       usedRadicals["valence_${t.valence.name}"] = t.valence.path();
       usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path;
     }
-    for (final q in characters.whereType<Quarternary>()) {
+    final quarternaries = characters.whereType<Quarternary>();
+    for (final q in quarternaries) {
       usedRadicals["quarternary_${q.top.name}"] = q.top.path;
       usedRadicals["quarternary_${q.bottom.name}"] = q.bottom.path;
     }
-    if (characters.whereType<Quarternary>().isNotEmpty) {
+    if (quarternaries.isNotEmpty) {
       usedRadicals["quarternary_core"] = corePath;
     }
 
@@ -85,11 +95,11 @@ class IthkuilSvg extends StatelessWidget {
             ).join('\n')}
       </defs>
       <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
-      <line x1="0" y1="${unitHeight * 1}" x2="400" y2="${unitHeight * 1}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 2}" x2="400" y2="${unitHeight * 2}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 3}" x2="400" y2="${unitHeight * 3}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 4}" x2="400" y2="${unitHeight * 4}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 5}" x2="400" y2="${unitHeight * 5}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 1}" x2="600" y2="${unitHeight * 1}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 2}" x2="600" y2="${unitHeight * 2}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 3}" x2="600" y2="${unitHeight * 3}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 4}" x2="600" y2="${unitHeight * 4}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 5}" x2="600" y2="${unitHeight * 5}" stroke="red" />
       ${charImages.join('\n')}
     </svg>''';
   }
