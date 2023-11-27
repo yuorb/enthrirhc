@@ -7,9 +7,7 @@ import 'package:enthrirch/utils/character/secondary/core_letter.dart';
 import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
 import 'package:enthrirch/utils/character/secondary/mod.dart';
 import 'package:enthrirch/utils/character/tertiary/extensions.dart';
-import 'package:enthrirch/utils/character/tertiary/level.dart';
 import 'package:enthrirch/utils/character/tertiary/mod.dart';
-import 'package:enthrirch/utils/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/components/ithkuil_svg.dart';

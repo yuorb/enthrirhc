@@ -1,8 +1,8 @@
 import 'package:enthrirch/utils/character/mod.dart';
 import 'package:enthrirch/utils/character/tertiary/extensions.dart';
-import 'package:enthrirch/utils/character/tertiary/level.dart';
 import 'package:enthrirch/utils/character/tertiary/utils.dart';
-import 'package:enthrirch/utils/character/tertiary/valence.dart';
+
+import '../../ithkuil/terms/mod.dart';
 
 class Tertiary with Character {
   final Valence valence;

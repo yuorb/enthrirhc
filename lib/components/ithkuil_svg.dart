@@ -67,7 +67,7 @@ class IthkuilSvg extends StatelessWidget {
       usedRadicals[t.top.name] = t.top.path;
       usedRadicals[t.bottom.name] = t.bottom.path;
       usedRadicals["valence_${t.valence.name}"] = t.valence.path();
-      usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path;
+      usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path();
     }
     final quarternaries = characters.whereType<Quarternary>();
     for (final q in quarternaries) {
