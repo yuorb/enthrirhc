@@ -1,6 +1,5 @@
 import 'package:enthrirch/utils/character/primary/formative.dart';
 import 'package:enthrirch/utils/character/primary/mod.dart';
-import 'package:enthrirch/utils/character/primary/top.dart';
 import 'package:enthrirch/utils/character/quarternary/bottom.dart';
 import 'package:enthrirch/utils/character/quarternary/mod.dart';
 import 'package:enthrirch/utils/character/quarternary/top.dart';
@@ -14,12 +13,21 @@ import 'package:enthrirch/utils/character/tertiary/mod.dart';
 import 'package:enthrirch/utils/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/utils/character/primary/component_a.dart';
-import 'package:enthrirch/utils/character/primary/component_b.dart';
-import 'package:enthrirch/utils/character/primary/component_c.dart';
 import 'package:enthrirch/utils/character/primary/component_d.dart';
 import 'package:enthrirch/utils/character/primary/specification.dart';
 import 'package:enthrirch/components/ithkuil_svg.dart';
+
+import '../utils/ithkuil/terms/affiliation.dart';
+import '../utils/ithkuil/terms/context.dart';
+import '../utils/ithkuil/terms/degree.dart';
+import '../utils/ithkuil/terms/essence.dart';
+import '../utils/ithkuil/terms/extension.dart';
+import '../utils/ithkuil/terms/function.dart';
+import '../utils/ithkuil/terms/perspective.dart';
+import '../utils/ithkuil/terms/separability.dart';
+import '../utils/ithkuil/terms/similarity.dart';
+import '../utils/ithkuil/terms/stem.dart';
+import '../utils/ithkuil/terms/version.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});

@@ -5,8 +5,18 @@ import 'package:enthrirch/utils/character/primary/component_c.dart';
 import 'package:enthrirch/utils/character/primary/component_d.dart';
 import 'package:enthrirch/utils/character/primary/formative.dart';
 import 'package:enthrirch/utils/character/primary/specification.dart';
-import 'package:enthrirch/utils/character/primary/top.dart';
 import 'package:enthrirch/utils/character/primary/utils.dart';
+
+import '../../ithkuil/terms/affiliation.dart';
+import '../../ithkuil/terms/context.dart';
+import '../../ithkuil/terms/essence.dart';
+import '../../ithkuil/terms/extension.dart';
+import '../../ithkuil/terms/function.dart';
+import '../../ithkuil/terms/perspective.dart';
+import '../../ithkuil/terms/separability.dart';
+import '../../ithkuil/terms/similarity.dart';
+import '../../ithkuil/terms/stem.dart';
+import '../../ithkuil/terms/version.dart';
 
 class Primary with Character {
   final Specification specification;

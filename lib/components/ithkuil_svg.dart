@@ -38,7 +38,7 @@ class IthkuilSvg extends StatelessWidget {
     final Map<String, String> usedRadicals = {};
     for (final p in characters.whereType<Primary>()) {
       usedRadicals[p.specification.name] = p.specification.path;
-      usedRadicals[p.context.name] = p.context.path;
+      usedRadicals[p.context.name] = p.context.path();
       usedRadicals[p.formativeType.id()] = p.formativeType.path();
       usedRadicals[p.componentA().id()] = p.componentA().path();
       usedRadicals[p.componentB().id()] = p.componentB().path();
@@ -56,11 +56,11 @@ class IthkuilSvg extends StatelessWidget {
       }
     }
     for (final s in secondaries.whereType<CsVxAffixes>()) {
-      usedRadicals["degree_${s.degree.name}"] = s.degree.path;
+      usedRadicals["degree_${s.degree.name}"] = s.degree.path();
       usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
     }
     for (final s in secondaries.whereType<VxCsAffixes>()) {
-      usedRadicals["degree_${s.degree.name}"] = s.degree.path;
+      usedRadicals["degree_${s.degree.name}"] = s.degree.path();
       usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
     }
     for (final t in characters.whereType<Tertiary>()) {

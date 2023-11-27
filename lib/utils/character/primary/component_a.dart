@@ -1,24 +1,5 @@
-enum Essence {
-  /// The Normal Essence
-  nrm,
-
-  /// The Representative Essence
-  rpv;
-}
-
-enum Affiliation {
-  /// The Consolidative Affiliation
-  csl,
-
-  /// The Associative Affiliation
-  aso,
-
-  /// The Coalescent Affiliation
-  coa,
-
-  /// The Variative Affiliation
-  var$;
-}
+import '../../ithkuil/terms/affiliation.dart';
+import '../../ithkuil/terms/essence.dart';
 
 class ComponentA {
   final Essence essence;

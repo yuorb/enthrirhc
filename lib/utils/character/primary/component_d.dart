@@ -1,18 +1,6 @@
-enum Function$ {
-  /// The Stative Function
-  sta,
-
-  /// The Dynamic Function
-  dyn;
-}
-
-enum Version {
-  /// The Processual Version
-  prc,
-
-  /// The Completive Version
-  cpt;
-}
+import '../../ithkuil/terms/function.dart';
+import '../../ithkuil/terms/stem.dart';
+import '../../ithkuil/terms/version.dart';
 
 enum Plexity {
   /// The Uniplex/Multiplex Plexity
@@ -20,20 +8,6 @@ enum Plexity {
 
   /// The Duplex Plexity
   d;
-}
-
-enum Stem {
-  /// Stem 1
-  s1,
-
-  /// Stem 2
-  s2,
-
-  /// Stem 3
-  s3,
-
-  /// Stem 0
-  s0;
 }
 
 class ComponentD {

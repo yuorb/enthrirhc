@@ -3,6 +3,7 @@ import 'package:enthrirch/utils/character/secondary/core_letter.dart';
 import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
 import 'package:enthrirch/utils/character/secondary/utils.dart';
 
+import '../../ithkuil/terms/degree.dart';
 import 'affixes.dart';
 
 sealed class Secondary {

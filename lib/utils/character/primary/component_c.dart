@@ -1,24 +1,5 @@
-enum Separability {
-  /// The Separate Separability
-  s,
-
-  /// The Connected Separability
-  c,
-
-  /// The Fused Separability
-  f;
-}
-
-enum Similarity {
-  /// The Similar Similarity
-  s,
-
-  /// The Dissimilar Similarity
-  d,
-
-  /// The Fuzzy  Similarity
-  f;
-}
+import '../../ithkuil/terms/separability.dart';
+import '../../ithkuil/terms/similarity.dart';
 
 class ComponentC {
   final Separability separability;
