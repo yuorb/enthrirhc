@@ -1,14 +1,7 @@
 import '../../ithkuil/terms/function.dart';
+import '../../ithkuil/terms/plexity.dart';
 import '../../ithkuil/terms/stem.dart';
 import '../../ithkuil/terms/version.dart';
-
-enum Plexity {
-  /// The Uniplex/Multiplex Plexity
-  um,
-
-  /// The Duplex Plexity
-  d;
-}
 
 class ComponentD {
   final Function$ function;
@@ -31,7 +24,7 @@ class ComponentD {
     return switch (function) {
       Function$.sta => switch (version) {
           Version.prc => switch (plexity) {
-              Plexity.um => switch (stem) {
+              Plexity.u || Plexity.m => switch (stem) {
                   Stem.s1 => "",
                   Stem.s2 =>
                     "M -5.00 5.00 L 0.00 0.00 10.00 10.00 17.15 2.85 5.85 -8.35 -1.15 -1.25 Q -4.34 -2.99 -5.00 -1.25 -5.92 0.04 -5.00 5.00 Z",
@@ -52,7 +45,7 @@ class ComponentD {
                 },
             },
           Version.cpt => switch (plexity) {
-              Plexity.um => switch (stem) {
+              Plexity.u || Plexity.m => switch (stem) {
                   Stem.s1 =>
                     "M 0.00 0.00 Q -6.80 0.50 -7.50 7.50 L 7.50 22.50 15.00 15.00 0.00 0.00 Z",
                   Stem.s2 =>
@@ -76,7 +69,7 @@ class ComponentD {
         },
       Function$.dyn => switch (version) {
           Version.prc => switch (plexity) {
-              Plexity.um => switch (stem) {
+              Plexity.u || Plexity.m => switch (stem) {
                   Stem.s1 =>
                     "M -10.05 -2.47 Q -11.70 0.25 -7.45 7.53 L 7.55 7.53 17.55 -2.47 -2.45 -2.47 Q -9.46 -5.40 -10.05 -2.47 Z",
                   Stem.s2 =>
@@ -98,7 +91,7 @@ class ComponentD {
                 },
             },
           Version.cpt => switch (plexity) {
-              Plexity.um => switch (stem) {
+              Plexity.u || Plexity.m => switch (stem) {
                   Stem.s1 =>
                     "M -6.40 4.45 Q -3.12 2.62 0.00 0.00 L 7.50 -7.50 6.30 -8.70 -1.20 -1.20 Q -5.31 -2.89 -5.75 -1.55 -6.35 -0.10 -6.40 4.45 Z",
                   Stem.s2 =>

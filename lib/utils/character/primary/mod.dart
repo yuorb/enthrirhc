@@ -12,6 +12,7 @@ import '../../ithkuil/terms/essence.dart';
 import '../../ithkuil/terms/extension.dart';
 import '../../ithkuil/terms/function.dart';
 import '../../ithkuil/terms/perspective.dart';
+import '../../ithkuil/terms/plexity.dart';
 import '../../ithkuil/terms/separability.dart';
 import '../../ithkuil/terms/similarity.dart';
 import '../../ithkuil/terms/specification.dart';

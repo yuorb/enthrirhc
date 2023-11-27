@@ -13,7 +13,6 @@ import 'package:enthrirch/utils/character/tertiary/mod.dart';
 import 'package:enthrirch/utils/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/utils/character/primary/component_d.dart';
 import 'package:enthrirch/components/ithkuil_svg.dart';
 
 import '../utils/ithkuil/terms/affiliation.dart';
@@ -23,6 +22,7 @@ import '../utils/ithkuil/terms/essence.dart';
 import '../utils/ithkuil/terms/extension.dart';
 import '../utils/ithkuil/terms/function.dart';
 import '../utils/ithkuil/terms/perspective.dart';
+import '../utils/ithkuil/terms/plexity.dart';
 import '../utils/ithkuil/terms/separability.dart';
 import '../utils/ithkuil/terms/similarity.dart';
 import '../utils/ithkuil/terms/specification.dart';
@@ -57,7 +57,7 @@ class _ConstructPageState extends State<ConstructPage> {
               separability: Separability.s,
               function: Function$.sta,
               version: Version.prc,
-              plexity: Plexity.um,
+              plexity: Plexity.u,
               stem: Stem.s1,
             ),
             Root(
