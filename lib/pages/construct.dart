@@ -14,7 +14,6 @@ import 'package:enthrirch/utils/character/tertiary/valence.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/utils/character/primary/component_d.dart';
-import 'package:enthrirch/utils/character/primary/specification.dart';
 import 'package:enthrirch/components/ithkuil_svg.dart';
 
 import '../utils/ithkuil/terms/affiliation.dart';
@@ -26,6 +25,7 @@ import '../utils/ithkuil/terms/function.dart';
 import '../utils/ithkuil/terms/perspective.dart';
 import '../utils/ithkuil/terms/separability.dart';
 import '../utils/ithkuil/terms/similarity.dart';
+import '../utils/ithkuil/terms/specification.dart';
 import '../utils/ithkuil/terms/stem.dart';
 import '../utils/ithkuil/terms/version.dart';
 

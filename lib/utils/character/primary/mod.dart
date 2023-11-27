@@ -4,7 +4,6 @@ import 'package:enthrirch/utils/character/primary/component_b.dart';
 import 'package:enthrirch/utils/character/primary/component_c.dart';
 import 'package:enthrirch/utils/character/primary/component_d.dart';
 import 'package:enthrirch/utils/character/primary/formative.dart';
-import 'package:enthrirch/utils/character/primary/specification.dart';
 import 'package:enthrirch/utils/character/primary/utils.dart';
 
 import '../../ithkuil/terms/affiliation.dart';
@@ -15,6 +14,7 @@ import '../../ithkuil/terms/function.dart';
 import '../../ithkuil/terms/perspective.dart';
 import '../../ithkuil/terms/separability.dart';
 import '../../ithkuil/terms/similarity.dart';
+import '../../ithkuil/terms/specification.dart';
 import '../../ithkuil/terms/stem.dart';
 import '../../ithkuil/terms/version.dart';
 
@@ -86,23 +86,23 @@ class Primary with Character {
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
     final (left, right) = getPrimaryBoundary(this);
-    final width = right - left;
-    final topId = context.name;
-    final bottomId = formativeType.id();
-    final specificationX = baseX - left;
-    final specificationY = baseY;
-    final topX = specificationX + specification.centerX;
-    final topY = specificationY - unitHeight * 2;
-    final bottomX = specificationX + specification.centerX;
-    final bottomY = specificationY + unitHeight * 2;
-    final anchorAX = specificationX + specification.centerX;
-    final anchorAY = specificationY - 5;
-    final anchorBX = specificationX + specification.bAnchor.x;
-    final anchorBY = specificationY + specification.bAnchor.y;
-    final anchorCX = specificationX + specification.centerX;
-    final anchorCY = specificationY + 5;
-    final anchorDX = specificationX + specification.dAnchor.x;
-    final anchorDY = specificationY + specification.dAnchor.y;
+    final double width = right - left;
+    final String topId = context.name;
+    final String bottomId = formativeType.id();
+    final double specificationX = baseX - left;
+    final double specificationY = baseY;
+    final double topX = specificationX + specification.centerX();
+    final double topY = specificationY - unitHeight * 2;
+    final double bottomX = specificationX + specification.centerX();
+    final double bottomY = specificationY + unitHeight * 2;
+    final double anchorAX = specificationX + specification.centerX();
+    final double anchorAY = specificationY - 5;
+    final double anchorBX = specificationX + specification.bAnchor().x;
+    final double anchorBY = specificationY + specification.bAnchor().y;
+    final double anchorCX = specificationX + specification.centerX();
+    final double anchorCY = specificationY + 5;
+    final double anchorDX = specificationX + specification.dAnchor().x;
+    final double anchorDY = specificationY + specification.dAnchor().y;
     return (
       '''
         <use href="#${specification.name}" x="$specificationX" y="$specificationY" fill="$fillColor" />

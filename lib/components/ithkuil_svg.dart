@@ -37,7 +37,7 @@ class IthkuilSvg extends StatelessWidget {
 
     final Map<String, String> usedRadicals = {};
     for (final p in characters.whereType<Primary>()) {
-      usedRadicals[p.specification.name] = p.specification.path;
+      usedRadicals[p.specification.name] = p.specification.path();
       usedRadicals[p.context.name] = p.context.path();
       usedRadicals[p.formativeType.id()] = p.formativeType.path();
       usedRadicals[p.componentA().id()] = p.componentA().path();
