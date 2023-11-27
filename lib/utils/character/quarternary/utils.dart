@@ -5,8 +5,8 @@ import 'package:enthrirch/utils/character/quarternary/mod.dart';
 
 (double, double) getQuarternaryBoundary(Quarternary quarternary) {
   final (coreLeft, coreRight) = getCoreBoundary(corePath);
-  final (topExtLeft, topExtRight) = getExtensionBoundary(quarternary.top.path);
-  final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(quarternary.bottom.path);
+  final (topExtLeft, topExtRight) = getExtensionBoundary(quarternary.slotIX.topPath());
+  final (bottomExtLeft, bottomExtRight) = getExtensionBoundary(quarternary.slotIX.bottomPath());
 
   final left = [
     coreLeft,

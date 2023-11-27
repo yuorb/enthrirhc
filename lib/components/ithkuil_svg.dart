@@ -71,8 +71,8 @@ class IthkuilSvg extends StatelessWidget {
     }
     final quarternaries = characters.whereType<Quarternary>();
     for (final q in quarternaries) {
-      usedRadicals["quarternary_${q.top.name}"] = q.top.path;
-      usedRadicals["quarternary_${q.bottom.name}"] = q.bottom.path;
+      usedRadicals[q.slotIX.topId()] = q.slotIX.topPath();
+      usedRadicals[q.slotIX.bottomId()] = q.slotIX.bottomPath();
     }
     if (quarternaries.isNotEmpty) {
       usedRadicals["quarternary_core"] = corePath;

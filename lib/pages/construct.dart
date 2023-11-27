@@ -1,8 +1,7 @@
 import 'package:enthrirch/utils/character/primary/formative.dart';
 import 'package:enthrirch/utils/character/primary/mod.dart';
-import 'package:enthrirch/utils/character/quarternary/bottom.dart';
+import 'package:enthrirch/utils/character/quarternary/slot_ix.dart';
 import 'package:enthrirch/utils/character/quarternary/mod.dart';
-import 'package:enthrirch/utils/character/quarternary/top.dart';
 import 'package:enthrirch/utils/character/secondary/affixes.dart';
 import 'package:enthrirch/utils/character/secondary/core_letter.dart';
 import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
@@ -15,19 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'package:enthrirch/components/ithkuil_svg.dart';
 
-import '../utils/ithkuil/terms/affiliation.dart';
-import '../utils/ithkuil/terms/context.dart';
-import '../utils/ithkuil/terms/degree.dart';
-import '../utils/ithkuil/terms/essence.dart';
-import '../utils/ithkuil/terms/extension.dart';
-import '../utils/ithkuil/terms/function.dart';
-import '../utils/ithkuil/terms/perspective.dart';
-import '../utils/ithkuil/terms/plexity.dart';
-import '../utils/ithkuil/terms/separability.dart';
-import '../utils/ithkuil/terms/similarity.dart';
-import '../utils/ithkuil/terms/specification.dart';
-import '../utils/ithkuil/terms/stem.dart';
-import '../utils/ithkuil/terms/version.dart';
+import '../utils/ithkuil/terms/mod.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});
@@ -88,10 +75,10 @@ class _ConstructPageState extends State<ConstructPage> {
                 comparisonOperator: ComparisonOperator.equ,
               ),
             ),
-            Quarternary(
-              top: QuarternaryTop.spatioTemporal2,
-              bottom: QuarternaryBottom.ima,
-            ),
+            Quarternary(VerbSlotIX(
+              illocution: Illocution.dec,
+              validation: Validation.ima,
+            )),
           ],
         ),
       ],
