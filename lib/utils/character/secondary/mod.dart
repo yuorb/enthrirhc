@@ -153,7 +153,6 @@ class VxCsAffixes extends Secondary with Character {
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
-    // TODO 顺转乙字
     final secondaryBoundary = getSecondaryBoundary(this);
     final centerX = baseX + (secondaryBoundary.$2 - secondaryBoundary.$1) / 2;
     final centerY = baseY;
@@ -169,7 +168,6 @@ class VxCsAffixes extends Secondary with Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      
       <use href="#${core.phoneme.defaultLetter()}_core" x="$coreX" y="$coreY" transform="rotate(180 $centerX $centerY)" fill="$fillColor" />
       ${start != null ? '''<g transform="rotate(180 $centerX $centerY)">
         <use
@@ -180,7 +178,7 @@ class VxCsAffixes extends Secondary with Character {
           fill="$fillColor"
         />
       </g>''' : ''}
-      ${end != null ? ''' <g transform="rotate(180 $centerX $centerY)">
+      ${end != null ? '''<g transform="rotate(180 $centerX $centerY)">
         <use
           href="#${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}"
           x="$extEndX"
