@@ -4,10 +4,12 @@ import 'package:enthrirch/utils/character/tertiary/extensions.dart';
 import 'package:enthrirch/utils/character/tertiary/mod.dart';
 import 'package:enthrirch/libs/mod.dart';
 
+import '../../ithkuil/terms/aspect.dart';
+
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
   final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.path());
-  final (topExtLeft, topExtRight) = getHorizontalBoundary(tertiary.top.path);
-  final (bottomExtLeft, bottomExtRight) = getHorizontalBoundary(tertiary.bottom.path);
+  final (topExtLeft, topExtRight) = getHorizontalBoundary(tertiary.top.path());
+  final (bottomExtLeft, bottomExtRight) = getHorizontalBoundary(tertiary.bottom.path());
 
   final left = [
     valenceLeft,
@@ -26,10 +28,10 @@ import 'package:enthrirch/libs/mod.dart';
 
 double getExtensionBottom(TertiaryExtension ext) {
   // Ugly exceptions:
-  if (ext == TertiaryExtension.aspectCss) {
+  if (ext is AspectExtension && ext.aspect == Aspect.css) {
     return 7;
   }
-  final list = ext.path.split(" ").map((v) => tryParseString(v)).toList();
+  final list = ext.path().split(" ").map((v) => tryParseString(v)).toList();
   double bottom = -double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {
     if (list[index] is String) continue;
@@ -45,10 +47,10 @@ double getExtensionBottom(TertiaryExtension ext) {
 
 double getExtensionTop(TertiaryExtension ext) {
   // Ugly exceptions:
-  if (ext == TertiaryExtension.aspectPrs) {
+  if (ext is AspectExtension && ext.aspect == Aspect.prs) {
     return -7;
   }
-  final list = ext.path.split(" ").map((v) => tryParseString(v)).toList();
+  final list = ext.path().split(" ").map((v) => tryParseString(v)).toList();
   double top = double.infinity;
   for (int i = 1, index = 0; index < list.length; index++) {
     if (list[index] is String) continue;

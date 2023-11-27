@@ -66,8 +66,8 @@ class _ConstructPageState extends State<ConstructPage> {
             ),
             Tertiary(
               valence: Valence.mno,
-              top: TertiaryExtension.aspectAtp,
-              bottom: TertiaryExtension.aspectAtp,
+              top: AspectExtension(Aspect.atp),
+              bottom: AspectExtension(Aspect.atp),
               level: Level(
                 comparison: Comparison.absolute,
                 comparisonOperator: ComparisonOperator.equ,

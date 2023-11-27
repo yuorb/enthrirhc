@@ -64,8 +64,8 @@ class IthkuilSvg extends StatelessWidget {
       usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
     }
     for (final t in characters.whereType<Tertiary>()) {
-      usedRadicals[t.top.name] = t.top.path;
-      usedRadicals[t.bottom.name] = t.bottom.path;
+      usedRadicals[t.top.id()] = t.top.path();
+      usedRadicals[t.bottom.id()] = t.bottom.path();
       usedRadicals["valence_${t.valence.name}"] = t.valence.path();
       usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path();
     }
