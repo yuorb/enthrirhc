@@ -1,23 +1,23 @@
-import 'package:enthrirch/utils/character/mod.dart';
-import 'package:enthrirch/utils/character/primary/component_a.dart';
-import 'package:enthrirch/utils/character/primary/component_b.dart';
-import 'package:enthrirch/utils/character/primary/component_c.dart';
-import 'package:enthrirch/utils/character/primary/component_d.dart';
-import 'package:enthrirch/utils/character/primary/formative.dart';
-import 'package:enthrirch/utils/character/primary/utils.dart';
+import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/component_a.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/component_b.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/component_c.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/component_d.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/formative.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/utils.dart';
 
-import '../../ithkuil/terms/affiliation.dart';
-import '../../ithkuil/terms/context.dart';
-import '../../ithkuil/terms/essence.dart';
-import '../../ithkuil/terms/extension.dart';
-import '../../ithkuil/terms/function.dart';
-import '../../ithkuil/terms/perspective.dart';
-import '../../ithkuil/terms/plexity.dart';
-import '../../ithkuil/terms/separability.dart';
-import '../../ithkuil/terms/similarity.dart';
-import '../../ithkuil/terms/specification.dart';
-import '../../ithkuil/terms/stem.dart';
-import '../../ithkuil/terms/version.dart';
+import '../../terms/affiliation.dart';
+import '../../terms/context.dart';
+import '../../terms/essence.dart';
+import '../../terms/extension.dart';
+import '../../terms/function.dart';
+import '../../terms/perspective.dart';
+import '../../terms/plexity.dart';
+import '../../terms/separability.dart';
+import '../../terms/similarity.dart';
+import '../../terms/specification.dart';
+import '../../terms/stem.dart';
+import '../../terms/version.dart';
 
 class Primary with Character {
   final Specification specification;

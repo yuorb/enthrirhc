@@ -1,4 +1,4 @@
-import '../../ithkuil/terms/mod.dart';
+import '../../terms/mod.dart';
 
 sealed class SlotIX {
   const SlotIX();

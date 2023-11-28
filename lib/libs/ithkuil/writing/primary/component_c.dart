@@ -1,5 +1,5 @@
-import '../../ithkuil/terms/separability.dart';
-import '../../ithkuil/terms/similarity.dart';
+import '../../terms/separability.dart';
+import '../../terms/similarity.dart';
 
 class ComponentC {
   final Separability separability;

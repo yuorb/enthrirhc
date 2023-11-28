@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:enthrirch/utils/character/secondary/mod.dart';
-import 'package:enthrirch/libs/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/mod.dart';
+import 'package:enthrirch/libs/misc.dart';
 
-import '../mod.dart';
+import '../utils.dart';
 import 'core_letter.dart';
 
 (double, double) getSecondaryBoundary(Secondary secondary) {

@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:enthrirch/utils/character/mod.dart';
-import 'package:enthrirch/utils/character/quarternary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/quarternary/mod.dart';
+
+import '../utils.dart';
 
 (double, double) getQuarternaryBoundary(Quarternary quarternary) {
   final (coreLeft, coreRight) = getCoreBoundary(corePath);

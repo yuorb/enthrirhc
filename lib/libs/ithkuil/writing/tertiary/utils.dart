@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:enthrirch/utils/character/tertiary/extensions.dart';
-import 'package:enthrirch/utils/character/tertiary/mod.dart';
-import 'package:enthrirch/libs/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/tertiary/extensions.dart';
+import 'package:enthrirch/libs/ithkuil/writing/tertiary/mod.dart';
+import 'package:enthrirch/libs/misc.dart';
 
-import '../../ithkuil/terms/aspect.dart';
+import '../../terms/aspect.dart';
 
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
   final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.path());

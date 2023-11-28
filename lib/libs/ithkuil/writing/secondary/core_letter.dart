@@ -1,4 +1,4 @@
-import 'package:enthrirch/libs/mod.dart';
+import 'package:enthrirch/libs/misc.dart';
 
 import 'phoneme.dart';
 

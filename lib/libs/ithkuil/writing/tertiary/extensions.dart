@@ -1,4 +1,4 @@
-import 'package:enthrirch/utils/ithkuil/terms/mod.dart';
+import 'package:enthrirch/libs/ithkuil/terms/mod.dart';
 
 sealed class TertiaryExtension {
   const TertiaryExtension();

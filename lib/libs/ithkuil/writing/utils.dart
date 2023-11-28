@@ -1,10 +1,4 @@
-import 'package:enthrirch/libs/mod.dart';
-
-const double unitHeight = 35;
-
-mixin Character {
-  (String, double) getSvg(double baseX, double baseY, String fillColor);
-}
+import 'package:enthrirch/libs/misc.dart';
 
 (double, double) getCoreBoundary(String path) {
   final list = path.split(" ").map((v) => tryParseString(v)).toList();

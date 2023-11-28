@@ -1,9 +1,9 @@
-import 'package:enthrirch/utils/character/mod.dart';
-import 'package:enthrirch/utils/character/secondary/core_letter.dart';
-import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
-import 'package:enthrirch/utils/character/secondary/utils.dart';
+import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/utils.dart';
 
-import '../../ithkuil/terms/degree.dart';
+import '../../terms/degree.dart';
 import 'affixes.dart';
 
 sealed class Secondary {

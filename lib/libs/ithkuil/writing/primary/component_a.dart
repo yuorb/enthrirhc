@@ -1,5 +1,5 @@
-import '../../ithkuil/terms/affiliation.dart';
-import '../../ithkuil/terms/essence.dart';
+import '../../terms/affiliation.dart';
+import '../../terms/essence.dart';
 
 class ComponentA {
   final Essence essence;

@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:enthrirch/utils/character/mod.dart';
-import 'package:enthrirch/utils/character/primary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/mod.dart';
+
+import '../utils.dart';
 
 (double, double) getPrimaryBoundary(Primary primary) {
   final componentAPath = primary.componentA().path();

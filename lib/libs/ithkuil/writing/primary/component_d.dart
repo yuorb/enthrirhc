@@ -1,7 +1,7 @@
-import '../../ithkuil/terms/function.dart';
-import '../../ithkuil/terms/plexity.dart';
-import '../../ithkuil/terms/stem.dart';
-import '../../ithkuil/terms/version.dart';
+import '../../terms/function.dart';
+import '../../terms/plexity.dart';
+import '../../terms/stem.dart';
+import '../../terms/version.dart';
 
 class ComponentD {
   final Function$ function;

@@ -1,18 +1,18 @@
-import 'package:enthrirch/utils/character/primary/formative.dart';
-import 'package:enthrirch/utils/character/primary/mod.dart';
-import 'package:enthrirch/utils/character/quarternary/slot_ix.dart';
-import 'package:enthrirch/utils/character/quarternary/mod.dart';
-import 'package:enthrirch/utils/character/secondary/affixes.dart';
-import 'package:enthrirch/utils/character/secondary/core_letter.dart';
-import 'package:enthrirch/utils/character/secondary/ext_letter.dart';
-import 'package:enthrirch/utils/character/secondary/mod.dart';
-import 'package:enthrirch/utils/character/tertiary/extensions.dart';
-import 'package:enthrirch/utils/character/tertiary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/formative.dart';
+import 'package:enthrirch/libs/ithkuil/writing/primary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/quarternary/slot_ix.dart';
+import 'package:enthrirch/libs/ithkuil/writing/quarternary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/affixes.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirch/libs/ithkuil/writing/secondary/mod.dart';
+import 'package:enthrirch/libs/ithkuil/writing/tertiary/extensions.dart';
+import 'package:enthrirch/libs/ithkuil/writing/tertiary/mod.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirch/components/ithkuil_svg.dart';
 
-import '../utils/ithkuil/terms/mod.dart';
+import '../libs/ithkuil/terms/mod.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});

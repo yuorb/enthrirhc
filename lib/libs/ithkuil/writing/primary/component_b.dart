@@ -1,5 +1,5 @@
-import '../../ithkuil/terms/extension.dart';
-import '../../ithkuil/terms/perspective.dart';
+import '../../terms/extension.dart';
+import '../../terms/perspective.dart';
 
 class ComponentB {
   final Perspective perspective;

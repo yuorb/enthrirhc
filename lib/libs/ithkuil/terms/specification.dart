@@ -1,4 +1,4 @@
-import '../../../libs/mod.dart';
+import '../../misc.dart';
 
 enum Specification {
   /// Basic Specification
