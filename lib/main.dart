@@ -1,8 +1,10 @@
+import 'package:enthrirch/libs/ithkuil/misc.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
 import 'package:enthrirch/pages/construct.dart';
 import 'package:enthrirch/pages/search.dart';
 import 'package:enthrirch/pages/settings.dart';
+import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -87,6 +89,7 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentPageIndex = 0;
+  final ConstructPageRoots _constructPageRoots = ConstructPageRoots();
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +97,53 @@ class _RootPageState extends State<RootPage> {
       body: SafeArea(
         child: [
           const SearchPage(),
-          const ConstructPage(),
+          ChangeNotifierProvider<ConstructPageRoots>.value(
+            value: _constructPageRoots,
+            child: const ConstructPage(),
+          ),
           const SettingsPage(),
         ][_currentPageIndex],
       ),
+      floatingActionButton: _currentPageIndex == 1
+          ? FloatingActionButton(
+              onPressed: () async {
+                final root = await prompt(context, title: const Text("Please enter the root"));
+                if (root != null) {
+                  if (validateRoot(root)) {
+                    _constructPageRoots.push("-${root.toUpperCase()}-");
+                  } else {
+                    if (!context.mounted) return;
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                        title: const Text("Error"),
+                        content: const Text("Invalid root."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all(
+                                Theme.of(context).colorScheme.errorContainer,
+                              ),
+                            ),
+                            child: Text(
+                              "Ok",
+                              style: TextStyle(color: Theme.of(context).colorScheme.error),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+                }
+              },
+              heroTag: null,
+              child: const Icon(Icons.add),
+            )
+          : null,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPageIndex,
         destinations: const [

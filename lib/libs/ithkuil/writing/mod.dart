@@ -13,7 +13,7 @@ const double verticalPadding = unitHeight;
 const double horizontalPadding = 20;
 const double horizontalGap = 10;
 
-String ithkuilWriting(List<Character> characters, String fillColor) {
+String ithkuilWriting(List<Character> characters, String fillColor, String staffColor) {
   // 1 unit height = 35
   // core letter height = 2 unit height = 70
   // full letter height = 4 unit height = 140
@@ -78,12 +78,13 @@ String ithkuilWriting(List<Character> characters, String fillColor) {
             (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
           ).join('\n')}
       </defs>
-      <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: transparent" />
-      <line x1="0" y1="${unitHeight * 1}" x2="600" y2="${unitHeight * 1}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 2}" x2="600" y2="${unitHeight * 2}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 3}" x2="600" y2="${unitHeight * 3}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 4}" x2="600" y2="${unitHeight * 4}" stroke="red" />
-      <line x1="0" y1="${unitHeight * 5}" x2="600" y2="${unitHeight * 5}" stroke="red" />
+      <line x1="0" y1="${unitHeight * 1}" x2="600" y2="${unitHeight * 1}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 2}" x2="600" y2="${unitHeight * 2}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 3}" x2="600" y2="${unitHeight * 3}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 4}" x2="600" y2="${unitHeight * 4}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 5}" x2="600" y2="${unitHeight * 5}" stroke="$staffColor" />
       ${charImages.join('\n')}
     </svg>''';
+
+  // <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: red" />
 }

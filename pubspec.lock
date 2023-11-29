@@ -539,6 +539,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
+  prompt_dialog:
+    dependency: "direct main"
+    description:
+      name: prompt_dialog
+      sha256: a35678e095b6b07ec2fd4e2e4a92c000f9b2fae40c5ad706d1928bf1f7c9b758
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.13"
   provider:
     dependency: "direct main"
     description:
