@@ -1,11 +1,4 @@
-enum Relation {
-  noun(''),
-  unframedVerb('M -7.50 0.00 L 0.00 7.50 7.50 0.00 0.00 -7.50 -7.50 0.00 Z'),
-  framedVerb('M 10.00 5.00 L 20.00 -5.00 -10.00 -5.00 -20.00 5.00 10.00 5.00 Z');
-
-  final String path;
-  const Relation(this.path);
-}
+import '../../terms/relation.dart';
 
 enum Concatenation {
   type1('M 5.00 -17.50 L -5.00 -7.50 -5.00 17.50 5.00 7.50 5.00 -17.50 Z'),
@@ -20,16 +13,16 @@ sealed class FormativeType {
 
   String id() {
     return switch (this) {
-      Standalone(relation: final relation) => "relation_${relation.name}",
-      Parent(relation: final relation) => "relation_${relation.name}",
+      Standalone(relation: final relation) => relation.id(),
+      Parent(relation: final relation) => relation.id(),
       Concatenated(concatenation: final concatenation) => "concatenation_${concatenation.name}",
     };
   }
 
   String path() {
     return switch (this) {
-      Standalone(relation: final relation) => relation.path,
-      Parent(relation: final relation) => relation.path,
+      Standalone(relation: final relation) => relation.path(),
+      Parent(relation: final relation) => relation.path(),
       Concatenated(concatenation: final concatenation) => concatenation.path,
     };
   }
