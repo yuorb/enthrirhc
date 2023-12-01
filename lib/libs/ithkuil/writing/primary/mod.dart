@@ -3,21 +3,9 @@ import 'package:enthrirch/libs/ithkuil/writing/primary/component_a.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/component_b.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/component_c.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/component_d.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/formative.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/utils.dart';
 
-import '../../terms/affiliation.dart';
-import '../../terms/context.dart';
-import '../../terms/essence.dart';
-import '../../terms/extension.dart';
-import '../../terms/function.dart';
-import '../../terms/perspective.dart';
-import '../../terms/plexity.dart';
-import '../../terms/separability.dart';
-import '../../terms/similarity.dart';
-import '../../terms/specification.dart';
-import '../../terms/stem.dart';
-import '../../terms/version.dart';
+import '../../terms/mod.dart';
 
 class Primary with Character {
   final Specification specification;

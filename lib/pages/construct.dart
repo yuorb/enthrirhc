@@ -1,4 +1,3 @@
-import 'package:enthrirch/libs/ithkuil/writing/primary/formative.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/mod.dart';
 import 'package:enthrirch/libs/ithkuil/writing/quarternary/slot_ix.dart';
 import 'package:enthrirch/libs/ithkuil/writing/quarternary/mod.dart';
@@ -53,7 +52,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                 Primary(
                   specification: Specification.cte,
                   context: Context.rps,
-                  formativeType: Concatenated(Concatenation.type2),
+                  formativeType: Concatenated(concatenation: Concatenation.type2, format: Case.abl),
                   essence: Essence.rpv,
                   affiliation: Affiliation.csl,
                   perspective: Perspective.m,
