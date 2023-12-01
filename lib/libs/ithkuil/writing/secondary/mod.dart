@@ -3,8 +3,8 @@ import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
 import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
 import 'package:enthrirch/libs/ithkuil/writing/secondary/utils.dart';
 
+import '../../terms/affix_type.dart';
 import '../../terms/degree.dart';
-import 'affixes.dart';
 
 sealed class Secondary {
   final ExtLetter? start;

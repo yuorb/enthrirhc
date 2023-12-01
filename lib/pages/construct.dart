@@ -2,7 +2,6 @@ import 'package:enthrirch/libs/ithkuil/writing/primary/formative.dart';
 import 'package:enthrirch/libs/ithkuil/writing/primary/mod.dart';
 import 'package:enthrirch/libs/ithkuil/writing/quarternary/slot_ix.dart';
 import 'package:enthrirch/libs/ithkuil/writing/quarternary/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/affixes.dart';
 import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
 import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
 import 'package:enthrirch/libs/ithkuil/writing/secondary/mod.dart';

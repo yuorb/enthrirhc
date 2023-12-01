@@ -15,8 +15,8 @@ enum Concatenation {
   const Concatenation(this.path);
 }
 
-sealed class Formative {
-  const Formative();
+sealed class FormativeType {
+  const FormativeType();
 
   String id() {
     return switch (this) {
@@ -35,17 +35,17 @@ sealed class Formative {
   }
 }
 
-class Standalone extends Formative {
+class Standalone extends FormativeType {
   final Relation relation;
   const Standalone(this.relation);
 }
 
-class Parent extends Formative {
+class Parent extends FormativeType {
   final Relation relation;
   const Parent(this.relation);
 }
 
-class Concatenated extends Formative {
+class Concatenated extends FormativeType {
   final Concatenation concatenation;
   const Concatenated(this.concatenation);
 }

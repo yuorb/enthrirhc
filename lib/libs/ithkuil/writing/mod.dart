@@ -41,11 +41,11 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
   }
   for (final s in secondaries.whereType<CsVxAffixes>()) {
     usedRadicals["degree_${s.degree.name}"] = s.degree.path();
-    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
+    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path();
   }
   for (final s in secondaries.whereType<VxCsAffixes>()) {
     usedRadicals["degree_${s.degree.name}"] = s.degree.path();
-    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path;
+    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path();
   }
   for (final t in characters.whereType<Tertiary>()) {
     usedRadicals[t.top.id()] = t.top.path();

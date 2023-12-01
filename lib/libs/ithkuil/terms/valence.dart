@@ -9,9 +9,9 @@ enum Valence {
   cng,
   pti;
 
-  String romanize(bool tryShortCut) {
+  String romanize(bool omitOptionalAffixes) {
     return switch (this) {
-      mno => tryShortCut ? '' : 'a',
+      mno => omitOptionalAffixes ? '' : 'a',
       prl => 'ä',
       cro => 'e',
       rcp => 'i',

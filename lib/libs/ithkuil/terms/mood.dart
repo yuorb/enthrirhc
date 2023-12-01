@@ -6,10 +6,10 @@ enum Mood {
   cou,
   hyp;
 
-  String romanize(bool tryShortCut, bool isPattern1) {
+  String romanize(bool omitOptionalAffixes, bool isPattern1) {
     return isPattern1
         ? switch (this) {
-            fac => tryShortCut ? '' : 'a',
+            fac => omitOptionalAffixes ? '' : 'a',
             sub => 'hl',
             asm => 'hr',
             spc => 'hm',

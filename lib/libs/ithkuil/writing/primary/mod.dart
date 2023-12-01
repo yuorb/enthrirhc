@@ -22,7 +22,7 @@ import '../../terms/version.dart';
 class Primary with Character {
   final Specification specification;
   final Context context;
-  final Formative formativeType;
+  final FormativeType formativeType;
   // Properties for A Anchor
   final Essence essence;
   final Affiliation affiliation;

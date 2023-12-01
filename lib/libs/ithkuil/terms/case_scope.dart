@@ -6,10 +6,10 @@ enum CaseScope {
   ccp,
   ccv;
 
-  String romanize(bool tryShortCut, bool isPattern1) {
+  String romanize(bool omitOptionalAffixes, bool isPattern1) {
     return isPattern1
         ? switch (this) {
-            ccn => tryShortCut ? '' : 'a',
+            ccn => omitOptionalAffixes ? '' : 'a',
             cca => 'hl',
             ccs => 'hr',
             ccq => 'hm',

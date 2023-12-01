@@ -1,4 +1,5 @@
 export 'affiliation.dart';
+export 'affix_type.dart';
 export 'aspect.dart';
 export 'case_scope.dart';
 export 'case.dart';
