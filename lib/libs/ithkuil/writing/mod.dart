@@ -1,3 +1,5 @@
+import '../terms/mod.dart';
+
 import 'primary/mod.dart';
 import 'quarternary/mod.dart';
 import 'secondary/mod.dart';
@@ -55,8 +57,17 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
   }
   final quarternaries = characters.whereType<Quarternary>();
   for (final q in quarternaries) {
-    usedRadicals[q.slotIX.topId()] = q.slotIX.topPath();
-    usedRadicals[q.slotIX.bottomId()] = q.slotIX.bottomPath();
+    switch (q.relation) {
+      case Noun noun:
+        usedRadicals[noun.case$.topId()] = noun.case$.topPath();
+        usedRadicals[noun.case$.bottomId()] = noun.case$.bottomPath();
+      case FramedVerb verb:
+        usedRadicals["illocution_${verb.illocution.name}"] = verb.illocution.path();
+        usedRadicals["validation_${verb.validation.name}"] = verb.validation.path();
+      case UnframedVerb verb:
+        usedRadicals["illocution_${verb.illocution.name}"] = verb.illocution.path();
+        usedRadicals["validation_${verb.validation.name}"] = verb.validation.path();
+    }
   }
   if (quarternaries.isNotEmpty) {
     usedRadicals["quarternary_core"] = corePath;

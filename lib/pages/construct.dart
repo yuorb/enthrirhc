@@ -1,5 +1,4 @@
 import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/quarternary/slot_ix.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/quarternary/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
@@ -92,7 +91,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     comparisonOperator: ComparisonOperator.equ,
                   ),
                 ),
-                Quarternary(VerbSlotIX(
+                Quarternary(UnframedVerb(
                   illocution: Illocution.dec,
                   validation: Validation.ima,
                 )),

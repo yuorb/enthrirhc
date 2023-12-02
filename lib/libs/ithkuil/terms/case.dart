@@ -149,6 +149,11 @@ enum Case {
     };
   }
 
+  /// ID for Quarternary top
+  String topId() {
+    return "case_${name}_top";
+  }
+
   /// Path for Quarternary top
   String topPath() {
     return switch (this) {
@@ -220,6 +225,11 @@ enum Case {
       plm =>
         "M 0.00 0.00 L -15.05 0.00 -25.05 10.00 -7.60 10.00 0.00 2.40 -0.05 7.45 Q 4.55 1.15 9.95 3.45 L 9.95 -10.00 0.00 0.00 Z",
     };
+  }
+
+  /// ID for Quarternary bottom
+  String bottomId() {
+    return "case_${name}_bottom";
   }
 
   /// Path for Quarternary bottom
