@@ -1,7 +1,7 @@
 # Enţrirç
 
-Enţrirç (New Ithkuil word for "an utility set", pronounced `/enθɾiɾç/`, like
-"enthrirch") is a tool that aims to make it easier to learn the New Ithkuil.
+Enţrirç (New Ithkuil word for "an utility set", pronounced `/enθɾiɾç/`, also written as
+"enthrirhs") is a tool that aims to make it easier to learn the New Ithkuil.
 
 ## Supported Platforms
 
@@ -16,11 +16,11 @@ Enţrirç (New Ithkuil word for "an utility set", pronounced `/enθɾiɾç/`, li
 
 > **Note**
 >
-> For Linux & Windows users: Use [Web version](https://yuorb.github.io/enthrirch/) instead. This project offers the source code for Windows & Linux, so you can also build this project yourself manually.
+> For Linux & Windows users: Use [Web version](https://yuorb.github.io/enthrirhs/) instead. This project offers the source code for Windows & Linux, so you can also build this project yourself manually.
 >
-> For macOS users: Use [Web version](https://yuorb.github.io/enthrirch/) instead. This project does not offer the source code for macOS.
+> For macOS users: Use [Web version](https://yuorb.github.io/enthrirhs/) instead. This project does not offer the source code for macOS.
 >
-> For iOS users: Open [Enţrirç](https://yuorb.github.io/enthrirch/) in Safari
+> For iOS users: Open [Enţrirç](https://yuorb.github.io/enthrirhs/) in Safari
 > and install it as a PWA instead.
 
 ## Build

@@ -1,14 +1,14 @@
-import 'package:enthrirch/libs/ithkuil/writing/primary/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/quarternary/slot_ix.dart';
-import 'package:enthrirch/libs/ithkuil/writing/quarternary/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/tertiary/extensions.dart';
-import 'package:enthrirch/libs/ithkuil/writing/tertiary/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/quarternary/slot_ix.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/quarternary/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/tertiary/mod.dart';
 import 'package:flutter/material.dart';
 
-import 'package:enthrirch/components/ithkuil_svg.dart';
+import 'package:enthrirhs/components/ithkuil_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../components/list_group_title.dart';

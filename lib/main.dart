@@ -1,9 +1,9 @@
-import 'package:enthrirch/libs/ithkuil/misc.dart';
+import 'package:enthrirhs/libs/ithkuil/misc.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
-import 'package:enthrirch/pages/construct.dart';
-import 'package:enthrirch/pages/search.dart';
-import 'package:enthrirch/pages/settings.dart';
+import 'package:enthrirhs/pages/construct.dart';
+import 'package:enthrirhs/pages/search.dart';
+import 'package:enthrirhs/pages/settings.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

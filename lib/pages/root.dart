@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:enthrirch/utils/types.dart';
+import 'package:enthrirhs/utils/types.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';

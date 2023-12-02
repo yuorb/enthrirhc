@@ -1,7 +1,7 @@
-import 'package:enthrirch/utils/store.dart';
-import 'package:enthrirch/components/list_group_title.dart';
+import 'package:enthrirhs/utils/store.dart';
+import 'package:enthrirhs/components/list_group_title.dart';
 import 'package:flutter/material.dart';
-import 'package:enthrirch/pages/communities.dart';
+import 'package:enthrirhs/pages/communities.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 

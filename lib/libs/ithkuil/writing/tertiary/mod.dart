@@ -1,6 +1,6 @@
-import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/tertiary/extensions.dart';
-import 'package:enthrirch/libs/ithkuil/writing/tertiary/utils.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/tertiary/utils.dart';
 
 import '../../terms/mod.dart';
 

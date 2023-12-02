@@ -1,7 +1,7 @@
-import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/quarternary/slot_ix.dart';
-import 'package:enthrirch/libs/ithkuil/writing/quarternary/utils.dart';
-import 'package:enthrirch/libs/misc.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/quarternary/slot_ix.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/quarternary/utils.dart';
+import 'package:enthrirhs/libs/misc.dart';
 
 const String corePath = "M 10.00 -35.00 L 0.00 -25.00 0.00 35.00 10.00 25.00 10.00 -35.00 Z";
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:enthrirch/database/shared.dart';
+import 'package:enthrirhs/database/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LexiconModel extends ChangeNotifier {

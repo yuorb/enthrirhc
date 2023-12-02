@@ -1,7 +1,7 @@
-import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/core_letter.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/ext_letter.dart';
-import 'package:enthrirch/libs/ithkuil/writing/secondary/utils.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/utils.dart';
 
 import '../../terms/affix_type.dart';
 import '../../terms/degree.dart';

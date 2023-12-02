@@ -1,4 +1,4 @@
-import 'package:enthrirch/libs/misc.dart';
+import 'package:enthrirhs/libs/misc.dart';
 
 (double, double) getCoreBoundary(String path) {
   final list = path.split(" ").map((v) => tryParseString(v)).toList();

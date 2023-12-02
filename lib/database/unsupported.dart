@@ -1,3 +1,3 @@
-import 'package:enthrirch/database/shared.dart';
+import 'package:enthrirhs/database/shared.dart';
 
 Database constructDb() => throw UnimplementedError();

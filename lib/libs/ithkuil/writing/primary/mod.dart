@@ -1,9 +1,9 @@
-import 'package:enthrirch/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/component_a.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/component_b.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/component_c.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/component_d.dart';
-import 'package:enthrirch/libs/ithkuil/writing/primary/utils.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/component_a.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/component_b.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/component_c.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/component_d.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/utils.dart';
 
 import '../../terms/mod.dart';
 
