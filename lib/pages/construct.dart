@@ -11,20 +11,40 @@ import 'package:enthrirhs/components/ithkuil_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../components/list_group_title.dart';
+import '../libs/ithkuil/mod.dart';
 import '../libs/ithkuil/terms/mod.dart';
 
 class ConstructPageRoots with ChangeNotifier {
-  List<String> roots = ["-BC-", "-DF-", "-GH-"];
+  List<Formative> formatives = [];
 
   ConstructPageRoots();
 
   void push(String root) {
-    roots.add(root);
+    formatives.add(Formative(
+      stem: Stem.s1,
+      root: root,
+      specification: Specification.bsc,
+      context: Context.exs,
+      function: Function$.sta,
+      formativeType: const Standalone(Noun(Case.thm)),
+      version: Version.prc,
+      affiliation: Affiliation.csl,
+      configuration: Configuration.from(Plexity.u, null, null)!,
+      extension: Extension.del,
+      perspective: Perspective.m,
+      essence: Essence.nrm,
+      csVxAffixes: [],
+      vxCsAffixes: [],
+      vnCn: const Pattern1(
+        vn: ValenceVn(Valence.mno),
+        cn: MoodCn(Mood.fac),
+      ),
+    ));
     notifyListeners();
   }
 
   void removeAt(int index) {
-    roots.removeAt(index);
+    formatives.removeAt(index);
     notifyListeners();
   }
 }
@@ -40,7 +60,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: context.watch<ConstructPageRoots>().roots.length,
+      length: context.watch<ConstructPageRoots>().formatives.length,
       child: Builder(
         builder: (context) => Column(
           children: [
@@ -104,19 +124,19 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
               isScrollable: true,
               tabs: context
                   .watch<ConstructPageRoots>()
-                  .roots
-                  .map((root) => Tab(child: Text(root)))
+                  .formatives
+                  .map((formative) => Tab(child: Text(formative.root)))
                   .toList(),
             ),
             Expanded(
               child: TabBarView(
-                children: context.watch<ConstructPageRoots>().roots.map((root) {
+                children: context.watch<ConstructPageRoots>().formatives.map((formative) {
                   return ListView(children: [
                     const ListGroupTitle("Definition"),
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Root"),
-                      subtitle: Text(root),
+                      subtitle: Text(formative.root),
                       onTap: () {},
                     ),
                     ListTile(
