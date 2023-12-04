@@ -91,10 +91,13 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     comparisonOperator: ComparisonOperator.equ,
                   ),
                 ),
-                Quarternary(UnframedVerb(
-                  illocution: Illocution.dec,
-                  validation: Validation.ima,
-                )),
+                Quarternary(
+                  relation: UnframedVerb(
+                    illocution: Illocution.dec,
+                    validation: Validation.ima,
+                  ),
+                  cn: MoodCn(Mood.sub),
+                ),
               ],
             ),
             TabBar(

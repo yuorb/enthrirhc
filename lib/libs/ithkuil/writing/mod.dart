@@ -68,6 +68,12 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
         usedRadicals["illocution_${verb.illocution.name}"] = verb.illocution.path();
         usedRadicals["validation_${verb.validation.name}"] = verb.validation.path();
     }
+    switch (q.cn) {
+      case MoodCn(mood: final mood):
+        usedRadicals[mood.id()] = mood.path();
+      case CaseScopeCn(caseScope: final caseScope):
+        usedRadicals[caseScope.id()] = caseScope.path();
+    }
   }
   if (quarternaries.isNotEmpty) {
     usedRadicals["quarternary_core"] = corePath;

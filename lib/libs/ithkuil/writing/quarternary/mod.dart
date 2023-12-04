@@ -11,6 +11,7 @@ const Coord coreBottomAnchor = Coord(10.00, 25.00);
 
 class Quarternary with Character {
   final Relation relation;
+  final Cn cn;
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
@@ -18,29 +19,43 @@ class Quarternary with Character {
     final width = right - left;
     final coreX = baseX - left;
     final coreY = baseY;
-    final topX = coreX + coreTopAnchor.x;
-    final topY = coreY + coreTopAnchor.y;
-    final bottomX = coreX + coreBottomAnchor.x;
-    final bottomY = coreY + coreBottomAnchor.y;
-    final topId = switch (relation) {
-      Noun noun => noun.case$.topId(),
-      FramedVerb verb => "illocution_${verb.illocution.name}",
-      UnframedVerb verb => "illocution_${verb.illocution.name}",
+    final startExtX = coreX + coreTopAnchor.x;
+    final startExtY = coreY + coreTopAnchor.y;
+    final endExtX = coreX + coreBottomAnchor.x;
+    final endExtY = coreY + coreBottomAnchor.y;
+
+    final String startExtId;
+    final String endExtId;
+    switch (relation) {
+      case Noun noun:
+        startExtId = noun.case$.topId();
+        endExtId = noun.case$.bottomId();
+      case FramedVerb verb:
+        startExtId = "illocution_${verb.illocution.name}";
+        endExtId = "validation_${verb.validation.name}";
+      case UnframedVerb verb:
+        startExtId = "illocution_${verb.illocution.name}";
+        endExtId = "validation_${verb.validation.name}";
+    }
+
+    final String cnId = switch (cn) {
+      MoodCn(mood: final mood) => mood.id(),
+      CaseScopeCn(caseScope: final caseScope) => caseScope.id(),
     };
-    final bottomId = switch (relation) {
-      Noun noun => noun.case$.bottomId(),
-      FramedVerb verb => "validation_${verb.validation.name}",
-      UnframedVerb verb => "validation_${verb.validation.name}",
-    };
+
     return (
       '''
         <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
-        <use href="#$topId" x="$topX" y="$topY" fill="$fillColor" />
-        <use href="#$bottomId" x="$bottomX" y="$bottomY" fill="$fillColor" />
+        <use href="#$startExtId" x="$startExtX" y="$startExtY" fill="$fillColor" />
+        <use href="#$endExtId" x="$endExtX" y="$endExtY" fill="$fillColor" />
+        <use href="#$cnId" x="$coreX" y="$coreY" fill="$fillColor" />
       ''',
       width,
     );
   }
 
-  const Quarternary(this.relation);
+  const Quarternary({
+    required this.relation,
+    required this.cn,
+  });
 }

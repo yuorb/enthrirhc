@@ -3,6 +3,7 @@ export 'affix_type.dart';
 export 'aspect.dart';
 export 'case_scope.dart';
 export 'case.dart';
+export 'cn.dart';
 export 'concatenation.dart';
 export 'configuration.dart';
 export 'context.dart';
