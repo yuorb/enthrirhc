@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:prompt_dialog/prompt_dialog.dart';
+import 'package:provider/provider.dart';
+
+import 'package:enthrirhs/components/ithkuil_svg.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/quarternary/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
@@ -6,56 +11,9 @@ import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/tertiary/mod.dart';
 import 'package:enthrirhs/libs/misc.dart';
-import 'package:flutter/material.dart';
-
-import 'package:enthrirhs/components/ithkuil_svg.dart';
-import 'package:prompt_dialog/prompt_dialog.dart';
-import 'package:provider/provider.dart';
-
-import '../components/list_group_title.dart';
-import '../libs/ithkuil/mod.dart';
-import '../libs/ithkuil/terms/mod.dart';
-
-class ConstructPageRoots with ChangeNotifier {
-  List<Formative> formatives = [];
-
-  ConstructPageRoots();
-
-  void push(Root root) {
-    // Check `root` validation
-    formatives.add(Formative(
-      stem: Stem.s1,
-      root: root,
-      specification: Specification.bsc,
-      context: Context.exs,
-      function: Function$.sta,
-      formativeType: const Standalone(Noun(Case.thm)),
-      version: Version.prc,
-      affiliation: Affiliation.csl,
-      configuration: Configuration.from(Plexity.u, null, null)!,
-      extension: Extension.del,
-      perspective: Perspective.m,
-      essence: Essence.nrm,
-      csVxAffixes: [],
-      vxCsAffixes: [],
-      vnCn: const Pattern1(
-        vn: ValenceVn(Valence.mno),
-        cn: MoodCn(Mood.fac),
-      ),
-    ));
-    notifyListeners();
-  }
-
-  void removeAt(int index) {
-    formatives.removeAt(index);
-    notifyListeners();
-  }
-
-  void updateFormative(int index, void Function(Formative) callback) {
-    callback(formatives[index]);
-    notifyListeners();
-  }
-}
+import '../../components/list_group_title.dart';
+import '../../libs/ithkuil/terms/mod.dart';
+import 'store.dart';
 
 class ConstructPage extends StatefulWidget {
   const ConstructPage({super.key});

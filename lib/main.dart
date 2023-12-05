@@ -1,7 +1,8 @@
 import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhs/pages/construct/store.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
-import 'package:enthrirhs/pages/construct.dart';
+import 'package:enthrirhs/pages/construct/mod.dart';
 import 'package:enthrirhs/pages/search.dart';
 import 'package:enthrirhs/pages/settings.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
