@@ -27,7 +27,7 @@ class Tertiary with Character {
     final double? topY = top != null ? (valenceY - 8 - getExtensionBottom(top!)) : null;
     final double bottomX = valenceX;
     final double? bottomY = bottom != null ? (valenceY + 8 - getExtensionTop(bottom!)) : null;
-    final double? levelX = valenceX;
+    final double? levelX = level != null ? valenceX : null;
     final bool? isAbsolute = level != null ? level!.comparison == Comparison.relative : null;
     final double? levelY =
         level != null ? (valenceY + unitHeight * 2 * (isAbsolute! ? 1 : -1)) : null;
