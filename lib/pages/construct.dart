@@ -5,6 +5,7 @@ import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/tertiary/mod.dart';
+import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
@@ -67,6 +68,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
           children: [
             AppBar(title: const Text("Construct")),
             const SizedBox(height: 16),
+            // TODO: Implement this component with dynamic formatives
             const IthkuilSvg(
               [
                 Primary(
@@ -123,6 +125,16 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   cn: MoodCn(Mood.sub),
                 ),
               ],
+            ),
+            Text(
+              context
+                  .watch<ConstructPageRoots>()
+                  .formatives
+                  // TODO: Implement arguments for `formative.romanize`
+                  .map((formative) => formative.romanize(false, true))
+                  .join(' ')
+                  .capitalize()
+                  .addPeriod(),
             ),
             TabBar(
               isScrollable: true,
