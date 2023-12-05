@@ -1,18 +1,19 @@
 import 'mod.dart';
 
 sealed class VnCn {
-  const VnCn();
+  final Cn cn;
+
+  const VnCn({required this.cn});
 
   String romanize(bool omitOptionalAffixes, String charPrecedingThis);
 }
 
 class Pattern1 extends VnCn {
   final VnPattern1 vn;
-  final Cn cn;
 
   const Pattern1({
     required this.vn,
-    required this.cn,
+    required super.cn,
   });
 
   @override
@@ -26,11 +27,10 @@ class Pattern1 extends VnCn {
 
 class Pattern2 extends VnCn {
   final Aspect vn;
-  final Cn cn;
 
   const Pattern2({
     required this.vn,
-    required this.cn,
+    required super.cn,
   });
 
   @override
