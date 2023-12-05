@@ -252,4 +252,39 @@ enum ExtLetter {
     required this.diag,
     required this.up,
   });
+
+  static ExtLetter from(Phoneme phoneme) {
+    return switch (phoneme) {
+      Phoneme.f => ExtLetter.f,
+      Phoneme.v => ExtLetter.v,
+      Phoneme.c => ExtLetter.c,
+      Phoneme.dz => ExtLetter.dz,
+      Phoneme.t => ExtLetter.t,
+      Phoneme.d => ExtLetter.d,
+      Phoneme.sh => ExtLetter.sh,
+      Phoneme.ch => ExtLetter.ch,
+      Phoneme.j => ExtLetter.j,
+      Phoneme.l => ExtLetter.l,
+      Phoneme.m => ExtLetter.m,
+      Phoneme.hs => ExtLetter.hs,
+      Phoneme.h => ExtLetter.h,
+      Phoneme.p => ExtLetter.p,
+      Phoneme.k => ExtLetter.k,
+      Phoneme.b => ExtLetter.b,
+      Phoneme.dh => ExtLetter.dh,
+      Phoneme.g => ExtLetter.g,
+      Phoneme.hl => ExtLetter.hl,
+      Phoneme.n => ExtLetter.n,
+      Phoneme.ng => ExtLetter.ng,
+      Phoneme.r => ExtLetter.r,
+      Phoneme.gr => ExtLetter.gr,
+      Phoneme.s => ExtLetter.s,
+      Phoneme.th => ExtLetter.th,
+      Phoneme.x => ExtLetter.x,
+      Phoneme.z => ExtLetter.z,
+      Phoneme.zh => ExtLetter.zh,
+      Phoneme.w => ExtLetter.w,
+      Phoneme.y => ExtLetter.y,
+    };
+  }
 }

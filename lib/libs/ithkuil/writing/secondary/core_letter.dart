@@ -261,4 +261,39 @@ enum CoreLetter {
       return "core_placeholder";
     }
   }
+
+  static CoreLetter? from(Phoneme phoneme) {
+    return switch (phoneme) {
+      Phoneme.f => CoreLetter.f,
+      Phoneme.v => CoreLetter.v,
+      Phoneme.c => CoreLetter.c,
+      Phoneme.dz => CoreLetter.dz,
+      Phoneme.t => CoreLetter.t,
+      Phoneme.d => CoreLetter.d,
+      Phoneme.sh => CoreLetter.sh,
+      Phoneme.ch => CoreLetter.ch,
+      Phoneme.j => CoreLetter.j,
+      Phoneme.l => CoreLetter.l,
+      Phoneme.m => CoreLetter.m,
+      Phoneme.hs => CoreLetter.hs,
+      Phoneme.h => CoreLetter.h,
+      Phoneme.p => CoreLetter.p,
+      Phoneme.k => CoreLetter.k,
+      Phoneme.b => CoreLetter.b,
+      Phoneme.dh => CoreLetter.dh,
+      Phoneme.g => CoreLetter.g,
+      Phoneme.hl => CoreLetter.hl,
+      Phoneme.n => CoreLetter.n,
+      Phoneme.ng => CoreLetter.ng,
+      Phoneme.r => CoreLetter.r,
+      Phoneme.gr => CoreLetter.gr,
+      Phoneme.s => CoreLetter.s,
+      Phoneme.th => CoreLetter.th,
+      Phoneme.x => CoreLetter.x,
+      Phoneme.z => CoreLetter.z,
+      Phoneme.zh => CoreLetter.zh,
+      Phoneme.w => null,
+      Phoneme.y => null,
+    };
+  }
 }

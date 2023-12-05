@@ -533,12 +533,7 @@ class Formative {
         plexity: configuration.plexity,
         stem: stem,
       ),
-      // TODO: Replace the temporary template with dynamic variables
-      const RootSecondary(
-        start: ExtLetter.b,
-        core: CoreLetter.placeholder,
-        end: ExtLetter.c,
-      ),
+      ...root.toRootSecondaries(),
       // TODO: Replace the temporary template with dynamic variables
       ...csVxAffixes.map(
         (affix) => const CsVxAffixes(
