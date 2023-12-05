@@ -1,6 +1,6 @@
 import 'package:enthrirhs/libs/misc.dart';
 
-import 'phoneme.dart';
+import '../../terms/mod.dart';
 
 enum AnchorType {
   up,

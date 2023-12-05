@@ -1,4 +1,4 @@
-import 'phoneme.dart';
+import '../../terms/mod.dart';
 
 enum ExtLetter {
   placeholder(
