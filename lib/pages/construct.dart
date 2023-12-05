@@ -181,12 +181,47 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                         }
                       },
                     ),
-                    // TODO: Implement this option.
-                    ListTile(
-                      leading: const Icon(Icons.library_books),
-                      title: const Text("Stem"),
-                      subtitle: const Text("Stem 1"),
-                      onTap: () {},
+                    PopupMenuButton<Stem>(
+                      initialValue: formative.stem,
+                      onSelected: (Stem stem) {
+                        context.read<ConstructPageRoots>().updateFormative(index, (f) {
+                          f.stem = stem;
+                        });
+                      },
+                      offset: const Offset(1, 0),
+                      itemBuilder: (BuildContext context) => const <PopupMenuEntry<Stem>>[
+                        PopupMenuItem(
+                          value: Stem.s1,
+                          child: Text('Stem 1'),
+                        ),
+                        PopupMenuItem(
+                          value: Stem.s2,
+                          child: Text('Stem 2'),
+                        ),
+                        PopupMenuItem(
+                          value: Stem.s3,
+                          child: Text('Stem 3'),
+                        ),
+                        PopupMenuItem(
+                          value: Stem.s0,
+                          child: Text('Stem 0'),
+                        ),
+                      ],
+                      child: ListTile(
+                        leading: const Icon(Icons.library_books),
+                        title: const Text("Stem"),
+                        subtitle: Text(
+                          switch (formative.stem) {
+                            Stem.s1 => 'Stem 1',
+                            Stem.s2 => 'Stem 2',
+                            Stem.s3 => 'Stem 3',
+                            Stem.s0 => 'Stem 0',
+                          },
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
                     ),
                     // TODO: Implement this option.
                     ListTile(

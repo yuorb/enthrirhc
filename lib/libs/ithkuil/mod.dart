@@ -10,7 +10,7 @@ import 'writing/tertiary/extensions.dart';
 import 'writing/tertiary/mod.dart';
 
 class Formative {
-  final Stem stem;
+  Stem stem;
   Root root;
   final Specification specification;
   final Function$ function;
