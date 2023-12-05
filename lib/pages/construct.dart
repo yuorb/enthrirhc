@@ -9,6 +9,7 @@ import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
+import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../components/list_group_title.dart';
@@ -47,6 +48,11 @@ class ConstructPageRoots with ChangeNotifier {
 
   void removeAt(int index) {
     formatives.removeAt(index);
+    notifyListeners();
+  }
+
+  void updateFormative(int index, void Function(Formative) callback) {
+    callback(formatives[index]);
     notifyListeners();
   }
 }
@@ -131,7 +137,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   .watch<ConstructPageRoots>()
                   .formatives
                   // TODO: Implement arguments for `formative.romanize`
-                  .map((formative) => formative.romanize(false, true))
+                  .map((formative) => formative.romanize(true, true))
                   .join(' ')
                   .capitalize()
                   .addPeriod(),
@@ -147,15 +153,33 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             ),
             Expanded(
               child: TabBarView(
-                children: context.watch<ConstructPageRoots>().formatives.map((formative) {
+                children: context.watch<ConstructPageRoots>().formatives.indexed.map((it) {
+                  final index = it.$1;
+                  final formative = it.$2;
                   return ListView(children: [
                     const ListGroupTitle("Definition"),
-                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Root"),
                       subtitle: Text("-${formative.root.toString().toUpperCase()}-"),
-                      onTap: () {},
+                      onTap: () async {
+                        final rootStr = await prompt(
+                          context,
+                          title: const Text("Please enter the new root"),
+                        );
+                        if (rootStr != null) {
+                          final root = Root.from(rootStr);
+                          if (root != null) {
+                            if (!context.mounted) return;
+                            context.read<ConstructPageRoots>().updateFormative(index, (f) {
+                              f.root = root;
+                            });
+                          } else {
+                            if (!context.mounted) return;
+                            await showErrorDialog(context, "Invalid new root.");
+                          }
+                        }
+                      },
                     ),
                     // TODO: Implement this option.
                     ListTile(

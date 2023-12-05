@@ -1,3 +1,4 @@
+import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
 import 'package:enthrirhs/pages/construct.dart';
@@ -114,30 +115,7 @@ class _RootPageState extends State<RootPage> {
                     _constructPageRoots.push(root);
                   } else {
                     if (!context.mounted) return;
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                        title: const Text("Error"),
-                        content: const Text("Invalid root."),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(
-                                Theme.of(context).colorScheme.errorContainer,
-                              ),
-                            ),
-                            child: Text(
-                              "Ok",
-                              style: TextStyle(color: Theme.of(context).colorScheme.error),
-                            ),
-                          )
-                        ],
-                      ),
-                    );
+                    await showErrorDialog(context, "Invalid root.");
                   }
                 }
               },

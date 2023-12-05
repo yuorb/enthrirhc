@@ -11,7 +11,7 @@ import 'writing/tertiary/mod.dart';
 
 class Formative {
   final Stem stem;
-  final Root root;
+  Root root;
   final Specification specification;
   final Function$ function;
   final Context context;
@@ -26,7 +26,7 @@ class Formative {
   final VnCn vnCn;
   final FormativeType formativeType;
 
-  const Formative({
+  Formative({
     required this.stem,
     required this.root,
     required this.specification,
