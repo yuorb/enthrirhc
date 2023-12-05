@@ -19,11 +19,11 @@ class ConstructPageRoots with ChangeNotifier {
 
   ConstructPageRoots();
 
-  void push(String root) {
+  void push(Root root) {
     // Check `root` validation
     formatives.add(Formative(
       stem: Stem.s1,
-      root: Root.from(root)!,
+      root: root,
       specification: Specification.bsc,
       context: Context.exs,
       function: Function$.sta,
@@ -129,7 +129,8 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
               tabs: context
                   .watch<ConstructPageRoots>()
                   .formatives
-                  .map((formative) => Tab(child: Text(formative.root.toString())))
+                  .map((formative) =>
+                      Tab(child: Text("-${formative.root.toString().toUpperCase()}-")))
                   .toList(),
             ),
             Expanded(
@@ -137,18 +138,21 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                 children: context.watch<ConstructPageRoots>().formatives.map((formative) {
                   return ListView(children: [
                     const ListGroupTitle("Definition"),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Root"),
-                      subtitle: Text(formative.root.toString()),
+                      subtitle: Text("-${formative.root.toString().toUpperCase()}-"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Stem"),
                       subtitle: const Text("Stem 1"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Specification"),
@@ -157,24 +161,28 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                      // TODO: Implement this option.
                       child: Text(
                         "(to be ontologically the) self-same entity (as) (i.e., [to be] simply another name for the self-same entity)",
                         style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                       ),
                     ),
                     const ListGroupTitle("Basic"),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Version"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Function"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Context"),
@@ -182,42 +190,49 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                       onTap: () {},
                     ),
                     const ListGroupTitle("Ca"),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Affiliation"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Plexity"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Similarity"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Separability"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Extension"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Perspective"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Essence"),
@@ -225,24 +240,28 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                       onTap: () {},
                     ),
                     const ListGroupTitle("Relation etc."),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Essence"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Case"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     // ListTile(
                     //   leading: const Icon(Icons.library_books),
                     //   title: const Text("Illocution"),
                     //   subtitle: const Text("BSC"),
                     //   onTap: () {},
                     // ),
+                    // TODO: Implement this option.
                     // ListTile(
                     //   leading: const Icon(Icons.library_books),
                     //   title: const Text("Validation"),
@@ -250,22 +269,26 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     //   onTap: () {},
                     // ),
                     const ListGroupTitle("VnCn"),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Vn"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Cn"),
                       subtitle: const Text("BSC"),
                       onTap: () {},
                     ),
+                    // TODO: Implement this option.
                     ListGroupTitle(
                       "Affixes CsVx",
                       trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
                     ),
+                    // TODO: Implement this option.
                     ListGroupTitle(
                       "Affixes VxCs",
                       trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),

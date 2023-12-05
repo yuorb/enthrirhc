@@ -36,7 +36,7 @@ enum Phoneme {
 
   static Phoneme? fromChar(String letter) {
     for (final value in Phoneme.values) {
-      if (value.romanizedLetters.contains(letter)) {
+      if (value.romanizedLetters.contains(letter.toLowerCase())) {
         return value;
       }
     }

@@ -1,4 +1,3 @@
-import 'package:enthrirhs/libs/ithkuil/misc.dart';
 import 'package:flutter/material.dart' hide SearchBar;
 import 'package:flutter/services.dart';
 import 'package:enthrirhs/pages/construct.dart';
@@ -8,6 +7,7 @@ import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'libs/ithkuil/terms/mod.dart';
 import 'utils/store.dart';
 
 void main() async {
@@ -107,10 +107,11 @@ class _RootPageState extends State<RootPage> {
       floatingActionButton: _currentPageIndex == 1
           ? FloatingActionButton(
               onPressed: () async {
-                final root = await prompt(context, title: const Text("Please enter the root"));
-                if (root != null) {
-                  if (validateRoot(root)) {
-                    _constructPageRoots.push("-${root.toUpperCase()}-");
+                final rootStr = await prompt(context, title: const Text("Please enter the root"));
+                if (rootStr != null) {
+                  final root = Root.from(rootStr);
+                  if (root != null) {
+                    _constructPageRoots.push(root);
                   } else {
                     if (!context.mounted) return;
                     showDialog(
