@@ -112,7 +112,7 @@ class Formative {
           (extension == Extension.prx && perspective == Perspective.m && essence == Essence.nrm)) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => '',
+              Version.prc => 'a',
               Version.cpt => 'ä',
             },
           Stem.s2 => switch (version) {
