@@ -71,7 +71,10 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                 Primary(
                   specification: Specification.cte,
                   context: Context.rps,
-                  formativeType: Concatenated(concatenation: Concatenation.type2, format: Case.abl),
+                  formativeType: Concatenated(
+                    concatenation: Concatenation.type2,
+                    format: Case.abl,
+                  ),
                   essence: Essence.rpv,
                   affiliation: Affiliation.csl,
                   perspective: Perspective.m,
@@ -83,7 +86,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   plexity: Plexity.u,
                   stem: Stem.s1,
                 ),
-                Root(
+                RootSecondary(
                   start: ExtLetter.b,
                   core: CoreLetter.placeholder,
                   end: ExtLetter.c,
@@ -112,9 +115,9 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   ),
                 ),
                 Quarternary(
-                  relation: UnframedVerb(
-                    illocution: Illocution.dec,
-                    validation: Validation.ima,
+                  formativeType: Concatenated(
+                    concatenation: Concatenation.type2,
+                    format: Case.abl,
                   ),
                   cn: MoodCn(Mood.sub),
                 ),

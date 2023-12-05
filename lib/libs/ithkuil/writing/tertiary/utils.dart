@@ -8,8 +8,10 @@ import '../../terms/aspect.dart';
 
 (double, double) getTertiaryBoundary(Tertiary tertiary) {
   final (valenceLeft, valenceRight) = getHorizontalBoundary(tertiary.valence.path());
-  final (topExtLeft, topExtRight) = getHorizontalBoundary(tertiary.top.path());
-  final (bottomExtLeft, bottomExtRight) = getHorizontalBoundary(tertiary.bottom.path());
+  final (topExtLeft, topExtRight) =
+      tertiary.top != null ? getHorizontalBoundary(tertiary.top!.path()) : (0.0, 0.0);
+  final (bottomExtLeft, bottomExtRight) =
+      tertiary.bottom != null ? getHorizontalBoundary(tertiary.bottom!.path()) : (0.0, 0.0);
 
   final left = [
     valenceLeft,

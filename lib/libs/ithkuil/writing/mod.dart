@@ -50,23 +50,37 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
     usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path();
   }
   for (final t in characters.whereType<Tertiary>()) {
-    usedRadicals[t.top.id()] = t.top.path();
-    usedRadicals[t.bottom.id()] = t.bottom.path();
     usedRadicals["valence_${t.valence.name}"] = t.valence.path();
-    usedRadicals["level_${t.level.comparisonOperator.name}"] = t.level.comparisonOperator.path();
+    if (t.top != null) {
+      usedRadicals[t.top!.id()] = t.top!.path();
+    }
+    if (t.bottom != null) {
+      usedRadicals[t.bottom!.id()] = t.bottom!.path();
+    }
+    if (t.level != null) {
+      final id = "level_${t.level!.comparisonOperator.name}";
+      final path = t.level!.comparisonOperator.path();
+      usedRadicals[id] = path;
+    }
   }
   final quarternaries = characters.whereType<Quarternary>();
   for (final q in quarternaries) {
-    switch (q.relation) {
-      case Noun noun:
-        usedRadicals[noun.case$.topId()] = noun.case$.topPath();
-        usedRadicals[noun.case$.bottomId()] = noun.case$.bottomPath();
-      case FramedVerb verb:
-        usedRadicals["illocution_${verb.illocution.name}"] = verb.illocution.path();
-        usedRadicals["validation_${verb.validation.name}"] = verb.validation.path();
-      case UnframedVerb verb:
-        usedRadicals["illocution_${verb.illocution.name}"] = verb.illocution.path();
-        usedRadicals["validation_${verb.validation.name}"] = verb.validation.path();
+    switch (q.formativeType) {
+      case Standalone(relation: final relation) || Parent(relation: final relation):
+        switch (relation) {
+          case Noun noun:
+            usedRadicals[noun.case$.topId()] = noun.case$.topPath();
+            usedRadicals[noun.case$.bottomId()] = noun.case$.bottomPath();
+          case FramedVerb verb:
+            usedRadicals[verb.illocution.id()] = verb.illocution.path();
+            usedRadicals[verb.validation.id()] = verb.validation.path();
+          case UnframedVerb verb:
+            usedRadicals[verb.illocution.id()] = verb.illocution.path();
+            usedRadicals[verb.validation.id()] = verb.validation.path();
+        }
+      case Concatenated(format: final format):
+        usedRadicals[format.topId()] = format.topPath();
+        usedRadicals[format.bottomId()] = format.bottomPath();
     }
     switch (q.cn) {
       case MoodCn(mood: final mood):

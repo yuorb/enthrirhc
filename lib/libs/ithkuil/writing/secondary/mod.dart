@@ -50,8 +50,8 @@ sealed class Secondary {
   }
 }
 
-class Root extends Secondary with Character {
-  const Root({required super.start, required super.core, required super.end});
+class RootSecondary extends Secondary with Character {
+  const RootSecondary({required super.start, required super.core, required super.end});
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {

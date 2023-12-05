@@ -18,8 +18,8 @@ class Primary with Character {
   final Perspective perspective;
   final Extension extension;
   // Properties for C Anchor
-  final Separability separability;
-  final Similarity similarity;
+  final Separability? separability;
+  final Similarity? similarity;
   // Properties for D Anchor
   final Function$ function;
   final Version version;
@@ -34,8 +34,8 @@ class Primary with Character {
     required this.affiliation,
     required this.perspective,
     required this.extension,
-    required this.separability,
-    required this.similarity,
+    this.separability,
+    this.similarity,
     required this.function,
     required this.version,
     required this.plexity,
@@ -58,8 +58,8 @@ class Primary with Character {
 
   ComponentC componentC() {
     return ComponentC(
-      separability: separability,
-      similarity: similarity,
+      separability: separability!,
+      similarity: similarity!,
     );
   }
 

@@ -10,7 +10,7 @@ const Coord coreTopAnchor = Coord(0.00, -25.00);
 const Coord coreBottomAnchor = Coord(10.00, 25.00);
 
 class Quarternary with Character {
-  final Relation relation;
+  final FormativeType formativeType;
   final Cn cn;
 
   @override
@@ -26,16 +26,22 @@ class Quarternary with Character {
 
     final String startExtId;
     final String endExtId;
-    switch (relation) {
-      case Noun noun:
-        startExtId = noun.case$.topId();
-        endExtId = noun.case$.bottomId();
-      case FramedVerb verb:
-        startExtId = "illocution_${verb.illocution.name}";
-        endExtId = "validation_${verb.validation.name}";
-      case UnframedVerb verb:
-        startExtId = "illocution_${verb.illocution.name}";
-        endExtId = "validation_${verb.validation.name}";
+    switch (formativeType) {
+      case Standalone(relation: final relation) || Parent(relation: final relation):
+        switch (relation) {
+          case Noun noun:
+            startExtId = noun.case$.topId();
+            endExtId = noun.case$.bottomId();
+          case FramedVerb verb:
+            startExtId = verb.illocution.id();
+            endExtId = verb.validation.id();
+          case UnframedVerb verb:
+            startExtId = verb.illocution.id();
+            endExtId = verb.validation.id();
+        }
+      case Concatenated(format: final format):
+        startExtId = format.topId();
+        endExtId = format.bottomId();
     }
 
     final String cnId = switch (cn) {
@@ -55,7 +61,7 @@ class Quarternary with Character {
   }
 
   const Quarternary({
-    required this.relation,
+    required this.formativeType,
     required this.cn,
   });
 }

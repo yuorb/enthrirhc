@@ -26,6 +26,10 @@ enum Validation {
   /// The Inferential Validation
   inf;
 
+  String id() {
+    return "validation_$name";
+  }
+
   String path() {
     return switch (this) {
       obs =>

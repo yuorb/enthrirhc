@@ -26,6 +26,10 @@ enum Illocution {
   /// The Conjectural Illocution
   cnj;
 
+  String id() {
+    return "illocution_$name";
+  }
+
   String path() {
     return switch (this) {
       asr =>
