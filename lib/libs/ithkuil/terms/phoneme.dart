@@ -1,5 +1,4 @@
 enum Phoneme {
-  placeholder(["_"]),
   f(["f"]),
   v(["v"]),
   c(["c"]),

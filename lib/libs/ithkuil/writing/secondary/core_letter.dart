@@ -38,7 +38,7 @@ class Anchor {
 
 enum CoreLetter {
   placeholder(
-    phoneme: Phoneme.placeholder,
+    phoneme: null,
     path:
         "M 20.00 -11.15 L 10.00 -1.15 10.00 -35.00 0.00 -25.00 0.00 11.20 10.00 1.25 10.00 35.00 20.00 25.00 20.00 -11.15 Z",
     startAnchor: Anchor(AnchorOrientation.up, Coord(0, -25)),
@@ -242,7 +242,7 @@ enum CoreLetter {
     endAnchor: Anchor(AnchorOrientation.right, Coord(40.00, 35.03)),
   );
 
-  final Phoneme phoneme;
+  final Phoneme? phoneme;
   final String path;
   final Anchor startAnchor;
   final Anchor endAnchor;
@@ -253,4 +253,12 @@ enum CoreLetter {
     required this.startAnchor,
     required this.endAnchor,
   });
+
+  String id() {
+    if (phoneme != null) {
+      return "core_${phoneme!.defaultLetter()}";
+    } else {
+      return "core_placeholder";
+    }
+  }
 }

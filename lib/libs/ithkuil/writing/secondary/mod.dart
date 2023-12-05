@@ -66,7 +66,7 @@ class RootSecondary extends Secondary with Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core.phoneme.defaultLetter()}_core" x="$coreX" y="$coreY" fill="$fillColor" />
+      <use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />
       ${start != null ? '''<use
         href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
         x="$extStartX"
@@ -116,7 +116,7 @@ class CsVxAffixes extends Secondary with Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core.phoneme.defaultLetter()}_core" x="$coreX" y="$coreY" fill="$fillColor" />
+      <use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />
       ${start != null ? '''<use
         href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
         x="$extStartX"
@@ -168,7 +168,7 @@ class VxCsAffixes extends Secondary with Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core.phoneme.defaultLetter()}_core" x="$coreX" y="$coreY" transform="rotate(180 $centerX $centerY)" fill="$fillColor" />
+      <use href="#${core.id()}" x="$coreX" y="$coreY" transform="rotate(180 $centerX $centerY)" fill="$fillColor" />
       ${start != null ? '''<g transform="rotate(180 $centerX $centerY)">
         <use
           href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"

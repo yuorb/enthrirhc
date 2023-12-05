@@ -1,9 +1,17 @@
 import 'romanization/affix.dart';
 import 'terms/mod.dart';
+import 'writing/mod.dart';
+import 'writing/primary/mod.dart';
+import 'writing/quarternary/mod.dart';
+import 'writing/secondary/core_letter.dart';
+import 'writing/secondary/ext_letter.dart';
+import 'writing/secondary/mod.dart';
+import 'writing/tertiary/extensions.dart';
+import 'writing/tertiary/mod.dart';
 
 class Formative {
   final Stem stem;
-  final String root;
+  final Root root;
   final Specification specification;
   final Function$ function;
   final Context context;
@@ -239,25 +247,25 @@ class Formative {
                 Specification.bsc => switch (context) {
                     Context.exs => 'a',
                     Context.fnc => 'ai',
-                    Context.rps => root.endsWith('y') ? 'uä' : 'ia',
+                    Context.rps => root.phonemes.last == Phoneme.y ? 'uä' : 'ia',
                     Context.amg => 'ao',
                   },
                 Specification.cte => switch (context) {
                     Context.exs => 'ä',
                     Context.fnc => 'au',
-                    Context.rps => root.endsWith('y') ? 'uë' : 'ie',
+                    Context.rps => root.phonemes.last == Phoneme.y ? 'uë' : 'ie',
                     Context.amg => 'aö',
                   },
                 Specification.csv => switch (context) {
                     Context.exs => 'e',
                     Context.fnc => 'ei',
-                    Context.rps => root.endsWith('y') ? 'üä' : 'io',
+                    Context.rps => root.phonemes.last == Phoneme.y ? 'üä' : 'io',
                     Context.amg => 'eo',
                   },
                 Specification.obj => switch (context) {
                     Context.exs => 'i',
                     Context.fnc => 'eu',
-                    Context.rps => root.endsWith('y') ? 'üë' : 'iö',
+                    Context.rps => root.phonemes.last == Phoneme.y ? 'üë' : 'iö',
                     Context.amg => 'eö',
                   },
               },
@@ -265,25 +273,25 @@ class Formative {
                 Specification.bsc => switch (context) {
                     Context.exs => 'u',
                     Context.fnc => 'ui',
-                    Context.rps => root.endsWith('w') ? 'iä' : 'ua',
+                    Context.rps => root.phonemes.last == Phoneme.w ? 'iä' : 'ua',
                     Context.amg => 'oa',
                   },
                 Specification.cte => switch (context) {
                     Context.exs => 'ü',
                     Context.fnc => 'iu',
-                    Context.rps => root.endsWith('w') ? 'ië' : 'ue',
+                    Context.rps => root.phonemes.last == Phoneme.w ? 'ië' : 'ue',
                     Context.amg => 'öa',
                   },
                 Specification.csv => switch (context) {
                     Context.exs => 'o',
                     Context.fnc => 'oi',
-                    Context.rps => root.endsWith('w') ? 'öä' : 'uo',
+                    Context.rps => root.phonemes.last == Phoneme.w ? 'öä' : 'uo',
                     Context.amg => 'oe',
                   },
                 Specification.obj => switch (context) {
                     Context.exs => 'ö',
                     Context.fnc => 'ou',
-                    Context.rps => root.endsWith('w') ? 'öë' : 'uö',
+                    Context.rps => root.phonemes.last == Phoneme.w ? 'öë' : 'uö',
                     Context.amg => 'öe',
                   },
               },
@@ -491,7 +499,7 @@ class Formative {
 
     final String slot1 = _romanizeSlotI(shortCut);
     final String slot2 = _romanizeSlotII(shortCut, omitOptionalAffixes);
-    final String slot3 = root;
+    final String slot3 = root.toString();
     final String slot4 = _romanizeSlotIV(shortCut);
     final String slot5 = _romanizeSlotV();
     final String slot6 = _romanizeSlotVI(shortCut, "$slot1$slot2$slot3$slot4$slot5");
@@ -506,5 +514,85 @@ class Formative {
     );
 
     return "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8$slot9";
+  }
+
+  List<Character> toCaCharacter() {
+    return [
+      Primary(
+        specification: specification,
+        context: context,
+        formativeType: formativeType,
+        essence: essence,
+        affiliation: affiliation,
+        perspective: perspective,
+        extension: extension,
+        similarity: configuration.similarity,
+        separability: configuration.separability,
+        function: function,
+        version: version,
+        plexity: configuration.plexity,
+        stem: stem,
+      ),
+      // TODO: Replace the temporary template with dynamic variables
+      const RootSecondary(
+        start: ExtLetter.b,
+        core: CoreLetter.placeholder,
+        end: ExtLetter.c,
+      ),
+      // TODO: Replace the temporary template with dynamic variables
+      ...csVxAffixes.map(
+        (affix) => const CsVxAffixes(
+          start: ExtLetter.d,
+          core: CoreLetter.s,
+          end: ExtLetter.k,
+          degree: Degree.d1,
+          affixType: AffixType.type2,
+        ),
+      ),
+      // TODO: Replace the temporary template with dynamic variables
+      ...vxCsAffixes.map(
+        (affix) => const VxCsAffixes(
+          start: ExtLetter.d,
+          core: CoreLetter.s,
+          end: ExtLetter.k,
+          degree: Degree.d2,
+          affixType: AffixType.type3,
+        ),
+      ),
+      Tertiary(
+        valence: switch (vnCn) {
+          Pattern1(vn: final vn) => switch (vn) {
+              ValenceVn(valence: final valence) => valence,
+              _ => Valence.mno,
+            },
+          _ => Valence.mno,
+        },
+        top: switch (vnCn) {
+          Pattern1(vn: final vn) => switch (vn) {
+              PhaseVn(phase: final phase) => PhaseExtension(phase),
+              EffectVn(effect: final effect) => EffectExtension(effect),
+              _ => null
+            },
+          Pattern2(vn: final vn) => AspectExtension(vn),
+        },
+        // TODO: Parse affixes as bottom component.
+        bottom: null,
+        level: switch (vnCn) {
+          Pattern1(vn: final vn) => switch (vn) {
+              LevelVn(level: final level) => Level(
+                  // TODO: Parse affixes as absolute level.
+                  comparison: Comparison.relative,
+                  comparisonOperator: level,
+                ),
+              _ => null,
+            },
+          Pattern2() => null,
+        },
+      ),
+      Quarternary(
+        formativeType: formativeType,
+        cn: vnCn.cn,
+      )
+    ];
   }
 }

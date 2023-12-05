@@ -33,7 +33,7 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
   }
   final secondaries = characters.whereType<Secondary>();
   for (final s in secondaries) {
-    usedRadicals["${s.core.phoneme.defaultLetter()}_core"] = s.core.path;
+    usedRadicals[s.core.id()] = s.core.path;
     if (s.start != null) {
       usedRadicals[s.getStartExtId()!] = s.getStartExtPath()!;
     }

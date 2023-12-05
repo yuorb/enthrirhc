@@ -20,9 +20,10 @@ class ConstructPageRoots with ChangeNotifier {
   ConstructPageRoots();
 
   void push(String root) {
+    // Check `root` validation
     formatives.add(Formative(
       stem: Stem.s1,
-      root: root,
+      root: Root.from(root)!,
       specification: Specification.bsc,
       context: Context.exs,
       function: Function$.sta,
@@ -128,7 +129,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
               tabs: context
                   .watch<ConstructPageRoots>()
                   .formatives
-                  .map((formative) => Tab(child: Text(formative.root)))
+                  .map((formative) => Tab(child: Text(formative.root.toString())))
                   .toList(),
             ),
             Expanded(
@@ -139,7 +140,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     ListTile(
                       leading: const Icon(Icons.library_books),
                       title: const Text("Root"),
-                      subtitle: Text(formative.root),
+                      subtitle: Text(formative.root.toString()),
                       onTap: () {},
                     ),
                     ListTile(

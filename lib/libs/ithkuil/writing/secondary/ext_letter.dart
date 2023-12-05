@@ -1,12 +1,6 @@
 import '../../terms/mod.dart';
 
 enum ExtLetter {
-  placeholder(
-    phoneme: Phoneme.placeholder,
-    left: "",
-    up: "",
-    diag: "",
-  ),
   p(
     phoneme: Phoneme.p,
     left:
