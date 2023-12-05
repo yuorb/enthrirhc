@@ -117,7 +117,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   return ListView(children: [
                     const ListGroupTitle("Definition"),
                     ListTile(
-                      leading: const Icon(Icons.library_books),
+                      leading: const Icon(Icons.abc),
                       title: const Text("Root"),
                       subtitle: Text("-${formative.root.toString().toUpperCase()}-"),
                       onTap: () async {
