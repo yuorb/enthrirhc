@@ -1,7 +1,10 @@
+import 'package:enthrirhs/utils/store.dart';
+import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
 import 'package:enthrirhs/libs/misc.dart';
+import 'package:provider/provider.dart';
 import '../../components/list_group_title.dart';
 import '../../libs/ithkuil/mod.dart';
 import '../../libs/ithkuil/terms/mod.dart';
@@ -23,6 +26,70 @@ class FormativeEditor extends StatefulWidget {
 }
 
 class _FormativeEditorState extends State<FormativeEditor> with TickerProviderStateMixin {
+  String definition = 'Searching definition...';
+
+  @override
+  void initState() {
+    super.initState();
+    updateDefinition();
+  }
+
+  Future<String> getDefinition() async {
+    final rootStr = widget.formative.root.toString().toUpperCase();
+    final root = await context.read<LexiconModel>().database.exactSearch(rootStr);
+    if (root == null) {
+      return 'Cannot find this root in your local lexicon. Please try to import the latest lexicon or use a valid root.';
+    }
+    final stems = root.stems;
+    if (stems != null) {
+      return switch (widget.formative.stem) {
+        Stem.s1 => switch (stems[0]) {
+            database.Specs specs => switch (widget.formative.specification) {
+                Specification.bsc => specs.bsc,
+                Specification.cte => specs.cte,
+                Specification.csv => specs.csv,
+                Specification.obj => specs.obj
+              },
+            database.StrStem(value: final value) => value
+          },
+        Stem.s2 => switch (stems[1]) {
+            database.Specs specs => switch (widget.formative.specification) {
+                Specification.bsc => specs.bsc,
+                Specification.cte => specs.cte,
+                Specification.csv => specs.csv,
+                Specification.obj => specs.obj
+              },
+            database.StrStem(value: final value) => value
+          },
+        Stem.s3 => switch (stems[2]) {
+            database.Specs specs => switch (widget.formative.specification) {
+                Specification.bsc => specs.bsc,
+                Specification.cte => specs.cte,
+                Specification.csv => specs.csv,
+                Specification.obj => specs.obj
+              },
+            database.StrStem(value: final value) => value
+          },
+        Stem.s0 => root.refers != null
+            ? root.refers!
+            : 'Unavailable because you selected `Stem 0` but this root does not have the `refers` field in lexicon.'
+      };
+    }
+    if (root.refers != null) {
+      return root.refers!;
+    }
+
+    return 'Unavailable because this root has neither the `stems` nor the `refers` field in lexicon.';
+  }
+
+  void updateDefinition() {
+    getDefinition().then((newDefinition) {
+      setState(() {
+        definition = newDefinition;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
@@ -43,6 +110,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               widget.updateFormative((Formative f) {
                 f.root = root;
               });
+              updateDefinition();
             } else {
               if (!context.mounted) return;
               await showErrorDialog(context, "Invalid new root.");
@@ -56,6 +124,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           widget.updateFormative((f) {
             f.stem = stem;
           });
+          updateDefinition();
         },
         offset: const Offset(1, 0),
         itemBuilder: (BuildContext context) => const <PopupMenuEntry<Stem>>[
@@ -98,6 +167,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           widget.updateFormative((f) {
             f.specification = specification;
           });
+          updateDefinition();
         },
         offset: const Offset(1, 0),
         itemBuilder: (BuildContext context) => const <PopupMenuEntry<Specification>>[
@@ -136,9 +206,8 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       Container(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        // TODO: Implement this option.
         child: Text(
-          "(to be ontologically the) self-same entity (as) (i.e., [to be] simply another name for the self-same entity)",
+          definition,
           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
         ),
       ),
