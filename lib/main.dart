@@ -109,10 +109,14 @@ class _RootPageState extends State<RootPage> {
       floatingActionButton: _currentPageIndex == 1
           ? FloatingActionButton(
               onPressed: () async {
-                final rootStr = await prompt(context, title: const Text("Please enter the root"));
+                final rootStr = await prompt(
+                  context,
+                  title: const Text("Please enter the root"),
+                  initialValue: "",
+                );
                 if (rootStr != null) {
                   final root = Root.from(rootStr);
-                  if (root != null) {
+                  if (root != null && root.phonemes.isNotEmpty) {
                     _constructPageRoots.push(root);
                   } else {
                     if (!context.mounted) return;

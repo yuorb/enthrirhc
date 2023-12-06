@@ -102,10 +102,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           final rootStr = await prompt(
             context,
             title: const Text("Please enter the new root"),
+            initialValue: "",
           );
           if (rootStr != null) {
             final root = Root.from(rootStr);
-            if (root != null) {
+            if (root != null && root.phonemes.isNotEmpty) {
               if (!context.mounted) return;
               widget.updateFormative((Formative f) {
                 f.root = root;
