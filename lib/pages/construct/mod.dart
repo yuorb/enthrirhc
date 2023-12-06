@@ -95,7 +95,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   .watch<ConstructPageRoots>()
                   .formatives
                   // TODO: Implement arguments for `formative.romanize`
-                  .map((formative) => formative.romanize(true, true))
+                  .map((formative) => formative.romanize(false, true))
                   .join(' ')
                   .capitalize()
                   .addPeriod(),
@@ -181,12 +181,47 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                         ),
                       ),
                     ),
-                    // TODO: Implement this option.
-                    ListTile(
-                      leading: const Icon(Icons.library_books),
-                      title: const Text("Specification"),
-                      subtitle: const Text("BSC"),
-                      onTap: () {},
+                    PopupMenuButton<Specification>(
+                      initialValue: formative.specification,
+                      onSelected: (Specification specification) {
+                        context.read<ConstructPageRoots>().updateFormative(index, (f) {
+                          f.specification = specification;
+                        });
+                      },
+                      offset: const Offset(1, 0),
+                      itemBuilder: (BuildContext context) => const <PopupMenuEntry<Specification>>[
+                        PopupMenuItem(
+                          value: Specification.bsc,
+                          child: Text('BSC (Basic)'),
+                        ),
+                        PopupMenuItem(
+                          value: Specification.cte,
+                          child: Text('CTE (Contential)'),
+                        ),
+                        PopupMenuItem(
+                          value: Specification.csv,
+                          child: Text('CSV (Constitutive)'),
+                        ),
+                        PopupMenuItem(
+                          value: Specification.obj,
+                          child: Text('OBJ (Objective)'),
+                        ),
+                      ],
+                      child: ListTile(
+                        leading: const Icon(Icons.library_books),
+                        title: const Text("Specification"),
+                        subtitle: Text(
+                          switch (formative.specification) {
+                            Specification.bsc => 'BSC (Basic)',
+                            Specification.cte => 'CTE (Contential)',
+                            Specification.csv => 'CSV (Constitutive)',
+                            Specification.obj => 'OBJ (Objective)',
+                          },
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
