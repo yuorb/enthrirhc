@@ -3,13 +3,6 @@ import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/quarternary/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/tertiary/mod.dart';
 import 'package:enthrirhs/libs/misc.dart';
 import '../../components/list_group_title.dart';
 import '../../libs/ithkuil/terms/mod.dart';
@@ -33,62 +26,13 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             AppBar(title: const Text("Construct")),
             const SizedBox(height: 16),
             // TODO: Implement this component with dynamic formatives
-            const IthkuilSvg(
-              [
-                Primary(
-                  specification: Specification.cte,
-                  context: Context.rps,
-                  formativeType: Concatenated(
-                    concatenation: Concatenation.type2,
-                    format: Case.abl,
-                  ),
-                  essence: Essence.rpv,
-                  affiliation: Affiliation.csl,
-                  perspective: Perspective.m,
-                  extension: Extension.prx,
-                  similarity: Similarity.d,
-                  separability: Separability.s,
-                  function: Function$.sta,
-                  version: Version.prc,
-                  plexity: Plexity.u,
-                  stem: Stem.s1,
-                ),
-                RootSecondary(
-                  start: ExtLetter.b,
-                  core: CoreLetter.placeholder,
-                  end: ExtLetter.c,
-                ),
-                CsVxAffixes(
-                  start: ExtLetter.d,
-                  core: CoreLetter.s,
-                  end: ExtLetter.k,
-                  degree: Degree.d1,
-                  affixType: AffixType.type2,
-                ),
-                VxCsAffixes(
-                  start: ExtLetter.d,
-                  core: CoreLetter.s,
-                  end: ExtLetter.k,
-                  degree: Degree.d2,
-                  affixType: AffixType.type3,
-                ),
-                Tertiary(
-                  valence: Valence.mno,
-                  top: AspectExtension(Aspect.atp),
-                  bottom: AspectExtension(Aspect.atp),
-                  level: Level(
-                    comparison: Comparison.absolute,
-                    comparisonOperator: ComparisonOperator.equ,
-                  ),
-                ),
-                Quarternary(
-                  formativeType: Concatenated(
-                    concatenation: Concatenation.type2,
-                    format: Case.abl,
-                  ),
-                  cn: MoodCn(Mood.sub),
-                ),
-              ],
+            IthkuilSvg(
+              context
+                  .watch<ConstructPageRoots>()
+                  .formatives
+                  .map((formative) => formative.toCharacters())
+                  .expand((element) => element)
+                  .toList(),
             ),
             Text(
               context

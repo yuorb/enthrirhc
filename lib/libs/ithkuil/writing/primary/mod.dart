@@ -58,8 +58,8 @@ class Primary with Character {
 
   ComponentC componentC() {
     return ComponentC(
-      separability: separability!,
-      similarity: similarity!,
+      separability: separability,
+      similarity: similarity,
     );
   }
 

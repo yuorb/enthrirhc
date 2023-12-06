@@ -18,7 +18,7 @@ class IthkuilSvg extends StatelessWidget {
 
     return SvgPicture.string(
       _generate(characters, fillColor, staffColor),
-      width: MediaQuery.of(context).size.width - 32,
+      height: 160,
     );
   }
 
