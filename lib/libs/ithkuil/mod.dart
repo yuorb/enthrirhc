@@ -517,7 +517,7 @@ class Formative {
   }
 
   List<Character> toCharacters() {
-    return [
+    final List<Character> characters = [
       Primary(
         specification: specification,
         context: context,
@@ -554,40 +554,59 @@ class Formative {
           affixType: AffixType.type3,
         ),
       ),
-      Tertiary(
-        valence: switch (vnCn) {
-          Pattern1(vn: final vn) => switch (vn) {
-              ValenceVn(valence: final valence) => valence,
-              _ => Valence.mno,
-            },
-          _ => Valence.mno,
+    ];
+
+    final hasTertiary = switch (vnCn) {
+      Pattern1(vn: final vn) => switch (vn) {
+          ValenceVn(valence: final valence) => valence != Valence.mno,
+          _ => true,
         },
-        top: switch (vnCn) {
-          Pattern1(vn: final vn) => switch (vn) {
-              PhaseVn(phase: final phase) => PhaseExtension(phase),
-              EffectVn(effect: final effect) => EffectExtension(effect),
-              _ => null
-            },
-          Pattern2(vn: final vn) => AspectExtension(vn),
-        },
-        // TODO: Parse affixes as bottom component.
-        bottom: null,
-        level: switch (vnCn) {
-          Pattern1(vn: final vn) => switch (vn) {
-              LevelVn(level: final level) => Level(
-                  // TODO: Parse affixes as absolute level.
-                  comparison: Comparison.relative,
-                  comparisonOperator: level,
-                ),
-              _ => null,
-            },
-          Pattern2() => null,
-        },
-      ),
+      Pattern2() => true,
+    };
+
+    if (hasTertiary) {
+      characters.add(
+        Tertiary(
+          valence: switch (vnCn) {
+            Pattern1(vn: final vn) => switch (vn) {
+                ValenceVn(valence: final valence) => valence,
+                _ => Valence.mno,
+              },
+            _ => Valence.mno,
+          },
+          top: switch (vnCn) {
+            Pattern1(vn: final vn) => switch (vn) {
+                PhaseVn(phase: final phase) => PhaseExtension(phase),
+                EffectVn(effect: final effect) => EffectExtension(effect),
+                _ => null
+              },
+            Pattern2(vn: final vn) => AspectExtension(vn),
+          },
+          // TODO: Parse affixes as bottom component.
+          bottom: null,
+          level: switch (vnCn) {
+            Pattern1(vn: final vn) => switch (vn) {
+                LevelVn(level: final level) => Level(
+                    // TODO: Parse affixes as absolute level.
+                    comparison: Comparison.relative,
+                    comparisonOperator: level,
+                  ),
+                _ => null,
+              },
+            Pattern2() => null,
+          },
+        ),
+      );
+    }
+
+    characters.add(
+      // TODO: Quarternary can be omitted is some situations.
       Quarternary(
         formativeType: formativeType,
         cn: vnCn.cn,
-      )
-    ];
+      ),
+    );
+
+    return characters;
   }
 }
