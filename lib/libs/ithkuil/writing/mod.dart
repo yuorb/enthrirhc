@@ -102,8 +102,9 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
     leftCoord += svgWidth + horizontalGap;
   }
   final baseWidth = leftCoord - horizontalGap + horizontalPadding;
+  const minWidth = 210;
 
-  return '''<svg width="$baseWidth" height="${unitHeight * 6}">
+  return '''<svg width="${baseWidth < minWidth ? minWidth : baseWidth}" height="${unitHeight * 6}">
       <defs>
         ${usedRadicals.entries.map(
             (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
