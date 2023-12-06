@@ -41,7 +41,7 @@ class Database extends _$Database {
   @override
   int get schemaVersion => 1;
 
-  Future<void> init(List<Root> newRoots) async {
+  Future<void> insert(List<Root> newRoots) async {
     await batch((batch) {
       batch.insertAll(
         roots,

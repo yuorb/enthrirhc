@@ -193,7 +193,7 @@ class _SearchPageState extends State<SearchPage> {
 
                     // Save and update the lexicon data
                     if (!context.mounted) return;
-                    await context.read<LexiconModel>().database.init(lexicon);
+                    await context.read<LexiconModel>().database.insert(lexicon);
                     setState(() => rootCount += lexicon.length);
 
                     // Pop up the success dialog
