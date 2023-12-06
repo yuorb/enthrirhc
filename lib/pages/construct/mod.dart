@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:enthrirhs/components/ithkuil_svg.dart';
 import 'package:enthrirhs/libs/misc.dart';
 import '../../libs/ithkuil/mod.dart';
-import 'FormativeEditor.dart';
+import 'formative_editor.dart';
 import 'store.dart';
 
 class ConstructPage extends StatefulWidget {
