@@ -362,27 +362,69 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Plexity"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
+      PopupMenuButton<Plexity>(
+        initialValue: widget.formative.configuration.plexity,
+        onSelected: (Plexity newPlexity) {
+          widget.updateFormative((f) {
+            final similarity = f.configuration.similarity;
+            final separability = f.configuration.separability;
+            if (similarity == null && separability == null && newPlexity == Plexity.m) {
+              f.configuration = Configuration.from(Plexity.m, Similarity.s, Separability.s)!;
+            } else if (similarity != null && separability != null && newPlexity == Plexity.u) {
+              f.configuration = Configuration.from(Plexity.u, null, null)!;
+            } else {
+              f.configuration.plexity = newPlexity;
+            }
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Plexity>>[
+          PopupMenuItem(
+            value: Plexity.u,
+            child: Text('U (Uniplex)'),
+          ),
+          PopupMenuItem(
+            value: Plexity.d,
+            child: Text('D (Duplex)'),
+          ),
+          PopupMenuItem(
+            value: Plexity.m,
+            child: Text('M (Multiplex)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.library_books),
+          title: const Text("Plexity"),
+          subtitle: Text(
+            switch (widget.formative.configuration.plexity) {
+              Plexity.u => 'U (Uniplex)',
+              Plexity.d => 'D (Duplex)',
+              Plexity.m => 'M (Multiplex)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Similarity"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
-      ),
+      widget.formative.configuration.plexity != Plexity.u
+          ? ListTile(
+              leading: const Icon(Icons.library_books),
+              title: const Text("Similarity"),
+              subtitle: const Text("BSC"),
+              onTap: () {},
+            )
+          : Container(),
       // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Separability"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
-      ),
+      widget.formative.configuration.plexity != Plexity.u
+          ? ListTile(
+              leading: const Icon(Icons.library_books),
+              title: const Text("Separability"),
+              subtitle: const Text("BSC"),
+              onTap: () {},
+            )
+          : Container(),
       // TODO: Implement this option.
       ListTile(
         leading: const Icon(Icons.library_books),

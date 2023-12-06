@@ -17,7 +17,7 @@ class Formative {
   Context context;
   Version version;
   Affiliation affiliation;
-  final Configuration configuration;
+  Configuration configuration;
   final Extension extension;
   final Perspective perspective;
   final Essence essence;

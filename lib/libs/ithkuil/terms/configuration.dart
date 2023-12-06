@@ -1,11 +1,11 @@
 import 'mod.dart';
 
 class Configuration {
-  final Plexity plexity;
+  Plexity plexity;
   final Similarity? similarity;
   final Separability? separability;
 
-  const Configuration._(this.plexity, this.similarity, this.separability);
+  Configuration._(this.plexity, this.similarity, this.separability);
 
   static Configuration? from(Plexity plexity, Similarity? similarity, Separability? separability) {
     final ok = switch (plexity) {
