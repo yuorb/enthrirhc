@@ -13,7 +13,7 @@ class Formative {
   Stem stem;
   Root root;
   Specification specification;
-  final Function$ function;
+  Function$ function;
   final Context context;
   Version version;
   final Affiliation affiliation;

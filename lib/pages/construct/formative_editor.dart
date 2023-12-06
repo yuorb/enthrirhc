@@ -244,12 +244,37 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Function"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
+      PopupMenuButton<Function$>(
+        initialValue: widget.formative.function,
+        onSelected: (Function$ function) {
+          widget.updateFormative((f) {
+            f.function = function;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Function$>>[
+          PopupMenuItem(
+            value: Function$.sta,
+            child: Text('STA (Stative)'),
+          ),
+          PopupMenuItem(
+            value: Function$.dyn,
+            child: Text('DYN (Dynamic)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.library_books),
+          title: const Text("Function"),
+          subtitle: Text(
+            switch (widget.formative.version) {
+              Version.prc => 'STA (Stative)',
+              Version.cpt => 'DYM (Dynamic)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
