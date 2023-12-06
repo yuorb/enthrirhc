@@ -16,12 +16,7 @@ Enţrirç (New Ithkuil word for "an utility set", pronounced `/enθɾiɾç/`, al
 
 > **Note**
 >
-> For Linux & Windows users: Use [Web version](https://yuorb.github.io/enthrirhs/) instead. This project offers the source code for Windows & Linux, so you can also build this project yourself manually.
->
-> For macOS users: Use [Web version](https://yuorb.github.io/enthrirhs/) instead. This project does not offer the source code for macOS.
->
-> For iOS users: Open [Enţrirç](https://yuorb.github.io/enthrirhs/) in Safari
-> and install it as a PWA instead.
+> For macOS & iOS users: Open [Enţrirç](https://yuorb.github.io/enthrirhs/) in Safari and install it as a [PWA](https://en.wikipedia.org/wiki/Progressive_web_app) instead. This project does not offer the source code for macOS & iOS, because the developer(@lomirus) has no macOS device to get the Enţrirç adapted for, and after all, it's not a small amount of money to spend $99 per year to be an Apple Developer just in order to publish a free & open source App :P
 
 ## Build
 
