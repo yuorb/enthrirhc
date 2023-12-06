@@ -212,12 +212,37 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       const ListGroupTitle("Basic"),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Version"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
+      PopupMenuButton<Version>(
+        initialValue: widget.formative.version,
+        onSelected: (Version version) {
+          widget.updateFormative((f) {
+            f.version = version;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Version>>[
+          PopupMenuItem(
+            value: Version.prc,
+            child: Text('PRC (Processual)'),
+          ),
+          PopupMenuItem(
+            value: Version.cpt,
+            child: Text('CPT (Completive)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.library_books),
+          title: const Text("Version"),
+          subtitle: Text(
+            switch (widget.formative.version) {
+              Version.prc => 'PRC (Processual)',
+              Version.cpt => 'CPT (Completive)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
