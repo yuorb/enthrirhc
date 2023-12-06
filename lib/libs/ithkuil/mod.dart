@@ -14,7 +14,7 @@ class Formative {
   Root root;
   Specification specification;
   Function$ function;
-  final Context context;
+  Context context;
   Version version;
   final Affiliation affiliation;
   final Configuration configuration;

@@ -276,12 +276,47 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Context"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
+      PopupMenuButton<Context>(
+        initialValue: widget.formative.context,
+        onSelected: (Context thisContext) {
+          widget.updateFormative((f) {
+            f.context = thisContext;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Context>>[
+          PopupMenuItem(
+            value: Context.exs,
+            child: Text('EXS (Existential)'),
+          ),
+          PopupMenuItem(
+            value: Context.fnc,
+            child: Text('FNC (Functional)'),
+          ),
+          PopupMenuItem(
+            value: Context.rps,
+            child: Text('RPS (Representational)'),
+          ),
+          PopupMenuItem(
+            value: Context.amg,
+            child: Text('AMG (Amalgamative)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.library_books),
+          title: const Text("Context"),
+          subtitle: Text(
+            switch (widget.formative.context) {
+              Context.exs => 'EXS (Existential)',
+              Context.fnc => 'FNC (Functional)',
+              Context.rps => 'RPS (Representational)',
+              Context.amg => 'AMG (Amalgamative)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       const ListGroupTitle("Ca"),
       // TODO: Implement this option.
