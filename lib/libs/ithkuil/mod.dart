@@ -16,7 +16,7 @@ class Formative {
   Function$ function;
   Context context;
   Version version;
-  final Affiliation affiliation;
+  Affiliation affiliation;
   final Configuration configuration;
   final Extension extension;
   final Perspective perspective;

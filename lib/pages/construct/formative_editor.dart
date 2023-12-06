@@ -320,12 +320,47 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       const ListGroupTitle("Ca"),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Affiliation"),
-        subtitle: const Text("BSC"),
-        onTap: () {},
+      PopupMenuButton<Affiliation>(
+        initialValue: widget.formative.affiliation,
+        onSelected: (Affiliation affiliation) {
+          widget.updateFormative((f) {
+            f.affiliation = affiliation;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Affiliation>>[
+          PopupMenuItem(
+            value: Affiliation.csl,
+            child: Text('CSL (Consolidative)'),
+          ),
+          PopupMenuItem(
+            value: Affiliation.aso,
+            child: Text('ASO (Associative)'),
+          ),
+          PopupMenuItem(
+            value: Affiliation.coa,
+            child: Text('COA (Coalescent)'),
+          ),
+          PopupMenuItem(
+            value: Affiliation.var$,
+            child: Text('VAR (Variative)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.library_books),
+          title: const Text("Affiliation"),
+          subtitle: Text(
+            switch (widget.formative.affiliation) {
+              Affiliation.csl => 'CSL (Consolidative)',
+              Affiliation.aso => 'ASO (Associative)',
+              Affiliation.coa => 'COA (Coalescent)',
+              Affiliation.var$ => 'VAR (Variative)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
