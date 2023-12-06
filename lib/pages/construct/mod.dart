@@ -17,8 +17,10 @@ class ConstructPage extends StatefulWidget {
 class _ConstructPageState extends State<ConstructPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    final List<Formative> formatives = context.watch<ConstructPageRoots>().formatives;
+
     return DefaultTabController(
-      length: context.watch<ConstructPageRoots>().formatives.length,
+      length: formatives.length,
       child: Builder(
         builder: (context) => Column(
           children: [
@@ -26,35 +28,31 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             const SizedBox(height: 16),
             // TODO: Implement this component with dynamic formatives
             IthkuilSvg(
-              context
-                  .watch<ConstructPageRoots>()
-                  .formatives
+              formatives
                   .map((formative) => formative.toCharacters())
                   .expand((element) => element)
                   .toList(),
             ),
             Text(
-              context
-                  .watch<ConstructPageRoots>()
-                  .formatives
-                  // TODO: Implement arguments for `formative.romanize`
-                  .map((formative) => formative.romanize(false, true))
-                  .join(' ')
-                  .capitalize()
-                  .addPeriod(),
+              formatives.isEmpty
+                  ? 'NO FORMATIVES'
+                  : formatives
+                      // TODO: Implement arguments for `formative.romanize`
+                      .map((formative) => formative.romanize(false, true))
+                      .join(' ')
+                      .capitalize()
+                      .addPeriod(),
             ),
             TabBar(
               isScrollable: true,
-              tabs: context
-                  .watch<ConstructPageRoots>()
-                  .formatives
+              tabs: formatives
                   .map((formative) =>
                       Tab(child: Text("-${formative.root.toString().toUpperCase()}-")))
                   .toList(),
             ),
             Expanded(
               child: TabBarView(
-                children: context.watch<ConstructPageRoots>().formatives.indexed.map((it) {
+                children: formatives.indexed.map((it) {
                   final index = it.$1;
                   final formative = it.$2;
                   return FormativeEditor(
