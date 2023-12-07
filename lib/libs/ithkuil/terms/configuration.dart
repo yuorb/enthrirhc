@@ -26,7 +26,7 @@ class Configuration {
               Similarity.s => switch (separability!) {
                   Separability.s => 'c',
                   Separability.c => 'ks',
-                  Separability.f => '	ps',
+                  Separability.f => 'ps',
                 },
               Similarity.d => switch (separability!) {
                   Separability.s => 'ţs',
