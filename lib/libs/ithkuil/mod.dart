@@ -19,7 +19,7 @@ class Formative {
   Affiliation affiliation;
   Configuration configuration;
   Extension extension;
-  final Perspective perspective;
+  Perspective perspective;
   final Essence essence;
   final List<Affix> csVxAffixes;
   final List<Affix> vxCsAffixes;

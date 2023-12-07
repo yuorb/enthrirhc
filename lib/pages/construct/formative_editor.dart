@@ -568,12 +568,47 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Perspective"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
+      PopupMenuButton<Perspective>(
+        initialValue: widget.formative.perspective,
+        onSelected: (Perspective perspective) {
+          widget.updateFormative((f) {
+            f.perspective = perspective;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Perspective>>[
+          PopupMenuItem(
+            value: Perspective.m,
+            child: Text('M (Monadic)'),
+          ),
+          PopupMenuItem(
+            value: Perspective.g,
+            child: Text('G (Agglomerative)'),
+          ),
+          PopupMenuItem(
+            value: Perspective.n,
+            child: Text('N (Nomic)'),
+          ),
+          PopupMenuItem(
+            value: Perspective.a,
+            child: Text('A (Abstract)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text("Perspective"),
+          subtitle: Text(
+            switch (widget.formative.perspective) {
+              Perspective.m => 'M (Monadic)',
+              Perspective.g => 'G (Agglomerative)',
+              Perspective.n => 'N (Nomic)',
+              Perspective.a => 'A (Abstract)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
