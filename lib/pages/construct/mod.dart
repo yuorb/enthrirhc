@@ -25,7 +25,6 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
         builder: (context) => Column(
           children: [
             AppBar(title: const Text("Construct")),
-            // TODO: Implement this component with dynamic formatives
             IthkuilSvg(
               formatives
                   .map((formative) => formative.toCharacters())
