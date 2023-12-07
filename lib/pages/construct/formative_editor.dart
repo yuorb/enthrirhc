@@ -610,12 +610,37 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Essence"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
+      PopupMenuButton<Essence>(
+        initialValue: widget.formative.essence,
+        onSelected: (Essence essence) {
+          widget.updateFormative((f) {
+            f.essence = essence;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Essence>>[
+          PopupMenuItem(
+            value: Essence.nrm,
+            child: Text('NRM (Normal)'),
+          ),
+          PopupMenuItem(
+            value: Essence.rpv,
+            child: Text('RPV (Representative)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text("Essence"),
+          subtitle: Text(
+            switch (widget.formative.essence) {
+              Essence.nrm => 'NRM (Normal)',
+              Essence.rpv => 'RPV (Representative)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       const ListGroupTitle("Relation etc."),
       // TODO: Implement this option.

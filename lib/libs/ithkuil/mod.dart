@@ -20,7 +20,7 @@ class Formative {
   Configuration configuration;
   Extension extension;
   Perspective perspective;
-  final Essence essence;
+  Essence essence;
   final List<Affix> csVxAffixes;
   final List<Affix> vxCsAffixes;
   final VnCn vnCn;
