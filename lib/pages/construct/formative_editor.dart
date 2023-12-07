@@ -394,7 +394,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.animation),
           title: const Text("Plexity"),
           subtitle: Text(
             switch (widget.formative.configuration.plexity) {
@@ -446,7 +446,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 ),
               ],
               child: ListTile(
-                leading: const Icon(Icons.library_books),
+                leading: const Icon(Icons.animation),
                 title: const Text("Similarity"),
                 subtitle: Text(
                   switch (widget.formative.configuration.similarity) {
@@ -500,7 +500,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 ),
               ],
               child: ListTile(
-                leading: const Icon(Icons.library_books),
+                leading: const Icon(Icons.animation),
                 title: const Text("Separability"),
                 subtitle: Text(
                   switch (widget.formative.configuration.separability) {
