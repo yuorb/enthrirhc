@@ -268,9 +268,9 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           leading: const Icon(Icons.library_books),
           title: const Text("Function"),
           subtitle: Text(
-            switch (widget.formative.version) {
-              Version.prc => 'STA (Stative)',
-              Version.cpt => 'DYM (Dynamic)',
+            switch (widget.formative.function) {
+              Function$.sta => 'STA (Stative)',
+              Function$.dyn => 'DYN (Dynamic)',
             },
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
