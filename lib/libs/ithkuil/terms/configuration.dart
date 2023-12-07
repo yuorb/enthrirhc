@@ -3,7 +3,7 @@ import 'mod.dart';
 class Configuration {
   Plexity plexity;
   Similarity? similarity;
-  final Separability? separability;
+  Separability? separability;
 
   Configuration._(this.plexity, this.similarity, this.separability);
 

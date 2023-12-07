@@ -462,13 +462,58 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             )
           : Container(),
-      // TODO: Implement this option.
       widget.formative.configuration.plexity != Plexity.u
-          ? ListTile(
-              leading: const Icon(Icons.library_books),
-              title: const Text("Separability"),
-              subtitle: const Text("BSC"),
-              onTap: () {},
+          ? PopupMenuButton<Option<Separability>>(
+              initialValue: Option.from(widget.formative.configuration.separability),
+              onSelected: (Option<Separability> newSeparability) {
+                widget.updateFormative((f) {
+                  final plexity = widget.formative.configuration.plexity;
+                  final separability = widget.formative.configuration.separability;
+                  if (separability == null && newSeparability.isSome()) {
+                    widget.formative.configuration =
+                        Configuration.from(plexity, Similarity.s, newSeparability.into())!;
+                  } else if (separability != null && newSeparability.isNone()) {
+                    widget.formative.configuration =
+                        Configuration.from(plexity, null, newSeparability.into())!;
+                  } else {
+                    widget.formative.configuration.separability = newSeparability.into();
+                  }
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) => const <PopupMenuEntry<Option<Separability>>>[
+                PopupMenuItem(
+                  value: None(),
+                  child: Text('None'),
+                ),
+                PopupMenuItem(
+                  value: Some(Separability.s),
+                  child: Text('S (Separate)'),
+                ),
+                PopupMenuItem(
+                  value: Some(Separability.c),
+                  child: Text('C (Connected)'),
+                ),
+                PopupMenuItem(
+                  value: Some(Separability.f),
+                  child: Text('F (Fused)'),
+                ),
+              ],
+              child: ListTile(
+                leading: const Icon(Icons.library_books),
+                title: const Text("Separability"),
+                subtitle: Text(
+                  switch (widget.formative.configuration.separability) {
+                    Separability.s => 'S (Separate)',
+                    Separability.c => 'C (Connected)',
+                    Separability.f => 'F (Fused)',
+                    null => 'None'
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
             )
           : Container(),
       // TODO: Implement this option.
