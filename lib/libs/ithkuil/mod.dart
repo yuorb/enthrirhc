@@ -18,7 +18,7 @@ class Formative {
   Version version;
   Affiliation affiliation;
   Configuration configuration;
-  final Extension extension;
+  Extension extension;
   final Perspective perspective;
   final Essence essence;
   final List<Affix> csVxAffixes;

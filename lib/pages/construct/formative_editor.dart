@@ -516,12 +516,57 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             )
           : Container(),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Extension"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
+      PopupMenuButton<Extension>(
+        initialValue: widget.formative.extension,
+        onSelected: (Extension extension) {
+          widget.updateFormative((f) {
+            f.extension = extension;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Extension>>[
+          PopupMenuItem(
+            value: Extension.del,
+            child: Text('DEL (Delimitive)'),
+          ),
+          PopupMenuItem(
+            value: Extension.prx,
+            child: Text('PRX (Proximal)'),
+          ),
+          PopupMenuItem(
+            value: Extension.icp,
+            child: Text('ICP (Inceptive)'),
+          ),
+          PopupMenuItem(
+            value: Extension.atv,
+            child: Text('ATV (Attenuative)'),
+          ),
+          PopupMenuItem(
+            value: Extension.gra,
+            child: Text('GRA (Graduative)'),
+          ),
+          PopupMenuItem(
+            value: Extension.dpl,
+            child: Text('DPL (Depletive)'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text("Extension"),
+          subtitle: Text(
+            switch (widget.formative.extension) {
+              Extension.del => 'DEL (Delimitive)',
+              Extension.prx => 'PRX (Proximal)',
+              Extension.icp => 'ICP (Inceptive)',
+              Extension.atv => 'ATV (Attenuative)',
+              Extension.gra => 'GRA (Graduative)',
+              Extension.dpl => 'DPL (Depletive)',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
