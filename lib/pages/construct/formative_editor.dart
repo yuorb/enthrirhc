@@ -1,3 +1,4 @@
+import 'package:enthrirhs/libs/option/mod.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
@@ -407,13 +408,58 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
       widget.formative.configuration.plexity != Plexity.u
-          ? ListTile(
-              leading: const Icon(Icons.library_books),
-              title: const Text("Similarity"),
-              subtitle: const Text("BSC"),
-              onTap: () {},
+          ? PopupMenuButton<Option<Similarity>>(
+              initialValue: Option.from(widget.formative.configuration.similarity),
+              onSelected: (Option<Similarity> newSimilarity) {
+                widget.updateFormative((f) {
+                  final plexity = widget.formative.configuration.plexity;
+                  final similarity = widget.formative.configuration.similarity;
+                  if (similarity == null && newSimilarity.isSome()) {
+                    widget.formative.configuration =
+                        Configuration.from(plexity, newSimilarity.into(), Separability.s)!;
+                  } else if (similarity != null && newSimilarity.isNone()) {
+                    widget.formative.configuration =
+                        Configuration.from(plexity, newSimilarity.into(), null)!;
+                  } else {
+                    widget.formative.configuration.similarity = newSimilarity.into();
+                  }
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) => const <PopupMenuEntry<Option<Similarity>>>[
+                PopupMenuItem(
+                  value: None(),
+                  child: Text('None'),
+                ),
+                PopupMenuItem(
+                  value: Some(Similarity.s),
+                  child: Text('S (Similar)'),
+                ),
+                PopupMenuItem(
+                  value: Some(Similarity.d),
+                  child: Text('D (Dissimilar)'),
+                ),
+                PopupMenuItem(
+                  value: Some(Similarity.f),
+                  child: Text('F (Fuzzy)'),
+                ),
+              ],
+              child: ListTile(
+                leading: const Icon(Icons.library_books),
+                title: const Text("Similarity"),
+                subtitle: Text(
+                  switch (widget.formative.configuration.similarity) {
+                    Similarity.s => 'S (Similar)',
+                    Similarity.d => 'D (Dissimilar)',
+                    Similarity.f => 'F (Fuzzy)',
+                    null => 'None'
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
             )
           : Container(),
       // TODO: Implement this option.

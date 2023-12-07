@@ -5,6 +5,6 @@ enum Similarity {
   /// The Dissimilar Similarity
   d,
 
-  /// The Fuzzy  Similarity
+  /// The Fuzzy Similarity
   f;
 }
