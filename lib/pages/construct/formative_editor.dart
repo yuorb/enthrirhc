@@ -148,7 +148,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Stem"),
           subtitle: Text(
             switch (widget.formative.stem) {
@@ -191,7 +191,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Specification"),
           subtitle: Text(
             switch (widget.formative.specification) {
@@ -233,7 +233,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Version"),
           subtitle: Text(
             switch (widget.formative.version) {
@@ -265,7 +265,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Function"),
           subtitle: Text(
             switch (widget.formative.function) {
@@ -305,7 +305,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Context"),
           subtitle: Text(
             switch (widget.formative.context) {
@@ -348,7 +348,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ],
         child: ListTile(
-          leading: const Icon(Icons.library_books),
+          leading: const Icon(Icons.info_outline),
           title: const Text("Affiliation"),
           subtitle: Text(
             switch (widget.formative.affiliation) {
@@ -518,67 +518,67 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           : Container(),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Extension"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Perspective"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Essence"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       const ListGroupTitle("Relation etc."),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
-        title: const Text("Essence"),
-        subtitle: const Text("BSC"),
+        leading: const Icon(Icons.info_outline),
+        title: const Text("Relation"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Case"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
-      // ListTile(
-      //   leading: const Icon(Icons.library_books),
-      //   title: const Text("Illocution"),
-      //   subtitle: const Text("BSC"),
-      //   onTap: () {},
-      // ),
+      ListTile(
+        leading: const Icon(Icons.info_outline),
+        title: const Text("Illocution"),
+        subtitle: const Text("TODO"),
+        onTap: () {},
+      ),
       // TODO: Implement this option.
-      // ListTile(
-      //   leading: const Icon(Icons.library_books),
-      //   title: const Text("Validation"),
-      //   subtitle: const Text("BSC"),
-      //   onTap: () {},
-      // ),
+      ListTile(
+        leading: const Icon(Icons.info_outline),
+        title: const Text("Validation"),
+        subtitle: const Text("TODO"),
+        onTap: () {},
+      ),
       const ListGroupTitle("VnCn"),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Vn"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
       ListTile(
-        leading: const Icon(Icons.library_books),
+        leading: const Icon(Icons.info_outline),
         title: const Text("Cn"),
-        subtitle: const Text("BSC"),
+        subtitle: const Text("TODO"),
         onTap: () {},
       ),
       // TODO: Implement this option.
