@@ -726,13 +726,62 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Relation"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
+      switch (widget.formative.formativeType) {
+        Standalone(relation: Relation relation) ||
+        Parent(relation: Relation relation) =>
+          PopupMenuButton<Relation>(
+            initialValue: relation,
+            onSelected: (Relation newRelation) {
+              widget.updateFormative((f) {
+                switch (widget.formative.formativeType) {
+                  case Standalone():
+                    widget.formative.formativeType = Standalone(newRelation);
+                  case Parent():
+                    widget.formative.formativeType = Parent(newRelation);
+                  case Concatenated():
+                    throw "unreachable";
+                }
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Relation>>[
+              PopupMenuItem(
+                value: Noun(Case.thm),
+                child: Text('Noun'),
+              ),
+              PopupMenuItem(
+                value: UnframedVerb(
+                  illocution: Illocution.asr,
+                  validation: Validation.usp,
+                ),
+                child: Text('Unframed Verb'),
+              ),
+              PopupMenuItem(
+                value: FramedVerb(
+                  illocution: Illocution.asr,
+                  validation: Validation.usp,
+                ),
+                child: Text('Framed Verb'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("Relation"),
+              subtitle: Text(
+                switch (relation) {
+                  Noun() => 'Noun',
+                  UnframedVerb() => 'Unframed Verb',
+                  FramedVerb() => 'Framed Verb',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ),
+        Concatenated() => Container(),
+      },
+
       // TODO: Implement this option.
       ListTile(
         leading: const Icon(Icons.info_outline),
