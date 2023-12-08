@@ -767,14 +767,88 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         Concatenated() => Container(),
       },
-
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Case"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
+      switch (widget.formative.formativeType) {
+        Standalone(relation: final relation) || Parent(relation: final relation) => switch (
+              relation) {
+            Noun(case$: final case$) => PopupMenuButton<CaseType>(
+                onSelected: (CaseType caseType) {
+                  widget.updateFormative((f) {
+                    switch (f.formativeType) {
+                      case Standalone():
+                        f.formativeType = Standalone(Noun(Case(
+                          caseType: caseType,
+                          caseNumber: CaseNumber.c1,
+                        )));
+                      case Parent():
+                        f.formativeType = Parent(Noun(Case(
+                          caseType: caseType,
+                          caseNumber: CaseNumber.c1,
+                        )));
+                      case Concatenated():
+                        throw 'unreachable';
+                    }
+                  });
+                },
+                offset: const Offset(1, 0),
+                itemBuilder: (BuildContext context) => const <PopupMenuEntry<CaseType>>[
+                  PopupMenuItem(
+                    value: CaseType.transrelative,
+                    child: Text('Transrelative'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.appositive,
+                    child: Text('Appositive'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.associative,
+                    child: Text('Associative'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.adverbial,
+                    child: Text('Adverbial'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.relational,
+                    child: Text('Relational'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.affinitive,
+                    child: Text('Affinitive'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.spatioTemporal1,
+                    child: Text('Spatio Temporal I'),
+                  ),
+                  PopupMenuItem(
+                    value: CaseType.spatioTemporal2,
+                    child: Text('Spatio Temporal II'),
+                  ),
+                ],
+                child: ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text("Case Type"),
+                  subtitle: Text(
+                    switch (case$.caseType) {
+                      CaseType.transrelative => 'Transrelative Cases',
+                      CaseType.appositive => 'Appositive Cases',
+                      CaseType.associative => 'Associative Cases',
+                      CaseType.adverbial => 'Adverbial Cases',
+                      CaseType.relational => 'Relational Cases',
+                      CaseType.affinitive => 'Affinitive Cases',
+                      CaseType.spatioTemporal1 => 'Spatio Temporal Cases - Group I',
+                      CaseType.spatioTemporal2 => 'Spatio Temporal Cases - Group II',
+                    },
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+              ),
+            FramedVerb() => Container(),
+            UnframedVerb() => Container(),
+          },
+        Concatenated() => Container(),
+      },
       // TODO: Implement this option.
       ListTile(
         leading: const Icon(Icons.info_outline),
