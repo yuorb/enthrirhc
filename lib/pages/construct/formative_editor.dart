@@ -825,7 +825,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.info_outline),
+                  leading: const Icon(Icons.group_outlined),
                   title: const Text("Case Type"),
                   subtitle: Text(
                     switch (case$.caseType) {
@@ -926,7 +926,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ];
                 },
                 child: ListTile(
-                  leading: const Icon(Icons.info_outline),
+                  leading: const Icon(Icons.group_outlined),
                   title: const Text("Case"),
                   subtitle: Text(
                     "${case$.name()} (${case$.fullName()})",
