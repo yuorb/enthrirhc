@@ -849,6 +849,98 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           },
         Concatenated() => Container(),
       },
+      switch (widget.formative.formativeType) {
+        Standalone(relation: final relation) || Parent(relation: final relation) => switch (
+              relation) {
+            Noun(case$: final case$) => PopupMenuButton<CaseNumber>(
+                onSelected: (CaseNumber caseNumber) {
+                  widget.updateFormative((f) {
+                    switch (f.formativeType) {
+                      case Standalone():
+                        f.formativeType = Standalone(Noun(Case(
+                          caseType: case$.caseType,
+                          caseNumber: caseNumber,
+                        )));
+                      case Parent():
+                        f.formativeType = Parent(Noun(Case(
+                          caseType: case$.caseType,
+                          caseNumber: caseNumber,
+                        )));
+                      case Concatenated():
+                        throw 'unreachable';
+                    }
+                  });
+                },
+                offset: const Offset(1, 0),
+                itemBuilder: (BuildContext context) {
+                  final case1 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c1);
+                  final case2 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c2);
+                  final case3 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c3);
+                  final case4 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c4);
+                  final case5 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c5);
+                  final case6 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c6);
+                  final case7 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c7);
+                  final case8 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c8);
+                  final case9 = Case(caseType: case$.caseType, caseNumber: CaseNumber.c9);
+                  return <PopupMenuEntry<CaseNumber>>[
+                    PopupMenuItem(
+                      value: CaseNumber.c1,
+                      child: Text("${case1.name()} (${case1.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c2,
+                      child: Text("${case2.name()} (${case2.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c3,
+                      child: Text("${case3.name()} (${case3.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c4,
+                      child: Text("${case4.name()} (${case4.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c5,
+                      child: Text("${case5.name()} (${case5.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c6,
+                      child: Text("${case6.name()} (${case6.fullName()})"),
+                    ),
+                    PopupMenuItem(
+                      value: CaseNumber.c7,
+                      child: Text("${case7.name()} (${case7.fullName()})"),
+                    ),
+                    ...(case$.caseType.hasNineCaseNumber()
+                        ? [
+                            PopupMenuItem(
+                              value: CaseNumber.c8,
+                              child: Text("${case8.name()} (${case8.fullName()})"),
+                            ),
+                          ]
+                        : []),
+                    PopupMenuItem(
+                      value: CaseNumber.c9,
+                      child: Text("${case9.name()} (${case9.fullName()})"),
+                    ),
+                  ];
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text("Case"),
+                  subtitle: Text(
+                    "${case$.name()} (${case$.fullName()})",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+              ),
+            FramedVerb() => Container(),
+            UnframedVerb() => Container(),
+          },
+        Concatenated() => Container(),
+      },
       // TODO: Implement this option.
       ListTile(
         leading: const Icon(Icons.info_outline),
