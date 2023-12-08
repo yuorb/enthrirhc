@@ -642,7 +642,90 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      const ListGroupTitle("Relation etc."),
+      const ListGroupTitle("Formative Type etc."),
+      PopupMenuButton<FormativeType>(
+        initialValue: widget.formative.formativeType,
+        onSelected: (FormativeType newFormativeType) {
+          widget.updateFormative((f) {
+            switch (f.formativeType) {
+              case Standalone(relation: final relation):
+                switch (newFormativeType) {
+                  case Standalone():
+                    return;
+                  case Parent():
+                    f.formativeType = Parent(relation);
+                  case Concatenated():
+                    f.formativeType = Concatenated(
+                      format: switch (relation) {
+                        Noun(case$: final case$) => case$,
+                        FramedVerb() => Case.thm,
+                        UnframedVerb() => Case.thm,
+                      },
+                      concatenation: Concatenation.type1,
+                    );
+                }
+              case Parent(relation: final relation):
+                switch (newFormativeType) {
+                  case Standalone():
+                    f.formativeType = Standalone(relation);
+                  case Parent():
+                    return;
+                  case Concatenated():
+                    f.formativeType = Concatenated(
+                      format: switch (relation) {
+                        Noun(case$: final case$) => case$,
+                        FramedVerb() => Case.thm,
+                        UnframedVerb() => Case.thm,
+                      },
+                      concatenation: Concatenation.type1,
+                    );
+                }
+              case Concatenated(format: final format):
+                switch (newFormativeType) {
+                  case Standalone():
+                    f.formativeType = Standalone(Noun(format));
+                  case Parent():
+                    f.formativeType = Parent(Noun(format));
+                  case Concatenated():
+                    return;
+                }
+            }
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<FormativeType>>[
+          // The arguments inside the FormativeType class below are all just placeholders.
+          PopupMenuItem(
+            value: Standalone(Noun(Case.thm)),
+            child: Text('Standalone'),
+          ),
+          PopupMenuItem(
+            value: Parent(Noun(Case.thm)),
+            child: Text('Parent'),
+          ),
+          PopupMenuItem(
+            value: Concatenated(
+              format: Case.thm,
+              concatenation: Concatenation.type1,
+            ),
+            child: Text('Concatenated'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text("Formative Type"),
+          subtitle: Text(
+            switch (widget.formative.formativeType) {
+              Standalone() => 'Standalone',
+              Parent() => 'Parent',
+              Concatenated() => 'Concatenated',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
+      ),
       // TODO: Implement this option.
       ListTile(
         leading: const Icon(Icons.info_outline),

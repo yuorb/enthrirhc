@@ -21,10 +21,10 @@ class Formative {
   Extension extension;
   Perspective perspective;
   Essence essence;
+  FormativeType formativeType;
   final List<Affix> csVxAffixes;
   final List<Affix> vxCsAffixes;
   final VnCn vnCn;
-  final FormativeType formativeType;
 
   Formative({
     required this.stem,
