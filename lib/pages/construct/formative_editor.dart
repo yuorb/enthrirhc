@@ -121,7 +121,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         },
       ),
       PopupMenuButton<Stem>(
-        initialValue: widget.formative.stem,
         onSelected: (Stem stem) {
           widget.updateFormative((f) {
             f.stem = stem;
@@ -164,7 +163,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Specification>(
-        initialValue: widget.formative.specification,
         onSelected: (Specification specification) {
           widget.updateFormative((f) {
             f.specification = specification;
@@ -215,7 +213,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       const ListGroupTitle("Basic"),
       PopupMenuButton<Version>(
-        initialValue: widget.formative.version,
         onSelected: (Version version) {
           widget.updateFormative((f) {
             f.version = version;
@@ -247,7 +244,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Function$>(
-        initialValue: widget.formative.function,
         onSelected: (Function$ function) {
           widget.updateFormative((f) {
             f.function = function;
@@ -279,7 +275,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Context>(
-        initialValue: widget.formative.context,
         onSelected: (Context thisContext) {
           widget.updateFormative((f) {
             f.context = thisContext;
@@ -322,7 +317,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       const ListGroupTitle("Ca"),
       PopupMenuButton<Affiliation>(
-        initialValue: widget.formative.affiliation,
         onSelected: (Affiliation affiliation) {
           widget.updateFormative((f) {
             f.affiliation = affiliation;
@@ -364,7 +358,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Plexity>(
-        initialValue: widget.formative.configuration.plexity,
         onSelected: (Plexity newPlexity) {
           widget.updateFormative((f) {
             final similarity = f.configuration.similarity;
@@ -410,7 +403,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       widget.formative.configuration.plexity != Plexity.u
           ? PopupMenuButton<Option<Similarity>>(
-              initialValue: Option.from(widget.formative.configuration.similarity),
               onSelected: (Option<Similarity> newSimilarity) {
                 widget.updateFormative((f) {
                   final plexity = widget.formative.configuration.plexity;
@@ -464,7 +456,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           : Container(),
       widget.formative.configuration.plexity != Plexity.u
           ? PopupMenuButton<Option<Separability>>(
-              initialValue: Option.from(widget.formative.configuration.separability),
               onSelected: (Option<Separability> newSeparability) {
                 widget.updateFormative((f) {
                   final plexity = widget.formative.configuration.plexity;
@@ -517,7 +508,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             )
           : Container(),
       PopupMenuButton<Extension>(
-        initialValue: widget.formative.extension,
         onSelected: (Extension extension) {
           widget.updateFormative((f) {
             f.extension = extension;
@@ -569,7 +559,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Perspective>(
-        initialValue: widget.formative.perspective,
         onSelected: (Perspective perspective) {
           widget.updateFormative((f) {
             f.perspective = perspective;
@@ -611,7 +600,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       PopupMenuButton<Essence>(
-        initialValue: widget.formative.essence,
         onSelected: (Essence essence) {
           widget.updateFormative((f) {
             f.essence = essence;
@@ -644,7 +632,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       const ListGroupTitle("Formative Type etc."),
       PopupMenuButton<FormativeType>(
-        initialValue: widget.formative.formativeType,
         onSelected: (FormativeType newFormativeType) {
           widget.updateFormative((f) {
             switch (f.formativeType) {
@@ -730,7 +717,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         Standalone(relation: Relation relation) ||
         Parent(relation: Relation relation) =>
           PopupMenuButton<Relation>(
-            initialValue: relation,
             onSelected: (Relation newRelation) {
               widget.updateFormative((f) {
                 switch (widget.formative.formativeType) {
