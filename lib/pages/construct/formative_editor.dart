@@ -939,12 +939,95 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               validation: final validation,
             ) =>
               [
-                // TODO: Implement this option.
-                ListTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: const Text("Illocution"),
-                  subtitle: const Text("TODO"),
-                  onTap: () {},
+                PopupMenuButton<Illocution>(
+                  onSelected: (Illocution newIllocution) {
+                    widget.updateFormative((f) {
+                      f.formativeType = switch (f.formativeType) {
+                        Standalone() => Standalone(switch (relation) {
+                            Noun() => throw 'unreachable',
+                            FramedVerb() => FramedVerb(
+                                illocution: newIllocution,
+                                validation: validation,
+                              ),
+                            UnframedVerb() => UnframedVerb(
+                                illocution: newIllocution,
+                                validation: validation,
+                              ),
+                          }),
+                        Parent() => Parent(switch (relation) {
+                            Noun() => throw 'unreachable',
+                            FramedVerb() => FramedVerb(
+                                illocution: newIllocution,
+                                validation: validation,
+                              ),
+                            UnframedVerb() => UnframedVerb(
+                                illocution: newIllocution,
+                                validation: validation,
+                              ),
+                          }),
+                        Concatenated() => throw 'unreachable',
+                      };
+                    });
+                  },
+                  offset: const Offset(1, 0),
+                  itemBuilder: (BuildContext context) => const <PopupMenuEntry<Illocution>>[
+                    PopupMenuItem(
+                      value: Illocution.asr,
+                      child: Text('ASR (Assertive)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.dir,
+                      child: Text('DIR (Directive)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.dec,
+                      child: Text('DEC (Declarative)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.irg,
+                      child: Text('IRG (Interrogative)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.ver,
+                      child: Text('VER (Verificative)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.adm,
+                      child: Text('ADM (Admonitive)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.pot,
+                      child: Text('POT (Potentiative)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.hor,
+                      child: Text('HOR (Hortative)'),
+                    ),
+                    PopupMenuItem(
+                      value: Illocution.cnj,
+                      child: Text('CNJ (Conjectural)'),
+                    ),
+                  ],
+                  child: ListTile(
+                    leading: const Icon(Icons.info_outline),
+                    title: const Text("Illocution"),
+                    subtitle: Text(
+                      switch (illocution) {
+                        Illocution.asr => 'ASR (Assertive)',
+                        Illocution.dir => 'DIR (Directive)',
+                        Illocution.dec => 'DEC (Declarative)',
+                        Illocution.irg => 'IRG (Interrogative)',
+                        Illocution.ver => 'VER (Verificative)',
+                        Illocution.adm => 'ADM (Admonitive)',
+                        Illocution.pot => 'POT (Potentiative)',
+                        Illocution.hor => 'HOR (Hortative)',
+                        Illocution.cnj => 'CNJ (Conjectural)',
+                      },
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ),
                 ),
                 // TODO: Implement this option.
                 ListTile(
