@@ -1103,7 +1103,161 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 ),
               ],
           },
-        Concatenated() => [],
+        Concatenated(format: final format, concatenation: final concatenation) => [
+            PopupMenuButton<CaseType>(
+              onSelected: (CaseType newCaseType) {
+                widget.updateFormative((f) {
+                  f.formativeType = switch (f.formativeType) {
+                    Standalone() => throw 'unreachable',
+                    Parent() => throw 'unreachable',
+                    Concatenated() => Concatenated(
+                        format: Case(
+                          caseType: newCaseType,
+                          caseNumber: format.caseNumber,
+                        ),
+                        concatenation: concatenation,
+                      ),
+                  };
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) => const <PopupMenuEntry<CaseType>>[
+                PopupMenuItem(
+                  value: CaseType.transrelative,
+                  child: Text('Transrelative'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.appositive,
+                  child: Text('Appositive'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.associative,
+                  child: Text('Associative'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.adverbial,
+                  child: Text('Adverbial'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.relational,
+                  child: Text('Relational'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.affinitive,
+                  child: Text('Affinitive'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.spatioTemporal1,
+                  child: Text('Spatio Temporal I'),
+                ),
+                PopupMenuItem(
+                  value: CaseType.spatioTemporal2,
+                  child: Text('Spatio Temporal II'),
+                ),
+              ],
+              child: ListTile(
+                leading: const Icon(Icons.group_outlined),
+                title: const Text("Format Type"),
+                subtitle: Text(
+                  switch (format.caseType) {
+                    CaseType.transrelative => 'Transrelative Formats',
+                    CaseType.appositive => 'Appositive Formats',
+                    CaseType.associative => 'Associative Formats',
+                    CaseType.adverbial => 'Adverbial Formats',
+                    CaseType.relational => 'Relational Formats',
+                    CaseType.affinitive => 'Affinitive Formats',
+                    CaseType.spatioTemporal1 => 'Spatio Temporal Formats - Group I',
+                    CaseType.spatioTemporal2 => 'Spatio Temporal Formats - Group II',
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ),
+            PopupMenuButton<CaseNumber>(
+              onSelected: (CaseNumber newCaseNumber) {
+                // TODO
+                widget.updateFormative((f) {
+                  f.formativeType = switch (f.formativeType) {
+                    Standalone() => throw 'unreachable',
+                    Parent() => throw 'unreachable',
+                    Concatenated() => Concatenated(
+                        format: Case(
+                          caseType: format.caseType,
+                          caseNumber: newCaseNumber,
+                        ),
+                        concatenation: concatenation,
+                      ),
+                  };
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) {
+                final case1 = Case(caseType: format.caseType, caseNumber: CaseNumber.c1);
+                final case2 = Case(caseType: format.caseType, caseNumber: CaseNumber.c2);
+                final case3 = Case(caseType: format.caseType, caseNumber: CaseNumber.c3);
+                final case4 = Case(caseType: format.caseType, caseNumber: CaseNumber.c4);
+                final case5 = Case(caseType: format.caseType, caseNumber: CaseNumber.c5);
+                final case6 = Case(caseType: format.caseType, caseNumber: CaseNumber.c6);
+                final case7 = Case(caseType: format.caseType, caseNumber: CaseNumber.c7);
+                final case8 = Case(caseType: format.caseType, caseNumber: CaseNumber.c8);
+                final case9 = Case(caseType: format.caseType, caseNumber: CaseNumber.c9);
+                return <PopupMenuEntry<CaseNumber>>[
+                  PopupMenuItem(
+                    value: CaseNumber.c1,
+                    child: Text("${case1.name()} (${case1.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c2,
+                    child: Text("${case2.name()} (${case2.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c3,
+                    child: Text("${case3.name()} (${case3.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c4,
+                    child: Text("${case4.name()} (${case4.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c5,
+                    child: Text("${case5.name()} (${case5.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c6,
+                    child: Text("${case6.name()} (${case6.fullName()})"),
+                  ),
+                  PopupMenuItem(
+                    value: CaseNumber.c7,
+                    child: Text("${case7.name()} (${case7.fullName()})"),
+                  ),
+                  ...(format.caseType.hasNineCaseNumber()
+                      ? [
+                          PopupMenuItem(
+                            value: CaseNumber.c8,
+                            child: Text("${case8.name()} (${case8.fullName()})"),
+                          ),
+                        ]
+                      : []),
+                  PopupMenuItem(
+                    value: CaseNumber.c9,
+                    child: Text("${case9.name()} (${case9.fullName()})"),
+                  ),
+                ];
+              },
+              child: ListTile(
+                leading: const Icon(Icons.group_outlined),
+                title: const Text("Format"),
+                subtitle: Text(
+                  "${format.name()} (${format.fullName()})",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ),
+            ),
+          ],
       }),
       const ListGroupTitle("VnCn"),
       // TODO: Implement this option.
