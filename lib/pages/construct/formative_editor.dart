@@ -753,7 +753,45 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        Concatenated() => Container(),
+        Concatenated(format: final format, concatenation: final concatenation) =>
+          PopupMenuButton<Concatenation>(
+            onSelected: (Concatenation newConcatenation) {
+              widget.updateFormative((f) {
+                f.formativeType = switch (f.formativeType) {
+                  Standalone() => throw 'unreachable',
+                  Parent() => throw 'unreachable',
+                  Concatenated() => Concatenated(
+                      format: format,
+                      concatenation: newConcatenation,
+                    ),
+                };
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Concatenation>>[
+              PopupMenuItem(
+                value: Concatenation.type1,
+                child: Text("Type 1"),
+              ),
+              PopupMenuItem(
+                value: Concatenation.type2,
+                child: Text("Type 2"),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("Concatenation"),
+              subtitle: Text(
+                switch (concatenation) {
+                  Concatenation.type1 => "Type 1",
+                  Concatenation.type2 => "Type 2",
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ),
       },
       ...(switch (widget.formative.formativeType) {
         Standalone(relation: final relation) || Parent(relation: final relation) => switch (
@@ -1104,44 +1142,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ],
           },
         Concatenated(format: final format, concatenation: final concatenation) => [
-            PopupMenuButton<Concatenation>(
-              onSelected: (Concatenation newConcatenation) {
-                widget.updateFormative((f) {
-                  f.formativeType = switch (f.formativeType) {
-                    Standalone() => throw 'unreachable',
-                    Parent() => throw 'unreachable',
-                    Concatenated() => Concatenated(
-                        format: format,
-                        concatenation: newConcatenation,
-                      ),
-                  };
-                });
-              },
-              offset: const Offset(1, 0),
-              itemBuilder: (BuildContext context) => const <PopupMenuEntry<Concatenation>>[
-                PopupMenuItem(
-                  value: Concatenation.type1,
-                  child: Text("Type 1"),
-                ),
-                PopupMenuItem(
-                  value: Concatenation.type2,
-                  child: Text("Type 2"),
-                ),
-              ],
-              child: ListTile(
-                leading: const Icon(Icons.info_outline),
-                title: const Text("Concatenation"),
-                subtitle: Text(
-                  switch (concatenation) {
-                    Concatenation.type1 => "Type 1",
-                    Concatenation.type2 => "Type 2",
-                  },
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
-            ),
             PopupMenuButton<CaseType>(
               onSelected: (CaseType newCaseType) {
                 widget.updateFormative((f) {
