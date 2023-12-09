@@ -930,25 +930,33 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ),
               ],
-            FramedVerb() => [],
-            UnframedVerb() => [],
+            FramedVerb(
+              illocution: final illocution,
+              validation: final validation,
+            ) ||
+            UnframedVerb(
+              illocution: final illocution,
+              validation: final validation,
+            ) =>
+              [
+                // TODO: Implement this option.
+                ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text("Illocution"),
+                  subtitle: const Text("TODO"),
+                  onTap: () {},
+                ),
+                // TODO: Implement this option.
+                ListTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text("Validation"),
+                  subtitle: const Text("TODO"),
+                  onTap: () {},
+                ),
+              ],
           },
         Concatenated() => [],
       }),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Illocution"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Validation"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
       const ListGroupTitle("VnCn"),
       // TODO: Implement this option.
       ListTile(
