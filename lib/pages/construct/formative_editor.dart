@@ -634,49 +634,40 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       PopupMenuButton<FormativeType>(
         onSelected: (FormativeType newFormativeType) {
           widget.updateFormative((f) {
-            switch (f.formativeType) {
-              case Standalone(relation: final relation):
-                switch (newFormativeType) {
-                  case Standalone():
-                    return;
-                  case Parent():
-                    f.formativeType = Parent(relation);
-                  case Concatenated():
-                    f.formativeType = Concatenated(
-                      format: switch (relation) {
-                        Noun(case$: final case$) => case$,
-                        FramedVerb() => Case.thm,
-                        UnframedVerb() => Case.thm,
-                      },
-                      concatenation: Concatenation.type1,
-                    );
-                }
-              case Parent(relation: final relation):
-                switch (newFormativeType) {
-                  case Standalone():
-                    f.formativeType = Standalone(relation);
-                  case Parent():
-                    return;
-                  case Concatenated():
-                    f.formativeType = Concatenated(
-                      format: switch (relation) {
-                        Noun(case$: final case$) => case$,
-                        FramedVerb() => Case.thm,
-                        UnframedVerb() => Case.thm,
-                      },
-                      concatenation: Concatenation.type1,
-                    );
-                }
-              case Concatenated(format: final format):
-                switch (newFormativeType) {
-                  case Standalone():
-                    f.formativeType = Standalone(Noun(format));
-                  case Parent():
-                    f.formativeType = Parent(Noun(format));
-                  case Concatenated():
-                    return;
-                }
+            if (f.formativeType.runtimeType == newFormativeType.runtimeType) {
+              return;
             }
+            f.formativeType = switch (f.formativeType) {
+              Standalone(relation: final relation) => switch (newFormativeType) {
+                  Standalone() => throw 'unreachable',
+                  Parent() => Parent(relation),
+                  Concatenated() => Concatenated(
+                      format: switch (relation) {
+                        Noun(case$: final case$) => case$,
+                        FramedVerb() => Case.thm,
+                        UnframedVerb() => Case.thm,
+                      },
+                      concatenation: Concatenation.type1,
+                    ),
+                },
+              Parent(relation: final relation) => switch (newFormativeType) {
+                  Standalone() => Standalone(relation),
+                  Parent() => throw 'unreachable',
+                  Concatenated() => Concatenated(
+                      format: switch (relation) {
+                        Noun(case$: final case$) => case$,
+                        FramedVerb() => Case.thm,
+                        UnframedVerb() => Case.thm,
+                      },
+                      concatenation: Concatenation.type1,
+                    ),
+                },
+              Concatenated(format: final format) => switch (newFormativeType) {
+                  Standalone() => Standalone(Noun(format)),
+                  Parent() => Parent(Noun(format)),
+                  Concatenated() => throw 'unreachable',
+                }
+            };
           });
         },
         offset: const Offset(1, 0),
@@ -719,14 +710,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           PopupMenuButton<Relation>(
             onSelected: (Relation newRelation) {
               widget.updateFormative((f) {
-                switch (widget.formative.formativeType) {
-                  case Standalone():
-                    widget.formative.formativeType = Standalone(newRelation);
-                  case Parent():
-                    widget.formative.formativeType = Parent(newRelation);
-                  case Concatenated():
-                    throw "unreachable";
-                }
+                widget.formative.formativeType = switch (widget.formative.formativeType) {
+                  Standalone() => Standalone(newRelation),
+                  Parent() => Parent(newRelation),
+                  Concatenated() => throw "unreachable",
+                };
               });
             },
             offset: const Offset(1, 0),
@@ -774,20 +762,17 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 PopupMenuButton<CaseType>(
                   onSelected: (CaseType caseType) {
                     widget.updateFormative((f) {
-                      switch (f.formativeType) {
-                        case Standalone():
-                          f.formativeType = Standalone(Noun(Case(
+                      f.formativeType = switch (f.formativeType) {
+                        Standalone() => Standalone(Noun(Case(
                             caseType: caseType,
                             caseNumber: CaseNumber.c1,
-                          )));
-                        case Parent():
-                          f.formativeType = Parent(Noun(Case(
+                          ))),
+                        Parent() => Parent(Noun(Case(
                             caseType: caseType,
                             caseNumber: CaseNumber.c1,
-                          )));
-                        case Concatenated():
-                          throw 'unreachable';
-                      }
+                          ))),
+                        Concatenated() => throw 'unreachable',
+                      };
                     });
                   },
                   offset: const Offset(1, 0),
@@ -848,20 +833,17 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 PopupMenuButton<CaseNumber>(
                   onSelected: (CaseNumber caseNumber) {
                     widget.updateFormative((f) {
-                      switch (f.formativeType) {
-                        case Standalone():
-                          f.formativeType = Standalone(Noun(Case(
+                      f.formativeType = switch (f.formativeType) {
+                        Standalone() => Standalone(Noun(Case(
                             caseType: case$.caseType,
                             caseNumber: caseNumber,
-                          )));
-                        case Parent():
-                          f.formativeType = Parent(Noun(Case(
+                          ))),
+                        Parent() => Parent(Noun(Case(
                             caseType: case$.caseType,
                             caseNumber: caseNumber,
-                          )));
-                        case Concatenated():
-                          throw 'unreachable';
-                      }
+                          ))),
+                        Concatenated() => throw 'unreachable',
+                      };
                     });
                   },
                   offset: const Offset(1, 0),
