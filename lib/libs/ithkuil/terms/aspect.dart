@@ -1,39 +1,110 @@
 enum Aspect {
+  /// Retrospective
   rtr,
+
+  /// Prospective
   prs,
+
+  /// Habitual
   hab,
+
+  /// Progressive
   prg,
+
+  /// Imminent
   imm,
+
+  /// Precessive
   pcs,
+
+  /// Regulative
   reg,
+
+  /// Summative
   smm,
+
+  /// Anticipatory
   atp,
+
+  /// Resumptive
   rsm,
+
+  /// Cessative
   css,
+
+  /// Pausal
   pau,
+
+  /// Regressive
   rgr,
+
+  /// Preclusive
   pcl,
+
+  /// Continuative
   cnt,
+
+  /// Incessative
   ics,
+
+  /// Experiential
   exp,
+
+  /// Interruptive
   irp,
+
+  /// Preemptive
   pmp,
+
+  /// Climactic
   clm,
+
+  /// Dilatory
   dlt,
+
+  /// Temporary
   tmp,
+
+  /// Expenditive
   xpd,
+
+  /// Limitative
   lim,
+
+  /// Expeditive
   epd,
+
+  /// Protractive
   ptc,
+
+  /// Preparatory
   ppr,
+
+  /// Disclusive
   dcl,
+
+  /// Conclusive
   ccl,
+
+  /// Culminative
   cul,
+
+  /// Intermediative
   imd,
+
+  /// Tardative
   trd,
+
+  /// Transitional
   tns,
+
+  /// Intercommutative
   itc,
+
+  /// Motive
   mtv,
+
+  /// Sequential
   sqn;
 
   String romanize(String charPrecedingThis) {

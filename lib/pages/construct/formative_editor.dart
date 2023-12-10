@@ -629,12 +629,206 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        // TODO: Handle this case.
-        AspectVn() => ListTile(
-            leading: const Icon(Icons.sports_kabaddi_outlined),
-            title: const Text("Aspect"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        AspectVn(aspect: final aspect) => PopupMenuButton<Aspect>(
+            onSelected: (Aspect newAspect) {
+              widget.updateFormative((f) {
+                f.vnCn.vn = AspectVn(newAspect);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Aspect>>[
+              PopupMenuItem(
+                value: Aspect.rtr,
+                child: Text('RTR (Retrospective)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.prs,
+                child: Text('PRS (Prospective)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.hab,
+                child: Text('HAB (Habitual)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.prg,
+                child: Text('PRG (Progressive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.imm,
+                child: Text('IMM (Imminent)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.pcs,
+                child: Text('PCS (Precessive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.reg,
+                child: Text('REG (Regulative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.smm,
+                child: Text('SMM (Summative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.atp,
+                child: Text('ATP (Anticipatory)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.rsm,
+                child: Text('RSM (Resumptive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.css,
+                child: Text('CSS (Cessative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.pau,
+                child: Text('PAU (Pausal)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.rgr,
+                child: Text('RGR (Regressive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.pcl,
+                child: Text('PCL (Preclusive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.cnt,
+                child: Text('CNT (Continuative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.ics,
+                child: Text('ICS (Incessative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.exp,
+                child: Text('EXP (Experiential)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.irp,
+                child: Text('IRP (Interruptive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.pmp,
+                child: Text('PMP (Preemptive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.clm,
+                child: Text('CLM (Climactic)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.dlt,
+                child: Text('DLT (Dilatory)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.tmp,
+                child: Text('TMP (Temporary)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.xpd,
+                child: Text('XPD (Expenditive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.lim,
+                child: Text('LIM (Limitative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.epd,
+                child: Text('EPD (Expeditive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.ptc,
+                child: Text('PTC (Protractive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.ppr,
+                child: Text('PPR (Preparatory)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.dcl,
+                child: Text('DCL (Disclusive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.ccl,
+                child: Text('CCL (Conclusive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.cul,
+                child: Text('CUL (Culminative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.imd,
+                child: Text('IMD (Intermediative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.trd,
+                child: Text('TRD (Tardative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.tns,
+                child: Text('TNS (Transitional)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.itc,
+                child: Text('ITC (Intercommutative)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.mtv,
+                child: Text('MTV (Motive)'),
+              ),
+              PopupMenuItem(
+                value: Aspect.sqn,
+                child: Text('SQN (Sequential)'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.sports_kabaddi_outlined),
+              title: const Text("Aspect"),
+              subtitle: Text(
+                switch (aspect) {
+                  Aspect.rtr => 'RTR (Retrospective)',
+                  Aspect.prs => 'PRS (Prospective)',
+                  Aspect.hab => 'HAB (Habitual)',
+                  Aspect.prg => 'PRG (Progressive)',
+                  Aspect.imm => 'IMM (Imminent)',
+                  Aspect.pcs => 'PCS (Precessive)',
+                  Aspect.reg => 'REG (Regulative)',
+                  Aspect.smm => 'SMM (Summative)',
+                  Aspect.atp => 'ATP (Anticipatory)',
+                  Aspect.rsm => 'RSM (Resumptive)',
+                  Aspect.css => 'CSS (Cessative)',
+                  Aspect.pau => 'PAU (Pausal)',
+                  Aspect.rgr => 'RGR (Regressive)',
+                  Aspect.pcl => 'PCL (Preclusive)',
+                  Aspect.cnt => 'CNT (Continuative)',
+                  Aspect.ics => 'ICS (Incessative)',
+                  Aspect.exp => 'EXP (Experiential)',
+                  Aspect.irp => 'IRP (Interruptive)',
+                  Aspect.pmp => 'PMP (Preemptive)',
+                  Aspect.clm => 'CLM (Climactic)',
+                  Aspect.dlt => 'DLT (Dilatory)',
+                  Aspect.tmp => 'TMP (Temporary)',
+                  Aspect.xpd => 'XPD (Expenditive)',
+                  Aspect.lim => 'LIM (Limitative)',
+                  Aspect.epd => 'EPD (Expeditive)',
+                  Aspect.ptc => 'PTC (Protractive)',
+                  Aspect.ppr => 'PPR (Preparatory)',
+                  Aspect.dcl => 'DCL (Disclusive)',
+                  Aspect.ccl => 'CCL (Conclusive)',
+                  Aspect.cul => 'CUL (Culminative)',
+                  Aspect.imd => 'IMD (Intermediative)',
+                  Aspect.trd => 'TRD (Tardative)',
+                  Aspect.tns => 'TNS (Transitional)',
+                  Aspect.itc => 'ITC (Intercommutative)',
+                  Aspect.mtv => 'MTV (Motive)',
+                  Aspect.sqn => 'SQN (Sequential)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
       },
       const ListGroupTitle("Ca"),
