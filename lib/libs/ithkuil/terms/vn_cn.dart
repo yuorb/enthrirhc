@@ -3,9 +3,9 @@ import 'vn.dart';
 
 class VnCn {
   final Cn cn;
-  final Vn vn;
+  Vn vn;
 
-  const VnCn({
+  VnCn({
     required this.cn,
     required this.vn,
   });

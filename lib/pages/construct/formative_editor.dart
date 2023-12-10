@@ -315,12 +315,54 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.sports_kabaddi_outlined),
-        title: const Text("Vn Type"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
+      PopupMenuButton<Vn>(
+        onSelected: (Vn newVn) {
+          widget.updateFormative((f) {
+            if (f.vnCn.vn.runtimeType == newVn.runtimeType) {
+              return;
+            }
+            f.vnCn.vn = newVn;
+          });
+        },
+        offset: const Offset(1, 0),
+        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Vn>>[
+          PopupMenuItem(
+            value: ValenceVn(Valence.mno),
+            child: Text('Valence'),
+          ),
+          PopupMenuItem(
+            value: PhaseVn(Phase.pct),
+            child: Text('Phase'),
+          ),
+          PopupMenuItem(
+            value: EffectVn(Effect.unk),
+            child: Text('Effect'),
+          ),
+          PopupMenuItem(
+            value: LevelVn(ComparisonOperator.equ),
+            child: Text('Level'),
+          ),
+          PopupMenuItem(
+            value: AspectVn(Aspect.rtr),
+            child: Text('Aspect'),
+          ),
+        ],
+        child: ListTile(
+          leading: const Icon(Icons.sports_kabaddi_outlined),
+          title: const Text("Vn Type"),
+          subtitle: Text(
+            switch (widget.formative.vnCn.vn) {
+              ValenceVn() => 'Valence',
+              PhaseVn() => 'Phase',
+              EffectVn() => 'Effect',
+              LevelVn() => 'Level',
+              AspectVn() => 'Aspect',
+            },
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
       ),
       // TODO: Implement this option.
       ListTile(
