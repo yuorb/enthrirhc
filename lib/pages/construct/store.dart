@@ -25,7 +25,7 @@ class ConstructPageRoots with ChangeNotifier {
       essence: Essence.nrm,
       csVxAffixes: [],
       vxCsAffixes: [],
-      vnCn: const Pattern1(
+      vnCn: const VnCn(
         vn: ValenceVn(Valence.mno),
         cn: MoodCn(Mood.fac),
       ),

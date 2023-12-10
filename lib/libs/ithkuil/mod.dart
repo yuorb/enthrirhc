@@ -556,44 +556,33 @@ class Formative {
       ),
     ];
 
-    final hasTertiary = switch (vnCn) {
-      Pattern1(vn: final vn) => switch (vn) {
-          ValenceVn(valence: final valence) => valence != Valence.mno,
-          _ => true,
-        },
-      Pattern2() => true,
+    final hasTertiary = switch (vnCn.vn) {
+      ValenceVn(valence: final valence) => valence != Valence.mno,
+      _ => true,
     };
 
     if (hasTertiary) {
       characters.add(
         Tertiary(
-          valence: switch (vnCn) {
-            Pattern1(vn: final vn) => switch (vn) {
-                ValenceVn(valence: final valence) => valence,
-                _ => Valence.mno,
-              },
+          valence: switch (vnCn.cn) {
+            ValenceVn(valence: final valence) => valence,
             _ => Valence.mno,
           },
-          top: switch (vnCn) {
-            Pattern1(vn: final vn) => switch (vn) {
-                PhaseVn(phase: final phase) => PhaseExtension(phase),
-                EffectVn(effect: final effect) => EffectExtension(effect),
-                _ => null
-              },
-            Pattern2(vn: final vn) => AspectExtension(vn),
+          top: switch (vnCn.vn) {
+            PhaseVn(phase: final phase) => PhaseExtension(phase),
+            EffectVn(effect: final effect) => EffectExtension(effect),
+            AspectVn(aspect: final aspect) => AspectExtension(aspect),
+            _ => null,
           },
           // TODO: Parse affixes as bottom component.
           bottom: null,
-          level: switch (vnCn) {
-            Pattern1(vn: final vn) => switch (vn) {
-                LevelVn(level: final level) => Level(
-                    // TODO: Parse affixes as absolute level.
-                    comparison: Comparison.relative,
-                    comparisonOperator: level,
-                  ),
-                _ => null,
-              },
-            Pattern2() => null,
+          level: switch (vnCn.vn) {
+            LevelVn(level: final level) => Level(
+                // TODO: Parse affixes as absolute level.
+                comparison: Comparison.relative,
+                comparisonOperator: level,
+              ),
+            _ => null,
           },
         ),
       );
