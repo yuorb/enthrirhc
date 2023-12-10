@@ -59,15 +59,20 @@ class Database extends _$Database {
   }
 
   Future<List<Root>> search(String keywords) async {
-    final rows = await (select(roots)
-          ..where((tbl) => tbl.root.contains(keywords) | tbl.refers.contains(keywords)))
-        .get();
+    final statement = select(roots)
+      ..where((tbl) => tbl.root.contains(keywords) | tbl.refers.contains(keywords));
+    final rows = await statement.get();
     return rows.map((row) => rowToRoot(row)).toList();
   }
 
   Future<Root?> exactSearch(String root) async {
-    final row = await (select(roots)..where((tbl) => tbl.root.equals(root))).getSingleOrNull();
-    return row != null ? rowToRoot(row) : null;
+    // TODO: Currently we have duplicate roots, so we cannot use `getSingleOrNull` method, but only
+    // limit the number of returned results to be one, until we eliminate all the duplicate roots.
+    final statement = select(roots)
+      ..where((tbl) => tbl.root.equals(root))
+      ..limit(1);
+    final rows = await statement.get();
+    return rows.isNotEmpty ? rowToRoot(rows[0]) : null;
   }
 
   Future<int> rootCount() async {
