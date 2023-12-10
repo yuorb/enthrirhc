@@ -2,7 +2,7 @@ import 'cn.dart';
 import 'vn.dart';
 
 class VnCn {
-  final Cn cn;
+  Cn cn;
   Vn vn;
 
   VnCn({

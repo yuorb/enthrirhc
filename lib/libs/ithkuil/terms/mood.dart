@@ -1,9 +1,20 @@
 enum Mood {
+  /// Factual
   fac,
+
+  /// Subjunctive
   sub,
+
+  /// Assumptive
   asm,
+
+  /// Speculative
   spc,
+
+  /// Counterfactive
   cou,
+
+  /// Hypothetical
   hyp;
 
   String romanize(bool omitOptionalAffixes, bool isPattern1) {

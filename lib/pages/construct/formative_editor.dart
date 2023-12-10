@@ -1812,27 +1812,65 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             ),
           ],
       }),
-      (switch (widget.formative.formativeType) {
-        Standalone(relation: final relation) || Parent(relation: final relation) => switch (
-              relation) {
-            Noun() => true,
-            FramedVerb() => false,
-            UnframedVerb() => false,
-          },
-        Concatenated() => true,
-      })
-          ? ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text("CaseScope"),
-              subtitle: const Text("TODO"),
-              onTap: () {},
-            )
-          : ListTile(
+      (switch (widget.formative.vnCn.cn) {
+        MoodCn(mood: final mood) => PopupMenuButton<Mood>(
+            onSelected: (Mood newMood) {
+              widget.updateFormative((f) {
+                f.vnCn.cn = MoodCn(newMood);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Mood>>[
+              PopupMenuItem(
+                value: Mood.fac,
+                child: Text('FAC (Factual)'),
+              ),
+              PopupMenuItem(
+                value: Mood.sub,
+                child: Text('SUB (Subjunctive)'),
+              ),
+              PopupMenuItem(
+                value: Mood.asm,
+                child: Text('ASM (Assumptive)'),
+              ),
+              PopupMenuItem(
+                value: Mood.spc,
+                child: Text('SPC (Speculative)'),
+              ),
+              PopupMenuItem(
+                value: Mood.cou,
+                child: Text('COU (Counterfactive)'),
+              ),
+              PopupMenuItem(
+                value: Mood.hyp,
+                child: Text('HYP (Hypothetical)'),
+              ),
+            ],
+            child: ListTile(
               leading: const Icon(Icons.info_outline),
               title: const Text("Mood"),
-              subtitle: const Text("TODO"),
-              onTap: () {},
+              subtitle: Text(
+                switch (mood) {
+                  Mood.fac => 'FAC (Factual)',
+                  Mood.sub => 'SUB (Subjunctive)',
+                  Mood.asm => 'ASM (Assumptive)',
+                  Mood.spc => 'SPC (Speculative)',
+                  Mood.cou => 'COU (Counterfactive)',
+                  Mood.hyp => 'HYP (Hypothetical)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
             ),
+          ),
+        CaseScopeCn(caseScope: final caseScope) => ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: const Text("CaseScope"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+      }),
       // TODO: Implement this option.
       ListGroupTitle(
         "Affixes CsVx",
