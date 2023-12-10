@@ -364,13 +364,43 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.sports_kabaddi_outlined),
-        title: const Text("[Vn Type]"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
+      switch (widget.formative.vnCn.vn) {
+        // TODO: Handle this case.
+        ValenceVn() => ListTile(
+            leading: const Icon(Icons.sports_kabaddi_outlined),
+            title: const Text("Valence"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+        // TODO: Handle this case.
+        PhaseVn() => ListTile(
+            leading: const Icon(Icons.sports_kabaddi_outlined),
+            title: const Text("Phase"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+        // TODO: Handle this case.
+        EffectVn() => ListTile(
+            leading: const Icon(Icons.sports_kabaddi_outlined),
+            title: const Text("Effect"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+        // TODO: Handle this case.
+        LevelVn() => ListTile(
+            leading: const Icon(Icons.sports_kabaddi_outlined),
+            title: const Text("Level"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+        // TODO: Handle this case.
+        AspectVn() => ListTile(
+            leading: const Icon(Icons.sports_kabaddi_outlined),
+            title: const Text("Aspect"),
+            subtitle: const Text("TODO"),
+            onTap: () {},
+          ),
+      },
       const ListGroupTitle("Ca"),
       PopupMenuButton<Affiliation>(
         onSelected: (Affiliation affiliation) {
