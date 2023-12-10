@@ -45,6 +45,8 @@ class Quarternary with Character {
     }
 
     final String cnId = cn.id();
+    // 5 is the half width of the core path.
+    final double cnX = coreX + 5;
     final double cnY = coreY + (formativeType.isCaseScope() ? 70 : -70);
 
     return (
@@ -52,7 +54,7 @@ class Quarternary with Character {
         <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
         <use href="#$startExtId" x="$startExtX" y="$startExtY" fill="$fillColor" />
         <use href="#$endExtId" x="$endExtX" y="$endExtY" fill="$fillColor" />
-        <use href="#$cnId" x="$coreX" y="$cnY" fill="$fillColor" />
+        <use href="#$cnId" x="$cnX" y="$cnY" fill="$fillColor" />
       ''',
       width,
     );
