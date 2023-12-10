@@ -1,9 +1,20 @@
 enum CaseScope {
+  /// Natural
   ccn,
+
+  /// Antecedent
   cca,
+
+  /// Subaltern
   ccs,
+
+  /// Qualifier
   ccq,
+
+  /// Precedent
   ccp,
+
+  /// Successive
   ccv;
 
   String romanize(bool omitOptionalAffixes, bool isPattern1) {

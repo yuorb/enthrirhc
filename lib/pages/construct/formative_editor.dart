@@ -1864,11 +1864,56 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        CaseScopeCn(caseScope: final caseScope) => ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text("CaseScope"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        CaseScopeCn(caseScope: final caseScope) => PopupMenuButton<CaseScope>(
+            onSelected: (CaseScope newCaseScope) {
+              widget.updateFormative((f) {
+                f.vnCn.cn = CaseScopeCn(newCaseScope);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<CaseScope>>[
+              PopupMenuItem(
+                value: CaseScope.ccn,
+                child: Text('CCN (Natural)'),
+              ),
+              PopupMenuItem(
+                value: CaseScope.cca,
+                child: Text('CCA (Antecedent)'),
+              ),
+              PopupMenuItem(
+                value: CaseScope.ccs,
+                child: Text('CCS (Subaltern)'),
+              ),
+              PopupMenuItem(
+                value: CaseScope.ccq,
+                child: Text('CCQ (Qualifier)'),
+              ),
+              PopupMenuItem(
+                value: CaseScope.ccp,
+                child: Text('CCP (Precedent)'),
+              ),
+              PopupMenuItem(
+                value: CaseScope.ccv,
+                child: Text('CCV (Successive)'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("Case Scope"),
+              subtitle: Text(
+                switch (caseScope) {
+                  CaseScope.ccn => 'CCN (Natural)',
+                  CaseScope.cca => 'CCA (Antecedent)',
+                  CaseScope.ccs => 'CCS (Subaltern)',
+                  CaseScope.ccq => 'CCQ (Qualifier)',
+                  CaseScope.ccp => 'CCP (Precedent)',
+                  CaseScope.ccv => 'CCV (Successive)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
       }),
       // TODO: Implement this option.
