@@ -106,12 +106,14 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
             (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
           ).join('\n')}
       </defs>
-      <line x1="0" y1="${unitHeight * 1}" x2="600" y2="${unitHeight * 1}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 2}" x2="600" y2="${unitHeight * 2}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 3}" x2="600" y2="${unitHeight * 3}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 4}" x2="600" y2="${unitHeight * 4}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 5}" x2="600" y2="${unitHeight * 5}" stroke="$staffColor" />
-      ${charImages.join('\n')}
+      <line x1="0" y1="${unitHeight * 1}" x2="65536" y2="${unitHeight * 1}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 2}" x2="65536" y2="${unitHeight * 2}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 3}" x2="65536" y2="${unitHeight * 3}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 4}" x2="65536" y2="${unitHeight * 4}" stroke="$staffColor" />
+      <line x1="0" y1="${unitHeight * 5}" x2="65536" y2="${unitHeight * 5}" stroke="$staffColor" />
+      <g transform="translate(${baseWidth < minWidth ? (minWidth - baseWidth) / 2 : 0} 0)">
+        ${charImages.join('\n')}
+      </g>
     </svg>''';
 
   // <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: red" />
