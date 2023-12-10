@@ -564,7 +564,7 @@ class Formative {
     if (hasTertiary) {
       characters.add(
         Tertiary(
-          valence: switch (vnCn.cn) {
+          valence: switch (vnCn.vn) {
             ValenceVn(valence: final valence) => valence,
             _ => Valence.mno,
           },

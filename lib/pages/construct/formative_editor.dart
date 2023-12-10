@@ -365,12 +365,71 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ),
       ),
       switch (widget.formative.vnCn.vn) {
-        // TODO: Handle this case.
-        ValenceVn() => ListTile(
-            leading: const Icon(Icons.sports_kabaddi_outlined),
-            title: const Text("Valence"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        ValenceVn(valence: final valence) => PopupMenuButton<Valence>(
+            onSelected: (Valence newValence) {
+              widget.updateFormative((f) {
+                f.vnCn.vn = ValenceVn(newValence);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Valence>>[
+              PopupMenuItem(
+                value: Valence.mno,
+                child: Text('MNO (Monoactive)'),
+              ),
+              PopupMenuItem(
+                value: Valence.prl,
+                child: Text('PRL (Parallel)'),
+              ),
+              PopupMenuItem(
+                value: Valence.cro,
+                child: Text('CRO (Corollary)'),
+              ),
+              PopupMenuItem(
+                value: Valence.rcp,
+                child: Text('RCP (Reciprocal)'),
+              ),
+              PopupMenuItem(
+                value: Valence.cpl,
+                child: Text('CPL (Complementary)'),
+              ),
+              PopupMenuItem(
+                value: Valence.dup,
+                child: Text('DUP (Duplicative)'),
+              ),
+              PopupMenuItem(
+                value: Valence.dem,
+                child: Text('DEM (Demonstrative)'),
+              ),
+              PopupMenuItem(
+                value: Valence.cng,
+                child: Text('CNG (Contingent)'),
+              ),
+              PopupMenuItem(
+                value: Valence.pti,
+                child: Text('PTI (Participative)'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.sports_kabaddi_outlined),
+              title: const Text("Valence"),
+              subtitle: Text(
+                switch (valence) {
+                  Valence.mno => 'MNO (Monoactive)',
+                  Valence.prl => 'PRL (Parallel)',
+                  Valence.cro => 'CRO (Corollary)',
+                  Valence.rcp => 'RCP (Reciprocal)',
+                  Valence.cpl => 'CPL (Complementary)',
+                  Valence.dup => 'DUP (Duplicative)',
+                  Valence.dem => 'DEM (Demonstrative)',
+                  Valence.cng => 'CNG (Contingent)',
+                  Valence.pti => 'PTI (Participative)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
         // TODO: Handle this case.
         PhaseVn() => ListTile(

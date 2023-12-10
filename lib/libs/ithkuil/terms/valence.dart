@@ -1,12 +1,29 @@
 enum Valence {
+  /// Monoactive
   mno,
+
+  /// Parallel
   prl,
+
+  /// Corollary
   cro,
+
+  /// Reciprocal
   rcp,
+
+  /// Complementary
   cpl,
+
+  /// Duplicative
   dup,
+
+  /// Demonstrative
   dem,
+
+  /// Contingent
   cng,
+
+  /// Participative
   pti;
 
   String romanize(bool omitOptionalAffixes) {
