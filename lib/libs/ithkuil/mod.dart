@@ -588,13 +588,26 @@ class Formative {
       );
     }
 
-    characters.add(
-      // TODO: Quarternary can be omitted is some situations.
-      Quarternary(
-        formativeType: formativeType,
-        cn: vnCn.cn,
-      ),
-    );
+    final hasQuarternary = !(vnCn.cn == Cn.cn1 &&
+        switch (formativeType) {
+          Standalone(relation: final relation) || Parent(relation: final relation) => switch (
+                relation) {
+              Noun(case$: final case$) => case$ == Case.thm,
+              FramedVerb(illocution: final illocution, validation: final validation) ||
+              UnframedVerb(illocution: final illocution, validation: final validation) =>
+                illocution == Illocution.asr && validation == Validation.obs,
+            },
+          Concatenated(format: final format) => format == Case.thm,
+        });
+
+    if (hasQuarternary) {
+      characters.add(
+        Quarternary(
+          formativeType: formativeType,
+          cn: vnCn.cn,
+        ),
+      );
+    }
 
     return characters;
   }
