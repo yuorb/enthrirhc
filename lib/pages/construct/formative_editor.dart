@@ -315,6 +315,20 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
+      // TODO: Implement this option.
+      ListTile(
+        leading: const Icon(Icons.sports_kabaddi_outlined),
+        title: const Text("Vn Type"),
+        subtitle: const Text("TODO"),
+        onTap: () {},
+      ),
+      // TODO: Implement this option.
+      ListTile(
+        leading: const Icon(Icons.sports_kabaddi_outlined),
+        title: const Text("[Vn Type]"),
+        subtitle: const Text("TODO"),
+        onTap: () {},
+      ),
       const ListGroupTitle("Ca"),
       PopupMenuButton<Affiliation>(
         onSelected: (Affiliation affiliation) {
@@ -1296,21 +1310,27 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             ),
           ],
       }),
-      const ListGroupTitle("VnCn"),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Vn"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
-      // TODO: Implement this option.
-      ListTile(
-        leading: const Icon(Icons.info_outline),
-        title: const Text("Cn"),
-        subtitle: const Text("TODO"),
-        onTap: () {},
-      ),
+      (switch (widget.formative.formativeType) {
+        Standalone(relation: final relation) || Parent(relation: final relation) => switch (
+              relation) {
+            Noun() => true,
+            FramedVerb() => false,
+            UnframedVerb() => false,
+          },
+        Concatenated() => true,
+      })
+          ? ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("CaseScope"),
+              subtitle: const Text("TODO"),
+              onTap: () {},
+            )
+          : ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("Mood"),
+              subtitle: const Text("TODO"),
+              onTap: () {},
+            ),
       // TODO: Implement this option.
       ListGroupTitle(
         "Affixes CsVx",
