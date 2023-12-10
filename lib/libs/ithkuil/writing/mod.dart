@@ -82,12 +82,8 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
         usedRadicals[format.topId()] = format.topPath();
         usedRadicals[format.bottomId()] = format.bottomPath();
     }
-    switch (q.cn) {
-      case MoodCn(mood: final mood):
-        usedRadicals[mood.id()] = mood.path();
-      case CaseScopeCn(caseScope: final caseScope):
-        usedRadicals[caseScope.id()] = caseScope.path();
-    }
+
+    usedRadicals[q.cn.id()] = q.cn.path();
   }
   if (quarternaries.isNotEmpty) {
     usedRadicals["quarternary_core"] = corePath;

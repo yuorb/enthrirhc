@@ -27,7 +27,7 @@ class ConstructPageRoots with ChangeNotifier {
       vxCsAffixes: [],
       vnCn: VnCn(
         vn: const ValenceVn(Valence.mno),
-        cn: const MoodCn(Mood.fac),
+        cn: Cn.cn1,
       ),
     ));
     notifyListeners();

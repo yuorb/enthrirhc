@@ -5,31 +5,49 @@ import 'relation.dart';
 sealed class FormativeType {
   const FormativeType();
 
-  String id() {
-    return switch (this) {
-      Standalone(relation: final relation) => relation.id(),
-      Parent(relation: final relation) => relation.id(),
-      Concatenated(concatenation: final concatenation) => "concatenation_${concatenation.name}",
-    };
-  }
+  String id();
 
-  String path() {
-    return switch (this) {
-      Standalone(relation: final relation) => relation.path(),
-      Parent(relation: final relation) => relation.path(),
-      Concatenated(concatenation: final concatenation) => concatenation.path,
-    };
-  }
+  String path();
+
+  /// - `true`: This formative should use case scope in VnCn.
+  /// - `false`: This formative should use mood in VnCn.
+  bool isCaseScope();
 }
 
 class Standalone extends FormativeType {
   final Relation relation;
   const Standalone(this.relation);
+
+  @override
+  String id() => relation.id();
+
+  @override
+  String path() => relation.path();
+
+  @override
+  bool isCaseScope() => switch (relation) {
+        Noun() => true,
+        FramedVerb() => false,
+        UnframedVerb() => false,
+      };
 }
 
 class Parent extends FormativeType {
   final Relation relation;
   const Parent(this.relation);
+
+  @override
+  String id() => relation.id();
+
+  @override
+  String path() => relation.path();
+
+  @override
+  bool isCaseScope() => switch (relation) {
+        Noun() => true,
+        FramedVerb() => false,
+        UnframedVerb() => false,
+      };
 }
 
 class Concatenated extends FormativeType {
@@ -40,4 +58,13 @@ class Concatenated extends FormativeType {
     required this.format,
     required this.concatenation,
   });
+
+  @override
+  String id() => "concatenation_${concatenation.name}";
+
+  @override
+  String path() => concatenation.path;
+
+  @override
+  bool isCaseScope() => true;
 }

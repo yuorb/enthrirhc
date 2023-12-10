@@ -1812,110 +1812,109 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             ),
           ],
       }),
-      (switch (widget.formative.vnCn.cn) {
-        MoodCn(mood: final mood) => PopupMenuButton<Mood>(
-            onSelected: (Mood newMood) {
-              widget.updateFormative((f) {
-                f.vnCn.cn = MoodCn(newMood);
-              });
-            },
-            offset: const Offset(1, 0),
-            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Mood>>[
-              PopupMenuItem(
-                value: Mood.fac,
-                child: Text('FAC (Factual)'),
+      widget.formative.formativeType.isCaseScope()
+          ? PopupMenuButton<Cn>(
+              onSelected: (Cn newCn) {
+                widget.updateFormative((f) {
+                  f.vnCn.cn = newCn;
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) => const <PopupMenuEntry<Cn>>[
+                PopupMenuItem(
+                  value: Cn.cn1,
+                  child: Text('CCN (Natural)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn2,
+                  child: Text('CCA (Antecedent)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn3,
+                  child: Text('CCS (Subaltern)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn4,
+                  child: Text('CCQ (Qualifier)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn5,
+                  child: Text('CCP (Precedent)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn6,
+                  child: Text('CCV (Successive)'),
+                ),
+              ],
+              child: ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text("Case Scope"),
+                subtitle: Text(
+                  switch (widget.formative.vnCn.cn) {
+                    Cn.cn1 => 'CCN (Natural)',
+                    Cn.cn2 => 'CCA (Antecedent)',
+                    Cn.cn3 => 'CCS (Subaltern)',
+                    Cn.cn4 => 'CCQ (Qualifier)',
+                    Cn.cn5 => 'CCP (Precedent)',
+                    Cn.cn6 => 'CCV (Successive)',
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
               ),
-              PopupMenuItem(
-                value: Mood.sub,
-                child: Text('SUB (Subjunctive)'),
-              ),
-              PopupMenuItem(
-                value: Mood.asm,
-                child: Text('ASM (Assumptive)'),
-              ),
-              PopupMenuItem(
-                value: Mood.spc,
-                child: Text('SPC (Speculative)'),
-              ),
-              PopupMenuItem(
-                value: Mood.cou,
-                child: Text('COU (Counterfactive)'),
-              ),
-              PopupMenuItem(
-                value: Mood.hyp,
-                child: Text('HYP (Hypothetical)'),
-              ),
-            ],
-            child: ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text("Mood"),
-              subtitle: Text(
-                switch (mood) {
-                  Mood.fac => 'FAC (Factual)',
-                  Mood.sub => 'SUB (Subjunctive)',
-                  Mood.asm => 'ASM (Assumptive)',
-                  Mood.spc => 'SPC (Speculative)',
-                  Mood.cou => 'COU (Counterfactive)',
-                  Mood.hyp => 'HYP (Hypothetical)',
-                },
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+            )
+          : PopupMenuButton<Cn>(
+              onSelected: (Cn newCn) {
+                widget.updateFormative((f) {
+                  f.vnCn.cn = newCn;
+                });
+              },
+              offset: const Offset(1, 0),
+              itemBuilder: (BuildContext context) => const <PopupMenuEntry<Cn>>[
+                PopupMenuItem(
+                  value: Cn.cn1,
+                  child: Text('FAC (Factual)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn2,
+                  child: Text('SUB (Subjunctive)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn3,
+                  child: Text('ASM (Assumptive)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn4,
+                  child: Text('SPC (Speculative)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn5,
+                  child: Text('COU (Counterfactive)'),
+                ),
+                PopupMenuItem(
+                  value: Cn.cn6,
+                  child: Text('HYP (Hypothetical)'),
+                ),
+              ],
+              child: ListTile(
+                leading: const Icon(Icons.info_outline),
+                title: const Text("Mood"),
+                subtitle: Text(
+                  switch (widget.formative.vnCn.cn) {
+                    Cn.cn1 => 'FAC (Factual)',
+                    Cn.cn2 => 'SUB (Subjunctive)',
+                    Cn.cn3 => 'ASM (Assumptive)',
+                    Cn.cn4 => 'SPC (Speculative)',
+                    Cn.cn5 => 'COU (Counterfactive)',
+                    Cn.cn6 => 'HYP (Hypothetical)',
+                  },
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             ),
-          ),
-        CaseScopeCn(caseScope: final caseScope) => PopupMenuButton<CaseScope>(
-            onSelected: (CaseScope newCaseScope) {
-              widget.updateFormative((f) {
-                f.vnCn.cn = CaseScopeCn(newCaseScope);
-              });
-            },
-            offset: const Offset(1, 0),
-            itemBuilder: (BuildContext context) => const <PopupMenuEntry<CaseScope>>[
-              PopupMenuItem(
-                value: CaseScope.ccn,
-                child: Text('CCN (Natural)'),
-              ),
-              PopupMenuItem(
-                value: CaseScope.cca,
-                child: Text('CCA (Antecedent)'),
-              ),
-              PopupMenuItem(
-                value: CaseScope.ccs,
-                child: Text('CCS (Subaltern)'),
-              ),
-              PopupMenuItem(
-                value: CaseScope.ccq,
-                child: Text('CCQ (Qualifier)'),
-              ),
-              PopupMenuItem(
-                value: CaseScope.ccp,
-                child: Text('CCP (Precedent)'),
-              ),
-              PopupMenuItem(
-                value: CaseScope.ccv,
-                child: Text('CCV (Successive)'),
-              ),
-            ],
-            child: ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text("Case Scope"),
-              subtitle: Text(
-                switch (caseScope) {
-                  CaseScope.ccn => 'CCN (Natural)',
-                  CaseScope.cca => 'CCA (Antecedent)',
-                  CaseScope.ccs => 'CCS (Subaltern)',
-                  CaseScope.ccq => 'CCQ (Qualifier)',
-                  CaseScope.ccp => 'CCP (Precedent)',
-                  CaseScope.ccv => 'CCV (Successive)',
-                },
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ),
-      }),
       // TODO: Implement this option.
       ListGroupTitle(
         "Affixes CsVx",
