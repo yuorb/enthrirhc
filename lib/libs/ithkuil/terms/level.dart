@@ -14,14 +14,31 @@ enum Comparison {
 }
 
 enum ComparisonOperator {
+  /// Minimal
   min,
+
+  /// Subequative
   sbe,
+
+  /// Inferior
   ifr,
+
+  /// Deficient
   dft,
+
+  /// Equative
   equ,
+
+  /// Surpassive
   sur,
+
+  /// Superlative
   spl,
+
+  /// Superequative
   spq,
+
+  /// Maximal
   max;
 
   String romanize() {

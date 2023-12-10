@@ -563,12 +563,71 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        // TODO: Handle this case.
-        LevelVn() => ListTile(
-            leading: const Icon(Icons.sports_kabaddi_outlined),
-            title: const Text("Level"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        LevelVn(level: final level) => PopupMenuButton<ComparisonOperator>(
+            onSelected: (ComparisonOperator newComparisonOperator) {
+              widget.updateFormative((f) {
+                f.vnCn.vn = LevelVn(newComparisonOperator);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<ComparisonOperator>>[
+              PopupMenuItem(
+                value: ComparisonOperator.min,
+                child: Text('MIN (Minimal)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.sbe,
+                child: Text('SBE (Subequative)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.ifr,
+                child: Text('IFR (Inferior)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.dft,
+                child: Text('DFT (Deficient)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.equ,
+                child: Text('EQU (Equative)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.sur,
+                child: Text('SUR (Surpassive)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.spl,
+                child: Text('SPL (Superlative)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.spq,
+                child: Text('SPQ (Superequative)'),
+              ),
+              PopupMenuItem(
+                value: ComparisonOperator.max,
+                child: Text('MAX (Maximal)'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.sports_kabaddi_outlined),
+              title: const Text("Level"),
+              subtitle: Text(
+                switch (level) {
+                  ComparisonOperator.min => 'MIN (Minimal)',
+                  ComparisonOperator.sbe => 'SBE (Subequative)',
+                  ComparisonOperator.ifr => 'IFR (Inferior)',
+                  ComparisonOperator.dft => 'DFT (Deficient)',
+                  ComparisonOperator.equ => 'EQU (Equative)',
+                  ComparisonOperator.sur => 'SUR (Surpassive)',
+                  ComparisonOperator.spl => 'SPL (Superlative)',
+                  ComparisonOperator.spq => 'SPQ (Superequative)',
+                  ComparisonOperator.max => 'MAX (Maximal)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
         // TODO: Handle this case.
         AspectVn() => ListTile(
