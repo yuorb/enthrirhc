@@ -1,5 +1,4 @@
 enum Effect {
-  neutral,
   ben1,
   ben2,
   ben3,
@@ -12,7 +11,6 @@ enum Effect {
 
   String romanize(String charPrecedingThis) {
     return switch (this) {
-      neutral => throw "unreachable",
       ben1 => charPrecedingThis == 'y' ? 'uä' : 'ia',
       ben2 => charPrecedingThis == 'y' ? 'uë' : 'ie',
       ben3 => charPrecedingThis == 'y' ? 'üä' : 'io',
@@ -27,7 +25,6 @@ enum Effect {
 
   String path() {
     return switch (this) {
-      neutral => "",
       ben1 => "M -7.05 -17.50 L -14.55 -10.00 7.10 17.50 14.55 10.00 -7.05 -17.50 Z",
       ben2 =>
         "M -18.30 -2.50 L -17.10 -1.30 -9.75 -8.65 10.85 17.50 18.30 10.00 -3.30 -17.50 -18.30 -2.50 Z",

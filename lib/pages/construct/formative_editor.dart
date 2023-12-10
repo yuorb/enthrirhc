@@ -497,12 +497,71 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        // TODO: Handle this case.
-        EffectVn() => ListTile(
-            leading: const Icon(Icons.sports_kabaddi_outlined),
-            title: const Text("Effect"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        EffectVn(effect: final effect) => PopupMenuButton<Effect>(
+            onSelected: (Effect newEffect) {
+              widget.updateFormative((f) {
+                f.vnCn.vn = EffectVn(newEffect);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Effect>>[
+              PopupMenuItem(
+                value: Effect.ben1,
+                child: Text('1:BEN'),
+              ),
+              PopupMenuItem(
+                value: Effect.ben2,
+                child: Text('2:BEN'),
+              ),
+              PopupMenuItem(
+                value: Effect.ben3,
+                child: Text('3:BEN'),
+              ),
+              PopupMenuItem(
+                value: Effect.benSlf,
+                child: Text('SLF:BEN'),
+              ),
+              PopupMenuItem(
+                value: Effect.unk,
+                child: Text('UNK'),
+              ),
+              PopupMenuItem(
+                value: Effect.detSlf,
+                child: Text('SLF:DET'),
+              ),
+              PopupMenuItem(
+                value: Effect.det3,
+                child: Text('3:DET'),
+              ),
+              PopupMenuItem(
+                value: Effect.det2,
+                child: Text('2:DET'),
+              ),
+              PopupMenuItem(
+                value: Effect.det1,
+                child: Text('1:DET'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.sports_kabaddi_outlined),
+              title: const Text("Effect"),
+              subtitle: Text(
+                switch (effect) {
+                  Effect.ben1 => '1:BEN (Beneficial to Speaker)',
+                  Effect.ben2 => '2:BEN (Beneficial to Addressee)',
+                  Effect.ben3 => '3:BEN (Beneficial to Third Party)',
+                  Effect.benSlf => 'SLF:BEN (Beneficial to Self)',
+                  Effect.unk => 'UNK (Unknown Benefit)',
+                  Effect.detSlf => 'SLF:DET (Detrimental to Self)',
+                  Effect.det3 => '3:DET (Detrimental to Third Party)',
+                  Effect.det2 => '2:DET (Detrimental to Addressee)',
+                  Effect.det1 => '1:DET (Detrimental to Speaker)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
         // TODO: Handle this case.
         LevelVn() => ListTile(
