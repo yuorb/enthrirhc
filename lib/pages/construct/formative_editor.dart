@@ -85,9 +85,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
 
   void updateDefinition() {
     getDefinition().then((newDefinition) {
-      setState(() {
-        definition = newDefinition;
-      });
+      if (mounted) {
+        setState(() {
+          definition = newDefinition;
+        });
+      }
     });
   }
 
