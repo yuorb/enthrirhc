@@ -59,10 +59,37 @@ class Database extends _$Database {
   }
 
   Future<List<Root>> search(String keywords) async {
-    final statement = select(roots)
-      ..where((tbl) => tbl.root.contains(keywords) | tbl.refers.contains(keywords));
-    final rows = await statement.get();
-    return rows.map((row) => rowToRoot(row)).toList();
+    // Get the roots whose `root` field matches keyword.
+    final statement1 = select(roots)..where((tbl) => tbl.root.contains(keywords));
+    final rows1 = await statement1.get();
+    final list1 = rows1.map((row) => rowToRoot(row)).toList();
+    // Move the exactly matched root to the head of the search result.
+    for (int i = 0; i < list1.length; i++) {
+      if (list1[i].root.toLowerCase() == keywords.toLowerCase()) {
+        final temp = list1[0];
+        list1[0] = list1[i];
+        list1[i] = temp;
+        break;
+      }
+    }
+
+    // Get the roots whose `refers` field matches keyword.
+    final statement2 = select(roots)..where((tbl) => tbl.refers.contains(keywords));
+    final rows2 = await statement2.get();
+    final list2 = rows2.map((row) => rowToRoot(row)).toList();
+
+    final mergedList = list1..addAll(list2);
+    final List<Root> list = [];
+    for (final thisRoot in mergedList) {
+      if (!list.any((root) => root.root == thisRoot.root)) {
+        list.add(thisRoot);
+      }
+      if (list.length == 100) {
+        break;
+      }
+    }
+
+    return list;
   }
 
   Future<Root?> exactSearch(String root) async {
