@@ -1,12 +1,29 @@
 enum Phase {
+  /// Punctual
   pct,
+
+  /// Iterative
   itr,
+
+  /// Repetitive
   rep,
+
+  /// Intermittent
   itm,
+
+  /// Recurrent
   rct,
+
+  /// Frequentative
   fre,
+
+  /// Fragmentative
   frg,
+
+  /// Vacillitative
   vac,
+
+  /// Fluctuative
   flc;
 
   String romanize() {

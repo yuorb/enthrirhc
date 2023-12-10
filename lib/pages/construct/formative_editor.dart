@@ -431,12 +431,71 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ),
           ),
-        // TODO: Handle this case.
-        PhaseVn() => ListTile(
-            leading: const Icon(Icons.sports_kabaddi_outlined),
-            title: const Text("Phase"),
-            subtitle: const Text("TODO"),
-            onTap: () {},
+        PhaseVn(phase: final phase) => PopupMenuButton<Phase>(
+            onSelected: (Phase newPhase) {
+              widget.updateFormative((f) {
+                f.vnCn.vn = PhaseVn(newPhase);
+              });
+            },
+            offset: const Offset(1, 0),
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<Phase>>[
+              PopupMenuItem(
+                value: Phase.pct,
+                child: Text('PCT (Punctual)'),
+              ),
+              PopupMenuItem(
+                value: Phase.itr,
+                child: Text('ITR (Iterative)'),
+              ),
+              PopupMenuItem(
+                value: Phase.rep,
+                child: Text('REP (Repetitive)'),
+              ),
+              PopupMenuItem(
+                value: Phase.itm,
+                child: Text('ITM (Intermittent)'),
+              ),
+              PopupMenuItem(
+                value: Phase.rct,
+                child: Text('RCT (Recurrent)'),
+              ),
+              PopupMenuItem(
+                value: Phase.fre,
+                child: Text('FRE (Frequentative)'),
+              ),
+              PopupMenuItem(
+                value: Phase.frg,
+                child: Text('FRG (Fragmentative)'),
+              ),
+              PopupMenuItem(
+                value: Phase.vac,
+                child: Text('VAC (Vacillitative)'),
+              ),
+              PopupMenuItem(
+                value: Phase.flc,
+                child: Text('FLC (Fluctuative)'),
+              ),
+            ],
+            child: ListTile(
+              leading: const Icon(Icons.sports_kabaddi_outlined),
+              title: const Text("Phase"),
+              subtitle: Text(
+                switch (phase) {
+                  Phase.pct => 'PCT (Punctual)',
+                  Phase.itr => 'ITR (Iterative)',
+                  Phase.rep => 'REP (Repetitive)',
+                  Phase.itm => 'ITM (Intermittent)',
+                  Phase.rct => 'RCT (Recurrent)',
+                  Phase.fre => 'FRE (Frequentative)',
+                  Phase.frg => 'FRG (Fragmentative)',
+                  Phase.vac => 'VAC (Vacillitative)',
+                  Phase.flc => 'FLC (Fluctuative)',
+                },
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ),
         // TODO: Handle this case.
         EffectVn() => ListTile(
