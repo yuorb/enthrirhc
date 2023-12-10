@@ -44,6 +44,10 @@ Future<void> showErrorDialog(BuildContext context, String title) async {
   );
 }
 
+String escapeRegExp(String text) {
+  return text.replaceAllMapped(RegExp(r"[-[\]{}()*+?.,\\^$|#\s]"), (m) => "\\${m[0]}");
+}
+
 class Coord {
   final double x;
   final double y;

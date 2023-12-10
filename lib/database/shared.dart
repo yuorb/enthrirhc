@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:drift/drift.dart';
+import 'package:enthrirhs/libs/misc.dart';
 import '../utils/types.dart';
 
 export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.html) 'web.dart';
@@ -60,12 +61,12 @@ class Database extends _$Database {
 
   Future<List<Root>> search(String keywords) async {
     // Get the roots whose `root` field matches keyword.
-    final statement1 = select(roots)..where((tbl) => tbl.root.contains(keywords));
+    final statement1 = select(roots)..where((tbl) => tbl.root.contains(keywords.toUpperCase()));
     final rows1 = await statement1.get();
     final list1 = rows1.map((row) => rowToRoot(row)).toList();
     // Move the exactly matched root to the head of the search result.
     for (int i = 0; i < list1.length; i++) {
-      if (list1[i].root.toLowerCase() == keywords.toLowerCase()) {
+      if (list1[i].root == keywords.toUpperCase()) {
         final temp = list1[0];
         list1[0] = list1[i];
         list1[i] = temp;
@@ -77,6 +78,20 @@ class Database extends _$Database {
     final statement2 = select(roots)..where((tbl) => tbl.refers.contains(keywords));
     final rows2 = await statement2.get();
     final list2 = rows2.map((row) => rowToRoot(row)).toList();
+    final escapedKeywords = escapeRegExp(keywords.toLowerCase());
+    int index = 0;
+    for (int i = 0; i < list2.length; i++) {
+      final refers = list2[i].refers;
+      if (refers == null) {
+        continue;
+      }
+      if (RegExp("(^|\\W)$escapedKeywords(\\W|\$)").hasMatch(refers.toLowerCase())) {
+        final temp = list2[index];
+        list2[index] = list2[i];
+        list2[i] = temp;
+        index += 1;
+      }
+    }
 
     final mergedList = list1..addAll(list2);
     final List<Root> list = [];
