@@ -79,13 +79,14 @@ class Database extends _$Database {
     final rows2 = await statement2.get();
     final list2 = rows2.map((row) => rowToRoot(row)).toList();
     final escapedKeywords = escapeRegExp(keywords.toLowerCase());
+    final keywordsRegExp = RegExp("(^|\\W)$escapedKeywords(\\W|\$)", caseSensitive: false);
     int index = 0;
     for (int i = 0; i < list2.length; i++) {
       final refers = list2[i].refers;
       if (refers == null) {
         continue;
       }
-      if (RegExp("(^|\\W)$escapedKeywords(\\W|\$)").hasMatch(refers.toLowerCase())) {
+      if (keywordsRegExp.hasMatch(refers)) {
         final temp = list2[index];
         list2[index] = list2[i];
         list2[i] = temp;
