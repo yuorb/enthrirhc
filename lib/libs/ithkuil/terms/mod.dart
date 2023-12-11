@@ -1,5 +1,6 @@
 export 'affiliation.dart';
 export 'affix_type.dart';
+export 'affix.dart';
 export 'aspect.dart';
 export 'case_number.dart';
 export 'case_type.dart';

@@ -2,9 +2,7 @@ import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/utils.dart';
-
-import '../../terms/affix_type.dart';
-import '../../terms/degree.dart';
+import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
 
 sealed class Secondary {
   final ExtLetter? start;
@@ -87,16 +85,14 @@ class RootSecondary extends Secondary with Character {
   }
 }
 
-class CsVxAffixes extends Secondary with Character {
-  final Degree degree;
-  final AffixType affixType;
+class CsVxAffix extends Secondary with Character {
+  final Affix affix;
 
-  const CsVxAffixes({
+  const CsVxAffix({
     required super.start,
     required super.core,
     required super.end,
-    required this.degree,
-    required this.affixType,
+    required this.affix,
   });
 
   @override
@@ -131,24 +127,22 @@ class CsVxAffixes extends Secondary with Character {
         transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
         fill="$fillColor"
       />''' : ''}
-      <use href="#affix_type_${affixType.name}" x="$topX" y="$topY" fill="$fillColor" />
-      <use href="#degree_${degree.name}" x="$bottomX" y="$bottomY" fill="$fillColor" />
+      <use href="#${affix.topId()}" x="$topX" y="$topY" fill="$fillColor" />
+      <use href="#${affix.bottomId()}" x="$bottomX" y="$bottomY" fill="$fillColor" />
     ''',
       secondaryWidth
     );
   }
 }
 
-class VxCsAffixes extends Secondary with Character {
-  final Degree degree;
-  final AffixType affixType;
+class VxCsAffix extends Secondary with Character {
+  final Affix affix;
 
-  const VxCsAffixes({
+  const VxCsAffix({
     required super.start,
     required super.core,
     required super.end,
-    required this.degree,
-    required this.affixType,
+    required this.affix,
   });
 
   @override
@@ -187,8 +181,8 @@ class VxCsAffixes extends Secondary with Character {
           fill="$fillColor"
         />
       </g>''' : ''}
-      <use href="#affix_type_${affixType.name}" x="$centerX" y="$topY" fill="$fillColor" />
-      <use href="#degree_${degree.name}" x="$centerX" y="$bottomY" fill="$fillColor" />
+      <use href="#${affix.topId()}" x="$centerX" y="$topY" fill="$fillColor" />
+      <use href="#${affix.bottomId()}" x="$centerX" y="$bottomY" fill="$fillColor" />
     ''',
       secondaryWidth
     );

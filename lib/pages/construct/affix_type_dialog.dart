@@ -8,7 +8,7 @@ Future<AffixType?> showAffixTypeDialog(BuildContext context, AffixType initialVa
       AffixType selectedValue = initialValue;
       return StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text("Change Type"),
+          title: const Text("Change Affix Type"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

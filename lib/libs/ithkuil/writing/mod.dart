@@ -41,13 +41,13 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
       usedRadicals[s.getEndExtId()!] = s.getEndExtPath()!;
     }
   }
-  for (final s in secondaries.whereType<CsVxAffixes>()) {
-    usedRadicals["degree_${s.degree.name}"] = s.degree.path();
-    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path();
+  for (final s in secondaries.whereType<CsVxAffix>()) {
+    usedRadicals[s.affix.bottomId()] = s.affix.bottomPath();
+    usedRadicals[s.affix.topId()] = s.affix.topPath();
   }
-  for (final s in secondaries.whereType<VxCsAffixes>()) {
-    usedRadicals["degree_${s.degree.name}"] = s.degree.path();
-    usedRadicals["affix_type_${s.affixType.name}"] = s.affixType.path();
+  for (final s in secondaries.whereType<VxCsAffix>()) {
+    usedRadicals[s.affix.bottomId()] = s.affix.bottomPath();
+    usedRadicals[s.affix.topId()] = s.affix.topPath();
   }
   for (final t in characters.whereType<Tertiary>()) {
     usedRadicals["valence_${t.valence.name}"] = t.valence.path();

@@ -1,4 +1,3 @@
-import 'romanization/affix.dart';
 import 'terms/mod.dart';
 import 'writing/mod.dart';
 import 'writing/primary/mod.dart';
@@ -301,8 +300,8 @@ class Formative {
   String _romanizeSlotV() {
     String slot5 = '';
     for (final affix in csVxAffixes) {
-      final lastCharOfCs = affix.affix[affix.affix.length - 1];
-      slot5 += affix.affix.toLowerCase() + affix.getVx(lastCharOfCs);
+      final lastCharOfCs = affix.cs[affix.cs.length - 1];
+      slot5 += affix.cs.toLowerCase() + affix.getVx(lastCharOfCs);
     }
     return slot5;
   }
@@ -455,11 +454,11 @@ class Formative {
       final affix = vxCsAffixes[i];
       if (i == 0) {
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-        slot7 += affix.getVx(charPrecedingThis) + affix.affix.toLowerCase();
+        slot7 += affix.getVx(charPrecedingThis) + affix.cs.toLowerCase();
       } else {
-        final previousAffix = vxCsAffixes[i - 1].affix;
+        final previousAffix = vxCsAffixes[i - 1].cs;
         final charPrecedingThis = previousAffix[previousAffix.length - 1];
-        slot7 += affix.getVx(charPrecedingThis) + affix.affix.toLowerCase();
+        slot7 += affix.getVx(charPrecedingThis) + affix.cs.toLowerCase();
       }
     }
     return slot7;
@@ -536,22 +535,28 @@ class Formative {
       ...root.toRootSecondaries(),
       // TODO: Replace the temporary template with dynamic variables
       ...csVxAffixes.map(
-        (affix) => const CsVxAffixes(
+        (affix) => const CsVxAffix(
           start: ExtLetter.d,
           core: CoreLetter.s,
           end: ExtLetter.k,
-          degree: Degree.d1,
-          affixType: AffixType.type2,
+          affix: CommonAffix(
+            cs: "dsk",
+            degree: Degree.d1,
+            affixType: AffixType.type2,
+          ),
         ),
       ),
       // TODO: Replace the temporary template with dynamic variables
       ...vxCsAffixes.map(
-        (affix) => const VxCsAffixes(
+        (affix) => const VxCsAffix(
           start: ExtLetter.d,
           core: CoreLetter.s,
           end: ExtLetter.k,
-          degree: Degree.d2,
-          affixType: AffixType.type3,
+          affix: CommonAffix(
+            cs: "dsk",
+            degree: Degree.d2,
+            affixType: AffixType.type3,
+          ),
         ),
       ),
     ];

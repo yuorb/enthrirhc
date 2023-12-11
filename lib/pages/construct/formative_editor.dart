@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:enthrirhs/libs/ithkuil/romanization/affix.dart';
 import 'package:enthrirhs/libs/option/mod.dart';
 import 'package:enthrirhs/pages/construct/degree_dialog.dart';
 import 'package:enthrirhs/utils/store.dart';
@@ -1926,7 +1925,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         "Affixes CsVx",
         trailing: IconButton(
             onPressed: () {
-              showDialog<Affix>(
+              showDialog<CommonAffix>(
                 context: context,
                 builder: (dialogContext) => AlertDialog(
                   title: const Text("Add Affix"),
@@ -1941,10 +1940,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                       onPressed: () {
                         Navigator.pop(
                           dialogContext,
-                          Affix(
+                          const CommonAffix(
                             affixType: AffixType.type1,
                             degree: Degree.d0,
-                            affix: "RS",
+                            cs: "RS",
                           ),
                         );
                       },
@@ -2023,56 +2022,87 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               },
               child: ListTile(
                 leading: const Icon(Icons.segment),
-                title: Text("-${widget.formative.csVxAffixes[index].affix}"),
-                subtitle: Text("Type ${switch (widget.formative.csVxAffixes[index].affixType) {
-                  AffixType.type1 => '1',
-                  AffixType.type2 => '2',
-                  AffixType.type3 => '3'
-                }}, Degree ${switch (widget.formative.csVxAffixes[index].degree) {
-                  Degree.d0 => '0',
-                  Degree.d1 => '1',
-                  Degree.d2 => '2',
-                  Degree.d3 => '3',
-                  Degree.d4 => '4',
-                  Degree.d5 => '5',
-                  Degree.d6 => '6',
-                  Degree.d7 => '7',
-                  Degree.d8 => '8',
-                  Degree.d9 => '9',
-                  Degree.ca => 'Ca',
-                }}"),
+                title: Text("-${widget.formative.csVxAffixes[index].cs}"),
+                subtitle: Text(switch (widget.formative.csVxAffixes[index]) {
+                  CommonAffix(affixType: final affixType, degree: final degree) =>
+                    "Type ${switch (affixType) {
+                      AffixType.type1 => '1',
+                      AffixType.type2 => '2',
+                      AffixType.type3 => '3'
+                    }}, Degree ${switch (degree) {
+                      Degree.d0 => '0',
+                      Degree.d1 => '1',
+                      Degree.d2 => '2',
+                      Degree.d3 => '3',
+                      Degree.d4 => '4',
+                      Degree.d5 => '5',
+                      Degree.d6 => '6',
+                      Degree.d7 => '7',
+                      Degree.d8 => '8',
+                      Degree.d9 => '9',
+                    }}",
+                  CaStackingAffix() => "Ca Stacking Affix",
+                }),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        final newAffixType = await showAffixTypeDialog(
-                          context,
-                          widget.formative.csVxAffixes[index].affixType,
-                        );
-                        if (newAffixType != null) {
-                          widget.updateFormative((f) {
-                            f.csVxAffixes[index].affixType = newAffixType;
-                          });
-                        }
-                      },
-                      icon: const Icon(Icons.type_specimen),
-                    ),
-                    IconButton(
-                      onPressed: () async {
-                        final newDegree = await showDegreeDialog(
-                          context,
-                          widget.formative.csVxAffixes[index].degree,
-                        );
-                        if (newDegree != null) {
-                          widget.updateFormative((f) {
-                            f.csVxAffixes[index].degree = newDegree;
-                          });
-                        }
-                      },
-                      icon: const Icon(Icons.thermostat),
-                    ),
-                  ],
+                  children: switch (widget.formative.csVxAffixes[index]) {
+                    CommonAffix(cs: final cs, degree: final degree, affixType: final affixType) => [
+                        IconButton(
+                          onPressed: () async {
+                            final newAffixType = await showAffixTypeDialog(context, affixType);
+                            if (newAffixType != null) {
+                              widget.updateFormative((f) {
+                                f.csVxAffixes[index] = CommonAffix(
+                                  affixType: newAffixType,
+                                  degree: degree,
+                                  cs: cs,
+                                );
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.type_specimen),
+                          tooltip: "Change Affix Type",
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            final newDegree = await showDegreeDialog(context, degree);
+                            if (newDegree != null) {
+                              widget.updateFormative((f) {
+                                f.csVxAffixes[index] = CommonAffix(
+                                  affixType: affixType,
+                                  degree: newDegree,
+                                  cs: cs,
+                                );
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.thermostat),
+                          tooltip: "Change Degree",
+                        ),
+                        Checkbox(
+                          value: false,
+                          onChanged: (newValue) {
+                            widget.updateFormative((f) {
+                              f.csVxAffixes[index] = CaStackingAffix(cs: cs);
+                            });
+                          },
+                        )
+                      ],
+                    CaStackingAffix(cs: final cs) => [
+                        Checkbox(
+                          value: true,
+                          onChanged: (newValue) {
+                            widget.updateFormative((f) {
+                              f.csVxAffixes[index] = CommonAffix(
+                                affixType: AffixType.type1,
+                                degree: Degree.d1,
+                                cs: cs,
+                              );
+                            });
+                          },
+                        )
+                      ]
+                  },
                 ),
               ),
             )
