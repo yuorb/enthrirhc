@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:enthrirhs/libs/ithkuil/romanization/affix.dart';
 import 'package:enthrirhs/libs/option/mod.dart';
+import 'package:enthrirhs/pages/construct/degree_dialog.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
@@ -2058,8 +2059,16 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                       icon: const Icon(Icons.type_specimen),
                     ),
                     IconButton(
-                      onPressed: () {
-                        // TODO
+                      onPressed: () async {
+                        final newDegree = await showDegreeDialog(
+                          context,
+                          widget.formative.csVxAffixes[index].degree,
+                        );
+                        if (newDegree != null) {
+                          widget.updateFormative((f) {
+                            f.csVxAffixes[index].degree = newDegree;
+                          });
+                        }
                       },
                       icon: const Icon(Icons.thermostat),
                     ),

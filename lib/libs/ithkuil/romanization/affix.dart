@@ -2,7 +2,7 @@ import '../terms/mod.dart';
 
 class Affix {
   AffixType affixType;
-  final Degree degree;
+  Degree degree;
   final String affix;
 
   Affix({
