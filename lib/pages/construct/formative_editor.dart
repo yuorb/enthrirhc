@@ -1981,55 +1981,66 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         },
         children: <Widget>[
           for (int index = 0; index < widget.formative.csVxAffixes.length; index += 1)
-            ListTile(
+            Dismissible(
               key: Key('$index'),
-              leading: const Icon(Icons.segment),
-              title: Text("-${widget.formative.csVxAffixes[index].affix}"),
-              subtitle: Text("Type ${switch (widget.formative.csVxAffixes[index].affixType) {
-                AffixType.type1 => '1',
-                AffixType.type2 => '2',
-                AffixType.type3 => '3'
-              }}, Degree ${switch (widget.formative.csVxAffixes[index].degree) {
-                Degree.d0 => '0',
-                Degree.d1 => '1',
-                Degree.d2 => '2',
-                Degree.d3 => '3',
-                Degree.d4 => '4',
-                Degree.d5 => '5',
-                Degree.d6 => '6',
-                Degree.d7 => '7',
-                Degree.d8 => '8',
-                Degree.d9 => '9',
-                Degree.ca => 'Ca',
-              }}"),
-              trailing: IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (dialogContext) => AlertDialog(
-                      title: const Text("Confirm"),
-                      content: const Text("Are you sure to delete this affix?"),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(dialogContext),
-                          child: const Text("Cancel"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            widget.updateFormative((f) {
-                              f.csVxAffixes.removeAt(index);
-                            });
-                            Navigator.pop(dialogContext);
-                          },
-                          child: const Text("Ok"),
-                        )
-                      ],
-                    ),
-                  );
-                },
+              background: Container(
+                alignment: Alignment.centerRight,
+                color: Colors.red,
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                  child: Icon(Icons.delete),
+                ),
               ),
-            ),
+              confirmDismiss: (direction) async {
+                final res = await showDialog<bool>(
+                  context: context,
+                  builder: (dialogContext) => AlertDialog(
+                    title: const Text("Confirm"),
+                    content: const Text("Are you sure to delete this affix?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(dialogContext, false),
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(dialogContext, true),
+                        child: const Text("Ok"),
+                      )
+                    ],
+                  ),
+                );
+                if (res == null) {
+                  return false;
+                }
+                return res;
+              },
+              onDismissed: (direction) {
+                widget.updateFormative((f) {
+                  f.csVxAffixes.removeAt(index);
+                });
+              },
+              child: ListTile(
+                leading: const Icon(Icons.segment),
+                title: Text("-${widget.formative.csVxAffixes[index].affix}"),
+                subtitle: Text("Type ${switch (widget.formative.csVxAffixes[index].affixType) {
+                  AffixType.type1 => '1',
+                  AffixType.type2 => '2',
+                  AffixType.type3 => '3'
+                }}, Degree ${switch (widget.formative.csVxAffixes[index].degree) {
+                  Degree.d0 => '0',
+                  Degree.d1 => '1',
+                  Degree.d2 => '2',
+                  Degree.d3 => '3',
+                  Degree.d4 => '4',
+                  Degree.d5 => '5',
+                  Degree.d6 => '6',
+                  Degree.d7 => '7',
+                  Degree.d8 => '8',
+                  Degree.d9 => '9',
+                  Degree.ca => 'Ca',
+                }}"),
+              ),
+            )
         ],
         onReorder: (int oldIndex, int newIndex) {
           if (oldIndex < newIndex) {
