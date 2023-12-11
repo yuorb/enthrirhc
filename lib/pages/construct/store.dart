@@ -9,7 +9,6 @@ class ConstructPageRoots with ChangeNotifier {
   ConstructPageRoots();
 
   void push(Root root) {
-    // Check `root` validation
     formatives.add(Formative(
       stem: Stem.s1,
       root: root,

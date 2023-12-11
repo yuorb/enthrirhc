@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:enthrirhs/libs/ithkuil/romanization/affix.dart';
 import 'package:enthrirhs/libs/option/mod.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
@@ -1917,10 +1920,126 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 ),
               ),
             ),
-      // TODO: Implement this option.
       ListGroupTitle(
         "Affixes CsVx",
-        trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+        trailing: IconButton(
+            onPressed: () {
+              showDialog<Affix>(
+                context: context,
+                builder: (dialogContext) => AlertDialog(
+                  title: const Text("Add Affix"),
+                  // TODO
+                  content: const Text("TODO"),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(dialogContext),
+                      child: const Text("Cancel"),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(
+                          dialogContext,
+                          const Affix(
+                            affixType: AffixType.type1,
+                            degree: Degree.d0,
+                            affix: "RS",
+                          ),
+                        );
+                      },
+                      child: const Text("Ok"),
+                    )
+                  ],
+                ),
+              ).then((affix) {
+                if (affix != null) {
+                  widget.updateFormative((f) {
+                    f.csVxAffixes.add(affix);
+                  });
+                }
+              });
+            },
+            icon: const Icon(Icons.add)),
+      ),
+      ReorderableListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        proxyDecorator: (Widget child, int index, Animation<double> animation) {
+          return AnimatedBuilder(
+            animation: animation,
+            builder: (BuildContext context, Widget? child) {
+              final double animValue = Curves.easeInOut.transform(animation.value);
+              final double elevation = lerpDouble(0, 6, animValue)!;
+              return Material(
+                elevation: elevation,
+                color: Theme.of(context).colorScheme.secondary,
+                shadowColor: Theme.of(context).colorScheme.secondary,
+                child: child,
+              );
+            },
+            child: child,
+          );
+        },
+        children: <Widget>[
+          for (int index = 0; index < widget.formative.csVxAffixes.length; index += 1)
+            ListTile(
+              key: Key('$index'),
+              leading: const Icon(Icons.segment),
+              title: Text("-${widget.formative.csVxAffixes[index].affix}"),
+              subtitle: Text("Type ${switch (widget.formative.csVxAffixes[index].affixType) {
+                AffixType.type1 => '1',
+                AffixType.type2 => '2',
+                AffixType.type3 => '3'
+              }}, Degree ${switch (widget.formative.csVxAffixes[index].degree) {
+                Degree.d0 => '0',
+                Degree.d1 => '1',
+                Degree.d2 => '2',
+                Degree.d3 => '3',
+                Degree.d4 => '4',
+                Degree.d5 => '5',
+                Degree.d6 => '6',
+                Degree.d7 => '7',
+                Degree.d8 => '8',
+                Degree.d9 => '9',
+                Degree.ca => 'Ca',
+              }}"),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (dialogContext) => AlertDialog(
+                      title: const Text("Confirm"),
+                      content: const Text("Are you sure to delete this affix?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(dialogContext),
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            widget.updateFormative((f) {
+                              f.csVxAffixes.removeAt(index);
+                            });
+                            Navigator.pop(dialogContext);
+                          },
+                          child: const Text("Ok"),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+        ],
+        onReorder: (int oldIndex, int newIndex) {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          widget.updateFormative((f) {
+            final item = f.csVxAffixes.removeAt(oldIndex);
+            f.csVxAffixes.insert(newIndex, item);
+          });
+        },
       ),
       // TODO: Implement this option.
       ListGroupTitle(
