@@ -42,6 +42,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                       .addPeriod(),
             ),
             TabBar(
+              tabAlignment: TabAlignment.center,
               isScrollable: true,
               tabs: formatives
                   .map((formative) =>
