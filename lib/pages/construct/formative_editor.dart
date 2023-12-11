@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../components/list_group_title.dart';
 import '../../libs/ithkuil/mod.dart';
 import '../../libs/ithkuil/terms/mod.dart';
+import 'affix_type_dialog.dart';
 
 class FormativeEditor extends StatefulWidget {
   final Formative formative;
@@ -1939,7 +1940,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                       onPressed: () {
                         Navigator.pop(
                           dialogContext,
-                          const Affix(
+                          Affix(
                             affixType: AffixType.type1,
                             degree: Degree.d0,
                             affix: "RS",
@@ -2039,6 +2040,31 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   Degree.d9 => '9',
                   Degree.ca => 'Ca',
                 }}"),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        final newAffixType = await showAffixTypeDialog(
+                          context,
+                          widget.formative.csVxAffixes[index].affixType,
+                        );
+                        if (newAffixType != null) {
+                          widget.updateFormative((f) {
+                            f.csVxAffixes[index].affixType = newAffixType;
+                          });
+                        }
+                      },
+                      icon: const Icon(Icons.type_specimen),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // TODO
+                      },
+                      icon: const Icon(Icons.thermostat),
+                    ),
+                  ],
+                ),
               ),
             )
         ],

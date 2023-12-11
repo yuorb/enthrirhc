@@ -1,11 +1,11 @@
 import '../terms/mod.dart';
 
 class Affix {
-  final AffixType affixType;
+  AffixType affixType;
   final Degree degree;
   final String affix;
 
-  const Affix({
+  Affix({
     required this.affixType,
     required this.degree,
     required this.affix,
