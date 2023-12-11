@@ -302,7 +302,7 @@ class Formative {
     String slot5 = '';
     for (final affix in csVxAffixes) {
       final lastCharOfCs = affix.affix[affix.affix.length - 1];
-      slot5 += affix.affix + affix.getVx(lastCharOfCs);
+      slot5 += affix.affix.toLowerCase() + affix.getVx(lastCharOfCs);
     }
     return slot5;
   }
@@ -455,11 +455,11 @@ class Formative {
       final affix = vxCsAffixes[i];
       if (i == 0) {
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-        slot7 += affix.getVx(charPrecedingThis) + affix.affix;
+        slot7 += affix.getVx(charPrecedingThis) + affix.affix.toLowerCase();
       } else {
         final previousAffix = vxCsAffixes[i - 1].affix;
         final charPrecedingThis = previousAffix[previousAffix.length - 1];
-        slot7 += affix.getVx(charPrecedingThis) + affix.affix;
+        slot7 += affix.getVx(charPrecedingThis) + affix.affix.toLowerCase();
       }
     }
     return slot7;
