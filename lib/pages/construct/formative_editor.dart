@@ -1942,7 +1942,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                           dialogContext,
                           const CommonAffix(
                             affixType: AffixType.type1,
-                            degree: Degree.d0,
+                            degree: Degree.d1,
                             cs: "RS",
                           ),
                         );

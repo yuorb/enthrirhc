@@ -1,3 +1,7 @@
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirhs/libs/result/mod.dart';
+
 import '../terms/mod.dart';
 
 sealed class Affix {
@@ -10,6 +14,56 @@ sealed class Affix {
   String topPath();
   String bottomId();
   String bottomPath();
+
+  Result<(ExtLetter?, CoreLetter, ExtLetter?), String> getSecondaryComponents() {
+    if (cs.length == 1) {
+      final phoneme = Phoneme.fromChar(cs[0]);
+      if (phoneme == null) {
+        return Err('The first letter "${cs[0]} is invalid."');
+      }
+      final coreLetter = CoreLetter.from(phoneme);
+      if (coreLetter != null) {
+        return Ok((null, coreLetter, null));
+      }
+      final extLetter = ExtLetter.from(phoneme);
+      return Ok((extLetter, CoreLetter.placeholder, null));
+    }
+    if (cs.length == 2) {
+      final phoneme1 = Phoneme.fromChar(cs[0]);
+      if (phoneme1 == null) {
+        return Err('The first letter "${cs[0]} is invalid."');
+      }
+      final phoneme2 = Phoneme.fromChar(cs[1]);
+      if (phoneme2 == null) {
+        return Err('The second letter "${cs[1]} is invalid."');
+      }
+      final extLetter1 = ExtLetter.from(phoneme1);
+      final extLetter2 = ExtLetter.from(phoneme2);
+      return Ok((extLetter1, CoreLetter.placeholder, extLetter2));
+    }
+    if (cs.length == 3) {
+      final phoneme1 = Phoneme.fromChar(cs[0]);
+      if (phoneme1 == null) {
+        return Err('The first letter "${cs[0]} is invalid."');
+      }
+      final phoneme2 = Phoneme.fromChar(cs[1]);
+      if (phoneme2 == null) {
+        return Err('The second letter "${cs[1]} is invalid."');
+      }
+      final phoneme3 = Phoneme.fromChar(cs[2]);
+      if (phoneme3 == null) {
+        return Err('The third letter "${cs[2]} is invalid."');
+      }
+      final startLetter = ExtLetter.from(phoneme1);
+      final coreLetter = CoreLetter.from(phoneme2);
+      if (coreLetter == null) {
+        return Err('The second letter "${cs[1]}" cannot be converted into a core letter.');
+      }
+      final endLetter = ExtLetter.from(phoneme3);
+      return Ok((startLetter, coreLetter, endLetter));
+    }
+    return const Err('The affix Cs length is more than 3.');
+  }
 }
 
 class CommonAffix extends Affix {

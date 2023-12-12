@@ -2,8 +2,6 @@ import 'terms/mod.dart';
 import 'writing/mod.dart';
 import 'writing/primary/mod.dart';
 import 'writing/quarternary/mod.dart';
-import 'writing/secondary/core_letter.dart';
-import 'writing/secondary/ext_letter.dart';
 import 'writing/secondary/mod.dart';
 import 'writing/tertiary/extensions.dart';
 import 'writing/tertiary/mod.dart';
@@ -533,23 +531,27 @@ class Formative {
         stem: stem,
       ),
       ...root.toRootSecondaries(),
-      // TODO: Replace the temporary template with dynamic variables
       ...csVxAffixes.map(
-        (affix) => CsVxAffix(
-          start: ExtLetter.d,
-          core: CoreLetter.s,
-          end: ExtLetter.k,
-          affix: affix,
-        ),
+        (affix) {
+          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents().unwrap();
+          return CsVxAffix(
+            start: startLetter,
+            core: coreLetter,
+            end: endLetter,
+            affix: affix,
+          );
+        },
       ),
-      // TODO: Replace the temporary template with dynamic variables
       ...vxCsAffixes.map(
-        (affix) => VxCsAffix(
-          start: ExtLetter.d,
-          core: CoreLetter.s,
-          end: ExtLetter.k,
-          affix: affix,
-        ),
+        (affix) {
+          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents().unwrap();
+          return VxCsAffix(
+            start: startLetter,
+            core: coreLetter,
+            end: endLetter,
+            affix: affix,
+          );
+        },
       ),
     ];
 
