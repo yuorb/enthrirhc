@@ -2386,7 +2386,9 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             widget.removeFormative();
           }
         },
-        tileColor: Theme.of(context).colorScheme.errorContainer,
+        textColor: Colors.white,
+        iconColor: Colors.white,
+        tileColor: Colors.red,
       ),
     ]);
   }
