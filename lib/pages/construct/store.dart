@@ -25,10 +25,8 @@ class ConstructPageRoots with ChangeNotifier {
       essence: Essence.nrm,
       csVxAffixes: [],
       vxCsAffixes: [],
-      vnCn: VnCn(
-        vn: const ValenceVn(Valence.mno),
-        cn: Cn.cn1,
-      ),
+      vn: const ValenceVn(Valence.mno),
+      cn: Cn.cn1,
       romanizationOptions: RomanizationOptions(
         preferShortCut: false,
         omitOptionalAffixes: true,

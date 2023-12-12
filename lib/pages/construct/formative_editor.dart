@@ -326,10 +326,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       PopupMenuButton<Vn>(
         onSelected: (Vn newVn) {
           widget.updateFormative((f) {
-            if (f.vnCn.vn.runtimeType == newVn.runtimeType) {
+            if (f.vn.runtimeType == newVn.runtimeType) {
               return;
             }
-            f.vnCn.vn = newVn;
+            f.vn = newVn;
           });
         },
         offset: const Offset(1, 0),
@@ -359,7 +359,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           leading: const Icon(Icons.sports_kabaddi_outlined),
           title: const Text("Vn Type"),
           subtitle: Text(
-            switch (widget.formative.vnCn.vn) {
+            switch (widget.formative.vn) {
               ValenceVn() => 'Valence',
               PhaseVn() => 'Phase',
               EffectVn() => 'Effect',
@@ -372,11 +372,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ),
         ),
       ),
-      switch (widget.formative.vnCn.vn) {
+      switch (widget.formative.vn) {
         ValenceVn(valence: final valence) => PopupMenuButton<Valence>(
             onSelected: (Valence newValence) {
               widget.updateFormative((f) {
-                f.vnCn.vn = ValenceVn(newValence);
+                f.vn = ValenceVn(newValence);
               });
             },
             offset: const Offset(1, 0),
@@ -442,7 +442,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         PhaseVn(phase: final phase) => PopupMenuButton<Phase>(
             onSelected: (Phase newPhase) {
               widget.updateFormative((f) {
-                f.vnCn.vn = PhaseVn(newPhase);
+                f.vn = PhaseVn(newPhase);
               });
             },
             offset: const Offset(1, 0),
@@ -508,7 +508,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         EffectVn(effect: final effect) => PopupMenuButton<Effect>(
             onSelected: (Effect newEffect) {
               widget.updateFormative((f) {
-                f.vnCn.vn = EffectVn(newEffect);
+                f.vn = EffectVn(newEffect);
               });
             },
             offset: const Offset(1, 0),
@@ -574,7 +574,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         LevelVn(level: final level) => PopupMenuButton<ComparisonOperator>(
             onSelected: (ComparisonOperator newComparisonOperator) {
               widget.updateFormative((f) {
-                f.vnCn.vn = LevelVn(newComparisonOperator);
+                f.vn = LevelVn(newComparisonOperator);
               });
             },
             offset: const Offset(1, 0),
@@ -640,7 +640,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         AspectVn(aspect: final aspect) => PopupMenuButton<Aspect>(
             onSelected: (Aspect newAspect) {
               widget.updateFormative((f) {
-                f.vnCn.vn = AspectVn(newAspect);
+                f.vn = AspectVn(newAspect);
               });
             },
             offset: const Offset(1, 0),
@@ -1824,7 +1824,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           ? PopupMenuButton<Cn>(
               onSelected: (Cn newCn) {
                 widget.updateFormative((f) {
-                  f.vnCn.cn = newCn;
+                  f.cn = newCn;
                 });
               },
               offset: const Offset(1, 0),
@@ -1858,7 +1858,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 leading: const Icon(Icons.info_outline),
                 title: const Text("Case Scope"),
                 subtitle: Text(
-                  switch (widget.formative.vnCn.cn) {
+                  switch (widget.formative.cn) {
                     Cn.cn1 => 'CCN (Natural)',
                     Cn.cn2 => 'CCA (Antecedent)',
                     Cn.cn3 => 'CCS (Subaltern)',
@@ -1875,7 +1875,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           : PopupMenuButton<Cn>(
               onSelected: (Cn newCn) {
                 widget.updateFormative((f) {
-                  f.vnCn.cn = newCn;
+                  f.cn = newCn;
                 });
               },
               offset: const Offset(1, 0),
@@ -1909,7 +1909,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 leading: const Icon(Icons.info_outline),
                 title: const Text("Mood"),
                 subtitle: Text(
-                  switch (widget.formative.vnCn.cn) {
+                  switch (widget.formative.cn) {
                     Cn.cn1 => 'FAC (Factual)',
                     Cn.cn2 => 'SUB (Subjunctive)',
                     Cn.cn3 => 'ASM (Assumptive)',

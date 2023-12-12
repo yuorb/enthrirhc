@@ -9,8 +9,8 @@ sealed class FormativeType {
 
   String path();
 
-  /// - `true`: This formative should use case scope in VnCn.
-  /// - `false`: This formative should use mood in VnCn.
+  /// - `true`: This formative should use "case scope" in VnCn.
+  /// - `false`: This formative should use "mood" in VnCn.
   bool isCaseScope();
 }
 

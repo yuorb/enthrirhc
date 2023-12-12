@@ -20,9 +20,10 @@ class Formative {
   Perspective perspective;
   Essence essence;
   FormativeType formativeType;
+  Cn cn;
+  Vn vn;
   final List<Affix> csVxAffixes;
   final List<Affix> vxCsAffixes;
-  final VnCn vnCn;
   final RomanizationOptions romanizationOptions;
 
   Formative({
@@ -40,7 +41,8 @@ class Formative {
     required this.essence,
     required this.csVxAffixes,
     required this.vxCsAffixes,
-    required this.vnCn,
+    required this.cn,
+    required this.vn,
     required this.romanizationOptions,
   });
 
@@ -466,10 +468,17 @@ class Formative {
   }
 
   String _romanizeSlotVIII(String strPrecedingThis) {
-    return vnCn.romanize(
+    final isPattern1 = switch (vn) {
+      ValenceVn() || PhaseVn() || EffectVn() || LevelVn() => true,
+      AspectVn() => false,
+    };
+    final vnRomanized = vn.romanize(
       romanizationOptions.omitOptionalAffixes,
-      strPrecedingThis,
+      strPrecedingThis[strPrecedingThis.length - 1],
     );
+    final cnRomanized = cn.romanize(romanizationOptions.omitOptionalAffixes, isPattern1);
+
+    return "$vnRomanized$cnRomanized";
   }
 
   String _romanizeSlotIX(String strPrecedingThis) {
@@ -558,7 +567,7 @@ class Formative {
       ),
     ];
 
-    final hasTertiary = switch (vnCn.vn) {
+    final hasTertiary = switch (vn) {
       ValenceVn(valence: final valence) => valence != Valence.mno,
       _ => true,
     };
@@ -566,11 +575,11 @@ class Formative {
     if (hasTertiary) {
       characters.add(
         Tertiary(
-          valence: switch (vnCn.vn) {
+          valence: switch (vn) {
             ValenceVn(valence: final valence) => valence,
             _ => Valence.mno,
           },
-          top: switch (vnCn.vn) {
+          top: switch (vn) {
             PhaseVn(phase: final phase) => PhaseExtension(phase),
             EffectVn(effect: final effect) => EffectExtension(effect),
             AspectVn(aspect: final aspect) => AspectExtension(aspect),
@@ -578,7 +587,7 @@ class Formative {
           },
           // TODO: Parse affixes as bottom component.
           bottom: null,
-          level: switch (vnCn.vn) {
+          level: switch (vn) {
             LevelVn(level: final level) => Level(
                 // TODO: Parse affixes as absolute level.
                 comparison: Comparison.relative,
@@ -590,7 +599,7 @@ class Formative {
       );
     }
 
-    final hasQuarternary = !(vnCn.cn == Cn.cn1 &&
+    final hasQuarternary = !(cn == Cn.cn1 &&
         switch (formativeType) {
           Standalone(relation: final relation) || Parent(relation: final relation) => switch (
                 relation) {
@@ -606,7 +615,7 @@ class Formative {
       characters.add(
         Quarternary(
           formativeType: formativeType,
-          cn: vnCn.cn,
+          cn: cn,
         ),
       );
     }
