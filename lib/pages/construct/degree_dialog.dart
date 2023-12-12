@@ -39,7 +39,10 @@ Future<Degree?> showDegreeDialog(BuildContext context, Degree initialValue) {
                     "value": Degree.d5,
                     "title": "Degree 5",
                   },
-                  {"value": Degree.d6, "title": "Degree 6"},
+                  {
+                    "value": Degree.d6,
+                    "title": "Degree 6",
+                  },
                   {
                     "value": Degree.d7,
                     "title": "Degree 7",

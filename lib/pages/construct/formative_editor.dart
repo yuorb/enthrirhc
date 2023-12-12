@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:enthrirhs/libs/option/mod.dart';
 import 'package:enthrirhs/libs/result/mod.dart';
 import 'package:enthrirhs/pages/construct/degree_dialog.dart';
+import 'package:enthrirhs/utils/mod.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
@@ -1999,89 +2000,102 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   f.csVxAffixes.removeAt(index);
                 });
               },
-              child: ListTile(
-                leading: const Icon(Icons.segment),
-                title: Text("-${widget.formative.csVxAffixes[index].cs.toLowerCase()}"),
-                subtitle: Text(switch (widget.formative.csVxAffixes[index]) {
-                  CommonAffix(affixType: final affixType, degree: final degree) =>
-                    "Type ${switch (affixType) {
-                      AffixType.type1 => '1',
-                      AffixType.type2 => '2',
-                      AffixType.type3 => '3'
-                    }}, Degree ${switch (degree) {
-                      Degree.d0 => '0',
-                      Degree.d1 => '1',
-                      Degree.d2 => '2',
-                      Degree.d3 => '3',
-                      Degree.d4 => '4',
-                      Degree.d5 => '5',
-                      Degree.d6 => '6',
-                      Degree.d7 => '7',
-                      Degree.d8 => '8',
-                      Degree.d9 => '9',
-                    }}",
-                  CaStackingAffix() => "Ca Stacking Affix",
-                }),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: switch (widget.formative.csVxAffixes[index]) {
-                    CommonAffix(cs: final cs, degree: final degree, affixType: final affixType) => [
-                        IconButton(
-                          onPressed: () async {
-                            final newAffixType = await showAffixTypeDialog(context, affixType);
-                            if (newAffixType != null) {
+              child: Padding(
+                padding: switch (Platform.get()) {
+                  Platform.android => const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  Platform.web || Platform.windows => const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  Platform.linux => throw UnimplementedError(),
+                  Platform.unadapted => throw UnimplementedError(),
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.segment),
+                  title: Text("-${widget.formative.csVxAffixes[index].cs.toLowerCase()}"),
+                  subtitle: Text(switch (widget.formative.csVxAffixes[index]) {
+                    CommonAffix(affixType: final affixType, degree: final degree) =>
+                      "Type ${switch (affixType) {
+                        AffixType.type1 => '1',
+                        AffixType.type2 => '2',
+                        AffixType.type3 => '3'
+                      }}, Degree ${switch (degree) {
+                        Degree.d0 => '0',
+                        Degree.d1 => '1',
+                        Degree.d2 => '2',
+                        Degree.d3 => '3',
+                        Degree.d4 => '4',
+                        Degree.d5 => '5',
+                        Degree.d6 => '6',
+                        Degree.d7 => '7',
+                        Degree.d8 => '8',
+                        Degree.d9 => '9',
+                      }}",
+                    CaStackingAffix() => "Ca Stacking Affix",
+                  }),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: switch (widget.formative.csVxAffixes[index]) {
+                      CommonAffix(
+                        cs: final cs,
+                        degree: final degree,
+                        affixType: final affixType,
+                      ) =>
+                        [
+                          IconButton(
+                            onPressed: () async {
+                              final newAffixType = await showAffixTypeDialog(context, affixType);
+                              if (newAffixType != null) {
+                                widget.updateFormative((f) {
+                                  f.csVxAffixes[index] = CommonAffix.from(
+                                    affixType: newAffixType,
+                                    degree: degree,
+                                    cs: cs,
+                                  ).unwrap();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.type_specimen),
+                            tooltip: "Change Affix Type",
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              final newDegree = await showDegreeDialog(context, degree);
+                              if (newDegree != null) {
+                                widget.updateFormative((f) {
+                                  f.csVxAffixes[index] = CommonAffix.from(
+                                    affixType: affixType,
+                                    degree: newDegree,
+                                    cs: cs,
+                                  ).unwrap();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.thermostat),
+                            tooltip: "Change Degree",
+                          ),
+                          Checkbox(
+                            value: false,
+                            onChanged: (newValue) {
+                              widget.updateFormative((f) {
+                                f.csVxAffixes[index] = CaStackingAffix.from(cs).unwrap();
+                              });
+                            },
+                          )
+                        ],
+                      CaStackingAffix(cs: final cs) => [
+                          Checkbox(
+                            value: true,
+                            onChanged: (newValue) {
                               widget.updateFormative((f) {
                                 f.csVxAffixes[index] = CommonAffix.from(
-                                  affixType: newAffixType,
-                                  degree: degree,
+                                  affixType: AffixType.type1,
+                                  degree: Degree.d1,
                                   cs: cs,
                                 ).unwrap();
                               });
-                            }
-                          },
-                          icon: const Icon(Icons.type_specimen),
-                          tooltip: "Change Affix Type",
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            final newDegree = await showDegreeDialog(context, degree);
-                            if (newDegree != null) {
-                              widget.updateFormative((f) {
-                                f.csVxAffixes[index] = CommonAffix.from(
-                                  affixType: affixType,
-                                  degree: newDegree,
-                                  cs: cs,
-                                ).unwrap();
-                              });
-                            }
-                          },
-                          icon: const Icon(Icons.thermostat),
-                          tooltip: "Change Degree",
-                        ),
-                        Checkbox(
-                          value: false,
-                          onChanged: (newValue) {
-                            widget.updateFormative((f) {
-                              f.csVxAffixes[index] = CaStackingAffix.from(cs).unwrap();
-                            });
-                          },
-                        )
-                      ],
-                    CaStackingAffix(cs: final cs) => [
-                        Checkbox(
-                          value: true,
-                          onChanged: (newValue) {
-                            widget.updateFormative((f) {
-                              f.csVxAffixes[index] = CommonAffix.from(
-                                affixType: AffixType.type1,
-                                degree: Degree.d1,
-                                cs: cs,
-                              ).unwrap();
-                            });
-                          },
-                        )
-                      ]
-                  },
+                            },
+                          )
+                        ]
+                    },
+                  ),
                 ),
               ),
             )
