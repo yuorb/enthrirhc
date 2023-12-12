@@ -2010,6 +2010,34 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 child: ListTile(
                   leading: const Icon(Icons.segment),
                   title: Text("-${widget.formative.csVxAffixes[index].cs.toLowerCase()}"),
+                  onTap: () async {
+                    final newCs = await prompt(
+                      context,
+                      initialValue: "",
+                      title: const Text("Enter New Affix Cs"),
+                    );
+
+                    if (newCs == null) return;
+                    final affix = switch (widget.formative.csVxAffixes[index]) {
+                      CommonAffix(affixType: final affixType, degree: final degree) =>
+                        CommonAffix.from(
+                          cs: newCs,
+                          affixType: affixType,
+                          degree: degree,
+                        ),
+                      CaStackingAffix() => CaStackingAffix.from(newCs)
+                    };
+                    switch (affix) {
+                      case Ok(value: final affix):
+                        widget.updateFormative((f) {
+                          f.csVxAffixes[index] = affix;
+                        });
+                        break;
+                      case Err(value: final value):
+                        if (!context.mounted) return;
+                        showErrorDialog(context, value);
+                    }
+                  },
                   subtitle: Text(switch (widget.formative.csVxAffixes[index]) {
                     CommonAffix(affixType: final affixType, degree: final degree) =>
                       "Type ${switch (affixType) {
