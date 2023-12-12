@@ -1980,9 +1980,13 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 color: Colors.red,
                 child: const Padding(
                   padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-                  child: Icon(Icons.delete),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
                 ),
               ),
+              direction: DismissDirection.endToStart,
               confirmDismiss: (direction) async {
                 final res = await showDialog<bool>(
                   context: context,
