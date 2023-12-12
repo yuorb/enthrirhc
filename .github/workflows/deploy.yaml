@@ -1,0 +1,20 @@
+name: Deploy
+on: [push]
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.3'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: dart run build_runner build
+      - run: dart run vector_graphics_compiler --input-dir assets/icons --out-dir assets/icons_compiled
+      - run: flutter build web --base-href "/enthrirhs/"
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build/web

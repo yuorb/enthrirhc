@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build
 on: [push]
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         with:
           name: android
           path: build/app/outputs/flutter-apk/
-          
+
   web:
     runs-on: ubuntu-latest
     steps:
@@ -34,12 +34,9 @@ jobs:
       - run: flutter pub get
       - run: dart run build_runner build
       - run: dart run vector_graphics_compiler --input-dir assets/icons --out-dir assets/icons_compiled
-      - run: flutter build web --base-href "/enthrirhs/"
-      - uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: build/web
+      - run: flutter build web
       - uses: actions/upload-artifact@v3
         with:
           name: web
           path: build/web/
+
