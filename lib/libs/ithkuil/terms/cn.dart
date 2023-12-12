@@ -9,7 +9,7 @@ enum Cn {
   String romanize(bool omitOptionalAffixes, bool isPattern1) {
     return isPattern1
         ? switch (this) {
-            cn1 => omitOptionalAffixes ? '' : 'a',
+            cn1 => omitOptionalAffixes ? '' : 'h',
             cn2 => 'hl',
             cn3 => 'hr',
             cn4 => 'hm',
