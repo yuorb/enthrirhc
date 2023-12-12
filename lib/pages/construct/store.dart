@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../libs/ithkuil/mod.dart';
 import '../../libs/ithkuil/terms/mod.dart';
+import '../../libs/ithkuil/romanization/mod.dart';
 
 class ConstructPageRoots with ChangeNotifier {
   List<Formative> formatives = [];
@@ -27,6 +28,10 @@ class ConstructPageRoots with ChangeNotifier {
       vnCn: VnCn(
         vn: const ValenceVn(Valence.mno),
         cn: Cn.cn1,
+      ),
+      romanizationOptions: RomanizationOptions(
+        preferShortCut: false,
+        omitOptionalAffixes: true,
       ),
     ));
     notifyListeners();

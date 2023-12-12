@@ -35,8 +35,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
               formatives.isEmpty
                   ? 'NO FORMATIVES'
                   : formatives
-                      // TODO: Implement arguments for `formative.romanize`
-                      .map((formative) => formative.romanize(false, true))
+                      .map((formative) => formative.romanize())
                       .join(' ')
                       .capitalize()
                       .addPeriod(),
