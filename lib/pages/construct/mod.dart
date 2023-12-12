@@ -1,3 +1,5 @@
+import 'package:enthrirhs/libs/download/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +33,24 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                 IconButton(
                   onPressed: formatives.isEmpty
                       ? null
-                      : () {
-                          // TODO
+                      : () async {
+                          final data = ithkuilWriting(
+                            formatives
+                                .map((formative) => formative.toCharacters())
+                                .expand((element) => element)
+                                .toList(),
+                            "#000000",
+                            "#cccccc",
+                          );
+                          final path = await saveTextFile(data, 'writing.svg');
+                          if (!context.mounted) {
+                            return;
+                          }
+                          if (path != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Successfully downloaded "$path"'),
+                            ));
+                          }
                         },
                   tooltip: "Download the writing image as SVG",
                   icon: const Icon(Icons.download),
