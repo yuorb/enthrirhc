@@ -535,28 +535,20 @@ class Formative {
       ...root.toRootSecondaries(),
       // TODO: Replace the temporary template with dynamic variables
       ...csVxAffixes.map(
-        (affix) => const CsVxAffix(
+        (affix) => CsVxAffix(
           start: ExtLetter.d,
           core: CoreLetter.s,
           end: ExtLetter.k,
-          affix: CommonAffix(
-            cs: "dsk",
-            degree: Degree.d1,
-            affixType: AffixType.type2,
-          ),
+          affix: affix,
         ),
       ),
       // TODO: Replace the temporary template with dynamic variables
       ...vxCsAffixes.map(
-        (affix) => const VxCsAffix(
+        (affix) => VxCsAffix(
           start: ExtLetter.d,
           core: CoreLetter.s,
           end: ExtLetter.k,
-          affix: CommonAffix(
-            cs: "dsk",
-            degree: Degree.d2,
-            affixType: AffixType.type3,
-          ),
+          affix: affix,
         ),
       ),
     ];
