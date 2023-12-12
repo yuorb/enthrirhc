@@ -44,6 +44,31 @@ Future<void> showErrorDialog(BuildContext context, String title) async {
   );
 }
 
+Future<bool> showConfirmDialog(BuildContext context, String title) async {
+  final res = await showDialog<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (dialogContext) => AlertDialog(
+      title: const Text("Confirm"),
+      content: Text(title),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext, false),
+          child: const Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(dialogContext, true),
+          child: const Text("Ok"),
+        )
+      ],
+    ),
+  );
+  if (res == null) {
+    return false;
+  }
+  return res;
+}
+
 String escapeRegExp(String text) {
   return text.replaceAllMapped(RegExp(r"[-[\]{}()*+?.,\\^$|#\s]"), (m) => "\\${m[0]}");
 }

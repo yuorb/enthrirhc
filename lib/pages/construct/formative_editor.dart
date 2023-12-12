@@ -1988,27 +1988,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
               direction: DismissDirection.endToStart,
               confirmDismiss: (direction) async {
-                final res = await showDialog<bool>(
-                  context: context,
-                  builder: (dialogContext) => AlertDialog(
-                    title: const Text("Confirm"),
-                    content: const Text("Are you sure to delete this affix?"),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(dialogContext, false),
-                        child: const Text("Cancel"),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(dialogContext, true),
-                        child: const Text("Ok"),
-                      )
-                    ],
-                  ),
+                final isConfirmed = await showConfirmDialog(
+                  context,
+                  "Are you sure to delete this affix?",
                 );
-                if (res == null) {
-                  return false;
-                }
-                return res;
+                return isConfirmed;
               },
               onDismissed: (direction) {
                 widget.updateFormative((f) {
@@ -2122,27 +2106,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         leading: const Icon(Icons.delete),
         title: const Text("Delete"),
         subtitle: const Text("Delete this formative"),
-        onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) => AlertDialog(
-              title: const Text("Confirm"),
-              content: const Text("Are you sure to remove this formative?"),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext),
-                  child: const Text("Cancel"),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    Navigator.pop(dialogContext);
-                    widget.removeFormative();
-                  },
-                  child: const Text("Ok"),
-                ),
-              ],
-            ),
+        onTap: () async {
+          final isConfirmed = await showConfirmDialog(
+            context,
+            "Are you sure to remove this formative?",
           );
+          if (isConfirmed) {
+            widget.removeFormative();
+          }
         },
         tileColor: Theme.of(context).colorScheme.errorContainer,
       ),

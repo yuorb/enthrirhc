@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:enthrirhs/pages/root.dart';
 import 'package:provider/provider.dart';
-import 'package:enthrirhs/utils/store.dart';
 
-import '../utils/types.dart';
+import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhs/pages/root.dart';
+import 'package:enthrirhs/utils/store.dart';
+import 'package:enthrirhs/utils/types.dart';
 
 class LexiconActionButton extends StatelessWidget {
   final IconData icon;
@@ -217,47 +218,35 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 const SizedBox(height: 8),
                 LexiconActionButton(
-                    icon: Icons.delete_forever,
-                    label: "Clear the lexicon",
-                    onPressed: () {
+                  icon: Icons.delete_forever,
+                  label: "Clear the lexicon",
+                  onPressed: () async {
+                    final isConfirmed = await showConfirmDialog(
+                      context,
+                      "Are you sure to clear all the roots and affixes from your device?",
+                    );
+
+                    if (isConfirmed) {
+                      if (!context.mounted) return;
+                      final count = await context.read<LexiconModel>().database.clearRoots();
+                      setState(() => rootCount -= count);
+                      if (!context.mounted) return;
                       showDialog(
                         context: context,
-                        builder: (BuildContext dialogContext) => AlertDialog(
-                          title: const Text("Warning"),
-                          content: const Text(
-                              "Are you sure to clear all the roots and affixes from your device?"),
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text("Success"),
+                          content: Text("$count roots have been cleared."),
                           actions: [
                             TextButton(
-                              onPressed: () => Navigator.pop(dialogContext),
-                              child: const Text("Cancel"),
-                            ),
-                            TextButton(
-                              onPressed: () async {
-                                Navigator.pop(dialogContext);
-                                final count =
-                                    await context.read<LexiconModel>().database.clearRoots();
-                                setState(() => rootCount -= count);
-                                if (!context.mounted) return;
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => AlertDialog(
-                                    title: const Text("Success"),
-                                    content: Text("$count roots have been cleared."),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text("Ok"),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                              onPressed: () => Navigator.pop(context),
                               child: const Text("Ok"),
                             ),
                           ],
                         ),
                       );
-                    }),
+                    }
+                  },
+                ),
               ],
             ),
           ),
