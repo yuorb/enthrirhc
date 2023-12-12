@@ -2138,10 +2138,220 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           });
         },
       ),
-      // TODO: Implement this option.
       ListGroupTitle(
         "Affixes VxCs",
-        trailing: IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+        trailing: IconButton(
+            onPressed: () async {
+              final cs = await prompt(
+                context,
+                initialValue: "",
+                title: const Text("Enter Affix Cs"),
+              );
+
+              if (cs != null) {
+                switch (CommonAffix.from(
+                  affixType: AffixType.type1,
+                  degree: Degree.d1,
+                  cs: cs,
+                )) {
+                  case Ok(value: final affix):
+                    widget.updateFormative((f) {
+                      f.vxCsAffixes.add(affix);
+                    });
+                    break;
+                  case Err(value: final value):
+                    if (context.mounted) {
+                      showErrorDialog(context, value);
+                    }
+                }
+              }
+            },
+            icon: const Icon(Icons.add)),
+      ),
+      ReorderableListView(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        proxyDecorator: (Widget child, int index, Animation<double> animation) {
+          return AnimatedBuilder(
+            animation: animation,
+            builder: (BuildContext context, Widget? child) {
+              final double animValue = Curves.easeInOut.transform(animation.value);
+              final double elevation = lerpDouble(0, 6, animValue)!;
+              return Material(
+                elevation: elevation,
+                color: Theme.of(context).colorScheme.secondary,
+                shadowColor: Theme.of(context).colorScheme.secondary,
+                child: child,
+              );
+            },
+            child: child,
+          );
+        },
+        children: <Widget>[
+          for (int index = 0; index < widget.formative.vxCsAffixes.length; index += 1)
+            Dismissible(
+              key: Key('$index'),
+              background: Container(
+                alignment: Alignment.centerRight,
+                color: Colors.red,
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              direction: DismissDirection.endToStart,
+              confirmDismiss: (direction) async {
+                final isConfirmed = await showConfirmDialog(
+                  context,
+                  "Are you sure to delete this affix?",
+                );
+                return isConfirmed;
+              },
+              onDismissed: (direction) {
+                widget.updateFormative((f) {
+                  f.vxCsAffixes.removeAt(index);
+                });
+              },
+              child: Padding(
+                padding: switch (Platform.get()) {
+                  Platform.android => const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  Platform.web || Platform.windows => const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  Platform.linux => throw UnimplementedError(),
+                  Platform.unadapted => throw UnimplementedError(),
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.segment),
+                  title: Text("-${widget.formative.vxCsAffixes[index].cs.toLowerCase()}"),
+                  onTap: () async {
+                    final newCs = await prompt(
+                      context,
+                      initialValue: "",
+                      title: const Text("Enter New Affix Cs"),
+                    );
+
+                    if (newCs == null) return;
+                    final affix = switch (widget.formative.vxCsAffixes[index]) {
+                      CommonAffix(affixType: final affixType, degree: final degree) =>
+                        CommonAffix.from(
+                          cs: newCs,
+                          affixType: affixType,
+                          degree: degree,
+                        ),
+                      CaStackingAffix() => CaStackingAffix.from(newCs)
+                    };
+                    switch (affix) {
+                      case Ok(value: final affix):
+                        widget.updateFormative((f) {
+                          f.vxCsAffixes[index] = affix;
+                        });
+                        break;
+                      case Err(value: final value):
+                        if (!context.mounted) return;
+                        showErrorDialog(context, value);
+                    }
+                  },
+                  subtitle: Text(switch (widget.formative.vxCsAffixes[index]) {
+                    CommonAffix(affixType: final affixType, degree: final degree) =>
+                      "Type ${switch (affixType) {
+                        AffixType.type1 => '1',
+                        AffixType.type2 => '2',
+                        AffixType.type3 => '3'
+                      }}, Degree ${switch (degree) {
+                        Degree.d0 => '0',
+                        Degree.d1 => '1',
+                        Degree.d2 => '2',
+                        Degree.d3 => '3',
+                        Degree.d4 => '4',
+                        Degree.d5 => '5',
+                        Degree.d6 => '6',
+                        Degree.d7 => '7',
+                        Degree.d8 => '8',
+                        Degree.d9 => '9',
+                      }}",
+                    CaStackingAffix() => "Ca Stacking Affix",
+                  }),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: switch (widget.formative.vxCsAffixes[index]) {
+                      CommonAffix(
+                        cs: final cs,
+                        degree: final degree,
+                        affixType: final affixType,
+                      ) =>
+                        [
+                          IconButton(
+                            onPressed: () async {
+                              final newAffixType = await showAffixTypeDialog(context, affixType);
+                              if (newAffixType != null) {
+                                widget.updateFormative((f) {
+                                  f.vxCsAffixes[index] = CommonAffix.from(
+                                    affixType: newAffixType,
+                                    degree: degree,
+                                    cs: cs,
+                                  ).unwrap();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.type_specimen),
+                            tooltip: "Change Affix Type",
+                          ),
+                          IconButton(
+                            onPressed: () async {
+                              final newDegree = await showDegreeDialog(context, degree);
+                              if (newDegree != null) {
+                                widget.updateFormative((f) {
+                                  f.vxCsAffixes[index] = CommonAffix.from(
+                                    affixType: affixType,
+                                    degree: newDegree,
+                                    cs: cs,
+                                  ).unwrap();
+                                });
+                              }
+                            },
+                            icon: const Icon(Icons.thermostat),
+                            tooltip: "Change Degree",
+                          ),
+                          Checkbox(
+                            value: false,
+                            onChanged: (newValue) {
+                              widget.updateFormative((f) {
+                                f.vxCsAffixes[index] = CaStackingAffix.from(cs).unwrap();
+                              });
+                            },
+                          )
+                        ],
+                      CaStackingAffix(cs: final cs) => [
+                          Checkbox(
+                            value: true,
+                            onChanged: (newValue) {
+                              widget.updateFormative((f) {
+                                f.vxCsAffixes[index] = CommonAffix.from(
+                                  affixType: AffixType.type1,
+                                  degree: Degree.d1,
+                                  cs: cs,
+                                ).unwrap();
+                              });
+                            },
+                          )
+                        ]
+                    },
+                  ),
+                ),
+              ),
+            )
+        ],
+        onReorder: (int oldIndex, int newIndex) {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          widget.updateFormative((f) {
+            final item = f.vxCsAffixes.removeAt(oldIndex);
+            f.vxCsAffixes.insert(newIndex, item);
+          });
+        },
       ),
       const ListGroupTitle("Operation"),
       ListTile(
