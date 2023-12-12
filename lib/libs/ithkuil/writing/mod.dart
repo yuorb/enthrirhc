@@ -100,7 +100,7 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
   final baseWidth = leftCoord - horizontalGap + horizontalPadding;
   const minWidth = 210;
 
-  return '''<svg width="${baseWidth < minWidth ? minWidth : baseWidth}" height="${unitHeight * 6}">
+  return '''<svg xmlns="http://www.w3.org/2000/svg" width="${baseWidth < minWidth ? minWidth : baseWidth}" height="${unitHeight * 6}">
       <defs>
         ${usedRadicals.entries.map(
             (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
