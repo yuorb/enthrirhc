@@ -15,54 +15,81 @@ sealed class Affix {
   String bottomId();
   String bottomPath();
 
-  Result<(ExtLetter?, CoreLetter, ExtLetter?), String> getSecondaryComponents() {
+  static Result<(), String> _isCsValid(String cs) {
     if (cs.length == 1) {
       final phoneme = Phoneme.fromChar(cs[0]);
       if (phoneme == null) {
-        return Err('The first letter "${cs[0]} is invalid."');
+        return Err('The first letter "${cs[0]}" is invalid.');
       }
       final coreLetter = CoreLetter.from(phoneme);
       if (coreLetter != null) {
-        return Ok((null, coreLetter, null));
+        return const Ok(());
       }
-      final extLetter = ExtLetter.from(phoneme);
-      return Ok((extLetter, CoreLetter.placeholder, null));
+      return const Ok(());
     }
     if (cs.length == 2) {
       final phoneme1 = Phoneme.fromChar(cs[0]);
       if (phoneme1 == null) {
-        return Err('The first letter "${cs[0]} is invalid."');
+        return Err('The first letter "${cs[0]}" is invalid.');
       }
       final phoneme2 = Phoneme.fromChar(cs[1]);
       if (phoneme2 == null) {
-        return Err('The second letter "${cs[1]} is invalid."');
+        return Err('The second letter "${cs[1]}" is invalid.');
       }
-      final extLetter1 = ExtLetter.from(phoneme1);
-      final extLetter2 = ExtLetter.from(phoneme2);
-      return Ok((extLetter1, CoreLetter.placeholder, extLetter2));
+      return const Ok(());
     }
     if (cs.length == 3) {
       final phoneme1 = Phoneme.fromChar(cs[0]);
       if (phoneme1 == null) {
-        return Err('The first letter "${cs[0]} is invalid."');
+        return Err('The first letter "${cs[0]}" is invalid.');
       }
       final phoneme2 = Phoneme.fromChar(cs[1]);
       if (phoneme2 == null) {
-        return Err('The second letter "${cs[1]} is invalid."');
+        return Err('The second letter "${cs[1]}" is invalid.');
       }
       final phoneme3 = Phoneme.fromChar(cs[2]);
       if (phoneme3 == null) {
-        return Err('The third letter "${cs[2]} is invalid."');
+        return Err('The third letter "${cs[2]}" is invalid.');
       }
-      final startLetter = ExtLetter.from(phoneme1);
       final coreLetter = CoreLetter.from(phoneme2);
       if (coreLetter == null) {
         return Err('The second letter "${cs[1]}" cannot be converted into a core letter.');
       }
-      final endLetter = ExtLetter.from(phoneme3);
-      return Ok((startLetter, coreLetter, endLetter));
+      return const Ok(());
+    }
+    if (cs.isEmpty) {
+      return const Err('The affix Cs is empty.');
     }
     return const Err('The affix Cs length is more than 3.');
+  }
+
+  (ExtLetter?, CoreLetter, ExtLetter?) getSecondaryComponents() {
+    if (cs.length == 1) {
+      final phoneme = Phoneme.fromChar(cs[0])!;
+      final coreLetter = CoreLetter.from(phoneme);
+      if (coreLetter != null) {
+        return (null, coreLetter, null);
+      }
+      final extLetter = ExtLetter.from(phoneme);
+      return (extLetter, CoreLetter.placeholder, null);
+    }
+    if (cs.length == 2) {
+      final phoneme1 = Phoneme.fromChar(cs[0])!;
+      final phoneme2 = Phoneme.fromChar(cs[1])!;
+      final extLetter1 = ExtLetter.from(phoneme1);
+      final extLetter2 = ExtLetter.from(phoneme2);
+      return (extLetter1, CoreLetter.placeholder, extLetter2);
+    }
+    if (cs.length == 3) {
+      final phoneme1 = Phoneme.fromChar(cs[0])!;
+      final phoneme2 = Phoneme.fromChar(cs[1])!;
+      final phoneme3 = Phoneme.fromChar(cs[2])!;
+      final startLetter = ExtLetter.from(phoneme1);
+      final coreLetter = CoreLetter.from(phoneme2)!;
+      final endLetter = ExtLetter.from(phoneme3);
+      return (startLetter, coreLetter, endLetter);
+    }
+    throw 'The affix Cs length is more than 3.';
   }
 }
 
@@ -70,11 +97,29 @@ class CommonAffix extends Affix {
   final AffixType affixType;
   final Degree degree;
 
-  const CommonAffix({
+  const CommonAffix._({
     required this.affixType,
     required this.degree,
     required super.cs,
   });
+
+  static Result<CommonAffix, String> from({
+    required affixType,
+    required degree,
+    required cs,
+  }) {
+    switch (Affix._isCsValid(cs)) {
+      case Ok():
+        break;
+      case Err(value: final value):
+        return Err(value);
+    }
+    return Ok(CommonAffix._(
+      affixType: affixType,
+      degree: degree,
+      cs: cs,
+    ));
+  }
 
   @override
   String getVx(String charPrecedingThis) {
@@ -140,7 +185,17 @@ class CommonAffix extends Affix {
 }
 
 class CaStackingAffix extends Affix {
-  const CaStackingAffix({required super.cs});
+  const CaStackingAffix._({required super.cs});
+
+  static Result<CaStackingAffix, String> from(String cs) {
+    switch (Affix._isCsValid(cs)) {
+      case Ok():
+        break;
+      case Err(value: final value):
+        return Err(value);
+    }
+    return Ok(CaStackingAffix._(cs: cs));
+  }
 
   @override
   String getVx(String charPrecedingThis) {

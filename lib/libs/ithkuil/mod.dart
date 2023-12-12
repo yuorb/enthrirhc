@@ -533,7 +533,7 @@ class Formative {
       ...root.toRootSecondaries(),
       ...csVxAffixes.map(
         (affix) {
-          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents().unwrap();
+          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents();
           return CsVxAffix(
             start: startLetter,
             core: coreLetter,
@@ -544,7 +544,7 @@ class Formative {
       ),
       ...vxCsAffixes.map(
         (affix) {
-          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents().unwrap();
+          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents();
           return VxCsAffix(
             start: startLetter,
             core: coreLetter,

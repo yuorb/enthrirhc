@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:enthrirhs/libs/option/mod.dart';
+import 'package:enthrirhs/libs/result/mod.dart';
 import 'package:enthrirhs/pages/construct/degree_dialog.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
@@ -1924,40 +1925,30 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ListGroupTitle(
         "Affixes CsVx",
         trailing: IconButton(
-            onPressed: () {
-              showDialog<CommonAffix>(
-                context: context,
-                builder: (dialogContext) => AlertDialog(
-                  title: const Text("Add Affix"),
-                  // TODO
-                  content: const Text("TODO"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(dialogContext),
-                      child: const Text("Cancel"),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(
-                          dialogContext,
-                          const CommonAffix(
-                            affixType: AffixType.type1,
-                            degree: Degree.d1,
-                            cs: "RS",
-                          ),
-                        );
-                      },
-                      child: const Text("Ok"),
-                    )
-                  ],
-                ),
-              ).then((affix) {
-                if (affix != null) {
-                  widget.updateFormative((f) {
-                    f.csVxAffixes.add(affix);
-                  });
+            onPressed: () async {
+              final cs = await prompt(
+                context,
+                initialValue: "",
+                title: const Text("Enter Affix Cs"),
+              );
+
+              if (cs != null) {
+                switch (CommonAffix.from(
+                  affixType: AffixType.type1,
+                  degree: Degree.d1,
+                  cs: cs,
+                )) {
+                  case Ok(value: final affix):
+                    widget.updateFormative((f) {
+                      f.csVxAffixes.add(affix);
+                    });
+                    break;
+                  case Err(value: final value):
+                    if (context.mounted) {
+                      showErrorDialog(context, value);
+                    }
                 }
-              });
+              }
             },
             icon: const Icon(Icons.add)),
       ),
@@ -2022,7 +2013,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               },
               child: ListTile(
                 leading: const Icon(Icons.segment),
-                title: Text("-${widget.formative.csVxAffixes[index].cs}"),
+                title: Text("-${widget.formative.csVxAffixes[index].cs.toLowerCase()}"),
                 subtitle: Text(switch (widget.formative.csVxAffixes[index]) {
                   CommonAffix(affixType: final affixType, degree: final degree) =>
                     "Type ${switch (affixType) {
@@ -2052,11 +2043,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                             final newAffixType = await showAffixTypeDialog(context, affixType);
                             if (newAffixType != null) {
                               widget.updateFormative((f) {
-                                f.csVxAffixes[index] = CommonAffix(
+                                f.csVxAffixes[index] = CommonAffix.from(
                                   affixType: newAffixType,
                                   degree: degree,
                                   cs: cs,
-                                );
+                                ).unwrap();
                               });
                             }
                           },
@@ -2068,11 +2059,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                             final newDegree = await showDegreeDialog(context, degree);
                             if (newDegree != null) {
                               widget.updateFormative((f) {
-                                f.csVxAffixes[index] = CommonAffix(
+                                f.csVxAffixes[index] = CommonAffix.from(
                                   affixType: affixType,
                                   degree: newDegree,
                                   cs: cs,
-                                );
+                                ).unwrap();
                               });
                             }
                           },
@@ -2083,7 +2074,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                           value: false,
                           onChanged: (newValue) {
                             widget.updateFormative((f) {
-                              f.csVxAffixes[index] = CaStackingAffix(cs: cs);
+                              f.csVxAffixes[index] = CaStackingAffix.from(cs).unwrap();
                             });
                           },
                         )
@@ -2093,11 +2084,11 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                           value: true,
                           onChanged: (newValue) {
                             widget.updateFormative((f) {
-                              f.csVxAffixes[index] = CommonAffix(
+                              f.csVxAffixes[index] = CommonAffix.from(
                                 affixType: AffixType.type1,
                                 degree: Degree.d1,
                                 cs: cs,
-                              );
+                              ).unwrap();
                             });
                           },
                         )
