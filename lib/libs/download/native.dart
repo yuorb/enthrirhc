@@ -9,7 +9,7 @@ Future<String?> saveTextFile(String text, String filename) async {
   final (name, ext) = parseFilename(filename);
   final path = Platform.get() == Platform.android
       ? '/storage/emulated/0/Download'
-      : await getDownloadsDirectory();
+      : (await getDownloadsDirectory())!.path;
   File file;
   final file0 = File('$path/$filename');
   if (!await file0.exists()) {
