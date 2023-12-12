@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
@@ -24,7 +25,34 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
       child: Builder(
         builder: (context) => Column(
           children: [
-            AppBar(title: const Text("Construct")),
+            AppBar(
+              title: const Text("Construct"),
+              actions: [
+                IconButton(
+                  onPressed: formatives.isEmpty
+                      ? null
+                      : () {
+                          // TODO
+                        },
+                  tooltip: "Download the writing image as SVG",
+                  icon: const Icon(Icons.download),
+                ),
+                IconButton(
+                  onPressed: formatives.isEmpty
+                      ? null
+                      : () {
+                          final sentence = formatives
+                              .map((formative) => formative.romanize())
+                              .join(' ')
+                              .capitalize()
+                              .addPeriod();
+                          Clipboard.setData(ClipboardData(text: sentence));
+                        },
+                  tooltip: "Copy the romanized sentence",
+                  icon: const Icon(Icons.copy),
+                ),
+              ],
+            ),
             IthkuilSvg(
               formatives
                   .map((formative) => formative.toCharacters())
