@@ -15,7 +15,12 @@ const double verticalPadding = unitHeight;
 const double horizontalPadding = 20;
 const double horizontalGap = 10;
 
-String ithkuilWriting(List<Character> characters, String fillColor, String staffColor) {
+(String, (double, double)) ithkuilWriting(
+  List<Character> characters, {
+  String fillColor = "#000000",
+  String staffColor = "#cccccc",
+  String backgroundColor = "transparent",
+}) {
   // 1 unit height = 35
   // core letter height = 2 unit height = 70
   // full letter height = 4 unit height = 140
@@ -100,21 +105,29 @@ String ithkuilWriting(List<Character> characters, String fillColor, String staff
   final baseWidth = leftCoord - horizontalGap + horizontalPadding;
   const minWidth = 210;
 
-  return '''<svg xmlns="http://www.w3.org/2000/svg" width="${baseWidth < minWidth ? minWidth : baseWidth}" height="${unitHeight * 6}">
+  const double scaleRatio = 2.0;
+  final double width = (baseWidth < minWidth ? minWidth : baseWidth) * scaleRatio;
+  const double height = (unitHeight * 6) * scaleRatio;
+
+  return (
+    '''<svg xmlns="http://www.w3.org/2000/svg" width="$width" height="$height">
       <defs>
         ${usedRadicals.entries.map(
-            (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
-          ).join('\n')}
+          (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
+        ).join('\n')}
       </defs>
-      <line x1="0" y1="${unitHeight * 1}" x2="65536" y2="${unitHeight * 1}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 2}" x2="65536" y2="${unitHeight * 2}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 3}" x2="65536" y2="${unitHeight * 3}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 4}" x2="65536" y2="${unitHeight * 4}" stroke="$staffColor" />
-      <line x1="0" y1="${unitHeight * 5}" x2="65536" y2="${unitHeight * 5}" stroke="$staffColor" />
-      <g transform="translate(${baseWidth < minWidth ? (minWidth - baseWidth) / 2 : 0} 0)">
-        ${charImages.join('\n')}
+      <g transform="scale($scaleRatio $scaleRatio)">
+        <rect x="0" y="0" height="${unitHeight * 6}" width="$width" style="fill: $backgroundColor" />
+        <line x1="0" y1="${unitHeight * 1}" x2="$width" y2="${unitHeight * 1}" stroke="$staffColor" />
+        <line x1="0" y1="${unitHeight * 2}" x2="$width" y2="${unitHeight * 2}" stroke="$staffColor" />
+        <line x1="0" y1="${unitHeight * 3}" x2="$width" y2="${unitHeight * 3}" stroke="$staffColor" />
+        <line x1="0" y1="${unitHeight * 4}" x2="$width" y2="${unitHeight * 4}" stroke="$staffColor" />
+        <line x1="0" y1="${unitHeight * 5}" x2="$width" y2="${unitHeight * 5}" stroke="$staffColor" />
+        <g transform="translate(${baseWidth < minWidth ? (minWidth - baseWidth) / 2 : 0} 0)">
+          ${charImages.join('\n')}
+        </g>
       </g>
-    </svg>''';
-
-  // <rect x="0" y="0" height="${unitHeight * 6}" width="$baseWidth" style="fill: red" />
+    </svg>''',
+    (width, height)
+  );
 }

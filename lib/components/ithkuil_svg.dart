@@ -16,13 +16,18 @@ class IthkuilSvg extends StatelessWidget {
     final String staffColor =
         MediaQuery.of(context).platformBrightness == Brightness.light ? "#cccccc" : "#333333";
 
+    final rawSvg = _generate(characters, fillColor, staffColor);
     return SvgPicture.string(
-      _generate(characters, fillColor, staffColor),
+      rawSvg,
       height: 160,
     );
   }
 
   String _generate(List<Character> characters, String fillColor, String staffColor) {
-    return ithkuilWriting(characters, fillColor, staffColor);
+    return ithkuilWriting(
+      characters,
+      fillColor: fillColor,
+      staffColor: staffColor,
+    ).$1;
   }
 }

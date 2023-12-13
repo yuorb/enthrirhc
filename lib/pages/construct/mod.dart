@@ -1,11 +1,16 @@
+import 'dart:ui';
+
 import 'package:enthrirhs/libs/download/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
 import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhs/utils/mod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../libs/ithkuil/mod.dart';
 import 'formative_editor.dart';
 import 'store.dart';
@@ -30,31 +35,63 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             AppBar(
               title: const Text("Construct"),
               actions: [
-                IconButton(
-                  onPressed: formatives.isEmpty
-                      ? null
-                      : () async {
-                          final data = ithkuilWriting(
-                            formatives
-                                .map((formative) => formative.toCharacters())
-                                .expand((element) => element)
-                                .toList(),
-                            "#000000",
-                            "#cccccc",
-                          );
-                          final path = await saveTextFile(data, 'writing.svg');
-                          if (!context.mounted) {
-                            return;
-                          }
-                          if (path != null) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text('Successfully downloaded "$path"'),
-                            ));
-                          }
-                        },
-                  tooltip: "Download the writing image as SVG",
-                  icon: const Icon(Icons.download),
-                ),
+                switch (Platform.get()) {
+                  Platform.android || Platform.webMobile => IconButton(
+                      icon: const Icon(Icons.share),
+                      tooltip: "Share the writing image",
+                      onPressed: formatives.isEmpty
+                          ? null
+                          : () async {
+                              final (rawSvg, (width, height)) = ithkuilWriting(
+                                formatives
+                                    .map((formative) => formative.toCharacters())
+                                    .expand((element) => element)
+                                    .toList(),
+                                backgroundColor: "white",
+                              );
+                              final pictureInfo =
+                                  await vg.loadPicture(SvgStringLoader(rawSvg), null);
+                              final image = await pictureInfo.picture.toImage(
+                                width.toInt(),
+                                height.toInt(),
+                              );
+                              final byteData =
+                                  (await image.toByteData(format: ImageByteFormat.png))!;
+                              final bytes = byteData.buffer.asUint8List();
+                              Share.shareXFiles([
+                                XFile.fromData(
+                                  bytes,
+                                  name: 'writing.png',
+                                  mimeType: 'image/png',
+                                ),
+                              ]);
+                            },
+                    ),
+                  Platform.windows || Platform.linux || Platform.webDesktop => IconButton(
+                      icon: const Icon(Icons.download),
+                      tooltip: "Download the writing image as SVG",
+                      onPressed: formatives.isEmpty
+                          ? null
+                          : () async {
+                              final (rawSvg, (_, _)) = ithkuilWriting(
+                                formatives
+                                    .map((formative) => formative.toCharacters())
+                                    .expand((element) => element)
+                                    .toList(),
+                              );
+                              final path = await saveTextFile(rawSvg, 'writing.svg');
+                              if (!context.mounted) {
+                                return;
+                              }
+                              if (path != null) {
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('Successfully downloaded "$path"'),
+                                ));
+                              }
+                            },
+                    ),
+                  Platform.unadapted => throw UnimplementedError(),
+                },
                 IconButton(
                   onPressed: formatives.isEmpty
                       ? null
