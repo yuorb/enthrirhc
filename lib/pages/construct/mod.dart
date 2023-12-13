@@ -1,11 +1,11 @@
 import 'package:enthrirhs/libs/download/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
-import 'package:enthrirhs/libs/misc.dart';
 import '../../libs/ithkuil/mod.dart';
 import 'formative_editor.dart';
 import 'store.dart';
@@ -59,11 +59,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   onPressed: formatives.isEmpty
                       ? null
                       : () {
-                          final sentence = formatives
-                              .map((formative) => formative.romanize())
-                              .join(' ')
-                              .capitalize()
-                              .addPeriod();
+                          final sentence = romanizeFormatives(formatives)!;
                           Clipboard.setData(ClipboardData(text: sentence));
                         },
                   tooltip: "Copy the romanized sentence",
@@ -77,15 +73,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   .expand((element) => element)
                   .toList(),
             ),
-            Text(
-              formatives.isEmpty
-                  ? 'NO FORMATIVES'
-                  : formatives
-                      .map((formative) => formative.romanize())
-                      .join(' ')
-                      .capitalize()
-                      .addPeriod(),
-            ),
+            Text(romanizeFormatives(formatives) ?? 'NO FORMATIVES'),
             TabBar(
               tabAlignment: TabAlignment.center,
               isScrollable: true,
