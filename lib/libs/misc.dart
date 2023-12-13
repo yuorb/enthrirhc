@@ -10,7 +10,7 @@ dynamic tryParseString(String str) {
 }
 
 String colorToHex(Color color) {
-  return "#${color.toString().substring(10, 16)}";
+  return "#${color.value.toRadixString(16).substring(2)}";
 }
 
 extension StringExtension on String {

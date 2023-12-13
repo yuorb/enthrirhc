@@ -38,6 +38,27 @@ Future<int> getInitialDarkTheme() async {
   }
 }
 
+ColorScheme createPureDarkColorScheme() {
+  ColorScheme baseColorScheme = ThemeData(
+    colorSchemeSeed: Colors.deepPurple,
+    brightness: Brightness.dark,
+    useMaterial3: true,
+  ).colorScheme;
+  return ColorScheme(
+    brightness: baseColorScheme.brightness,
+    primary: baseColorScheme.primary,
+    onPrimary: baseColorScheme.onPrimary,
+    secondary: baseColorScheme.secondary,
+    onSecondary: baseColorScheme.onSecondary,
+    error: baseColorScheme.error,
+    onError: baseColorScheme.onError,
+    background: Colors.black,
+    onBackground: baseColorScheme.onBackground,
+    surface: Colors.black,
+    onSurface: baseColorScheme.onSurface,
+  );
+}
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -53,19 +74,8 @@ class App extends StatelessWidget {
         ),
         darkTheme: theme.darkTheme == 2
             ? ThemeData(
-                colorScheme: const ColorScheme(
-                  brightness: Brightness.dark,
-                  primary: Colors.grey,
-                  onPrimary: Colors.grey,
-                  secondary: Colors.black,
-                  onSecondary: Colors.grey,
-                  error: Colors.grey,
-                  onError: Colors.grey,
-                  background: Colors.black,
-                  onBackground: Colors.grey,
-                  surface: Colors.black,
-                  onSurface: Colors.grey,
-                ),
+                colorScheme: createPureDarkColorScheme(),
+                brightness: Brightness.dark,
                 useMaterial3: true,
               )
             : ThemeData(
