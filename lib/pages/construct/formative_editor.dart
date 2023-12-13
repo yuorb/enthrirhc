@@ -1983,7 +1983,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         children: <Widget>[
           for (int index = 0; index < widget.formative.csVxAffixes.length; index += 1)
             Dismissible(
-              key: Key('$index'),
+              key: UniqueKey(),
               background: Container(
                 alignment: Alignment.centerRight,
                 color: Colors.red,
