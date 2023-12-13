@@ -2003,7 +2003,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               child: Padding(
                 padding: switch (Platform.get()) {
                   Platform.android => const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  Platform.web || Platform.windows => const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  Platform.webMobile ||
+                  Platform.webDesktop ||
+                  Platform.windows =>
+                    const EdgeInsets.fromLTRB(0, 0, 16, 0),
                   Platform.linux => throw UnimplementedError(),
                   Platform.unadapted => throw UnimplementedError(),
                 },
@@ -2218,7 +2221,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               child: Padding(
                 padding: switch (Platform.get()) {
                   Platform.android => const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  Platform.web || Platform.windows => const EdgeInsets.fromLTRB(0, 0, 16, 0),
+                  Platform.webMobile ||
+                  Platform.webDesktop ||
+                  Platform.windows =>
+                    const EdgeInsets.fromLTRB(0, 0, 16, 0),
                   Platform.linux => throw UnimplementedError(),
                   Platform.unadapted => throw UnimplementedError(),
                 },

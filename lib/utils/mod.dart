@@ -3,14 +3,20 @@ import 'package:flutter/foundation.dart';
 
 enum Platform {
   android,
-  web,
+  webDesktop,
+  webMobile,
   windows,
   linux,
   unadapted;
 
   static Platform get() {
     if (kIsWeb) {
-      return Platform.web;
+      if (defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.android) {
+        return Platform.webMobile;
+      } else {
+        return Platform.webDesktop;
+      }
     }
     if (io.Platform.isAndroid) {
       return Platform.android;
