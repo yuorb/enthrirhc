@@ -1,8 +1,8 @@
 import 'package:enthrirhs/libs/download/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhs/components/ithkuil_svg.dart';
@@ -60,7 +60,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                       ? null
                       : () {
                           final sentence = romanizeFormatives(formatives)!;
-                          Clipboard.setData(ClipboardData(text: sentence));
+                          copyToClipboard(sentence, context);
                         },
                   tooltip: "Copy the romanized sentence",
                   icon: const Icon(Icons.copy),

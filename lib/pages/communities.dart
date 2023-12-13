@@ -1,5 +1,5 @@
+import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -37,7 +37,7 @@ class CommunityTile extends StatelessWidget {
       ),
       trailing: code != null
           ? IconButton(
-              onPressed: () => Clipboard.setData(ClipboardData(text: code!)),
+              onPressed: () => copyToClipboard(code!, context),
               icon: const Icon(Icons.copy),
             )
           : null,

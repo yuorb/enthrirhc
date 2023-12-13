@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 dynamic tryParseString(String str) {
   try {
@@ -71,6 +72,14 @@ Future<bool> showConfirmDialog(BuildContext context, String title) async {
 
 String escapeRegExp(String text) {
   return text.replaceAllMapped(RegExp(r"[-[\]{}()*+?.,\\^$|#\s]"), (m) => "\\${m[0]}");
+}
+
+void copyToClipboard(String text, BuildContext context) async {
+  await Clipboard.setData(ClipboardData(text: text));
+  if (!context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: Text('Copied to Clipboard'),
+  ));
 }
 
 class Coord {

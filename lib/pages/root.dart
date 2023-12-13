@@ -1,6 +1,6 @@
+import 'package:enthrirhs/libs/misc.dart';
 import 'package:flutter/material.dart';
 import 'package:enthrirhs/utils/types.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 
@@ -112,28 +112,28 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                 title: const Text("BSC"),
                                 isThreeLine: true,
                                 subtitle: Text(stem.bsc),
-                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.bsc)),
+                                onLongPress: () => copyToClipboard(stem.bsc, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.subject),
                                 title: const Text("CTE"),
                                 isThreeLine: true,
                                 subtitle: Text(stem.cte),
-                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.cte)),
+                                onLongPress: () => copyToClipboard(stem.cte, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.import_contacts),
                                 title: const Text("CSV"),
                                 isThreeLine: true,
                                 subtitle: Text(stem.csv),
-                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.csv)),
+                                onLongPress: () => copyToClipboard(stem.csv, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.book),
                                 title: const Text("OBJ"),
                                 isThreeLine: true,
                                 subtitle: Text(stem.obj),
-                                onLongPress: () => Clipboard.setData(ClipboardData(text: stem.obj)),
+                                onLongPress: () => copyToClipboard(stem.obj, context),
                               ),
                             ]),
                           StrStem() => ListView(children: [
@@ -141,8 +141,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                 leading: const Icon(Icons.info),
                                 title: const Text("General"),
                                 subtitle: Text(stem.value),
-                                onLongPress: () =>
-                                    Clipboard.setData(ClipboardData(text: stem.value)),
+                                onLongPress: () => copyToClipboard(stem.value, context),
                               )
                             ])
                         })
