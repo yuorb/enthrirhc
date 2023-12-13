@@ -43,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
   int rootCount = 0;
   int affixCount = 0;
 
-  Future<List<Root>?> pickLexiconFile() async {
+  Future<Lexicon?> pickLexiconFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['json'],
@@ -54,7 +54,7 @@ class _SearchPageState extends State<SearchPage> {
     final bytes = result.files.single.bytes;
     if (bytes == null) return null;
     final text = utf8.decode(bytes);
-    List<dynamic> decodedJson;
+    Map<String, dynamic> decodedJson;
     try {
       decodedJson = jsonDecode(text);
     } catch (e) {
@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
       }
       return null;
     }
-    return decodedJson.map((root) => Root.fromJson(root)).toList();
+    return Lexicon.fromJson(decodedJson);
   }
 
   @override
@@ -189,13 +189,13 @@ class _SearchPageState extends State<SearchPage> {
                   label: "Import lexicon from local files",
                   onPressed: () async {
                     // Pick lexicon JSON file
-                    List<Root>? lexicon = await pickLexiconFile();
+                    Lexicon? lexicon = await pickLexiconFile();
                     if (lexicon == null) return;
 
                     // Save and update the lexicon data
                     if (!context.mounted) return;
                     await context.read<LexiconModel>().database.insert(lexicon);
-                    setState(() => rootCount += lexicon.length);
+                    setState(() => rootCount += lexicon.roots.length);
 
                     // Pop up the success dialog
                     if (!context.mounted) return;
@@ -204,7 +204,7 @@ class _SearchPageState extends State<SearchPage> {
                       builder: (context) => AlertDialog(
                         title: const Text("Success"),
                         content: Text(
-                          "Imported ${lexicon.length.toString()} roots successfully.",
+                          "Imported ${lexicon.roots.length.toString()} roots successfully.",
                         ),
                         actions: [
                           TextButton(

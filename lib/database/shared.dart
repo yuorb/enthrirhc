@@ -42,11 +42,11 @@ class Database extends _$Database {
   @override
   int get schemaVersion => 1;
 
-  Future<void> insert(List<Root> newRoots) async {
+  Future<void> insert(Lexicon lexicon) async {
     await batch((batch) {
       batch.insertAll(
         roots,
-        newRoots.map(
+        lexicon.roots.map(
           (root) => RootsCompanion.insert(
             root: root.root,
             refers: Value(root.refers),

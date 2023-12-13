@@ -47,6 +47,12 @@ class StrStem extends Stem {
 }
 
 class Root {
+  final String root;
+  final List<Stem>? stems;
+  final String? refers;
+  final String? notes;
+  final String? seeAlso;
+
   const Root({
     required this.root,
     this.refers,
@@ -54,12 +60,6 @@ class Root {
     this.notes,
     this.seeAlso,
   });
-
-  final String root;
-  final List<Stem>? stems;
-  final String? refers;
-  final String? notes;
-  final String? seeAlso;
 
   factory Root.fromJson(Map<String, dynamic> data) {
     final List<Stem>? stems;
@@ -77,6 +77,26 @@ class Root {
       stems: stems,
       notes: data['notes'],
       seeAlso: data['see'],
+    );
+  }
+}
+
+class Lexicon {
+  final List<Root> roots;
+  // TODO: Implement Affix class
+  final List<String> affixes;
+
+  const Lexicon({
+    required this.roots,
+    required this.affixes,
+  });
+
+  factory Lexicon.fromJson(Map<String, dynamic> data) {
+    final roots = (data['roots'] as List<dynamic>).map((e) => Root.fromJson(e)).toList();
+    return Lexicon(
+      roots: roots,
+      // TODO: Implement Affix.fromJson()
+      affixes: [],
     );
   }
 }
