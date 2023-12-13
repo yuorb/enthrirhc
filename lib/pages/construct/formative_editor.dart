@@ -7,6 +7,7 @@ import 'package:enthrirhs/utils/mod.dart';
 import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
 import 'package:enthrirhs/libs/misc.dart';
@@ -214,9 +215,16 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
       ),
       Container(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-        child: Text(
-          definition,
-          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        child: MarkdownBody(
+          data: definition,
+          styleSheet: MarkdownStyleSheet(
+            p: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+            strong: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         ),
       ),
       const ListGroupTitle("Basic"),

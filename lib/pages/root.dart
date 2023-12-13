@@ -111,28 +111,68 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                 leading: const Icon(Icons.menu_book),
                                 title: const Text("BSC"),
                                 isThreeLine: true,
-                                subtitle: Text(stem.bsc),
+                                subtitle: MarkdownBody(
+                                  data: stem.bsc,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
+                                    strong: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                                 onLongPress: () => copyToClipboard(stem.bsc, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.subject),
                                 title: const Text("CTE"),
                                 isThreeLine: true,
-                                subtitle: Text(stem.cte),
+                                subtitle: MarkdownBody(
+                                  data: stem.cte,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
+                                    strong: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                                 onLongPress: () => copyToClipboard(stem.cte, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.import_contacts),
                                 title: const Text("CSV"),
                                 isThreeLine: true,
-                                subtitle: Text(stem.csv),
+                                subtitle: MarkdownBody(
+                                  data: stem.csv,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
+                                    strong: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                                 onLongPress: () => copyToClipboard(stem.csv, context),
                               ),
                               ListTile(
                                 leading: const Icon(Icons.book),
                                 title: const Text("OBJ"),
                                 isThreeLine: true,
-                                subtitle: Text(stem.obj),
+                                subtitle: MarkdownBody(
+                                  data: stem.obj,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
+                                    strong: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                                 onLongPress: () => copyToClipboard(stem.obj, context),
                               ),
                             ]),
@@ -140,7 +180,17 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                               ListTile(
                                 leading: const Icon(Icons.info),
                                 title: const Text("General"),
-                                subtitle: Text(stem.value),
+                                subtitle: MarkdownBody(
+                                  data: stem.value,
+                                  styleSheet: MarkdownStyleSheet(
+                                    p: TextStyle(
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
+                                    strong: TextStyle(
+                                      color: Theme.of(context).colorScheme.primary,
+                                    ),
+                                  ),
+                                ),
                                 onLongPress: () => copyToClipboard(stem.value, context),
                               )
                             ])
