@@ -309,146 +309,252 @@ class Formative {
     return slot5;
   }
 
-  String _romanizeSlotVI(
-    bool shortCut,
+  String _getRawCa(
     String strPrecedingThis,
   ) {
-    if (shortCut) {
-      return '';
-    } else {
-      if (affiliation == Affiliation.csl &&
-          configuration.plexity == Plexity.u &&
-          extension == Extension.del &&
-          perspective == Perspective.m &&
-          essence == Essence.nrm) {
-        return 'l';
-      }
-      if (configuration.plexity == Plexity.u &&
-          extension == Extension.del &&
-          perspective == Perspective.m &&
-          essence == Essence.nrm) {
-        return switch (affiliation) {
-          Affiliation.csl => 'l',
-          Affiliation.aso => 'nļ',
-          Affiliation.coa => 'rļ',
-          Affiliation.var$ => 'ň',
-        };
-      }
-      if (affiliation == Affiliation.csl &&
-          configuration.plexity == Plexity.u &&
-          extension == Extension.del) {
-        return switch (perspective) {
-          Perspective.m => switch (essence) {
-              Essence.nrm => 'l',
-              Essence.rpv => 'tļ',
-            },
-          Perspective.g => switch (essence) {
-              Essence.nrm => 'r',
-              Essence.rpv => 'ř',
-            },
-          Perspective.n => switch (essence) {
-              Essence.nrm => 'v',
-              Essence.rpv =>
-                RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
-                    ? 'h'
-                    : 'm',
-            },
-          Perspective.a => switch (essence) {
-              Essence.nrm => 'j',
-              Essence.rpv =>
-                RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
-                    ? 'ç'
-                    : 'n',
-            },
-        };
-      }
-      final romanizedAffiliation = switch (affiliation) {
-        Affiliation.csl => '',
-        Affiliation.aso => 'l',
-        Affiliation.coa => 'r',
-        Affiliation.var$ => 'ř',
+    if (configuration.plexity == Plexity.u &&
+        extension == Extension.del &&
+        perspective == Perspective.m &&
+        essence == Essence.nrm) {
+      return switch (affiliation) {
+        Affiliation.csl => 'l',
+        Affiliation.aso => 'nļ',
+        Affiliation.coa => 'rļ',
+        Affiliation.var$ => 'ň',
       };
-      final romanizedConfiguration = configuration.romanize();
-      final romanizedExtension = switch (extension) {
-        Extension.del => '',
-        Extension.prx => configuration.plexity == Plexity.u ? 'd' : 't',
-        Extension.icp => configuration.plexity == Plexity.u ? 'g' : 'k',
-        Extension.atv => configuration.plexity == Plexity.u ? 'b' : 'p',
-        Extension.gra => configuration.plexity == Plexity.u ? 'gz' : 'g',
-        Extension.dpl => configuration.plexity == Plexity.u ? 'bz' : 'b',
-      };
-      final romanizedPerspectiveAndEssence = switch (perspective) {
+    }
+    if (affiliation == Affiliation.csl &&
+        configuration.plexity == Plexity.u &&
+        extension == Extension.del) {
+      return switch (perspective) {
         Perspective.m => switch (essence) {
-            Essence.nrm => '',
-            Essence.rpv => 'l',
+            Essence.nrm => 'l',
+            Essence.rpv => 'tļ',
           },
         Perspective.g => switch (essence) {
             Essence.nrm => 'r',
             Essence.rpv => 'ř',
           },
         Perspective.n => switch (essence) {
-            Essence.nrm => 'w',
-            Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
-                strPrecedingThis +
-                    romanizedAffiliation +
-                    romanizedConfiguration +
-                    romanizedExtension,
-              )
+            Essence.nrm => 'v',
+            Essence.rpv =>
+              RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
                   ? 'h'
                   : 'm',
           },
         Perspective.a => switch (essence) {
-            Essence.nrm => 'y',
-            Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
-                strPrecedingThis +
-                    romanizedAffiliation +
-                    romanizedConfiguration +
-                    romanizedExtension,
-              )
+            Essence.nrm => 'j',
+            Essence.rpv =>
+              RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
                   ? 'ç'
                   : 'n',
           },
       };
-      final String romanizedSlotVI = romanizedAffiliation +
-          romanizedConfiguration +
-          romanizedExtension +
-          romanizedPerspectiveAndEssence;
-      return romanizedSlotVI
-          .replaceAll('pp', 'mp')
-          .replaceAll('pb', 'mb')
-          .replaceAll('rr', 'ns')
-          .replaceAllMapped(
-            RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw]gm"),
-            (match) => '${match.group(0)}x',
-          )
-          .replaceAllMapped(
-            RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw]bm"),
-            (match) => '${match.group(0)}v',
-          )
-          .replaceAll('tt', 'nt')
-          .replaceAll('kg', 'ng')
-          .replaceAll('rř', 'nš')
-          .replaceAllMapped(
-            RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw]gn"),
-            (match) => '${match.group(0)}ň',
-          )
-          .replaceAllMapped(
-            RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw]bn"),
-            (match) => '${match.group(0)}ḑ',
-          )
-          .replaceAll('kk', 'nk')
-          .replaceAll('çy', 'nd')
-          .replaceAll('řr', 'ňs')
-          .replaceAll('ngn', 'ňn')
-          .replaceAll('fbm', 'vw')
-          .replaceAll('ll', 'pļ')
-          .replaceAll('řř', 'ňš')
-          .replaceAllMapped(
-            RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw]çx"),
-            (match) => '${match.group(0)}xw',
-          )
-          .replaceAll('ţbn', 'ḑy');
     }
+    final romanizedAffiliation = switch (affiliation) {
+      Affiliation.csl => '',
+      Affiliation.aso => 'l',
+      Affiliation.coa => 'r',
+      Affiliation.var$ => 'ř',
+    };
+    final romanizedConfiguration = configuration.romanize();
+    final romanizedExtension = switch (extension) {
+      Extension.del => '',
+      Extension.prx => configuration.plexity == Plexity.u ? 'd' : 't',
+      Extension.icp => configuration.plexity == Plexity.u ? 'g' : 'k',
+      Extension.atv => configuration.plexity == Plexity.u ? 'b' : 'p',
+      Extension.gra => configuration.plexity == Plexity.u ? 'gz' : 'g',
+      Extension.dpl => configuration.plexity == Plexity.u ? 'bz' : 'b',
+    };
+    final romanizedPerspectiveAndEssence = switch (perspective) {
+      Perspective.m => switch (essence) {
+          Essence.nrm => '',
+          Essence.rpv => 'l',
+        },
+      Perspective.g => switch (essence) {
+          Essence.nrm => 'r',
+          Essence.rpv => 'ř',
+        },
+      Perspective.n => switch (essence) {
+          Essence.nrm => 'w',
+          Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
+              strPrecedingThis + romanizedAffiliation + romanizedConfiguration + romanizedExtension,
+            )
+                ? 'h'
+                : 'm',
+        },
+      Perspective.a => switch (essence) {
+          Essence.nrm => 'y',
+          Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
+              strPrecedingThis + romanizedAffiliation + romanizedConfiguration + romanizedExtension,
+            )
+                ? 'ç'
+                : 'n',
+        },
+    };
+    final String rawCa = romanizedAffiliation +
+        romanizedConfiguration +
+        romanizedExtension +
+        romanizedPerspectiveAndEssence;
+    return rawCa;
+  }
+
+  String _geminate(String allomorphicSubstitutedCa) {
+    // Rule 1
+    if (allomorphicSubstitutedCa.length == 1) {
+      if (allomorphicSubstitutedCa == "y" || allomorphicSubstitutedCa == "w") {
+        return '[ERROR]';
+      }
+      return "$allomorphicSubstitutedCa$allomorphicSubstitutedCa";
+    }
+    // Rule 2
+    if (allomorphicSubstitutedCa == 'tļ') {
+      return 'ttļ';
+    }
+    // Rule 3
+    if (RegExp('^[tkpdgb][lrřwy]').hasMatch(allomorphicSubstitutedCa)) {
+      return allomorphicSubstitutedCa.replaceFirstMapped(
+        RegExp('^([tkpdgb])([lrřwy])'),
+        (match) => '${match.group(1)}${match.group(1)}${match.group(2)}',
+      );
+    }
+    // Rule 4
+    if (RegExp('[sšzžẓçcč]').hasMatch(allomorphicSubstitutedCa)) {
+      return allomorphicSubstitutedCa.replaceFirstMapped(
+        RegExp('[sšzžẓçcč]'),
+        (match) => '${match.group(0)}${match.group(0)}',
+      );
+    }
+    // Rule 5
+    if (RegExp('^[fţvd͕nmň]').hasMatch(allomorphicSubstitutedCa)) {
+      return allomorphicSubstitutedCa.replaceFirstMapped(
+        RegExp('^[fţvd͕nmň]'),
+        (match) => '${match.group(0)}${match.group(0)}',
+      );
+    }
+    // Rule 6
+    if (RegExp('^[tkp][sšfţç]').hasMatch(allomorphicSubstitutedCa)) {
+      return allomorphicSubstitutedCa.replaceFirstMapped(
+        RegExp('^([tkp])([sšfţç])'),
+        (match) => '${match.group(1)}${match.group(2)}${match.group(2)}',
+      );
+    }
+    // Rule 7
+    if (allomorphicSubstitutedCa.endsWith('pt')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'pt$'), 'bbd͕');
+    }
+    if (allomorphicSubstitutedCa.endsWith('pk')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'pk$'), 'bbv');
+    }
+    if (allomorphicSubstitutedCa.endsWith('kt')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'kt$'), 'ggd͕');
+    }
+    if (allomorphicSubstitutedCa.endsWith('kp')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'kp$'), 'ggv');
+    }
+    if (allomorphicSubstitutedCa.endsWith('tk')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'tk$'), 'd͕vv');
+    }
+    if (allomorphicSubstitutedCa.endsWith('tp')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'tp$'), 'ddv');
+    }
+    // Rule 8
+    if (allomorphicSubstitutedCa.endsWith('pm')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'pm$'), 'vvm');
+    }
+    if (allomorphicSubstitutedCa.endsWith('pn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'pn$'), 'vvn');
+    }
+    if (allomorphicSubstitutedCa.endsWith('km')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'km$'), 'xxm');
+    }
+    if (allomorphicSubstitutedCa.endsWith('kn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'kn$'), 'xxn');
+    }
+    if (allomorphicSubstitutedCa.endsWith('tm')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'tm$'), 'd͕d͕m');
+    }
+    if (allomorphicSubstitutedCa.endsWith('tn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'tn$'), 'd͕d͕n');
+    }
+    if (allomorphicSubstitutedCa.endsWith('bm')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'bm$'), 'mmw');
+    }
+    if (allomorphicSubstitutedCa.endsWith('bn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'bn$'), 'mml');
+    }
+    if (allomorphicSubstitutedCa.endsWith('gm')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'gm$'), 'ňňw');
+    }
+    if (allomorphicSubstitutedCa.endsWith('gn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'gn$'), 'ňňl');
+    }
+    if (allomorphicSubstitutedCa.endsWith('dm')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'dm$'), 'nnw');
+    }
+    if (allomorphicSubstitutedCa.endsWith('dn')) {
+      return allomorphicSubstitutedCa.replaceFirst(RegExp(r'dn$'), 'nnl');
+    }
+    // Rule 9
+    if (RegExp('^[lrř]').hasMatch(allomorphicSubstitutedCa)) {
+      final t = _geminate(allomorphicSubstitutedCa.substring(1));
+      return t != '[ERROR]'
+          ? "${allomorphicSubstitutedCa[0]}${_geminate(allomorphicSubstitutedCa.substring(1))}"
+          : "${allomorphicSubstitutedCa[0]}$allomorphicSubstitutedCa";
+    }
+    return '[ERROR]';
+  }
+
+  String _romanizeSlotVI(
+    bool shortCut,
+    String strPrecedingThis,
+  ) {
+    if (shortCut) {
+      return '';
+    }
+    final rawCa = _getRawCa(strPrecedingThis);
+    final allomorphicSubstitutedCa = rawCa
+        .replaceAll('pp', 'mp')
+        .replaceAll('pb', 'mb')
+        .replaceAll('rr', 'ns')
+        .replaceAll('tt', 'nt')
+        .replaceAll('kg', 'ng')
+        .replaceAll('rř', 'nš')
+        .replaceAll('kk', 'nk')
+        .replaceAll('çy', 'nd')
+        .replaceAll('řr', 'ňs')
+        .replaceAll('ll', 'pļ')
+        .replaceAll('řř', 'ňš')
+        .replaceAll('fv', 'vw')
+        .replaceAll('ţd͕', 'd͕y')
+        .replaceAll('ngn', 'ňn')
+        .replaceAll('fbm', 'vw')
+        .replaceAll('ţbn', 'd͕y')
+        .replaceAllMapped(
+          RegExp("([pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw])gm"),
+          (match) => '${match.group(1)}x',
+        )
+        .replaceAllMapped(
+          RegExp("([pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw])bm"),
+          (match) => '${match.group(1)}v',
+        )
+        .replaceAllMapped(
+          RegExp("([pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw])gn"),
+          (match) => '${match.group(1)}ň',
+        )
+        .replaceAllMapped(
+          RegExp("([pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw])bn"),
+          (match) => '${match.group(1)}d͕',
+        )
+        .replaceAllMapped(
+          RegExp("([pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw])çx"),
+          (match) => '${match.group(1)}xw',
+        );
+    if (csVxAffixes.isEmpty) {
+      return allomorphicSubstitutedCa;
+    }
+    final geminatedCa = _geminate(allomorphicSubstitutedCa);
+    return geminatedCa;
   }
 
   String _romanizeSlotVII(String strPrecedingThis) {
