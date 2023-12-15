@@ -34,3 +34,34 @@ String? romanizeFormatives(List<Formative> formatives) {
   }
   return sentence.addPeriod();
 }
+
+/// See official document [2.2 Rules for Inserting a Glottal-Stop Into a Vowel-Form](https://ithkuil.net/newithkuil_02_morpho-phonology.htm)
+String insertGlottalStop(String vowel, bool isAtEndOfWord) {
+  if (vowel.length == 1) {
+    if (isAtEndOfWord) {
+      return "$vowel'$vowel";
+    } else {
+      return "$vowel'";
+    }
+  }
+  if (vowel == "ai" ||
+      vowel == "ei" ||
+      vowel == "ëi" ||
+      vowel == "oi" ||
+      vowel == "ui" ||
+      vowel == "au" ||
+      vowel == "eu" ||
+      vowel == "ëu" ||
+      vowel == "ou" ||
+      vowel == "iu") {
+    if (isAtEndOfWord) {
+      return "${vowel[0]}'${vowel[1]}";
+    } else {
+      return "$vowel'";
+    }
+  }
+  if (vowel.length == 2) {
+    return "${vowel[0]}'${vowel[1]}";
+  }
+  throw 'unreachable';
+}

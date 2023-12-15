@@ -108,7 +108,7 @@ class Formative {
     }
   }
 
-  String _romanizeSlotII(bool useShortCut) {
+  String _getRawVv(bool useShortCut) {
     if (useShortCut) {
       if ((extension == Extension.del && perspective == Perspective.m && essence == Essence.nrm) ||
           (extension == Extension.prx && perspective == Perspective.m && essence == Essence.nrm)) {
@@ -241,6 +241,15 @@ class Formative {
     }
   }
 
+  String _romanizeSlotII(bool useShortCut) {
+    final rawVv = _getRawVv(useShortCut);
+    if (csVxAffixes.length > 1) {
+      return insertGlottalStop(rawVv, false);
+    } else {
+      return rawVv;
+    }
+  }
+
   String _romanizeSlotIV(bool useShortCut) {
     return useShortCut
         ? ''
@@ -300,11 +309,33 @@ class Formative {
           };
   }
 
-  String _romanizeSlotV() {
+  String _romanizeSlotV(bool useShortCut, String strPrecedingThis) {
     String slot5 = '';
-    for (final affix in csVxAffixes) {
-      final lastCharOfCs = affix.cs[affix.cs.length - 1];
-      slot5 += affix.cs.toLowerCase() + affix.getVx(lastCharOfCs);
+    if (useShortCut) {
+      for (int i = 0; i < csVxAffixes.length; i++) {
+        final affix = csVxAffixes[i];
+        final String charPrecedingThis;
+        if (i == 0) {
+          charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
+        } else {
+          final previousAffix = csVxAffixes[i - 1].cs;
+          charPrecedingThis = previousAffix[previousAffix.length - 1];
+        }
+        final String vx;
+        // See document 7.3.2
+        if (i == csVxAffixes.length - 1) {
+          vx = insertGlottalStop(affix.getVx(charPrecedingThis), false);
+        } else {
+          vx = affix.getVx(charPrecedingThis);
+        }
+        final cs = affix.cs.toLowerCase();
+        slot5 += vx + cs;
+      }
+    } else {
+      for (final affix in csVxAffixes) {
+        final lastCharOfCs = affix.cs[affix.cs.length - 1];
+        slot5 += affix.cs.toLowerCase() + affix.getVx(lastCharOfCs);
+      }
     }
     return slot5;
   }
@@ -622,7 +653,7 @@ class Formative {
     final String slot2 = _romanizeSlotII(useShortCut);
     final String slot3 = root.toString();
     final String slot4 = _romanizeSlotIV(useShortCut);
-    final String slot5 = _romanizeSlotV();
+    final String slot5 = _romanizeSlotV(useShortCut, "$slot1$slot2$slot3$slot4");
     final String slot6 = _romanizeSlotVI(useShortCut, "$slot1$slot2$slot3$slot4$slot5");
     final String slot7 = _romanizeSlotVII("$slot1$slot2$slot3$slot4$slot5$slot6");
     final String slot8 = _romanizeSlotVIII("$slot1$slot2$slot3$slot4$slot5$slot6$slot7");

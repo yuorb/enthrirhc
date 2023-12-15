@@ -162,21 +162,23 @@ class VxCsAffix extends Secondary with Character {
     final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
-      <use href="#${core.id()}" x="$coreX" y="$coreY" transform="rotate(180 $centerX $centerY)" fill="$fillColor" />
-      ${start != null ? '''<use
-        href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
-        x="$extStartX"
-        y="$extStartY" 
-        transform="rotate(${core.startAnchor.getRotation()}, $extStartX, $extStartY)"
-        fill="$fillColor"
-      />''' : ''}
-      ${end != null ? '''<use
-        href="#${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}"
-        x="$extEndX"
-        y="$extEndY"
-        transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
-        fill="$fillColor"
-      />''' : ''}
+      <g transform="rotate(180 $centerX $centerY)">
+        <use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />
+        ${start != null ? '''<use
+          href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
+          x="$extStartX"
+          y="$extStartY" 
+          transform="rotate(${core.startAnchor.getRotation()}, $extStartX, $extStartY)"
+          fill="$fillColor"
+        />''' : ''}
+        ${end != null ? '''<use
+          href="#${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}"
+          x="$extEndX"
+          y="$extEndY"
+          transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
+          fill="$fillColor"
+        />''' : ''}
+      </g>
       <use href="#${affix.topId()}" x="$centerX" y="$topY" fill="$fillColor" />
       <use href="#${affix.bottomId()}" x="$centerX" y="$bottomY" fill="$fillColor" />
     ''',
