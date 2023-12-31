@@ -1241,10 +1241,26 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         Parent(relation: Relation relation) =>
           PopupMenuButton<Relation>(
             onSelected: (Relation newRelation) {
+              final newRelation1 = switch (relation) {
+                Noun() => newRelation,
+                FramedVerb(illocution: final illocution, validation: final validation) ||
+                UnframedVerb(illocution: final illocution, validation: final validation) =>
+                  switch (newRelation) {
+                    Noun() => newRelation,
+                    FramedVerb() => FramedVerb(
+                        illocution: illocution,
+                        validation: validation,
+                      ),
+                    UnframedVerb() => UnframedVerb(
+                        illocution: illocution,
+                        validation: validation,
+                      )
+                  },
+              };
               widget.updateFormative((f) {
                 widget.formative.formativeType = switch (widget.formative.formativeType) {
-                  Standalone() => Standalone(newRelation),
-                  Parent() => Parent(newRelation),
+                  Standalone() => Standalone(newRelation1),
+                  Parent() => Parent(newRelation1),
                   Concatenated() => throw "unreachable",
                 };
               });
