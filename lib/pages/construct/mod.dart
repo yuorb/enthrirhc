@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:enthrirhs/libs/download/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
 import 'package:enthrirhs/libs/misc.dart';
 import 'package:enthrirhs/utils/mod.dart';
 import 'package:enthrirhs/utils/store.dart';
@@ -27,6 +29,25 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final List<Formative> formatives = context.watch<ConstructPageRoots>().formatives;
+    final omitOptionalCharacters = context.watch<SettingsProvider>().omitOptionalCharacters;
+    final characters = formatives
+        .map((formative) => formative.toCharacters(omitOptionalCharacters))
+        .expand((element) => element)
+        .toList();
+    // Omit the diagonal bar if needed and possible
+    if (omitOptionalCharacters && characters.isNotEmpty) {
+      switch (characters[0]) {
+        case Primary primary:
+          if (primary.isOmittable()) {
+            switch (primary.formativeType) {
+              case Standalone(relation: final relation):
+                characters[0] = PrimaryOmitted(relation);
+                break;
+              case Parent() || Concatenated():
+            }
+          }
+      }
+    }
 
     return DefaultTabController(
       length: formatives.length,
@@ -44,10 +65,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                           ? null
                           : () async {
                               final (rawSvg, (width, height)) = ithkuilWriting(
-                                formatives
-                                    .map((formative) => formative.toCharacters())
-                                    .expand((element) => element)
-                                    .toList(),
+                                characters,
                                 backgroundColor: "white",
                               );
                               final pictureInfo =
@@ -74,12 +92,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                       onPressed: formatives.isEmpty
                           ? null
                           : () async {
-                              final (rawSvg, (_, _)) = ithkuilWriting(
-                                formatives
-                                    .map((formative) => formative.toCharacters())
-                                    .expand((element) => element)
-                                    .toList(),
-                              );
+                              final (rawSvg, (_, _)) = ithkuilWriting(characters);
                               final path = await saveTextFile(rawSvg, 'writing.svg');
                               if (!context.mounted) {
                                 return;
@@ -109,12 +122,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                 ),
               ],
             ),
-            IthkuilSvg(
-              formatives
-                  .map((formative) => formative.toCharacters())
-                  .expand((element) => element)
-                  .toList(),
-            ),
+            IthkuilSvg(characters),
             Text(romanizeFormatives(
                   formatives,
                   context.watch<SettingsProvider>().preferShortCut,

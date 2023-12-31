@@ -36,6 +36,9 @@ const double horizontalGap = 10;
     usedRadicals[p.componentC().id()] = p.componentC().path();
     usedRadicals[p.componentD().id()] = p.componentD().path();
   }
+  for (final p in characters.whereType<PrimaryOmitted>()) {
+    usedRadicals[p.relation.id()] = p.relation.path();
+  }
   final secondaries = characters.whereType<Secondary>();
   for (final s in secondaries) {
     usedRadicals[s.core.id()] = s.core.path;

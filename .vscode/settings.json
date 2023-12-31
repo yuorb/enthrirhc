@@ -45,6 +45,7 @@
         "lerp",
         "Monoactive",
         "Navigative",
+        "Omittable",
         "Orientative",
         "Pausal",
         "Pertinential",

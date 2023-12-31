@@ -73,6 +73,16 @@ class _SettingsPageState extends State<SettingsPage> {
             );
           },
         ),
+        Consumer<SettingsProvider>(
+          builder: (context, settings, child) {
+            return SwitchListTile(
+              title: const Text("Omit Optional Characters"),
+              secondary: const Icon(Icons.abc),
+              value: settings.omitOptionalCharacters,
+              onChanged: (bool value) => settings.omitOptionalCharacters = value,
+            );
+          },
+        ),
         const ListGroupTitle("Others"),
         ListTile(
           leading: const Icon(Icons.people),

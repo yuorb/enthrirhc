@@ -16,6 +16,9 @@ import 'package:enthrirhs/libs/misc.dart';
 }
 
 (double, double) getExtensionBoundary(String path) {
+  if (path == "") {
+    return (0, 0);
+  }
   final list = path.split(" ").map((v) => tryParseString(v)).toList();
   double left = double.infinity;
   double right = -double.infinity;

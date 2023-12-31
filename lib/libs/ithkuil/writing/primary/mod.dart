@@ -6,6 +6,7 @@ import 'package:enthrirhs/libs/ithkuil/writing/primary/component_d.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/primary/utils.dart';
 
 import '../../terms/mod.dart';
+import '../utils.dart';
 
 class Primary with Character {
   final Specification specification;
@@ -72,6 +73,21 @@ class Primary with Character {
     );
   }
 
+  bool isOmittable() {
+    return specification == Specification.bsc &&
+        context == Context.exs &&
+        essence == Essence.nrm &&
+        affiliation == Affiliation.csl &&
+        perspective == Perspective.m &&
+        extension == Extension.del &&
+        separability == null &&
+        similarity == null &&
+        plexity == Plexity.u &&
+        function == Function$.sta &&
+        version == Version.prc &&
+        stem == Stem.s1;
+  }
+
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
     final (left, right) = getPrimaryBoundary(this);
@@ -101,6 +117,27 @@ class Primary with Character {
         <use href="#${componentB().id()}" x="$anchorBX" y="$anchorBY" fill="$fillColor" />
         <use href="#${componentC().id()}" x="$anchorCX" y="$anchorCY" fill="$fillColor" />
         <use href="#${componentD().id()}" x="$anchorDX" y="$anchorDY" fill="$fillColor" />
+      ''',
+      width,
+    );
+  }
+}
+
+class PrimaryOmitted with Character {
+  final Relation relation;
+
+  const PrimaryOmitted(this.relation);
+
+  @override
+  (String, double) getSvg(double baseX, double baseY, String fillColor) {
+    final (left, right) = getExtensionBoundary(relation.path());
+    final double width = right - left;
+    final String id = relation.id();
+    final double relationX = baseX - left;
+    final double relationY = baseY;
+    return (
+      '''
+        <use href="#$id" x="$relationX" y="$relationY" fill="$fillColor" />
       ''',
       width,
     );

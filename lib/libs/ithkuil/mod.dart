@@ -667,7 +667,7 @@ class Formative {
     return "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8$slot9";
   }
 
-  List<Character> toCharacters() {
+  List<Character> toCharacters(bool omitOptionalCharacters) {
     final List<Character> characters = [
       Primary(
         specification: specification,
