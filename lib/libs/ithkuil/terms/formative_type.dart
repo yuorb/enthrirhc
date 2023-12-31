@@ -9,6 +9,11 @@ sealed class FormativeType {
 
   String path();
 
+  String idTopSecondary();
+  String? idBottomSecondary();
+  String pathTopSecondary();
+  String? pathBottomSecondary();
+
   /// - `true`: This formative should use "case scope" in VnCn.
   /// - `false`: This formative should use "mood" in VnCn.
   bool isCaseScope();
@@ -30,6 +35,18 @@ class Standalone extends FormativeType {
         FramedVerb() => false,
         UnframedVerb() => false,
       };
+
+  @override
+  String idTopSecondary() => relation.idTopSecondary();
+
+  @override
+  String? idBottomSecondary() => relation.idBottomSecondary();
+
+  @override
+  String? pathBottomSecondary() => relation.pathBottomSecondary();
+
+  @override
+  String pathTopSecondary() => relation.pathTopSecondary();
 }
 
 class Parent extends FormativeType {
@@ -48,6 +65,18 @@ class Parent extends FormativeType {
         FramedVerb() => false,
         UnframedVerb() => false,
       };
+
+  @override
+  String idTopSecondary() => relation.idTopSecondary();
+
+  @override
+  String? idBottomSecondary() => relation.idBottomSecondary();
+
+  @override
+  String? pathBottomSecondary() => relation.pathBottomSecondary();
+
+  @override
+  String pathTopSecondary() => relation.pathTopSecondary();
 }
 
 class Concatenated extends FormativeType {
@@ -67,4 +96,16 @@ class Concatenated extends FormativeType {
 
   @override
   bool isCaseScope() => true;
+
+  @override
+  String idTopSecondary() => format.caseType.idSecondary();
+
+  @override
+  String? idBottomSecondary() => format.caseNumber.idSecondary();
+
+  @override
+  String pathTopSecondary() => format.caseType.pathSecondary();
+
+  @override
+  String? pathBottomSecondary() => format.caseNumber.pathSecondary();
 }

@@ -49,6 +49,16 @@ const double horizontalGap = 10;
       usedRadicals[s.getEndExtId()!] = s.getEndExtPath()!;
     }
   }
+  for (final s in secondaries.whereType<RootSecondary>()) {
+    final formativeType = s.formativeType;
+    if (formativeType != null) {
+      usedRadicals[formativeType.idTopSecondary()] = formativeType.pathTopSecondary();
+      final bottomId = formativeType.idBottomSecondary();
+      if (bottomId != null) {
+        usedRadicals[bottomId] = formativeType.pathBottomSecondary()!;
+      }
+    }
+  }
   for (final s in secondaries.whereType<CsVxAffix>()) {
     usedRadicals[s.affix.bottomId()] = s.affix.bottomPath();
     usedRadicals[s.affix.topId()] = s.affix.topPath();
@@ -77,22 +87,23 @@ const double horizontalGap = 10;
       case Standalone(relation: final relation) || Parent(relation: final relation):
         switch (relation) {
           case Noun noun:
-            usedRadicals[noun.case$.topId()] = noun.case$.topPath();
-            usedRadicals[noun.case$.bottomId()] = noun.case$.bottomPath();
+            usedRadicals[noun.case$.caseType.idQuaternary()] = noun.case$.caseType.pathQuaternary();
+            usedRadicals[noun.case$.caseNumber.idQuaternary()] =
+                noun.case$.caseNumber.pathQuaternary();
           case FramedVerb verb:
-            usedRadicals[verb.illocution.id()] = verb.illocution.path();
+            usedRadicals[verb.illocution.idQuaternary()] = verb.illocution.pathQuaternary();
             if (verb.validation != null) {
-              usedRadicals[verb.validation!.id()] = verb.validation!.path();
+              usedRadicals[verb.validation!.idQuaternary()] = verb.validation!.pathQuaternary();
             }
           case UnframedVerb verb:
-            usedRadicals[verb.illocution.id()] = verb.illocution.path();
+            usedRadicals[verb.illocution.idQuaternary()] = verb.illocution.pathQuaternary();
             if (verb.validation != null) {
-              usedRadicals[verb.validation!.id()] = verb.validation!.path();
+              usedRadicals[verb.validation!.idQuaternary()] = verb.validation!.pathQuaternary();
             }
         }
       case Concatenated(format: final format):
-        usedRadicals[format.topId()] = format.topPath();
-        usedRadicals[format.bottomId()] = format.bottomPath();
+        usedRadicals[format.caseType.idQuaternary()] = format.caseType.pathQuaternary();
+        usedRadicals[format.caseNumber.idQuaternary()] = format.caseNumber.pathQuaternary();
     }
 
     usedRadicals[q.cn.id()] = q.cn.path();

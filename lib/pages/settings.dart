@@ -77,7 +77,7 @@ class _SettingsPageState extends State<SettingsPage> {
           builder: (context, settings, child) {
             return SwitchListTile(
               title: const Text("Omit Optional Characters"),
-              secondary: const Icon(Icons.abc),
+              secondary: const Icon(Icons.draw),
               value: settings.omitOptionalCharacters,
               onChanged: (bool value) => settings.omitOptionalCharacters = value,
             );

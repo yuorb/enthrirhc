@@ -7,6 +7,10 @@ sealed class Relation {
 
   String id();
   String path();
+  String idTopSecondary();
+  String? idBottomSecondary();
+  String pathTopSecondary();
+  String? pathBottomSecondary();
 }
 
 class Noun extends Relation {
@@ -23,6 +27,18 @@ class Noun extends Relation {
   String path() {
     return '';
   }
+
+  @override
+  String idTopSecondary() => case$.caseType.idSecondary();
+
+  @override
+  String? idBottomSecondary() => case$.caseNumber.idSecondary();
+
+  @override
+  String pathTopSecondary() => case$.caseType.pathSecondary();
+
+  @override
+  String? pathBottomSecondary() => case$.caseNumber.pathSecondary();
 }
 
 class FramedVerb extends Relation {
@@ -67,6 +83,18 @@ class FramedVerb extends Relation {
   String path() {
     return 'M 10.00 5.00 L 20.00 -5.00 -10.00 -5.00 -20.00 5.00 10.00 5.00 Z';
   }
+
+  @override
+  String idTopSecondary() => illocution.idSecondary();
+
+  @override
+  String? idBottomSecondary() => validation?.idSecondary();
+
+  @override
+  String pathTopSecondary() => illocution.pathSecondary();
+
+  @override
+  String? pathBottomSecondary() => validation?.pathSecondary();
 }
 
 class UnframedVerb extends Relation {
@@ -111,4 +139,16 @@ class UnframedVerb extends Relation {
   String path() {
     return 'M -7.50 0.00 L 0.00 7.50 7.50 0.00 0.00 -7.50 -7.50 0.00 Z';
   }
+
+  @override
+  String idTopSecondary() => illocution.idSecondary();
+
+  @override
+  String? idBottomSecondary() => validation?.idSecondary();
+
+  @override
+  String pathTopSecondary() => illocution.pathSecondary();
+
+  @override
+  String? pathBottomSecondary() => validation?.pathSecondary();
 }

@@ -709,12 +709,12 @@ class Formative {
       ),
     ];
 
-    final hasTertiary = switch (vn) {
-      ValenceVn(valence: final valence) => valence != Valence.mno,
-      _ => true,
+    final tertiaryOmittable = switch (vn) {
+      ValenceVn(valence: final valence) => valence == Valence.mno,
+      _ => false,
     };
 
-    if (hasTertiary) {
+    if (!(omitOptionalCharacters && tertiaryOmittable)) {
       characters.add(
         Tertiary(
           valence: switch (vn) {
@@ -741,19 +741,11 @@ class Formative {
       );
     }
 
-    final hasQuarternary = !(cn == Cn.cn1 &&
-        switch (formativeType) {
-          Standalone(relation: final relation) || Parent(relation: final relation) => switch (
-                relation) {
-              Noun(case$: final case$) => case$ == Case.thm,
-              FramedVerb(illocution: final illocution, validation: final validation) ||
-              UnframedVerb(illocution: final illocution, validation: final validation) =>
-                illocution == Illocution.asr && validation == Validation.obs,
-            },
-          Concatenated(format: final format) => format == Case.thm,
-        });
+    final quarternaryOmittable = cn == Cn.cn1;
 
-    if (hasQuarternary) {
+    if (omitOptionalCharacters && quarternaryOmittable) {
+      (characters[1] as RootSecondary).formativeType = formativeType;
+    } else {
       characters.add(
         Quarternary(
           formativeType: formativeType,

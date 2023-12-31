@@ -30,18 +30,18 @@ class Quarternary with Character {
       case Standalone(relation: final relation) || Parent(relation: final relation):
         switch (relation) {
           case Noun noun:
-            startExtId = noun.case$.topId();
-            endExtId = noun.case$.bottomId();
+            startExtId = noun.case$.caseType.idQuaternary();
+            endExtId = noun.case$.caseNumber.idQuaternary();
           case FramedVerb verb:
-            startExtId = verb.illocution.id();
-            endExtId = verb.validation?.id();
+            startExtId = verb.illocution.idQuaternary();
+            endExtId = verb.validation?.idQuaternary();
           case UnframedVerb verb:
-            startExtId = verb.illocution.id();
-            endExtId = verb.validation?.id();
+            startExtId = verb.illocution.idQuaternary();
+            endExtId = verb.validation?.idQuaternary();
         }
       case Concatenated(format: final format):
-        startExtId = format.topId();
-        endExtId = format.bottomId();
+        startExtId = format.caseType.idQuaternary();
+        endExtId = format.caseNumber.idQuaternary();
     }
 
     final String cnId = cn.id();

@@ -49,37 +49,57 @@ sealed class Secondary {
 }
 
 class RootSecondary extends Secondary with Character {
-  const RootSecondary({required super.start, required super.core, required super.end});
+  FormativeType? formativeType;
+  RootSecondary({
+    required super.start,
+    required super.core,
+    required super.end,
+    this.formativeType,
+  });
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
-    final secondaryBoundary = getSecondaryBoundary(this);
-    final coreX = baseX - secondaryBoundary.$1;
+    final (left, right) = getSecondaryBoundary(this);
+    final coreX = baseX - left;
     final coreY = baseY;
     final extStartX = coreX + core.startAnchor.coord.x;
     final extStartY = coreY + core.startAnchor.coord.y;
     final extEndX = coreX + core.endAnchor.coord.x + 0;
     final extEndY = coreY + core.endAnchor.coord.y + 0;
 
-    final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
+    final topId = formativeType?.idTopSecondary();
+    final bottomId = formativeType?.idBottomSecondary();
+    final secondaryWidth = right - left;
+    final centerX = coreX + secondaryWidth / 2;
+
     return (
-      '''
-      <use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />
-      ${start != null ? '''<use
-        href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
-        x="$extStartX"
-        y="$extStartY" 
-        transform="rotate(${core.startAnchor.getRotation()}, $extStartX, $extStartY)"
-        fill="$fillColor"
-      />''' : ''}
-      ${end != null ? '''<use
-        href="#${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}"
-        x="$extEndX"
-        y="$extEndY"
-        transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
-        fill="$fillColor"
-      />''' : ''}
-    ''',
+      [
+        '<use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />',
+        start != null
+            ? '''<use
+              href="#${start!.phoneme.defaultLetter()}_ext_${core.startAnchor.orientation.type}"
+              x="$extStartX"
+              y="$extStartY" 
+              transform="rotate(${core.startAnchor.getRotation()}, $extStartX, $extStartY)"
+              fill="$fillColor"
+            />'''
+            : '',
+        end != null
+            ? '''<use
+              href="#${end!.phoneme.defaultLetter()}_ext_${core.endAnchor.orientation.type}"
+              x="$extEndX"
+              y="$extEndY"
+              transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
+              fill="$fillColor"
+            />'''
+            : '',
+        topId != null
+            ? '<use href="#$topId" x="$centerX" y="${coreY - unitHeight * 2}" fill="$fillColor" />'
+            : '',
+        bottomId != null
+            ? '<use href="#$bottomId" x="$centerX" y="${coreY + unitHeight * 2}" fill="$fillColor" />'
+            : ''
+      ].join(''),
       secondaryWidth
     );
   }
