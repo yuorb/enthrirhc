@@ -25,7 +25,7 @@ class Quarternary with Character {
     final endExtY = coreY + coreBottomAnchor.y;
 
     final String startExtId;
-    final String endExtId;
+    final String? endExtId;
     switch (formativeType) {
       case Standalone(relation: final relation) || Parent(relation: final relation):
         switch (relation) {
@@ -34,10 +34,10 @@ class Quarternary with Character {
             endExtId = noun.case$.bottomId();
           case FramedVerb verb:
             startExtId = verb.illocution.id();
-            endExtId = verb.validation.id();
+            endExtId = verb.validation?.id();
           case UnframedVerb verb:
             startExtId = verb.illocution.id();
-            endExtId = verb.validation.id();
+            endExtId = verb.validation?.id();
         }
       case Concatenated(format: final format):
         startExtId = format.topId();
@@ -53,7 +53,7 @@ class Quarternary with Character {
       '''
         <use href="#quarternary_core" x="$coreX" y="$coreY" fill="$fillColor" />
         <use href="#$startExtId" x="$startExtX" y="$startExtY" fill="$fillColor" />
-        <use href="#$endExtId" x="$endExtX" y="$endExtY" fill="$fillColor" />
+        ${endExtId != null ? '<use href="#$endExtId" x="$endExtX" y="$endExtY" fill="$fillColor" />' : ""}
         <use href="#$cnId" x="$cnX" y="$cnY" fill="$fillColor" />
       ''',
       width,

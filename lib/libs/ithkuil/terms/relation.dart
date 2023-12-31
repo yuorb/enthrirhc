@@ -27,7 +27,7 @@ class Noun extends Relation {
 
 class FramedVerb extends Relation {
   final Illocution illocution;
-  final Validation validation;
+  final Validation? validation;
 
   const FramedVerb({
     required this.illocution,
@@ -41,7 +41,7 @@ class FramedVerb extends Relation {
 
   String romanized(bool omitOptionalAffixes) {
     return switch (illocution) {
-      Illocution.asr => switch (validation) {
+      Illocution.asr => switch (validation!) {
           Validation.obs => omitOptionalAffixes ? '' : 'á',
           Validation.rec => 'â',
           Validation.pup => 'é',
@@ -71,7 +71,7 @@ class FramedVerb extends Relation {
 
 class UnframedVerb extends Relation {
   final Illocution illocution;
-  final Validation validation;
+  final Validation? validation;
 
   const UnframedVerb({
     required this.illocution,
@@ -85,7 +85,7 @@ class UnframedVerb extends Relation {
 
   String romanized(bool omitOptionalAffixes) {
     return switch (illocution) {
-      Illocution.asr => switch (validation) {
+      Illocution.asr => switch (validation!) {
           Validation.obs => omitOptionalAffixes ? '' : 'á',
           Validation.rec => 'â',
           Validation.pup => 'é',

@@ -78,10 +78,14 @@ const double horizontalGap = 10;
             usedRadicals[noun.case$.bottomId()] = noun.case$.bottomPath();
           case FramedVerb verb:
             usedRadicals[verb.illocution.id()] = verb.illocution.path();
-            usedRadicals[verb.validation.id()] = verb.validation.path();
+            if (verb.validation != null) {
+              usedRadicals[verb.validation!.id()] = verb.validation!.path();
+            }
           case UnframedVerb verb:
             usedRadicals[verb.illocution.id()] = verb.illocution.path();
-            usedRadicals[verb.validation.id()] = verb.validation.path();
+            if (verb.validation != null) {
+              usedRadicals[verb.validation!.id()] = verb.validation!.path();
+            }
         }
       case Concatenated(format: final format):
         usedRadicals[format.topId()] = format.topPath();

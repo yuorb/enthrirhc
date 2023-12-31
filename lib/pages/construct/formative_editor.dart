@@ -1499,22 +1499,46 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                             Noun() => throw 'unreachable',
                             FramedVerb() => FramedVerb(
                                 illocution: newIllocution,
-                                validation: validation,
+                                validation: (illocution == Illocution.asr &&
+                                        newIllocution != Illocution.asr)
+                                    ? null
+                                    : (illocution != Illocution.asr &&
+                                            newIllocution == Illocution.asr)
+                                        ? Validation.usp
+                                        : validation,
                               ),
                             UnframedVerb() => UnframedVerb(
                                 illocution: newIllocution,
-                                validation: validation,
+                                validation: (illocution == Illocution.asr &&
+                                        newIllocution != Illocution.asr)
+                                    ? null
+                                    : (illocution != Illocution.asr &&
+                                            newIllocution == Illocution.asr)
+                                        ? Validation.usp
+                                        : validation,
                               ),
                           }),
                         Parent() => Parent(switch (relation) {
                             Noun() => throw 'unreachable',
                             FramedVerb() => FramedVerb(
                                 illocution: newIllocution,
-                                validation: validation,
+                                validation: (illocution == Illocution.asr &&
+                                        newIllocution != Illocution.asr)
+                                    ? null
+                                    : (illocution != Illocution.asr &&
+                                            newIllocution == Illocution.asr)
+                                        ? Validation.usp
+                                        : validation,
                               ),
                             UnframedVerb() => UnframedVerb(
                                 illocution: newIllocution,
-                                validation: validation,
+                                validation: (illocution == Illocution.asr &&
+                                        newIllocution != Illocution.asr)
+                                    ? null
+                                    : (illocution != Illocution.asr &&
+                                            newIllocution == Illocution.asr)
+                                        ? Validation.usp
+                                        : validation,
                               ),
                           }),
                         Concatenated() => throw 'unreachable',
@@ -1561,7 +1585,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     ),
                   ],
                   child: ListTile(
-                    leading: const Icon(Icons.info_outline),
+                    leading: const Icon(Icons.record_voice_over_outlined),
                     title: const Text("Illocution"),
                     subtitle: Text(
                       switch (illocution) {
@@ -1581,96 +1605,98 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     ),
                   ),
                 ),
-                PopupMenuButton<Validation>(
-                  onSelected: (Validation newValidation) {
-                    widget.updateFormative((f) {
-                      f.formativeType = switch (f.formativeType) {
-                        Standalone() => Standalone(switch (relation) {
-                            Noun() => throw 'unreachable',
-                            FramedVerb() => FramedVerb(
-                                illocution: illocution,
-                                validation: newValidation,
-                              ),
-                            UnframedVerb() => UnframedVerb(
-                                illocution: illocution,
-                                validation: newValidation,
-                              ),
-                          }),
-                        Parent() => Parent(switch (relation) {
-                            Noun() => throw 'unreachable',
-                            FramedVerb() => FramedVerb(
-                                illocution: illocution,
-                                validation: newValidation,
-                              ),
-                            UnframedVerb() => UnframedVerb(
-                                illocution: illocution,
-                                validation: newValidation,
-                              ),
-                          }),
-                        Concatenated() => throw 'unreachable',
-                      };
-                    });
-                  },
-                  offset: const Offset(1, 0),
-                  itemBuilder: (BuildContext context) => const <PopupMenuEntry<Validation>>[
-                    PopupMenuItem(
-                      value: Validation.obs,
-                      child: Text('OBS (Observational)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.rec,
-                      child: Text('REC (Recollective)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.pup,
-                      child: Text('PUP (Purportive)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.rpr,
-                      child: Text('RPR (Reportive)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.usp,
-                      child: Text('USP (Unspecified)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.ima,
-                      child: Text('IMA (Imaginary)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.cvn,
-                      child: Text('CVN (Conventional)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.itu,
-                      child: Text('ITU (Intuitive)'),
-                    ),
-                    PopupMenuItem(
-                      value: Validation.inf,
-                      child: Text('INF (Inferential)'),
-                    ),
-                  ],
-                  child: ListTile(
-                    leading: const Icon(Icons.info_outline),
-                    title: const Text("Validation"),
-                    subtitle: Text(
-                      switch (validation) {
-                        Validation.obs => 'OBS (Observational)',
-                        Validation.rec => 'REC (Recollective)',
-                        Validation.pup => 'PUP (Purportive)',
-                        Validation.rpr => 'RPR (Reportive)',
-                        Validation.usp => 'USP (Unspecified)',
-                        Validation.ima => 'IMA (Imaginary)',
-                        Validation.cvn => 'CVN (Conventional)',
-                        Validation.itu => 'ITU (Intuitive)',
-                        Validation.inf => 'INF (Inferential)',
-                      },
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
-                  ),
-                ),
+                illocution == Illocution.asr
+                    ? PopupMenuButton<Validation>(
+                        onSelected: (Validation newValidation) {
+                          widget.updateFormative((f) {
+                            f.formativeType = switch (f.formativeType) {
+                              Standalone() => Standalone(switch (relation) {
+                                  Noun() => throw 'unreachable',
+                                  FramedVerb() => FramedVerb(
+                                      illocution: illocution,
+                                      validation: newValidation,
+                                    ),
+                                  UnframedVerb() => UnframedVerb(
+                                      illocution: illocution,
+                                      validation: newValidation,
+                                    ),
+                                }),
+                              Parent() => Parent(switch (relation) {
+                                  Noun() => throw 'unreachable',
+                                  FramedVerb() => FramedVerb(
+                                      illocution: illocution,
+                                      validation: newValidation,
+                                    ),
+                                  UnframedVerb() => UnframedVerb(
+                                      illocution: illocution,
+                                      validation: newValidation,
+                                    ),
+                                }),
+                              Concatenated() => throw 'unreachable',
+                            };
+                          });
+                        },
+                        offset: const Offset(1, 0),
+                        itemBuilder: (BuildContext context) => const <PopupMenuEntry<Validation>>[
+                          PopupMenuItem(
+                            value: Validation.obs,
+                            child: Text('OBS (Observational)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.rec,
+                            child: Text('REC (Recollective)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.pup,
+                            child: Text('PUP (Purportive)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.rpr,
+                            child: Text('RPR (Reportive)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.usp,
+                            child: Text('USP (Unspecified)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.ima,
+                            child: Text('IMA (Imaginary)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.cvn,
+                            child: Text('CVN (Conventional)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.itu,
+                            child: Text('ITU (Intuitive)'),
+                          ),
+                          PopupMenuItem(
+                            value: Validation.inf,
+                            child: Text('INF (Inferential)'),
+                          ),
+                        ],
+                        child: ListTile(
+                          leading: const Icon(Icons.record_voice_over_outlined),
+                          title: const Text("Validation"),
+                          subtitle: Text(
+                            switch (validation!) {
+                              Validation.obs => 'OBS (Observational)',
+                              Validation.rec => 'REC (Recollective)',
+                              Validation.pup => 'PUP (Purportive)',
+                              Validation.rpr => 'RPR (Reportive)',
+                              Validation.usp => 'USP (Unspecified)',
+                              Validation.ima => 'IMA (Imaginary)',
+                              Validation.cvn => 'CVN (Conventional)',
+                              Validation.itu => 'ITU (Intuitive)',
+                              Validation.inf => 'INF (Inferential)',
+                            },
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
           },
         Concatenated(format: final format, concatenation: final concatenation) => [

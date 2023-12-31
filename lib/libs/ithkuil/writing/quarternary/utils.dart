@@ -17,8 +17,8 @@ import '../utils.dart';
   final bottomPath = switch (quarternary.formativeType) {
     Standalone(relation: final relation) || Parent(relation: final relation) => switch (relation) {
         Noun noun => noun.case$.bottomPath(),
-        FramedVerb verb => verb.validation.path(),
-        UnframedVerb verb => verb.validation.path(),
+        FramedVerb verb => verb.validation?.path() ?? '',
+        UnframedVerb verb => verb.validation?.path() ?? '',
       },
     Concatenated(format: final format) => format.bottomPath(),
   };
