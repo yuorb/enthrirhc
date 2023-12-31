@@ -108,7 +108,7 @@ class Formative {
     }
   }
 
-  String _getRawVv(bool useShortCut) {
+  String _getRawVv(bool useShortCut, bool requireVv) {
     if (useShortCut) {
       if ((extension == Extension.del && perspective == Perspective.m && essence == Essence.nrm) ||
           (extension == Extension.prx && perspective == Perspective.m && essence == Essence.nrm)) {
@@ -222,7 +222,7 @@ class Formative {
     } else {
       return switch (stem) {
         Stem.s1 => switch (version) {
-            Version.prc => romanizationOptions.omitOptionalAffixes ? '' : 'a',
+            Version.prc => requireVv ? 'a' : (romanizationOptions.omitOptionalAffixes ? '' : 'a'),
             Version.cpt => 'ä',
           },
         Stem.s2 => switch (version) {
@@ -242,10 +242,11 @@ class Formative {
   }
 
   String _romanizeSlotII(bool useShortCut) {
-    final rawVv = _getRawVv(useShortCut);
     if (csVxAffixes.length > 1) {
+      final rawVv = _getRawVv(useShortCut, true);
       return insertGlottalStop(rawVv, false);
     } else {
+      final rawVv = _getRawVv(useShortCut, false);
       return rawVv;
     }
   }
