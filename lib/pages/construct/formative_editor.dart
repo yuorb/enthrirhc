@@ -1274,14 +1274,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               PopupMenuItem(
                 value: UnframedVerb(
                   illocution: Illocution.asr,
-                  validation: Validation.usp,
+                  validation: Validation.obs,
                 ),
                 child: Text('Unframed Verb'),
               ),
               PopupMenuItem(
                 value: FramedVerb(
                   illocution: Illocution.asr,
-                  validation: Validation.usp,
+                  validation: Validation.obs,
                 ),
                 child: Text('Framed Verb'),
               ),
@@ -1520,7 +1520,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                     ? null
                                     : (illocution != Illocution.asr &&
                                             newIllocution == Illocution.asr)
-                                        ? Validation.usp
+                                        ? Validation.obs
                                         : validation,
                               ),
                             UnframedVerb() => UnframedVerb(
@@ -1530,7 +1530,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                     ? null
                                     : (illocution != Illocution.asr &&
                                             newIllocution == Illocution.asr)
-                                        ? Validation.usp
+                                        ? Validation.obs
                                         : validation,
                               ),
                           }),
@@ -1543,7 +1543,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                     ? null
                                     : (illocution != Illocution.asr &&
                                             newIllocution == Illocution.asr)
-                                        ? Validation.usp
+                                        ? Validation.obs
                                         : validation,
                               ),
                             UnframedVerb() => UnframedVerb(
@@ -1553,7 +1553,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                     ? null
                                     : (illocution != Illocution.asr &&
                                             newIllocution == Illocution.asr)
-                                        ? Validation.usp
+                                        ? Validation.obs
                                         : validation,
                               ),
                           }),
