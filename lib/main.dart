@@ -7,7 +7,6 @@ import 'package:enthrirhs/pages/search.dart';
 import 'package:enthrirhs/pages/settings.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'libs/ithkuil/terms/mod.dart';
 import 'utils/store.dart';
@@ -19,23 +18,12 @@ void main() async {
     statusBarColor: Colors.transparent,
   ));
 
-  final darkTheme = await getInitialDarkTheme();
+  final initialSettings = await SettingsProvider.init();
 
   runApp(ChangeNotifierProvider(
-    create: (_) => ThemeProvider(darkTheme: darkTheme),
+    create: (_) => initialSettings,
     child: const App(),
   ));
-}
-
-Future<int> getInitialDarkTheme() async {
-  final prefs = await SharedPreferences.getInstance();
-  final theme = prefs.getInt('darkTheme');
-  if (theme != null) {
-    return theme;
-  } else {
-    prefs.setInt('darkTheme', 1);
-    return 1;
-  }
 }
 
 ColorScheme createPureDarkColorScheme() {
@@ -64,7 +52,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
+    return Consumer<SettingsProvider>(
       builder: (context, theme, child) => MaterialApp(
         title: 'Enţrirç',
         theme: ThemeData(

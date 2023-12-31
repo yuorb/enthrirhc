@@ -2393,25 +2393,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
           });
         },
       ),
-      const ListGroupTitle("Romanization Options"),
-      SwitchListTile(
-        value: widget.formative.romanizationOptions.preferShortCut,
-        title: const Text("Prefer Short Cut"),
-        onChanged: (newValue) {
-          widget.updateFormative((f) {
-            f.romanizationOptions.preferShortCut = newValue;
-          });
-        },
-      ),
-      SwitchListTile(
-        value: widget.formative.romanizationOptions.omitOptionalAffixes,
-        title: const Text("Omit Optional Affixes"),
-        onChanged: (newValue) {
-          widget.updateFormative((f) {
-            f.romanizationOptions.omitOptionalAffixes = newValue;
-          });
-        },
-      ),
       const ListGroupTitle("Operation"),
       ListTile(
         leading: const Icon(Icons.delete),

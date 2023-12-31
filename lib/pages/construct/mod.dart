@@ -5,6 +5,7 @@ import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
 import 'package:enthrirhs/libs/misc.dart';
 import 'package:enthrirhs/utils/mod.dart';
+import 'package:enthrirhs/utils/store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +97,11 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   onPressed: formatives.isEmpty
                       ? null
                       : () {
-                          final sentence = romanizeFormatives(formatives)!;
+                          final sentence = romanizeFormatives(
+                            formatives,
+                            context.read<SettingsProvider>().preferShortCut,
+                            context.read<SettingsProvider>().omitOptionalAffixes,
+                          )!;
                           copyToClipboard(sentence, context);
                         },
                   tooltip: "Copy the romanized sentence",
@@ -110,7 +115,12 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   .expand((element) => element)
                   .toList(),
             ),
-            Text(romanizeFormatives(formatives) ?? 'NO FORMATIVES'),
+            Text(romanizeFormatives(
+                  formatives,
+                  context.watch<SettingsProvider>().preferShortCut,
+                  context.watch<SettingsProvider>().omitOptionalAffixes,
+                ) ??
+                'NO FORMATIVES'),
             TabBar(
               tabAlignment: TabAlignment.center,
               isScrollable: true,

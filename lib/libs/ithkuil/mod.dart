@@ -24,7 +24,6 @@ class Formative {
   Vn vn;
   final List<Affix> csVxAffixes;
   final List<Affix> vxCsAffixes;
-  final RomanizationOptions romanizationOptions;
 
   Formative({
     required this.stem,
@@ -43,7 +42,6 @@ class Formative {
     required this.vxCsAffixes,
     required this.cn,
     required this.vn,
-    required this.romanizationOptions,
   });
 
   bool _shortCutAvailable() {
@@ -108,7 +106,7 @@ class Formative {
     }
   }
 
-  String _getRawVv(bool useShortCut, bool requireVv) {
+  String _getRawVv(bool useShortCut, bool omitOptionalAffixes, bool requireVv) {
     if (useShortCut) {
       if ((extension == Extension.del && perspective == Perspective.m && essence == Essence.nrm) ||
           (extension == Extension.prx && perspective == Perspective.m && essence == Essence.nrm)) {
@@ -222,7 +220,7 @@ class Formative {
     } else {
       return switch (stem) {
         Stem.s1 => switch (version) {
-            Version.prc => requireVv ? 'a' : (romanizationOptions.omitOptionalAffixes ? '' : 'a'),
+            Version.prc => requireVv ? 'a' : (omitOptionalAffixes ? '' : 'a'),
             Version.cpt => 'ä',
           },
         Stem.s2 => switch (version) {
@@ -241,12 +239,12 @@ class Formative {
     }
   }
 
-  String _romanizeSlotII(bool useShortCut) {
+  String _romanizeSlotII(bool useShortCut, bool omitOptionalAffixes) {
     if (csVxAffixes.length > 1) {
-      final rawVv = _getRawVv(useShortCut, true);
+      final rawVv = _getRawVv(useShortCut, omitOptionalAffixes, true);
       return insertGlottalStop(rawVv, false);
     } else {
-      final rawVv = _getRawVv(useShortCut, false);
+      final rawVv = _getRawVv(useShortCut, omitOptionalAffixes, false);
       return rawVv;
     }
   }
@@ -605,21 +603,21 @@ class Formative {
     return slot7;
   }
 
-  String _romanizeSlotVIII(String strPrecedingThis) {
+  String _romanizeSlotVIII(String strPrecedingThis, bool omitOptionalAffixes) {
     final isPattern1 = switch (vn) {
       ValenceVn() || PhaseVn() || EffectVn() || LevelVn() => true,
       AspectVn() => false,
     };
     final vnRomanized = vn.romanize(
-      romanizationOptions.omitOptionalAffixes,
+      omitOptionalAffixes,
       strPrecedingThis[strPrecedingThis.length - 1],
     );
-    final cnRomanized = cn.romanize(romanizationOptions.omitOptionalAffixes, isPattern1);
+    final cnRomanized = cn.romanize(omitOptionalAffixes, isPattern1);
 
     return "$vnRomanized$cnRomanized";
   }
 
-  String _romanizeSlotIX(String strPrecedingThis) {
+  String _romanizeSlotIX(String strPrecedingThis, bool omitOptionalAffixes) {
     switch (formativeType) {
       case Standalone standalone:
         switch (standalone.relation) {
@@ -627,9 +625,9 @@ class Formative {
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis);
           case FramedVerb verb:
-            return verb.romanized(romanizationOptions.omitOptionalAffixes);
+            return verb.romanized(omitOptionalAffixes);
           case UnframedVerb verb:
-            return verb.romanized(romanizationOptions.omitOptionalAffixes);
+            return verb.romanized(omitOptionalAffixes);
         }
       case Parent parent:
         switch (parent.relation) {
@@ -637,9 +635,9 @@ class Formative {
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis);
           case FramedVerb verb:
-            return verb.romanized(romanizationOptions.omitOptionalAffixes);
+            return verb.romanized(omitOptionalAffixes);
           case UnframedVerb verb:
-            return verb.romanized(romanizationOptions.omitOptionalAffixes);
+            return verb.romanized(omitOptionalAffixes);
         }
       case Concatenated concatenated:
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
@@ -647,18 +645,24 @@ class Formative {
     }
   }
 
-  String romanize() {
-    final useShortCut = romanizationOptions.preferShortCut && _shortCutAvailable();
+  String romanize(bool preferShortCut, bool omitOptionalAffixes) {
+    final useShortCut = preferShortCut && _shortCutAvailable();
 
     final String slot1 = _romanizeSlotI(useShortCut);
-    final String slot2 = _romanizeSlotII(useShortCut);
+    final String slot2 = _romanizeSlotII(useShortCut, omitOptionalAffixes);
     final String slot3 = root.toString();
     final String slot4 = _romanizeSlotIV(useShortCut);
     final String slot5 = _romanizeSlotV(useShortCut, "$slot1$slot2$slot3$slot4");
     final String slot6 = _romanizeSlotVI(useShortCut, "$slot1$slot2$slot3$slot4$slot5");
     final String slot7 = _romanizeSlotVII("$slot1$slot2$slot3$slot4$slot5$slot6");
-    final String slot8 = _romanizeSlotVIII("$slot1$slot2$slot3$slot4$slot5$slot6$slot7");
-    final String slot9 = _romanizeSlotIX("$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8");
+    final String slot8 = _romanizeSlotVIII(
+      "$slot1$slot2$slot3$slot4$slot5$slot6$slot7",
+      omitOptionalAffixes,
+    );
+    final String slot9 = _romanizeSlotIX(
+      "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8",
+      omitOptionalAffixes,
+    );
 
     return "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8$slot9";
   }

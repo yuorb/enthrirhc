@@ -22,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
       children: [
         AppBar(title: const Text("Settings")),
         const ListGroupTitle("General"),
-        Consumer<ThemeProvider>(
+        Consumer<SettingsProvider>(
           builder: (context, theme, child) {
             return PopupMenuButton(
               initialValue: theme.darkTheme,
@@ -49,6 +49,27 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 // onTap: () {},
               ),
+            );
+          },
+        ),
+        const ListGroupTitle("Construct"),
+        Consumer<SettingsProvider>(
+          builder: (context, settings, child) {
+            return SwitchListTile(
+              title: const Text("Prefer Short Cut"),
+              secondary: const Icon(Icons.abc),
+              value: settings.preferShortCut,
+              onChanged: (bool value) => settings.preferShortCut = value,
+            );
+          },
+        ),
+        Consumer<SettingsProvider>(
+          builder: (context, settings, child) {
+            return SwitchListTile(
+              title: const Text("Omit Optional Affixes"),
+              secondary: const Icon(Icons.abc),
+              value: settings.omitOptionalAffixes,
+              onChanged: (bool value) => settings.omitOptionalAffixes = value,
             );
           },
         ),
