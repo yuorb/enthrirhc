@@ -149,3 +149,22 @@ const double horizontalGap = 10;
     (width, height)
   );
 }
+
+extension OmitPrimaryCharacter on List<Character> {
+  List<Character> omitPrimaryCharacter(bool omitOptionalCharacters) {
+    if (omitOptionalCharacters && isNotEmpty) {
+      switch (this[0]) {
+        case Primary primary:
+          if (primary.isOmittable()) {
+            switch (primary.formativeType) {
+              case Standalone(relation: final relation):
+                this[0] = PrimaryOmitted(relation);
+                break;
+              case Parent() || Concatenated():
+            }
+          }
+      }
+    }
+    return this;
+  }
+}

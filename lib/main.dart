@@ -1,14 +1,10 @@
-import 'package:enthrirhs/libs/misc.dart';
-import 'package:enthrirhs/pages/construct/store.dart';
-import 'package:flutter/material.dart' hide SearchBar;
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:enthrirhs/pages/construct/mod.dart';
 import 'package:enthrirhs/pages/search.dart';
 import 'package:enthrirhs/pages/settings.dart';
-import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 
-import 'libs/ithkuil/terms/mod.dart';
 import 'utils/store.dart';
 
 void main() async {
@@ -89,44 +85,18 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentPageIndex = 0;
-  final ConstructPageRoots _constructPageRoots = ConstructPageRoots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
         index: _currentPageIndex,
-        children: [
-          const SearchPage(),
-          ChangeNotifierProvider<ConstructPageRoots>.value(
-            value: _constructPageRoots,
-            child: const ConstructPage(),
-          ),
-          const SettingsPage(),
+        children: const [
+          SearchPage(),
+          ConstructPage(),
+          SettingsPage(),
         ],
       ),
-      floatingActionButton: _currentPageIndex == 1
-          ? FloatingActionButton(
-              onPressed: () async {
-                final rootStr = await prompt(
-                  context,
-                  title: const Text("Please enter the root"),
-                  initialValue: "",
-                );
-                if (rootStr != null) {
-                  final root = Root.from(rootStr);
-                  if (root != null && root.phonemes.isNotEmpty) {
-                    _constructPageRoots.push(root);
-                  } else {
-                    if (!context.mounted) return;
-                    await showErrorDialog(context, "Invalid root.");
-                  }
-                }
-              },
-              heroTag: null,
-              child: const Icon(Icons.add),
-            )
-          : null,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPageIndex,
         destinations: const [
