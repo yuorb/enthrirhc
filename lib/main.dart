@@ -94,15 +94,16 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: [
+      body: IndexedStack(
+        index: _currentPageIndex,
+        children: [
           const SearchPage(),
           ChangeNotifierProvider<ConstructPageRoots>.value(
             value: _constructPageRoots,
             child: const ConstructPage(),
           ),
           const SettingsPage(),
-        ][_currentPageIndex],
+        ],
       ),
       floatingActionButton: _currentPageIndex == 1
           ? FloatingActionButton(
