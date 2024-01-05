@@ -90,11 +90,11 @@ const double horizontalGap = 10;
             usedRadicals[noun.case$.caseType.idQuaternary()] = noun.case$.caseType.pathQuaternary();
             usedRadicals[noun.case$.caseNumber.idQuaternary()] =
                 noun.case$.caseNumber.pathQuaternary();
-          case FramedVerb verb:
-            usedRadicals[verb.illocution.idQuaternary()] = verb.illocution.pathQuaternary();
-            if (verb.validation != null) {
-              usedRadicals[verb.validation!.idQuaternary()] = verb.validation!.pathQuaternary();
-            }
+          case FramedVerb framedVerb:
+            usedRadicals[framedVerb.case$.caseType.idQuaternary()] =
+                framedVerb.case$.caseType.pathQuaternary();
+            usedRadicals[framedVerb.case$.caseNumber.idQuaternary()] =
+                framedVerb.case$.caseNumber.pathQuaternary();
           case UnframedVerb verb:
             usedRadicals[verb.illocution.idQuaternary()] = verb.illocution.pathQuaternary();
             if (verb.validation != null) {

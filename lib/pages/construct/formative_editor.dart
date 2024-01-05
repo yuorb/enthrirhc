@@ -1244,15 +1244,15 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
             PopupMenuButton<Relation>(
               onSelected: (Relation newRelation) {
                 final newRelation1 = switch (relation) {
-                  Noun() => newRelation,
-                  FramedVerb(illocution: final illocution, validation: final validation) ||
+                  Noun(case$: final case$) || FramedVerb(case$: final case$) => switch (
+                        newRelation) {
+                      Noun() => Noun(case$),
+                      FramedVerb() => FramedVerb(case$),
+                      UnframedVerb() => newRelation,
+                    },
                   UnframedVerb(illocution: final illocution, validation: final validation) =>
                     switch (newRelation) {
-                      Noun() => newRelation,
-                      FramedVerb() => FramedVerb(
-                          illocution: illocution,
-                          validation: validation,
-                        ),
+                      Noun() || FramedVerb() => newRelation,
                       UnframedVerb() => UnframedVerb(
                           illocution: illocution,
                           validation: validation,
@@ -1281,10 +1281,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   child: Text('Unframed Verb'),
                 ),
                 PopupMenuItem(
-                  value: FramedVerb(
-                    illocution: Illocution.asr,
-                    validation: Validation.obs,
-                  ),
+                  value: FramedVerb(Case.thm),
                   child: Text('Framed Verb'),
                 ),
               ],
@@ -1346,19 +1343,22 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
         ...(switch (widget.formative.formativeType) {
           Standalone(relation: final relation) || Parent(relation: final relation) => switch (
                 relation) {
-              Noun(case$: final case$) => [
+              Noun(case$: final case$) || FramedVerb(case$: final case$) => [
                   PopupMenuButton<CaseType>(
                     onSelected: (CaseType caseType) {
+                      final newCase = Case(
+                        caseType: caseType,
+                        caseNumber: CaseNumber.c1,
+                      );
+                      final newRelation = switch (relation) {
+                        Noun() => Noun(newCase),
+                        FramedVerb() => FramedVerb(newCase),
+                        UnframedVerb() => throw 'unreachable',
+                      };
                       widget.updateFormative((f) {
                         f.formativeType = switch (f.formativeType) {
-                          Standalone() => Standalone(Noun(Case(
-                              caseType: caseType,
-                              caseNumber: CaseNumber.c1,
-                            ))),
-                          Parent() => Parent(Noun(Case(
-                              caseType: caseType,
-                              caseNumber: CaseNumber.c1,
-                            ))),
+                          Standalone() => Standalone(newRelation),
+                          Parent() => Parent(newRelation),
                           Concatenated() => throw 'unreachable',
                         };
                       });
@@ -1500,10 +1500,6 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     ),
                   ),
                 ],
-              FramedVerb(
-                illocution: final illocution,
-                validation: final validation,
-              ) ||
               UnframedVerb(
                 illocution: final illocution,
                 validation: final validation,
@@ -1511,54 +1507,19 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 [
                   PopupMenuButton<Illocution>(
                     onSelected: (Illocution newIllocution) {
+                      final newRelation = UnframedVerb(
+                        illocution: newIllocution,
+                        validation:
+                            (illocution == Illocution.asr && newIllocution != Illocution.asr)
+                                ? null
+                                : (illocution != Illocution.asr && newIllocution == Illocution.asr)
+                                    ? Validation.obs
+                                    : validation,
+                      );
                       widget.updateFormative((f) {
                         f.formativeType = switch (f.formativeType) {
-                          Standalone() => Standalone(switch (relation) {
-                              Noun() => throw 'unreachable',
-                              FramedVerb() => FramedVerb(
-                                  illocution: newIllocution,
-                                  validation: (illocution == Illocution.asr &&
-                                          newIllocution != Illocution.asr)
-                                      ? null
-                                      : (illocution != Illocution.asr &&
-                                              newIllocution == Illocution.asr)
-                                          ? Validation.obs
-                                          : validation,
-                                ),
-                              UnframedVerb() => UnframedVerb(
-                                  illocution: newIllocution,
-                                  validation: (illocution == Illocution.asr &&
-                                          newIllocution != Illocution.asr)
-                                      ? null
-                                      : (illocution != Illocution.asr &&
-                                              newIllocution == Illocution.asr)
-                                          ? Validation.obs
-                                          : validation,
-                                ),
-                            }),
-                          Parent() => Parent(switch (relation) {
-                              Noun() => throw 'unreachable',
-                              FramedVerb() => FramedVerb(
-                                  illocution: newIllocution,
-                                  validation: (illocution == Illocution.asr &&
-                                          newIllocution != Illocution.asr)
-                                      ? null
-                                      : (illocution != Illocution.asr &&
-                                              newIllocution == Illocution.asr)
-                                          ? Validation.obs
-                                          : validation,
-                                ),
-                              UnframedVerb() => UnframedVerb(
-                                  illocution: newIllocution,
-                                  validation: (illocution == Illocution.asr &&
-                                          newIllocution != Illocution.asr)
-                                      ? null
-                                      : (illocution != Illocution.asr &&
-                                              newIllocution == Illocution.asr)
-                                          ? Validation.obs
-                                          : validation,
-                                ),
-                            }),
+                          Standalone() => Standalone(newRelation),
+                          Parent() => Parent(newRelation),
                           Concatenated() => throw 'unreachable',
                         };
                       });
@@ -1626,30 +1587,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   illocution == Illocution.asr
                       ? PopupMenuButton<Validation>(
                           onSelected: (Validation newValidation) {
+                            final newRelation = UnframedVerb(
+                              illocution: illocution,
+                              validation: newValidation,
+                            );
                             widget.updateFormative((f) {
                               f.formativeType = switch (f.formativeType) {
-                                Standalone() => Standalone(switch (relation) {
-                                    Noun() => throw 'unreachable',
-                                    FramedVerb() => FramedVerb(
-                                        illocution: illocution,
-                                        validation: newValidation,
-                                      ),
-                                    UnframedVerb() => UnframedVerb(
-                                        illocution: illocution,
-                                        validation: newValidation,
-                                      ),
-                                  }),
-                                Parent() => Parent(switch (relation) {
-                                    Noun() => throw 'unreachable',
-                                    FramedVerb() => FramedVerb(
-                                        illocution: illocution,
-                                        validation: newValidation,
-                                      ),
-                                    UnframedVerb() => UnframedVerb(
-                                        illocution: illocution,
-                                        validation: newValidation,
-                                      ),
-                                  }),
+                                Standalone() => Standalone(newRelation),
+                                Parent() => Parent(newRelation),
                                 Concatenated() => throw 'unreachable',
                               };
                             });

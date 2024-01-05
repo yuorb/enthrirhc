@@ -42,41 +42,13 @@ class Noun extends Relation {
 }
 
 class FramedVerb extends Relation {
-  final Illocution illocution;
-  final Validation? validation;
+  final Case case$;
 
-  const FramedVerb({
-    required this.illocution,
-    required this.validation,
-  });
+  const FramedVerb(this.case$);
 
   @override
   String id() {
     return 'relation_framedVerb';
-  }
-
-  String romanized(bool omitOptionalAffixes) {
-    return switch (illocution) {
-      Illocution.asr => switch (validation!) {
-          Validation.obs => omitOptionalAffixes ? '' : 'a',
-          Validation.rec => 'ä',
-          Validation.pup => 'e',
-          Validation.rpr => 'i',
-          Validation.usp => 'ëi',
-          Validation.ima => 'ö',
-          Validation.cvn => 'o',
-          Validation.itu => 'ü',
-          Validation.inf => 'u',
-        },
-      Illocution.dir => 'ai',
-      Illocution.dec => 'au',
-      Illocution.irg => 'ei',
-      Illocution.ver => 'eu',
-      Illocution.adm => 'ou',
-      Illocution.pot => 'oi',
-      Illocution.hor => 'iu',
-      Illocution.cnj => 'ui'
-    };
   }
 
   @override
@@ -85,16 +57,16 @@ class FramedVerb extends Relation {
   }
 
   @override
-  String idTopSecondary() => illocution.idSecondary();
+  String idTopSecondary() => case$.caseType.idSecondary();
 
   @override
-  String? idBottomSecondary() => validation?.idSecondary();
+  String? idBottomSecondary() => case$.caseNumber.idSecondary();
 
   @override
-  String pathTopSecondary() => illocution.pathSecondary();
+  String pathTopSecondary() => case$.caseType.pathSecondary();
 
   @override
-  String? pathBottomSecondary() => validation?.pathSecondary();
+  String? pathBottomSecondary() => case$.caseNumber.pathSecondary();
 }
 
 class UnframedVerb extends Relation {

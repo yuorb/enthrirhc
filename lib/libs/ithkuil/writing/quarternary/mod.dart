@@ -32,9 +32,9 @@ class Quarternary with Character {
           case Noun noun:
             startExtId = noun.case$.caseType.idQuaternary();
             endExtId = noun.case$.caseNumber.idQuaternary();
-          case FramedVerb verb:
-            startExtId = verb.illocution.idQuaternary();
-            endExtId = verb.validation?.idQuaternary();
+          case FramedVerb framedVerb:
+            startExtId = framedVerb.case$.caseType.idQuaternary();
+            endExtId = framedVerb.case$.caseNumber.idQuaternary();
           case UnframedVerb verb:
             startExtId = verb.illocution.idQuaternary();
             endExtId = verb.validation?.idQuaternary();

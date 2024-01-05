@@ -624,8 +624,9 @@ class Formative {
           case Noun noun:
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis, false);
-          case FramedVerb verb:
-            return verb.romanized(omitOptionalAffixes);
+          case FramedVerb framedVerb:
+            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
+            return framedVerb.case$.romanized(charPrecedingThis, false);
           case UnframedVerb verb:
             return verb.romanized(omitOptionalAffixes);
         }
@@ -634,8 +635,9 @@ class Formative {
           case Noun noun:
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis, false);
-          case FramedVerb verb:
-            return verb.romanized(omitOptionalAffixes);
+          case FramedVerb framedVerb:
+            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
+            return framedVerb.case$.romanized(charPrecedingThis, false);
           case UnframedVerb verb:
             return verb.romanized(omitOptionalAffixes);
         }

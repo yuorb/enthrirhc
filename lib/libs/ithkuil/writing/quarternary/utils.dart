@@ -9,7 +9,7 @@ import '../utils.dart';
   final topPath = switch (quarternary.formativeType) {
     Standalone(relation: final relation) || Parent(relation: final relation) => switch (relation) {
         Noun noun => noun.case$.caseType.pathQuaternary(),
-        FramedVerb verb => verb.illocution.pathQuaternary(),
+        FramedVerb framedVerb => framedVerb.case$.caseType.pathQuaternary(),
         UnframedVerb verb => verb.illocution.pathQuaternary(),
       },
     Concatenated(format: final format) => format.caseType.pathQuaternary(),
@@ -17,7 +17,7 @@ import '../utils.dart';
   final bottomPath = switch (quarternary.formativeType) {
     Standalone(relation: final relation) || Parent(relation: final relation) => switch (relation) {
         Noun noun => noun.case$.caseNumber.pathQuaternary(),
-        FramedVerb verb => verb.validation?.pathQuaternary() ?? '',
+        FramedVerb framedVerb => framedVerb.case$.caseNumber.pathQuaternary(),
         UnframedVerb verb => verb.validation?.pathQuaternary() ?? '',
       },
     Concatenated(format: final format) => format.caseNumber.pathQuaternary(),
