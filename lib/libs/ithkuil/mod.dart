@@ -727,7 +727,7 @@ class Formative {
       omitSlot8: false,
       omitSlot9: false,
     );
-    assert(getVowelIndexList(romanized3).length >= 3);
+    assert(getVowelIndexList(romanized4).length >= 3);
     return romanized4;
   }
 
