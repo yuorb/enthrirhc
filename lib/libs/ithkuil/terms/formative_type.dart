@@ -32,7 +32,7 @@ class Standalone extends FormativeType {
   @override
   bool isCaseScope() => switch (relation) {
         Noun() => true,
-        FramedVerb() => false,
+        FramedVerb() => true,
         UnframedVerb() => false,
       };
 
@@ -62,7 +62,7 @@ class Parent extends FormativeType {
   @override
   bool isCaseScope() => switch (relation) {
         Noun() => true,
-        FramedVerb() => false,
+        FramedVerb() => true,
         UnframedVerb() => false,
       };
 
