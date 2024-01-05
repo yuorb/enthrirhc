@@ -178,9 +178,10 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             final root = Root.from(rootStr);
             if (root != null && root.phonemes.isNotEmpty) {
               final oldIndex = _tabController.index;
+              final newIndex = formatives.isEmpty ? 0 : oldIndex + 1;
               setState(() {
                 formatives.insert(
-                  oldIndex + 1,
+                  newIndex,
                   Formative(
                     stem: Stem.s1,
                     root: root,
@@ -206,7 +207,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                   initialIndex: oldIndex,
                 );
               });
-              _tabController.animateTo(oldIndex + 1);
+              _tabController.animateTo(newIndex);
             } else {
               if (!context.mounted) return;
               await showErrorDialog(context, "Invalid root.");
