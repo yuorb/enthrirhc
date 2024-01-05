@@ -15,7 +15,6 @@ String colorToHex(Color color) {
 
 extension StringExtension on String {
   String capitalize() => this == '' ? '' : "${this[0].toUpperCase()}${substring(1)}";
-  String addPeriod() => "$this.";
 }
 
 Future<void> showErrorDialog(BuildContext context, String title) async {

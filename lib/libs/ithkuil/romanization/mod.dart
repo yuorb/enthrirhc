@@ -12,22 +12,29 @@ String? romanizeFormatives(
   if (formatives.isEmpty) {
     return null;
   }
-  String sentence = formatives[0].romanize(preferShortCut, omitOptionalAffixes).capitalize();
+  final romanizedInitialFormative =
+      formatives[0].romanize(preferShortCut, omitOptionalAffixes).capitalize();
+  String sentence = switch (formatives[0].formativeType) {
+    Standalone() || Concatenated() => romanizedInitialFormative,
+    Parent() => '-$romanizedInitialFormative',
+  };
   for (int i = 1; i < formatives.length; i++) {
-    switch (formatives[i - 1].formativeType) {
-      case Standalone():
-        sentence = "$sentence ${formatives[i].romanize(preferShortCut, omitOptionalAffixes)}";
-        break;
-      case Parent():
-        sentence = "$sentence ${formatives[i].romanize(preferShortCut, omitOptionalAffixes)}";
-        break;
-      case Concatenated():
-        if (formatives[i].formativeType is Parent) {
-          sentence = "$sentence-${formatives[i].romanize(preferShortCut, omitOptionalAffixes)}";
-        }
-    }
+    final thisFormative = formatives[i].romanize(preferShortCut, omitOptionalAffixes);
+    sentence = switch (formatives[i - 1].formativeType) {
+      Standalone() || Parent() => switch (formatives[i].formativeType) {
+          Standalone() || Concatenated() => "$sentence $thisFormative",
+          Parent() => "$sentence -$thisFormative"
+        },
+      Concatenated() => switch (formatives[i].formativeType) {
+          Standalone() => "$sentence- $thisFormative",
+          Concatenated() || Parent() => "$sentence-$thisFormative"
+        },
+    };
   }
-  return sentence.addPeriod();
+  if (formatives.last.formativeType is Concatenated) {
+    sentence = "$sentence-";
+  }
+  return "$sentence.";
 }
 
 /// See official document [2.2 Rules for Inserting a Glottal-Stop Into a Vowel-Form](https://ithkuil.net/newithkuil_02_morpho-phonology.htm)
