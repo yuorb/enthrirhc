@@ -149,17 +149,15 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     });
                   },
                   removeFormative: () {
-                    final newIndex = formatives.isEmpty
-                        ? 0
-                        : _tabController.index < index
-                            ? _tabController.index
-                            : _tabController.index - 1;
+                    final newIndex = _tabController.index < index
+                        ? _tabController.index
+                        : _tabController.index - 1;
                     setState(() {
                       formatives.removeAt(index);
                       _tabController = TabController(
                         vsync: this,
                         length: formatives.length,
-                        initialIndex: newIndex,
+                        initialIndex: newIndex < 0 ? 0 : newIndex,
                       );
                     });
                   },
