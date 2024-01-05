@@ -179,31 +179,34 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
             if (root != null && root.phonemes.isNotEmpty) {
               final oldIndex = _tabController.index;
               setState(() {
-                formatives.add(Formative(
-                  stem: Stem.s1,
-                  root: root,
-                  specification: Specification.bsc,
-                  context: Context.exs,
-                  function: Function$.sta,
-                  formativeType: const Standalone(Noun(Case.thm)),
-                  version: Version.prc,
-                  affiliation: Affiliation.csl,
-                  configuration: Configuration.from(Plexity.u, null, null)!,
-                  extension: Extension.del,
-                  perspective: Perspective.m,
-                  essence: Essence.nrm,
-                  csVxAffixes: [],
-                  vxCsAffixes: [],
-                  vn: const ValenceVn(Valence.mno),
-                  cn: Cn.cn1,
-                ));
+                formatives.insert(
+                  oldIndex + 1,
+                  Formative(
+                    stem: Stem.s1,
+                    root: root,
+                    specification: Specification.bsc,
+                    context: Context.exs,
+                    function: Function$.sta,
+                    formativeType: const Standalone(Noun(Case.thm)),
+                    version: Version.prc,
+                    affiliation: Affiliation.csl,
+                    configuration: Configuration.from(Plexity.u, null, null)!,
+                    extension: Extension.del,
+                    perspective: Perspective.m,
+                    essence: Essence.nrm,
+                    csVxAffixes: [],
+                    vxCsAffixes: [],
+                    vn: const ValenceVn(Valence.mno),
+                    cn: Cn.cn1,
+                  ),
+                );
                 _tabController = TabController(
                   vsync: this,
                   length: formatives.length,
                   initialIndex: oldIndex,
                 );
               });
-              _tabController.animateTo(formatives.length - 1);
+              _tabController.animateTo(oldIndex + 1);
             } else {
               if (!context.mounted) return;
               await showErrorDialog(context, "Invalid root.");
