@@ -623,7 +623,7 @@ class Formative {
         switch (standalone.relation) {
           case Noun noun:
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-            return noun.case$.romanized(charPrecedingThis);
+            return noun.case$.romanized(charPrecedingThis, false);
           case FramedVerb verb:
             return verb.romanized(omitOptionalAffixes);
           case UnframedVerb verb:
@@ -633,7 +633,7 @@ class Formative {
         switch (parent.relation) {
           case Noun noun:
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-            return noun.case$.romanized(charPrecedingThis);
+            return noun.case$.romanized(charPrecedingThis, false);
           case FramedVerb verb:
             return verb.romanized(omitOptionalAffixes);
           case UnframedVerb verb:
@@ -641,15 +641,24 @@ class Formative {
         }
       case Concatenated concatenated:
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-        return concatenated.format.romanized(charPrecedingThis);
+        return concatenated.format.romanized(charPrecedingThis, true);
     }
   }
 
-  String romanize(bool preferShortCut, bool omitOptionalAffixes) {
+  /// Pre-romanize the formative (Step 1).
+  ///
+  /// This function cannot ensure that the vowel number is enough to add a stress mark at the right
+  /// position.
+  String _romanizeS1(
+    bool preferShortCut, {
+    required bool omitSlot2,
+    required bool omitSlot8,
+    required bool omitSlot9,
+  }) {
     final useShortCut = preferShortCut && _shortCutAvailable();
 
     final String slot1 = _romanizeSlotI(useShortCut);
-    final String slot2 = _romanizeSlotII(useShortCut, omitOptionalAffixes);
+    final String slot2 = _romanizeSlotII(useShortCut, omitSlot2);
     final String slot3 = root.toString();
     final String slot4 = _romanizeSlotIV(useShortCut);
     final String slot5 = _romanizeSlotV(useShortCut, "$slot1$slot2$slot3$slot4");
@@ -657,14 +666,104 @@ class Formative {
     final String slot7 = _romanizeSlotVII("$slot1$slot2$slot3$slot4$slot5$slot6");
     final String slot8 = _romanizeSlotVIII(
       "$slot1$slot2$slot3$slot4$slot5$slot6$slot7",
-      omitOptionalAffixes,
+      omitSlot8,
     );
     final String slot9 = _romanizeSlotIX(
       "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8",
-      omitOptionalAffixes,
+      omitSlot9,
     );
 
     return "$slot1$slot2$slot3$slot4$slot5$slot6$slot7$slot8$slot9";
+  }
+
+  /// Pre-romanize the formative (Step 2).
+  ///
+  /// This function ensures that the vowel number is enough to add a stress mark at the right
+  /// position, but does not include the processing of adding a stress mark.
+  String _romanizeS2(bool preferShortCut, bool omitOptionalAffixes) {
+    final atLeast3Syllables = switch (formativeType) {
+      Standalone(relation: final relation) || Parent(relation: final relation) => switch (
+            relation) {
+          FramedVerb() => true,
+          _ => false,
+        },
+      _ => false
+    };
+    final romanized1 = _romanizeS1(
+      preferShortCut,
+      omitSlot2: omitOptionalAffixes,
+      omitSlot8: omitOptionalAffixes,
+      omitSlot9: omitOptionalAffixes,
+    );
+    if (!atLeast3Syllables) {
+      return romanized1;
+    }
+    if (getVowelIndexList(romanized1).length >= 3) {
+      return romanized1;
+    }
+    final romanized2 = _romanizeS1(
+      preferShortCut,
+      omitSlot2: true,
+      omitSlot8: true,
+      omitSlot9: false,
+    );
+    if (getVowelIndexList(romanized2).length >= 3) {
+      return romanized2;
+    }
+    final romanized3 = _romanizeS1(
+      preferShortCut,
+      omitSlot2: false,
+      omitSlot8: true,
+      omitSlot9: false,
+    );
+    if (getVowelIndexList(romanized3).length >= 3) {
+      return romanized3;
+    }
+    final romanized4 = _romanizeS1(
+      preferShortCut,
+      omitSlot2: false,
+      omitSlot8: false,
+      omitSlot9: false,
+    );
+    assert(getVowelIndexList(romanized3).length >= 3);
+    return romanized4;
+  }
+
+  String romanize(bool preferShortCut, bool omitOptionalAffixes) {
+    final romanized = _romanizeS2(preferShortCut, omitOptionalAffixes);
+    final vowelList = getVowelIndexList(romanized);
+    final romanizedSplit = romanized.split('');
+    switch (formativeType) {
+      case Standalone(relation: final relation) || Parent(relation: final relation):
+        switch (relation) {
+          case FramedVerb():
+            final index = vowelList[vowelList.length - 3];
+            romanizedSplit[index] = addAccentMark(romanized[index]).unwrap();
+            break;
+          case UnframedVerb():
+            if (vowelList.length > 1) {
+              final index = vowelList.last;
+              romanizedSplit[index] = addAccentMark(romanized[index]).unwrap();
+            }
+            break;
+          case _:
+        }
+        break;
+      case Concatenated(format: final format):
+        if (vowelList.length > 1) {
+          switch (format.caseType) {
+            case CaseType.relational ||
+                  CaseType.affinitive ||
+                  CaseType.spatioTemporal1 ||
+                  CaseType.spatioTemporal2:
+              final index = vowelList.last;
+              romanizedSplit[index] = addAccentMark(romanized[index]).unwrap();
+              break;
+            case _:
+          }
+        }
+    }
+    return romanizedSplit.join('');
   }
 
   List<Character> toCharacters(bool omitOptionalCharacters) {

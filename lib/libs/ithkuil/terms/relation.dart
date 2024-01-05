@@ -58,24 +58,24 @@ class FramedVerb extends Relation {
   String romanized(bool omitOptionalAffixes) {
     return switch (illocution) {
       Illocution.asr => switch (validation!) {
-          Validation.obs => omitOptionalAffixes ? '' : 'á',
-          Validation.rec => 'â',
-          Validation.pup => 'é',
-          Validation.rpr => 'í',
-          Validation.usp => 'êi',
-          Validation.ima => 'ô',
-          Validation.cvn => 'ó',
-          Validation.itu => 'û',
-          Validation.inf => 'ú',
+          Validation.obs => omitOptionalAffixes ? '' : 'a',
+          Validation.rec => 'ä',
+          Validation.pup => 'e',
+          Validation.rpr => 'i',
+          Validation.usp => 'ëi',
+          Validation.ima => 'ö',
+          Validation.cvn => 'o',
+          Validation.itu => 'ü',
+          Validation.inf => 'u',
         },
-      Illocution.dir => 'ái',
-      Illocution.dec => 'áu',
-      Illocution.irg => 'éi',
-      Illocution.ver => 'éu',
-      Illocution.adm => 'óu',
-      Illocution.pot => 'ói',
-      Illocution.hor => 'íu',
-      Illocution.cnj => 'úi'
+      Illocution.dir => 'ai',
+      Illocution.dec => 'au',
+      Illocution.irg => 'ei',
+      Illocution.ver => 'eu',
+      Illocution.adm => 'ou',
+      Illocution.pot => 'oi',
+      Illocution.hor => 'iu',
+      Illocution.cnj => 'ui'
     };
   }
 
@@ -114,24 +114,24 @@ class UnframedVerb extends Relation {
   String romanized(bool omitOptionalAffixes) {
     return switch (illocution) {
       Illocution.asr => switch (validation!) {
-          Validation.obs => omitOptionalAffixes ? '' : 'á',
-          Validation.rec => 'â',
-          Validation.pup => 'é',
-          Validation.rpr => 'í',
-          Validation.usp => 'êi',
-          Validation.ima => 'ô',
-          Validation.cvn => 'ó',
-          Validation.itu => 'û',
-          Validation.inf => 'ú',
+          Validation.obs => omitOptionalAffixes ? '' : 'a',
+          Validation.rec => 'ä',
+          Validation.pup => 'e',
+          Validation.rpr => 'i',
+          Validation.usp => 'ëi',
+          Validation.ima => 'ö',
+          Validation.cvn => 'o',
+          Validation.itu => 'ü',
+          Validation.inf => 'u',
         },
-      Illocution.dir => 'ái',
-      Illocution.dec => 'áu',
-      Illocution.irg => 'éi',
-      Illocution.ver => 'éu',
-      Illocution.adm => 'óu',
-      Illocution.pot => 'ói',
-      Illocution.hor => 'íu',
-      Illocution.cnj => 'úi'
+      Illocution.dir => 'ai',
+      Illocution.dec => 'au',
+      Illocution.irg => 'ei',
+      Illocution.ver => 'eu',
+      Illocution.adm => 'ou',
+      Illocution.pot => 'oi',
+      Illocution.hor => 'iu',
+      Illocution.cnj => 'ui'
     };
   }
 

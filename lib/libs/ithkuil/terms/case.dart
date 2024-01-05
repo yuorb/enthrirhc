@@ -15,7 +15,7 @@ class Case {
     required this.caseNumber,
   });
 
-  String romanized(String charPrecedingThis) {
+  String romanized(String charPrecedingThis, bool concatenated) {
     return switch (caseType) {
       CaseType.transrelative => switch (caseNumber) {
           CaseNumber.c1 => "a",
@@ -62,48 +62,76 @@ class Case {
           CaseNumber.c9 => "oa",
         },
       CaseType.relational => switch (caseNumber) {
-          CaseNumber.c1 => "a'a",
-          CaseNumber.c2 => "ä'ä",
-          CaseNumber.c3 => "e'e",
-          CaseNumber.c4 => "i'i",
-          CaseNumber.c5 => "ë'i",
-          CaseNumber.c6 => "ö'ö",
-          CaseNumber.c7 => "o'o",
+          CaseNumber.c1 => concatenated ? "aa" : "a'a",
+          CaseNumber.c2 => concatenated ? "ää" : "ä'ä",
+          CaseNumber.c3 => concatenated ? "ee" : "e'e",
+          CaseNumber.c4 => concatenated ? "ii" : "i'i",
+          CaseNumber.c5 => concatenated ? "ëi" : "ë'i",
+          CaseNumber.c6 => concatenated ? "öö" : "ö'ö",
+          CaseNumber.c7 => concatenated ? "oo" : "o'o",
           CaseNumber.c8 => throw 'unreachable',
-          CaseNumber.c9 => "u'u",
+          CaseNumber.c9 => concatenated ? "uu" : "u'u",
         },
       CaseType.affinitive => switch (caseNumber) {
-          CaseNumber.c1 => "a'i",
-          CaseNumber.c2 => "a'u",
-          CaseNumber.c3 => "e'i",
-          CaseNumber.c4 => "e'u",
-          CaseNumber.c5 => "ë'u",
-          CaseNumber.c6 => "o'u",
-          CaseNumber.c7 => "o'i",
+          CaseNumber.c1 => concatenated ? "ai" : "a'i",
+          CaseNumber.c2 => concatenated ? "au" : "a'u",
+          CaseNumber.c3 => concatenated ? "ei" : "e'i",
+          CaseNumber.c4 => concatenated ? "eu" : "e'u",
+          CaseNumber.c5 => concatenated ? "ëu" : "ë'u",
+          CaseNumber.c6 => concatenated ? "ou" : "o'u",
+          CaseNumber.c7 => concatenated ? "oi" : "o'i",
           CaseNumber.c8 => throw 'unreachable',
-          CaseNumber.c9 => "u'i",
+          CaseNumber.c9 => concatenated ? "ui" : "u'i",
         },
       CaseType.spatioTemporal1 => switch (caseNumber) {
-          CaseNumber.c1 => charPrecedingThis == "y" ? "uä" : "i'a",
-          CaseNumber.c2 => charPrecedingThis == "y" ? "uë" : "i'e",
-          CaseNumber.c3 => charPrecedingThis == "y" ? "üä" : "i'o",
-          CaseNumber.c4 => charPrecedingThis == "y" ? "üë" : "i'ö",
-          CaseNumber.c5 => "e'ë",
-          CaseNumber.c6 => charPrecedingThis == "w" ? "öë" : "u'ö",
-          CaseNumber.c7 => charPrecedingThis == "w" ? "öä" : "u'o",
+          CaseNumber.c1 => charPrecedingThis == "y"
+              ? "uä"
+              : concatenated
+                  ? "ia"
+                  : "i'a",
+          CaseNumber.c2 => charPrecedingThis == "y"
+              ? "uë"
+              : concatenated
+                  ? "ie"
+                  : "i'e",
+          CaseNumber.c3 => charPrecedingThis == "y"
+              ? "üä"
+              : concatenated
+                  ? "io"
+                  : "i'o",
+          CaseNumber.c4 => charPrecedingThis == "y"
+              ? "üë"
+              : concatenated
+                  ? "iö"
+                  : "i'ö",
+          CaseNumber.c5 => concatenated ? "eë" : "e'ë",
+          CaseNumber.c6 => charPrecedingThis == "w"
+              ? "öë"
+              : concatenated
+                  ? "uö"
+                  : "u'ö",
+          CaseNumber.c7 => charPrecedingThis == "w"
+              ? "öä"
+              : concatenated
+                  ? "uo"
+                  : "u'o",
           CaseNumber.c8 => throw 'unreachable',
-          CaseNumber.c9 => charPrecedingThis == "w" ? "iä" : "u'a",
+          CaseNumber.c9 => charPrecedingThis == "w"
+              ? "iä"
+              : concatenated
+                  ? "ua"
+                  : "u'a",
         },
       CaseType.spatioTemporal2 => switch (caseNumber) {
-          CaseNumber.c1 => "a'o",
-          CaseNumber.c2 => "a'ö",
-          CaseNumber.c3 => "e'o",
-          CaseNumber.c4 => "e'ö",
-          CaseNumber.c5 => "o'ë",
-          CaseNumber.c6 => "ö'e",
-          CaseNumber.c7 => "o'e",
+          CaseNumber.c1 => concatenated ? "ao" : "a'o",
+          CaseNumber.c2 => concatenated ? "aö" : "a'ö",
+          CaseNumber.c3 => concatenated ? "eo" : "e'o",
+          CaseNumber.c4 => concatenated ? "eö" : "e'ö",
+          CaseNumber.c5 => concatenated ? "oë" : "o'ë",
+          CaseNumber.c6 => concatenated ? "öe" : "ö'e",
+          CaseNumber.c7 => concatenated ? "oe" : "o'e",
           CaseNumber.c8 => throw 'unreachable',
-          CaseNumber.c9 => "o'a",
+          CaseNumber.c9 => concatenated ? "oa" : "o'a",
         },
     };
   }
