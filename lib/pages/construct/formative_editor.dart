@@ -1385,6 +1385,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
+                  tileColor: Theme.of(context).colorScheme.primaryContainer,
                 ),
               ),
           },
