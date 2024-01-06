@@ -50,59 +50,36 @@ class Formative {
         context == Context.exs &&
         affiliation == Affiliation.csl &&
         configuration.plexity == Plexity.u &&
-        ((extension == Extension.del && perspective == Perspective.m && essence == Essence.nrm) ||
-            (extension == Extension.prx &&
-                perspective == Perspective.m &&
-                essence == Essence.nrm) ||
-            (extension == Extension.del &&
-                perspective == Perspective.g &&
-                essence == Essence.nrm) ||
-            (extension == Extension.del &&
-                perspective == Perspective.m &&
-                essence == Essence.rpv) ||
+        ((extension == Extension.del && perspective == Perspective.g) ||
+            (extension == Extension.del && perspective == Perspective.m) ||
+            (extension == Extension.prx && perspective == Perspective.m) ||
             (extension == Extension.del &&
                 perspective == Perspective.n &&
                 essence == Essence.nrm) ||
-            (extension == Extension.del &&
-                perspective == Perspective.a &&
-                essence == Essence.nrm) ||
-            (extension == Extension.del &&
-                perspective == Perspective.g &&
-                essence == Essence.rpv) ||
-            (extension == Extension.prx && perspective == Perspective.m && essence == Essence.rpv));
+            (extension == Extension.del && perspective == Perspective.a && essence == Essence.nrm));
   }
 
   String _romanizeSlotI(bool useShortCut) {
     if (useShortCut) {
-      final bool isW = (extension == Extension.del &&
-              perspective == Perspective.m &&
-              essence == Essence.nrm) ||
-          (extension == Extension.del && perspective == Perspective.g && essence == Essence.nrm) ||
-          (extension == Extension.del && perspective == Perspective.n && essence == Essence.nrm) ||
-          (extension == Extension.del && perspective == Perspective.g && essence == Essence.rpv);
-      switch (formativeType) {
-        case Standalone() || Parent():
-          return isW ? 'w' : 'y';
-        case Concatenated concatenated:
-          switch (concatenated.concatenation) {
-            case Concatenation.type1:
-              return isW ? 'hl' : 'hm';
-            case Concatenation.type2:
-              return isW ? 'hr' : 'hn';
+      final bool isW = extension == Extension.del &&
+          ((perspective == Perspective.g) ||
+              (perspective == Perspective.m && essence == Essence.nrm) ||
+              (perspective == Perspective.n && essence == Essence.nrm));
+      return switch (formativeType) {
+        Standalone() || Parent() => isW ? 'w' : 'y',
+        Concatenated concatenated => switch (concatenated.concatenation) {
+            Concatenation.type1 => isW ? 'hl' : 'hm',
+            Concatenation.type2 => isW ? 'hr' : 'hn'
           }
-      }
+      };
     } else {
-      switch (formativeType) {
-        case Standalone() || Parent():
-          return '';
-        case Concatenated concatenated:
-          switch (concatenated.concatenation) {
-            case Concatenation.type1:
-              return 'h';
-            case Concatenation.type2:
-              return 'hw';
+      return switch (formativeType) {
+        Standalone() || Parent() => '',
+        Concatenated concatenated => switch (concatenated.concatenation) {
+            Concatenation.type1 => 'h',
+            Concatenation.type2 => 'hw'
           }
-      }
+      };
     }
   }
 
@@ -220,7 +197,8 @@ class Formative {
     } else {
       return switch (stem) {
         Stem.s1 => switch (version) {
-            Version.prc => requireVv ? 'a' : (omitOptionalAffixes ? '' : 'a'),
+            Version.prc =>
+              requireVv ? 'a' : (omitOptionalAffixes && formativeType is! Concatenated ? '' : 'a'),
             Version.cpt => 'ä',
           },
         Stem.s2 => switch (version) {
