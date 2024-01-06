@@ -40,7 +40,6 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.read<LexiconModel>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.root.root),
@@ -49,12 +48,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
               ? IconButton(
                   onPressed: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
-                        value: provider,
-                        builder: (context, child) => RootPage(seeAlso!),
-                      ),
-                    ),
+                    MaterialPageRoute(builder: (context) => RootPage(seeAlso!)),
                   ),
                   icon: const Icon(Icons.emoji_objects),
                   tooltip: "See Also",
