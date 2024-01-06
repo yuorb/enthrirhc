@@ -4,6 +4,8 @@ import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
 import 'package:enthrirhs/libs/ithkuil/writing/secondary/utils.dart';
 import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
 
+import '../utils.dart';
+
 sealed class Secondary {
   final ExtLetter? start;
   final CoreLetter core;
@@ -70,7 +72,10 @@ class RootSecondary extends Secondary with Character {
     final topId = formativeType?.idTopSecondary();
     final bottomId = formativeType?.idBottomSecondary();
     final secondaryWidth = right - left;
-    final centerX = coreX + secondaryWidth / 2;
+
+    final (coreLeft, coreRight) = getCoreBoundary(core.path);
+    final coreWidth = coreRight - coreLeft;
+    final centerX = coreX + coreWidth / 2;
 
     return (
       [
