@@ -122,19 +122,20 @@ class CsVxAffix extends Secondary with Character {
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
-    final secondaryBoundary = getSecondaryBoundary(this);
-    final coreX = baseX - secondaryBoundary.$1;
+    final (secondaryLeft, secondaryRight) = getSecondaryBoundary(this);
+    final (coreLeft, coreRight) = getCoreBoundary(core.path);
+    final coreX = baseX - secondaryLeft;
     final coreY = baseY;
     final extStartX = coreX + core.startAnchor.coord.x;
     final extStartY = coreY + core.startAnchor.coord.y;
     final extEndX = coreX + core.endAnchor.coord.x + 0;
     final extEndY = coreY + core.endAnchor.coord.y + 0;
-    final topX = baseX + (secondaryBoundary.$2 - secondaryBoundary.$1) / 2;
     final topY = coreY - unitHeight * 2;
-    final bottomX = baseX + (secondaryBoundary.$2 - secondaryBoundary.$1) / 2;
     final bottomY = coreY + unitHeight * 2;
+    final secondaryWidth = secondaryRight - secondaryLeft;
+    final coreWidth = coreRight - coreLeft;
+    final coreCenterX = coreX + coreWidth / 2;
 
-    final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
     return (
       '''
       <use href="#${core.id()}" x="$coreX" y="$coreY" fill="$fillColor" />
@@ -152,8 +153,8 @@ class CsVxAffix extends Secondary with Character {
         transform="rotate(${core.endAnchor.getRotation()}, $extEndX, $extEndY)"
         fill="$fillColor"
       />''' : ''}
-      <use href="#${affix.topId()}" x="$topX" y="$topY" fill="$fillColor" />
-      <use href="#${affix.bottomId()}" x="$bottomX" y="$bottomY" fill="$fillColor" />
+      <use href="#${affix.topId()}" x="$coreCenterX" y="$topY" fill="$fillColor" />
+      <use href="#${affix.bottomId()}" x="$coreCenterX" y="$bottomY" fill="$fillColor" />
     ''',
       secondaryWidth
     );
@@ -172,10 +173,12 @@ class VxCsAffix extends Secondary with Character {
 
   @override
   (String, double) getSvg(double baseX, double baseY, String fillColor) {
-    final secondaryBoundary = getSecondaryBoundary(this);
-    final centerX = baseX + (secondaryBoundary.$2 - secondaryBoundary.$1) / 2;
+    final (secondaryLeft, secondaryRight) = getSecondaryBoundary(this);
+    final (coreLeft, coreRight) = getCoreBoundary(core.path);
+    final coreWidth = coreRight - coreLeft;
+    final centerX = baseX + (secondaryRight - secondaryLeft) / 2;
     final centerY = baseY;
-    final coreX = baseX - secondaryBoundary.$1;
+    final coreX = baseX - secondaryLeft;
     final coreY = baseY;
     final extStartX = coreX + core.startAnchor.coord.x;
     final extStartY = coreY + core.startAnchor.coord.y;
@@ -183,8 +186,12 @@ class VxCsAffix extends Secondary with Character {
     final extEndY = coreY + core.endAnchor.coord.y + 0;
     final topY = coreY - unitHeight * 2;
     final bottomY = coreY + unitHeight * 2;
+    final secondaryWidth = secondaryRight - secondaryLeft;
 
-    final secondaryWidth = secondaryBoundary.$2 - secondaryBoundary.$1;
+    // Below variable is without transform, therefore it should be used outside the
+    //`<g transform="180 xxx xxx">`.
+    final coreCenterX = baseX + secondaryRight - coreWidth / 2;
+
     return (
       '''
       <g transform="rotate(180 $centerX $centerY)">
@@ -204,8 +211,8 @@ class VxCsAffix extends Secondary with Character {
           fill="$fillColor"
         />''' : ''}
       </g>
-      <use href="#${affix.topId()}" x="$centerX" y="$topY" fill="$fillColor" />
-      <use href="#${affix.bottomId()}" x="$centerX" y="$bottomY" fill="$fillColor" />
+      <use href="#${affix.topId()}" x="$coreCenterX" y="$topY" fill="$fillColor" />
+      <use href="#${affix.bottomId()}" x="$coreCenterX" y="$bottomY" fill="$fillColor" />
     ''',
       secondaryWidth
     );
