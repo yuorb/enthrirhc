@@ -40,7 +40,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final SearchController controller = SearchController();
-  int rootCount = 0;
+  int? rootCount;
   int affixCount = 0;
 
   Future<Lexicon?> pickLexiconFile() async {
@@ -153,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
                           alignment: const Alignment(-1, 0),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
                         ),
-                        label: Text("Root: $rootCount"),
+                        label: Text("Root: ${rootCount ?? "Loading..."}"),
                         icon: const Icon(Icons.article),
                       ),
                     ),
@@ -188,6 +188,11 @@ class _SearchPageState extends State<SearchPage> {
                   icon: Icons.upload_file,
                   label: "Import lexicon from local files",
                   onPressed: () async {
+                    if (rootCount == null) {
+                      await showInfoDialog(
+                          context, "Please wait until roots and affixes are loaded first.");
+                      return;
+                    }
                     // Pick lexicon JSON file
                     Lexicon? lexicon = await pickLexiconFile();
                     if (lexicon == null) return;
@@ -195,7 +200,7 @@ class _SearchPageState extends State<SearchPage> {
                     // Save and update the lexicon data
                     if (!context.mounted) return;
                     await context.read<LexiconModel>().database.insert(lexicon);
-                    setState(() => rootCount += lexicon.roots.length);
+                    setState(() => rootCount = rootCount! + lexicon.roots.length);
 
                     // Pop up the success dialog
                     if (!context.mounted) return;
@@ -221,6 +226,12 @@ class _SearchPageState extends State<SearchPage> {
                   icon: Icons.delete_forever,
                   label: "Clear the lexicon",
                   onPressed: () async {
+                    if (rootCount == null) {
+                      await showInfoDialog(
+                          context, "Please wait until roots and affixes are loaded first.");
+                      return;
+                    }
+
                     final isConfirmed = await showConfirmDialog(
                       context,
                       "Are you sure to clear all the roots and affixes from your device?",
@@ -229,7 +240,7 @@ class _SearchPageState extends State<SearchPage> {
                     if (isConfirmed) {
                       if (!context.mounted) return;
                       final count = await context.read<LexiconModel>().database.clearRoots();
-                      setState(() => rootCount -= count);
+                      setState(() => rootCount = rootCount! - count);
                       if (!context.mounted) return;
                       showDialog(
                         context: context,

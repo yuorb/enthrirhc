@@ -17,13 +17,29 @@ extension StringExtension on String {
   String capitalize() => this == '' ? '' : "${this[0].toUpperCase()}${substring(1)}";
 }
 
-Future<void> showErrorDialog(BuildContext context, String title) async {
+Future<void> showInfoDialog(BuildContext context, String content) async {
+  await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text("Info"),
+      content: Text(content),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("Ok"),
+        ),
+      ],
+    ),
+  );
+}
+
+Future<void> showErrorDialog(BuildContext context, String content) async {
   await showDialog(
     context: context,
     builder: (context) => AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.errorContainer,
       title: const Text("Error"),
-      content: Text(title),
+      content: Text(content),
       actions: [
         TextButton(
           onPressed: () {
@@ -44,13 +60,13 @@ Future<void> showErrorDialog(BuildContext context, String title) async {
   );
 }
 
-Future<bool> showConfirmDialog(BuildContext context, String title) async {
+Future<bool> showConfirmDialog(BuildContext context, String content) async {
   final res = await showDialog<bool>(
     context: context,
     barrierDismissible: false,
     builder: (dialogContext) => AlertDialog(
       title: const Text("Confirm"),
-      content: Text(title),
+      content: Text(content),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(dialogContext, false),
