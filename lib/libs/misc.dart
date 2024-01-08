@@ -20,6 +20,7 @@ extension StringExtension on String {
 Future<void> showInfoDialog(BuildContext context, String content) async {
   await showDialog(
     context: context,
+    barrierDismissible: true,
     builder: (context) => AlertDialog(
       title: const Text("Info"),
       content: Text(content),
