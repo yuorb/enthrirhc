@@ -9,11 +9,8 @@ Database constructDb() {
     // IndexedDB database (named `my_app` here).
     final fs = await IndexedDbFileSystem.open(dbName: 'my_app');
 
-    final sqlite3 = await WasmSqlite3.loadFromUrl(
-      Uri.parse('sqlite3.wasm'),
-      environment: SqliteEnvironment(fileSystem: fs),
-    );
-
+    final sqlite3 = await WasmSqlite3.loadFromUrl(Uri.parse('sqlite3.wasm'));
+    sqlite3.registerVirtualFileSystem(fs, makeDefault: true);
     // Then, open a database:
     return WasmDatabase(sqlite3: sqlite3, path: '/app.db');
   });
