@@ -21,7 +21,7 @@ dependencies:
   url_launcher: ^6.1.11
   shared_preferences: ^2.2.0
   flutter_markdown: ^0.6.17
-  package_info_plus: ^4.0.2
+  package_info_plus: 5.0.1
   vector_graphics: ^1.1.9+1
   prompt_dialog: ^1.0.13
   share_plus: ^7.2.1
