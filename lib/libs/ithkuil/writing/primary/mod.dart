@@ -11,7 +11,7 @@ import '../utils.dart';
 class Primary with Character {
   final Specification specification;
   final Context context;
-  final FormativeType formativeType;
+  final ConcatenationStatus formativeType;
   // Properties for A Anchor
   final Essence essence;
   final Affiliation affiliation;

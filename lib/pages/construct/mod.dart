@@ -188,7 +188,7 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
                     specification: Specification.bsc,
                     context: Context.exs,
                     function: Function$.sta,
-                    formativeType: const Standalone(Noun(Case.thm)),
+                    concatenationStatus: const NoConcatenation(Noun(Case.thm)),
                     version: Version.prc,
                     affiliation: Affiliation.csl,
                     configuration: Configuration.from(Plexity.u, null, null)!,

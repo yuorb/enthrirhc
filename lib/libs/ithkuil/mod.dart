@@ -19,7 +19,7 @@ class Formative {
   Extension extension;
   Perspective perspective;
   Essence essence;
-  FormativeType formativeType;
+  ConcatenationStatus concatenationStatus;
   Cn cn;
   Vn vn;
   final List<Affix> csVxAffixes;
@@ -31,7 +31,7 @@ class Formative {
     required this.specification,
     required this.context,
     required this.function,
-    required this.formativeType,
+    required this.concatenationStatus,
     required this.version,
     required this.affiliation,
     required this.configuration,
@@ -65,20 +65,16 @@ class Formative {
           ((perspective == Perspective.g) ||
               (perspective == Perspective.m && essence == Essence.nrm) ||
               (perspective == Perspective.n && essence == Essence.nrm));
-      return switch (formativeType) {
-        Standalone() || Parent() => isW ? 'w' : 'y',
-        Concatenated concatenated => switch (concatenated.concatenation) {
-            Concatenation.type1 => isW ? 'hl' : 'hm',
-            Concatenation.type2 => isW ? 'hr' : 'hn'
-          }
+      return switch (concatenationStatus) {
+        NoConcatenation() => isW ? 'w' : 'y',
+        Type1Concatenation() => isW ? 'hl' : 'hm',
+        Type2Concatenation() => isW ? 'hr' : 'hn'
       };
     } else {
-      return switch (formativeType) {
-        Standalone() || Parent() => '',
-        Concatenated concatenated => switch (concatenated.concatenation) {
-            Concatenation.type1 => 'h',
-            Concatenation.type2 => 'hw'
-          }
+      return switch (concatenationStatus) {
+        NoConcatenation() => '',
+        Type1Concatenation() => 'h',
+        Type2Concatenation() => 'hw'
       };
     }
   }
@@ -197,8 +193,9 @@ class Formative {
     } else {
       return switch (stem) {
         Stem.s1 => switch (version) {
-            Version.prc =>
-              requireVv ? 'a' : (omitOptionalAffixes && formativeType is! Concatenated ? '' : 'a'),
+            Version.prc => requireVv
+                ? 'a'
+                : (omitOptionalAffixes && concatenationStatus is NoConcatenation ? '' : 'a'),
             Version.cpt => 'ä',
           },
         Stem.s2 => switch (version) {
@@ -596,9 +593,9 @@ class Formative {
   }
 
   String _romanizeSlotIX(String strPrecedingThis, bool omitOptionalAffixes) {
-    switch (formativeType) {
-      case Standalone standalone:
-        switch (standalone.relation) {
+    switch (concatenationStatus) {
+      case NoConcatenation noConcatenation:
+        switch (noConcatenation.relation) {
           case Noun noun:
             final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis, false);
@@ -608,20 +605,9 @@ class Formative {
           case UnframedVerb verb:
             return verb.romanized(omitOptionalAffixes);
         }
-      case Parent parent:
-        switch (parent.relation) {
-          case Noun noun:
-            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-            return noun.case$.romanized(charPrecedingThis, false);
-          case FramedVerb framedVerb:
-            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-            return framedVerb.case$.romanized(charPrecedingThis, false);
-          case UnframedVerb verb:
-            return verb.romanized(omitOptionalAffixes);
-        }
-      case Concatenated concatenated:
+      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
-        return concatenated.format.romanized(charPrecedingThis, true);
+        return format.romanized(charPrecedingThis, true);
     }
   }
 
@@ -661,9 +647,8 @@ class Formative {
   /// This function ensures that the vowel number is enough to add a stress mark at the right
   /// position, but does not include the processing of adding a stress mark.
   String _romanizeS2(bool preferShortCut, bool omitOptionalAffixes) {
-    final atLeast3Syllables = switch (formativeType) {
-      Standalone(relation: final relation) || Parent(relation: final relation) => switch (
-            relation) {
+    final atLeast3Syllables = switch (concatenationStatus) {
+      NoConcatenation(relation: final relation) => switch (relation) {
           FramedVerb() => true,
           _ => false,
         },
@@ -713,8 +698,8 @@ class Formative {
     final romanized = _romanizeS2(preferShortCut, omitOptionalAffixes);
     final vowelList = getVowelIndexList(romanized);
     final romanizedSplit = romanized.split('');
-    switch (formativeType) {
-      case Standalone(relation: final relation) || Parent(relation: final relation):
+    switch (concatenationStatus) {
+      case NoConcatenation(relation: final relation):
         switch (relation) {
           case FramedVerb():
             final index = vowelList[vowelList.length - 3];
@@ -729,7 +714,7 @@ class Formative {
           case _:
         }
         break;
-      case Concatenated(format: final format):
+      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
         if (vowelList.length > 1) {
           switch (format.caseType) {
             case CaseType.relational ||
@@ -751,7 +736,7 @@ class Formative {
       Primary(
         specification: specification,
         context: context,
-        formativeType: formativeType,
+        formativeType: concatenationStatus,
         essence: essence,
         affiliation: affiliation,
         perspective: perspective,
@@ -823,11 +808,11 @@ class Formative {
     final quarternaryOmittable = cn == Cn.cn1;
 
     if (omitOptionalCharacters && quarternaryOmittable) {
-      (characters[1] as RootSecondary).formativeType = formativeType;
+      (characters[1] as RootSecondary).formativeType = concatenationStatus;
     } else {
       characters.add(
         Quarternary(
-          formativeType: formativeType,
+          formativeType: concatenationStatus,
           cn: cn,
         ),
       );

@@ -7,20 +7,24 @@ import '../utils.dart';
 
 (double, double) getQuarternaryBoundary(Quarternary quarternary) {
   final topPath = switch (quarternary.formativeType) {
-    Standalone(relation: final relation) || Parent(relation: final relation) => switch (relation) {
+    NoConcatenation(relation: final relation) => switch (relation) {
         Noun noun => noun.case$.caseType.pathQuaternary(),
         FramedVerb framedVerb => framedVerb.case$.caseType.pathQuaternary(),
         UnframedVerb verb => verb.illocution.pathQuaternary(),
       },
-    Concatenated(format: final format) => format.caseType.pathQuaternary(),
+    Type1Concatenation(format: final format) ||
+    Type2Concatenation(format: final format) =>
+      format.caseType.pathQuaternary(),
   };
   final bottomPath = switch (quarternary.formativeType) {
-    Standalone(relation: final relation) || Parent(relation: final relation) => switch (relation) {
+    NoConcatenation(relation: final relation) => switch (relation) {
         Noun noun => noun.case$.caseNumber.pathQuaternary(),
         FramedVerb framedVerb => framedVerb.case$.caseNumber.pathQuaternary(),
         UnframedVerb verb => verb.validation?.pathQuaternary() ?? '',
       },
-    Concatenated(format: final format) => format.caseNumber.pathQuaternary(),
+    Type1Concatenation(format: final format) ||
+    Type2Concatenation(format: final format) =>
+      format.caseNumber.pathQuaternary(),
   };
 
   final (coreLeft, coreRight) = getCoreBoundary(corePath);

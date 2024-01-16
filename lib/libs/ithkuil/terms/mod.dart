@@ -6,7 +6,6 @@ export 'case_number.dart';
 export 'case_type.dart';
 export 'case.dart';
 export 'cn.dart';
-export 'concatenation.dart';
 export 'configuration.dart';
 export 'context.dart';
 export 'degree.dart';

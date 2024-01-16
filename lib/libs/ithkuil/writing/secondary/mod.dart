@@ -51,7 +51,7 @@ sealed class Secondary {
 }
 
 class RootSecondary extends Secondary with Character {
-  FormativeType? formativeType;
+  ConcatenationStatus? formativeType;
   RootSecondary({
     required super.start,
     required super.core,

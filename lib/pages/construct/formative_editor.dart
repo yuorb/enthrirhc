@@ -1264,89 +1264,78 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   : Theme.of(context).colorScheme.primaryContainer,
             ),
           ),
-          const ListGroupTitle("Formative Type etc."),
-          PopupMenuButton<FormativeType>(
-            onSelected: (FormativeType newFormativeType) {
+          const ListGroupTitle("Morphosyntax"),
+          PopupMenuButton<ConcatenationStatus>(
+            onSelected: (ConcatenationStatus newConcatenationStatus) {
               widget.updateFormative((f) {
-                if (f.formativeType.runtimeType == newFormativeType.runtimeType) {
+                if (f.concatenationStatus.runtimeType == newConcatenationStatus.runtimeType) {
                   return;
                 }
-                f.formativeType = switch (f.formativeType) {
-                  Standalone(relation: final relation) => switch (newFormativeType) {
-                      Standalone() => throw 'unreachable',
-                      Parent() => Parent(relation),
-                      Concatenated() => Concatenated(
-                          format: switch (relation) {
-                            Noun(case$: final case$) => case$,
-                            FramedVerb() => Case.thm,
-                            UnframedVerb() => Case.thm,
-                          },
-                          concatenation: Concatenation.type1,
-                        ),
+                f.concatenationStatus = switch (f.concatenationStatus) {
+                  NoConcatenation(relation: final relation) => switch (newConcatenationStatus) {
+                      NoConcatenation() => throw 'unreachable',
+                      Type1Concatenation() => Type1Concatenation(switch (relation) {
+                          Noun(case$: final case$) => case$,
+                          FramedVerb() => Case.thm,
+                          UnframedVerb() => Case.thm,
+                        }),
+                      Type2Concatenation() => Type2Concatenation(switch (relation) {
+                          Noun(case$: final case$) => case$,
+                          FramedVerb() => Case.thm,
+                          UnframedVerb() => Case.thm,
+                        }),
                     },
-                  Parent(relation: final relation) => switch (newFormativeType) {
-                      Standalone() => Standalone(relation),
-                      Parent() => throw 'unreachable',
-                      Concatenated() => Concatenated(
-                          format: switch (relation) {
-                            Noun(case$: final case$) => case$,
-                            FramedVerb() => Case.thm,
-                            UnframedVerb() => Case.thm,
-                          },
-                          concatenation: Concatenation.type1,
-                        ),
+                  Type1Concatenation(format: final format) => switch (newConcatenationStatus) {
+                      NoConcatenation() => NoConcatenation(Noun(format)),
+                      Type1Concatenation() => throw 'unreachable',
+                      Type2Concatenation() => Type2Concatenation(format),
                     },
-                  Concatenated(format: final format) => switch (newFormativeType) {
-                      Standalone() => Standalone(Noun(format)),
-                      Parent() => Parent(Noun(format)),
-                      Concatenated() => throw 'unreachable',
+                  Type2Concatenation(format: final format) => switch (newConcatenationStatus) {
+                      NoConcatenation() => NoConcatenation(Noun(format)),
+                      Type1Concatenation() => Type1Concatenation(format),
+                      Type2Concatenation() => throw 'unreachable',
                     }
                 };
               });
             },
             offset: const Offset(1, 0),
-            itemBuilder: (BuildContext context) => const <PopupMenuEntry<FormativeType>>[
+            itemBuilder: (BuildContext context) => const <PopupMenuEntry<ConcatenationStatus>>[
               // The arguments inside the FormativeType class below are all just placeholders.
               PopupMenuItem(
-                value: Standalone(Noun(Case.thm)),
-                child: Text('Standalone'),
+                value: NoConcatenation(Noun(Case.thm)),
+                child: Text('No Concatenation'),
               ),
               PopupMenuItem(
-                value: Parent(Noun(Case.thm)),
-                child: Text('Parent'),
+                value: Type1Concatenation(Case.thm),
+                child: Text('Type-1 Concatenation'),
               ),
               PopupMenuItem(
-                value: Concatenated(
-                  format: Case.thm,
-                  concatenation: Concatenation.type1,
-                ),
-                child: Text('Concatenated'),
+                value: Type2Concatenation(Case.thm),
+                child: Text('Type-2 Concatenation'),
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
-              title: const Text("Formative Type"),
+              leading: const Icon(Icons.link),
+              title: const Text("Concatenation Status"),
               subtitle: Text(
-                switch (widget.formative.formativeType) {
-                  Standalone() => 'Standalone',
-                  Parent() => 'Parent',
-                  Concatenated() => 'Concatenated',
+                switch (widget.formative.concatenationStatus) {
+                  NoConcatenation() => 'No Concatenation',
+                  Type1Concatenation() => 'Type-1 Concatenation',
+                  Type2Concatenation() => 'Type-2 Concatenation',
                 },
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
-              tileColor: widget.formative.formativeType is Standalone
+              tileColor: widget.formative.concatenationStatus is NoConcatenation
                   ? null
                   : Theme.of(context).colorScheme.primaryContainer,
             ),
           ),
-          switch (widget.formative.formativeType) {
-            Standalone(relation: Relation relation) ||
-            Parent(relation: Relation relation) =>
-              PopupMenuButton<Relation>(
+          switch (widget.formative.concatenationStatus) {
+            NoConcatenation(relation: Relation relation) => PopupMenuButton<Relation>(
                 onSelected: (Relation newRelation) {
-                  final newRelation1 = switch (relation) {
+                  final newRelation2 = switch (relation) {
                     Noun(case$: final case$) || FramedVerb(case$: final case$) => switch (
                           newRelation) {
                         Noun() => Noun(case$),
@@ -1363,11 +1352,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                       },
                   };
                   widget.updateFormative((f) {
-                    widget.formative.formativeType = switch (widget.formative.formativeType) {
-                      Standalone() => Standalone(newRelation1),
-                      Parent() => Parent(newRelation1),
-                      Concatenated() => throw "unreachable",
-                    };
+                    widget.formative.concatenationStatus = NoConcatenation(newRelation2);
                   });
                 },
                 offset: const Offset(1, 0),
@@ -1410,50 +1395,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ),
               ),
-            Concatenated(format: final format, concatenation: final concatenation) =>
-              PopupMenuButton<Concatenation>(
-                onSelected: (Concatenation newConcatenation) {
-                  widget.updateFormative((f) {
-                    f.formativeType = switch (f.formativeType) {
-                      Standalone() => throw 'unreachable',
-                      Parent() => throw 'unreachable',
-                      Concatenated() => Concatenated(
-                          format: format,
-                          concatenation: newConcatenation,
-                        ),
-                    };
-                  });
-                },
-                offset: const Offset(1, 0),
-                itemBuilder: (BuildContext context) => const <PopupMenuEntry<Concatenation>>[
-                  PopupMenuItem(
-                    value: Concatenation.type1,
-                    child: Text("Type 1"),
-                  ),
-                  PopupMenuItem(
-                    value: Concatenation.type2,
-                    child: Text("Type 2"),
-                  ),
-                ],
-                child: ListTile(
-                  leading: const Icon(Icons.link),
-                  title: const Text("Concatenation"),
-                  subtitle: Text(
-                    switch (concatenation) {
-                      Concatenation.type1 => "Type 1",
-                      Concatenation.type2 => "Type 2",
-                    },
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  tileColor: Theme.of(context).colorScheme.primaryContainer,
-                ),
-              ),
+            Type1Concatenation() || Type2Concatenation() => Container()
           },
-          ...(switch (widget.formative.formativeType) {
-            Standalone(relation: final relation) || Parent(relation: final relation) => switch (
-                  relation) {
+          ...(switch (widget.formative.concatenationStatus) {
+            NoConcatenation(relation: final relation) => switch (relation) {
                 Noun(case$: final case$) || FramedVerb(case$: final case$) => [
                     PopupMenuButton<CaseType>(
                       onSelected: (CaseType caseType) {
@@ -1467,11 +1412,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                           UnframedVerb() => throw 'unreachable',
                         };
                         widget.updateFormative((f) {
-                          f.formativeType = switch (f.formativeType) {
-                            Standalone() => Standalone(newRelation),
-                            Parent() => Parent(newRelation),
-                            Concatenated() => throw 'unreachable',
-                          };
+                          f.concatenationStatus = NoConcatenation(newRelation);
                         });
                       },
                       offset: const Offset(1, 0),
@@ -1535,17 +1476,10 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     PopupMenuButton<CaseNumber>(
                       onSelected: (CaseNumber caseNumber) {
                         widget.updateFormative((f) {
-                          f.formativeType = switch (f.formativeType) {
-                            Standalone() => Standalone(Noun(Case(
-                                caseType: case$.caseType,
-                                caseNumber: caseNumber,
-                              ))),
-                            Parent() => Parent(Noun(Case(
-                                caseType: case$.caseType,
-                                caseNumber: caseNumber,
-                              ))),
-                            Concatenated() => throw 'unreachable',
-                          };
+                          f.concatenationStatus = NoConcatenation(Noun(Case(
+                            caseType: case$.caseType,
+                            caseNumber: caseNumber,
+                          )));
                         });
                       },
                       offset: const Offset(1, 0),
@@ -1635,11 +1569,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                   : validation,
                         );
                         widget.updateFormative((f) {
-                          f.formativeType = switch (f.formativeType) {
-                            Standalone() => Standalone(newRelation),
-                            Parent() => Parent(newRelation),
-                            Concatenated() => throw 'unreachable',
-                          };
+                          f.concatenationStatus = NoConcatenation(newRelation);
                         });
                       },
                       offset: const Offset(1, 0),
@@ -1713,11 +1643,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                                 validation: newValidation,
                               );
                               widget.updateFormative((f) {
-                                f.formativeType = switch (f.formativeType) {
-                                  Standalone() => Standalone(newRelation),
-                                  Parent() => Parent(newRelation),
-                                  Concatenated() => throw 'unreachable',
-                                };
+                                f.concatenationStatus = NoConcatenation(newRelation);
                               });
                             },
                             offset: const Offset(1, 0),
@@ -1795,20 +1721,22 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                         : Container()
                   ],
               },
-            Concatenated(format: final format, concatenation: final concatenation) => [
+            Type1Concatenation(format: final format) ||
+            Type2Concatenation(format: final format) =>
+              [
                 PopupMenuButton<CaseType>(
                   onSelected: (CaseType newCaseType) {
                     widget.updateFormative((f) {
-                      f.formativeType = switch (f.formativeType) {
-                        Standalone() => throw 'unreachable',
-                        Parent() => throw 'unreachable',
-                        Concatenated() => Concatenated(
-                            format: Case(
-                              caseType: newCaseType,
-                              caseNumber: format.caseNumber,
-                            ),
-                            concatenation: concatenation,
-                          ),
+                      f.concatenationStatus = switch (f.concatenationStatus) {
+                        NoConcatenation() => throw 'unreachable',
+                        Type1Concatenation() => Type1Concatenation(Case(
+                            caseType: newCaseType,
+                            caseNumber: format.caseNumber,
+                          )),
+                        Type2Concatenation() => Type2Concatenation(Case(
+                            caseType: newCaseType,
+                            caseNumber: format.caseNumber,
+                          )),
                       };
                     });
                   },
@@ -1873,16 +1801,16 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 PopupMenuButton<CaseNumber>(
                   onSelected: (CaseNumber newCaseNumber) {
                     widget.updateFormative((f) {
-                      f.formativeType = switch (f.formativeType) {
-                        Standalone() => throw 'unreachable',
-                        Parent() => throw 'unreachable',
-                        Concatenated() => Concatenated(
-                            format: Case(
-                              caseType: format.caseType,
-                              caseNumber: newCaseNumber,
-                            ),
-                            concatenation: concatenation,
-                          ),
+                      f.concatenationStatus = switch (f.concatenationStatus) {
+                        NoConcatenation() => throw 'unreachable',
+                        Type1Concatenation() => Type1Concatenation(Case(
+                            caseType: format.caseType,
+                            caseNumber: newCaseNumber,
+                          )),
+                        Type2Concatenation() => Type2Concatenation(Case(
+                            caseType: format.caseType,
+                            caseNumber: newCaseNumber,
+                          )),
                       };
                     });
                   },
@@ -1957,7 +1885,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                 ),
               ],
           }),
-          widget.formative.formativeType.isCaseScope()
+          widget.formative.concatenationStatus.isCaseScope()
               ? PopupMenuButton<Cn>(
                   onSelected: (Cn newCn) {
                     widget.updateFormative((f) {

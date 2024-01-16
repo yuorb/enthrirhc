@@ -14,25 +14,19 @@ String? romanizeFormatives(
   }
   final romanizedInitialFormative =
       formatives[0].romanize(preferShortCut, omitOptionalAffixes).capitalize();
-  String sentence = switch (formatives[0].formativeType) {
-    Standalone() || Concatenated() => romanizedInitialFormative,
-    Parent() => '-$romanizedInitialFormative',
+  String sentence = switch (formatives[0].concatenationStatus) {
+    NoConcatenation() => '$romanizedInitialFormative ',
+    Type1Concatenation() || Type2Concatenation() => '$romanizedInitialFormative-',
   };
   for (int i = 1; i < formatives.length; i++) {
     final thisFormative = formatives[i].romanize(preferShortCut, omitOptionalAffixes);
-    sentence = switch (formatives[i - 1].formativeType) {
-      Standalone() || Parent() => switch (formatives[i].formativeType) {
-          Standalone() || Concatenated() => "$sentence $thisFormative",
-          Parent() => "$sentence -$thisFormative"
-        },
-      Concatenated() => switch (formatives[i].formativeType) {
-          Standalone() => "$sentence- $thisFormative",
-          Concatenated() || Parent() => "$sentence-$thisFormative"
-        },
+    sentence = switch (formatives[i].concatenationStatus) {
+      NoConcatenation() => "$sentence$thisFormative ",
+      Type1Concatenation() || Type2Concatenation() => "$sentence$thisFormative-"
     };
   }
-  if (formatives.last.formativeType is Concatenated) {
-    sentence = "$sentence-";
+  if (sentence[sentence.length - 1] == ' ') {
+    sentence = sentence.substring(0, sentence.length - 1);
   }
   return "$sentence.";
 }

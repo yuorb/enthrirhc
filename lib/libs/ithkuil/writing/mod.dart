@@ -84,7 +84,7 @@ const double horizontalGap = 10;
   final quarternaries = characters.whereType<Quarternary>();
   for (final q in quarternaries) {
     switch (q.formativeType) {
-      case Standalone(relation: final relation) || Parent(relation: final relation):
+      case NoConcatenation(relation: final relation):
         switch (relation) {
           case Noun noun:
             usedRadicals[noun.case$.caseType.idQuaternary()] = noun.case$.caseType.pathQuaternary();
@@ -101,7 +101,7 @@ const double horizontalGap = 10;
               usedRadicals[verb.validation!.idQuaternary()] = verb.validation!.pathQuaternary();
             }
         }
-      case Concatenated(format: final format):
+      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
         usedRadicals[format.caseType.idQuaternary()] = format.caseType.pathQuaternary();
         usedRadicals[format.caseNumber.idQuaternary()] = format.caseNumber.pathQuaternary();
     }
@@ -157,10 +157,10 @@ extension OmitPrimaryCharacter on List<Character> {
         case Primary primary:
           if (primary.isOmittable()) {
             switch (primary.formativeType) {
-              case Standalone(relation: final relation):
+              case NoConcatenation(relation: final relation):
                 this[0] = PrimaryOmitted(relation);
                 break;
-              case Parent() || Concatenated():
+              case _:
             }
           }
       }
