@@ -645,7 +645,7 @@ class Formative {
   /// This function ensures that the vowel number is enough to add a stress mark at the right
   /// position, but does not include the processing of adding a stress mark.
   String _romanizeS2(bool preferShortCut, bool omitOptionalAffixes) {
-    final atLeast3Syllables = switch (concatenationStatus) {
+    final requestAtLeast3Syllables = switch (concatenationStatus) {
       NoConcatenation(relation: final relation) => switch (relation) {
           FramedVerb() => true,
           _ => false,
@@ -658,10 +658,16 @@ class Formative {
       omitSlot8: omitOptionalAffixes,
       omitSlot9: omitOptionalAffixes,
     );
-    if (!atLeast3Syllables) {
+    final isRomanized1PhoneticallyLegal = !romanized1.startsWith('pp') &&
+        !romanized1.startsWith('bb') &&
+        !romanized1.startsWith('tt') &&
+        !romanized1.startsWith('dd') &&
+        !romanized1.startsWith('kk') &&
+        !romanized1.startsWith('gg');
+    if (!requestAtLeast3Syllables && isRomanized1PhoneticallyLegal) {
       return romanized1;
     }
-    if (getVowelIndexList(romanized1).length >= 3) {
+    if (getVowelIndexList(romanized1).length >= 3 && isRomanized1PhoneticallyLegal) {
       return romanized1;
     }
     final romanized2 = _romanizeS1(
