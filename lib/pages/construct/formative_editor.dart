@@ -8,10 +8,12 @@ import 'package:enthrirhs/utils/store.dart';
 import 'package:enthrirhs/utils/types.dart' as database;
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
 import 'package:enthrirhs/libs/misc.dart';
 import 'package:provider/provider.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 import '../../components/list_group_title.dart';
 import '../../libs/ithkuil/mod.dart';
 import '../../libs/ithkuil/terms/mod.dart';
@@ -159,7 +161,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: const Icon(Icons.onetwothree),
               title: const Text("Stem"),
               subtitle: Text(
                 switch (widget.formative.stem) {
@@ -204,7 +206,12 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: switch (widget.formative.specification) {
+                Specification.bsc => const Icon(Icons.menu_book),
+                Specification.cte => const Icon(Icons.subject),
+                Specification.csv => const Icon(Icons.import_contacts),
+                Specification.obj => const Icon(Icons.book),
+              },
               title: const Text("Specification"),
               subtitle: Text(
                 switch (widget.formative.specification) {
@@ -255,7 +262,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: const Icon(Icons.flag),
               title: const Text("Version"),
               subtitle: Text(
                 switch (widget.formative.version) {
@@ -289,7 +296,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: SvgPicture(
+                const AssetBytesLoader('assets/icons_compiled/airwave.svg.vec'),
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurfaceVariant,
+                  BlendMode.srcIn,
+                ),
+                width: 24,
+              ),
               title: const Text("Function"),
               subtitle: Text(
                 switch (widget.formative.function) {
@@ -331,7 +345,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: SvgPicture(
+                const AssetBytesLoader('assets/icons_compiled/shapes.svg.vec'),
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurfaceVariant,
+                  BlendMode.srcIn,
+                ),
+                width: 24,
+              ),
               title: const Text("Context"),
               subtitle: Text(
                 switch (widget.formative.context) {
@@ -382,7 +403,20 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.sports_kabaddi_outlined),
+              leading: switch (widget.formative.vn) {
+                ValenceVn() => const Icon(Icons.sports_kabaddi),
+                PhaseVn() => SvgPicture(
+                    const AssetBytesLoader('assets/icons_compiled/steppers.svg.vec'),
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onSurfaceVariant,
+                      BlendMode.srcIn,
+                    ),
+                    width: 24,
+                  ),
+                EffectVn() => const Icon(Icons.thumbs_up_down),
+                LevelVn() => const Icon(Icons.compare),
+                AspectVn() => const Icon(Icons.view_timeline),
+              },
               title: const Text("Vn Type"),
               subtitle: Text(
                 switch (widget.formative.vn) {
@@ -448,7 +482,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.sports_kabaddi_outlined),
+                  leading: const Icon(Icons.sports_kabaddi),
                   title: const Text("Valence"),
                   subtitle: Text(
                     switch (valence) {
@@ -518,7 +552,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.sports_kabaddi_outlined),
+                  leading: SvgPicture(
+                    const AssetBytesLoader('assets/icons_compiled/steppers.svg.vec'),
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onSurfaceVariant,
+                      BlendMode.srcIn,
+                    ),
+                    width: 24,
+                  ),
                   title: const Text("Phase"),
                   subtitle: Text(
                     switch (phase) {
@@ -585,7 +626,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.sports_kabaddi_outlined),
+                  leading: const Icon(Icons.thumbs_up_down),
                   title: const Text("Effect"),
                   subtitle: Text(
                     switch (effect) {
@@ -652,7 +693,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.sports_kabaddi_outlined),
+                  leading: const Icon(Icons.compare),
                   title: const Text("Level"),
                   subtitle: Text(
                     switch (level) {
@@ -827,7 +868,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.sports_kabaddi_outlined),
+                  leading: const Icon(Icons.view_timeline),
                   title: const Text("Aspect"),
                   subtitle: Text(
                     switch (aspect) {
@@ -903,7 +944,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: SvgPicture(
+                const AssetBytesLoader('assets/icons_compiled/communities.svg.vec'),
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurfaceVariant,
+                  BlendMode.srcIn,
+                ),
+                width: 24,
+              ),
               title: const Text("Affiliation"),
               subtitle: Text(
                 switch (widget.formative.affiliation) {
@@ -1111,7 +1159,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: SvgPicture(
+                const AssetBytesLoader('assets/icons_compiled/transition_fade.svg.vec'),
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.onSurfaceVariant,
+                  BlendMode.srcIn,
+                ),
+                width: 24,
+              ),
               title: const Text("Extension"),
               subtitle: Text(
                 switch (widget.formative.extension) {
@@ -1157,7 +1212,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: const Icon(Icons.blur_on),
               title: const Text("Perspective"),
               subtitle: Text(
                 switch (widget.formative.perspective) {
@@ -1193,7 +1248,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
               ),
             ],
             child: ListTile(
-              leading: const Icon(Icons.info_outline),
+              leading: const Icon(Icons.psychology_alt),
               title: const Text("Essence"),
               subtitle: Text(
                 switch (widget.formative.essence) {
@@ -1334,7 +1389,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.info_outline),
+                  leading: SvgPicture(
+                    const AssetBytesLoader('assets/icons_compiled/line_start_circle.svg.vec'),
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.onSurfaceVariant,
+                      BlendMode.srcIn,
+                    ),
+                    width: 24,
+                  ),
                   title: const Text("Relation"),
                   subtitle: Text(
                     switch (relation) {
@@ -1374,7 +1436,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                   ),
                 ],
                 child: ListTile(
-                  leading: const Icon(Icons.info_outline),
+                  leading: const Icon(Icons.link),
                   title: const Text("Concatenation"),
                   subtitle: Text(
                     switch (concatenation) {
@@ -1699,7 +1761,15 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                               ),
                             ],
                             child: ListTile(
-                              leading: const Icon(Icons.record_voice_over_outlined),
+                              leading: SvgPicture(
+                                const AssetBytesLoader(
+                                    'assets/icons_compiled/quick_reference_all.svg.vec'),
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.onSurfaceVariant,
+                                  BlendMode.srcIn,
+                                ),
+                                width: 24,
+                              ),
                               title: const Text("Validation"),
                               subtitle: Text(
                                 switch (validation!) {
@@ -1922,7 +1992,14 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     ),
                   ],
                   child: ListTile(
-                    leading: const Icon(Icons.info_outline),
+                    leading: SvgPicture(
+                      const AssetBytesLoader('assets/icons_compiled/jump_to_element.svg.vec'),
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onSurfaceVariant,
+                        BlendMode.srcIn,
+                      ),
+                      width: 24,
+                    ),
                     title: const Text("Case Scope"),
                     subtitle: Text(
                       switch (widget.formative.cn) {
@@ -1976,7 +2053,7 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
                     ),
                   ],
                   child: ListTile(
-                    leading: const Icon(Icons.info_outline),
+                    leading: const Icon(Icons.fork_right),
                     title: const Text("Mood"),
                     subtitle: Text(
                       switch (widget.formative.cn) {

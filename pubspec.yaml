@@ -41,6 +41,15 @@ flutter:
     - assets/icons_compiled/telegram.svg.vec
     - assets/icons_compiled/tencentqq.svg.vec
     - assets/icons_compiled/logo.svg.vec
+    # Material Icons
+    - assets/icons_compiled/airwave.svg.vec
+    - assets/icons_compiled/communities.svg.vec
+    - assets/icons_compiled/jump_to_element.svg.vec
+    - assets/icons_compiled/line_start_circle.svg.vec
+    - assets/icons_compiled/quick_reference_all.svg.vec
+    - assets/icons_compiled/shapes.svg.vec
+    - assets/icons_compiled/steppers.svg.vec
+    - assets/icons_compiled/transition_fade.svg.vec
 
   # To add assets to your application, add an assets section, like this:
   # assets:
