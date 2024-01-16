@@ -7,7 +7,7 @@ import 'valence.dart';
 sealed class Vn {
   const Vn();
 
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis);
+  String romanize(String charPrecedingThis);
 }
 
 class ValenceVn extends Vn {
@@ -15,8 +15,8 @@ class ValenceVn extends Vn {
   const ValenceVn(this.valence);
 
   @override
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis) {
-    return valence.romanize(omitOptionalAffixes);
+  String romanize(String charPrecedingThis) {
+    return valence.romanize();
   }
 }
 
@@ -25,7 +25,7 @@ class PhaseVn extends Vn {
   const PhaseVn(this.phase);
 
   @override
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis) {
+  String romanize(String charPrecedingThis) {
     return phase.romanize();
   }
 }
@@ -35,7 +35,7 @@ class EffectVn extends Vn {
   const EffectVn(this.effect);
 
   @override
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis) {
+  String romanize(String charPrecedingThis) {
     return effect.romanize(charPrecedingThis);
   }
 }
@@ -45,7 +45,7 @@ class LevelVn extends Vn {
   const LevelVn(this.level);
 
   @override
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis) {
+  String romanize(String charPrecedingThis) {
     return level.romanize();
   }
 }
@@ -55,7 +55,7 @@ class AspectVn extends Vn {
   const AspectVn(this.aspect);
 
   @override
-  String romanize(bool omitOptionalAffixes, String charPrecedingThis) {
+  String romanize(String charPrecedingThis) {
     return aspect.romanize(charPrecedingThis);
   }
 }

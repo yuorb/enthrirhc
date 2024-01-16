@@ -583,13 +583,11 @@ class Formative {
       ValenceVn() || PhaseVn() || EffectVn() || LevelVn() => true,
       AspectVn() => false,
     };
-    final vnRomanized = vn.romanize(
-      omitOptionalAffixes,
-      strPrecedingThis[strPrecedingThis.length - 1],
-    );
-    final cnRomanized = cn.romanize(omitOptionalAffixes, isPattern1);
+    final vnRomanized = vn.romanize(strPrecedingThis[strPrecedingThis.length - 1]);
+    final cnRomanized = cn.romanize(isPattern1);
 
-    return "$vnRomanized$cnRomanized";
+    final vnCn = "$vnRomanized$cnRomanized";
+    return (omitOptionalAffixes && vnCn == 'ah') ? '' : vnCn;
   }
 
   String _romanizeSlotIX(String strPrecedingThis, bool omitOptionalAffixes) {

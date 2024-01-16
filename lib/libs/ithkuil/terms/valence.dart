@@ -26,9 +26,9 @@ enum Valence {
   /// Participative
   pti;
 
-  String romanize(bool omitOptionalAffixes) {
+  String romanize() {
     return switch (this) {
-      mno => omitOptionalAffixes ? '' : 'a',
+      mno => 'a',
       prl => 'ä',
       cro => 'e',
       rcp => 'i',
