@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: 6.1.1
-  drift: 2.14.1
+  drift: 2.15.0
   path_provider: 2.1.2
   path: 1.9.0
   provider: 6.1.1
@@ -28,7 +28,7 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: 3.0.1
-  drift_dev: 2.14.1
+  drift_dev: 2.15.0
   build_runner: 2.4.8
 
 flutter:
