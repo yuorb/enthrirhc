@@ -1,18 +1,18 @@
 import 'dart:ui';
 
-import 'package:enthrirhs/libs/download/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/romanization/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirhs/libs/misc.dart';
-import 'package:enthrirhs/utils/mod.dart';
-import 'package:enthrirhs/utils/store.dart';
+import 'package:enthrirhc/libs/download/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/romanization/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/terms/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhc/libs/misc.dart';
+import 'package:enthrirhc/utils/mod.dart';
+import 'package:enthrirhc/utils/store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 import 'package:provider/provider.dart';
 
-import 'package:enthrirhs/components/ithkuil_svg.dart';
+import 'package:enthrirhc/components/ithkuil_svg.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../libs/ithkuil/mod.dart';
 import 'formative_editor.dart';

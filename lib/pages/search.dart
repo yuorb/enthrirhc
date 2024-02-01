@@ -4,10 +4,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:enthrirhs/libs/misc.dart';
-import 'package:enthrirhs/pages/root.dart';
-import 'package:enthrirhs/utils/store.dart';
-import 'package:enthrirhs/utils/types.dart';
+import 'package:enthrirhc/libs/misc.dart';
+import 'package:enthrirhc/pages/root.dart';
+import 'package:enthrirhc/utils/store.dart';
+import 'package:enthrirhc/utils/types.dart';
 
 class LexiconActionButton extends StatelessWidget {
   final IconData icon;

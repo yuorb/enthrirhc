@@ -1,8 +1,8 @@
-import 'package:enthrirhs/libs/ithkuil/writing/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/ext_letter.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/utils.dart';
-import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/ext_letter.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/utils.dart';
+import 'package:enthrirhc/libs/ithkuil/terms/mod.dart';
 
 import '../utils.dart';
 

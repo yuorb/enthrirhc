@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/mod.dart';
+import 'package:enthrirhc/libs/misc.dart';
 
 import '../utils.dart';
 import 'core_letter.dart';

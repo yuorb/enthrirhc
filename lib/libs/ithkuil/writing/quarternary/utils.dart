@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:enthrirhs/libs/ithkuil/writing/quarternary/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/quarternary/mod.dart';
 
 import '../../terms/mod.dart';
 import '../utils.dart';

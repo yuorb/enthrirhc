@@ -1,5 +1,5 @@
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/core_letter.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/secondary/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/core_letter.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/secondary/mod.dart';
 
 import '../writing/secondary/ext_letter.dart';
 import 'phoneme.dart';

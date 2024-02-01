@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:enthrirhs/libs/ithkuil/writing/tertiary/extensions.dart';
-import 'package:enthrirhs/libs/ithkuil/writing/tertiary/mod.dart';
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/tertiary/extensions.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/tertiary/mod.dart';
+import 'package:enthrirhc/libs/misc.dart';
 
 import '../../terms/aspect.dart';
 

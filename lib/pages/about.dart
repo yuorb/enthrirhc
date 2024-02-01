@@ -5,7 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import 'package:enthrirhs/components/list_group_title.dart';
+import 'package:enthrirhc/components/list_group_title.dart';
 
 class License extends StatelessWidget {
   final String name;
@@ -112,9 +112,9 @@ class _AboutPageState extends State<AboutPage> {
               ),
             ),
             title: const Text("Github"),
-            subtitle: const Text("https://github.com/yuorb/enthrirhs"),
+            subtitle: const Text("https://github.com/yuorb/enthrirhc"),
             onTap: () => launchUrl(
-              Uri.parse("https://github.com/yuorb/enthrirhs"),
+              Uri.parse("https://github.com/yuorb/enthrirhc"),
               mode: LaunchMode.externalApplication,
             ),
           ),

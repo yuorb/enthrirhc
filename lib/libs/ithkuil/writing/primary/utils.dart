@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:enthrirhs/libs/ithkuil/writing/primary/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/writing/primary/mod.dart';
 
 import '../utils.dart';
 

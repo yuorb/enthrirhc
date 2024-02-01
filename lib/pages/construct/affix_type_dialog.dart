@@ -1,4 +1,4 @@
-import 'package:enthrirhs/libs/ithkuil/terms/affix_type.dart';
+import 'package:enthrirhc/libs/ithkuil/terms/affix_type.dart';
 import 'package:flutter/material.dart';
 
 Future<AffixType?> showAffixTypeDialog(BuildContext context, AffixType initialValue) {

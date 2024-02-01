@@ -1,6 +1,6 @@
 import 'dart:io' hide Platform;
 
-import 'package:enthrirhs/utils/mod.dart';
+import 'package:enthrirhc/utils/mod.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'utils.dart';

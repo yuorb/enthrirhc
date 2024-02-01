@@ -1,11 +1,11 @@
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/misc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-import 'package:enthrirhs/components/list_group_title.dart';
+import 'package:enthrirhc/components/list_group_title.dart';
 
 class CommunityTile extends StatelessWidget {
   const CommunityTile({required this.name, this.link, this.code, this.icon, super.key});

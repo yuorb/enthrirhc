@@ -1,17 +1,17 @@
 import 'dart:ui';
 
-import 'package:enthrirhs/libs/option/mod.dart';
-import 'package:enthrirhs/libs/result/mod.dart';
-import 'package:enthrirhs/pages/construct/degree_dialog.dart';
-import 'package:enthrirhs/utils/mod.dart';
-import 'package:enthrirhs/utils/store.dart';
-import 'package:enthrirhs/utils/types.dart' as database;
+import 'package:enthrirhc/libs/option/mod.dart';
+import 'package:enthrirhc/libs/result/mod.dart';
+import 'package:enthrirhc/pages/construct/degree_dialog.dart';
+import 'package:enthrirhc/utils/mod.dart';
+import 'package:enthrirhc/utils/store.dart';
+import 'package:enthrirhc/utils/types.dart' as database;
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
 
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/misc.dart';
 import 'package:provider/provider.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import '../../components/list_group_title.dart';
@@ -104,6 +104,8 @@ class _FormativeEditorState extends State<FormativeEditor> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    // `ListView` needs to be wrapped by `Material`. See
+    // https://github.com/flutter/flutter/issues/73315
     return Material(
       child: ListView(
         padding: EdgeInsets.zero,

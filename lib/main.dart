@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:enthrirhs/pages/construct/mod.dart';
-import 'package:enthrirhs/pages/search.dart';
-import 'package:enthrirhs/pages/settings.dart';
+import 'package:enthrirhc/pages/construct/mod.dart';
+import 'package:enthrirhc/pages/search.dart';
+import 'package:enthrirhc/pages/settings.dart';
 import 'package:provider/provider.dart';
 
 import 'utils/store.dart';

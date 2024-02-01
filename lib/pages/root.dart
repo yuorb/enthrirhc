@@ -1,6 +1,6 @@
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/misc.dart';
 import 'package:flutter/material.dart';
-import 'package:enthrirhs/utils/types.dart';
+import 'package:enthrirhc/utils/types.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:provider/provider.dart';
 

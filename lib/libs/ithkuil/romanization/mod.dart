@@ -1,8 +1,8 @@
 // TODO: Add `bool moveCnToCa` parameter
-import 'package:enthrirhs/libs/ithkuil/mod.dart';
-import 'package:enthrirhs/libs/ithkuil/terms/formative_type.dart';
-import 'package:enthrirhs/libs/misc.dart';
-import 'package:enthrirhs/libs/result/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/terms/formative_type.dart';
+import 'package:enthrirhc/libs/misc.dart';
+import 'package:enthrirhc/libs/result/mod.dart';
 
 String? romanizeFormatives(
   List<Formative> formatives,

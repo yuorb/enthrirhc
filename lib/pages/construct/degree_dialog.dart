@@ -1,4 +1,4 @@
-import 'package:enthrirhs/libs/ithkuil/terms/mod.dart';
+import 'package:enthrirhc/libs/ithkuil/terms/mod.dart';
 import 'package:flutter/material.dart';
 
 Future<Degree?> showDegreeDialog(BuildContext context, Degree initialValue) {

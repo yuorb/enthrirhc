@@ -1,4 +1,4 @@
-import 'package:enthrirhs/libs/misc.dart';
+import 'package:enthrirhc/libs/misc.dart';
 
 import '../../terms/mod.dart';
 

@@ -1,4 +1,4 @@
-package org.yuorb.enthrirhs
+package org.yuorb.enthrirhc
 
 import io.flutter.embedding.android.FlutterActivity
 
