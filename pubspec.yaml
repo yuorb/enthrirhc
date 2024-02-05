@@ -22,7 +22,7 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_markdown: ^0.6.18+3
   package_info_plus: 5.0.1
-  vector_graphics: ^1.1.9+1
+  vector_graphics: ^1.1.10
   prompt_dialog: ^1.0.15
   share_plus: ^7.2.1
 
