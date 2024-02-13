@@ -4,6 +4,7 @@ sealed class Result<T, E> {
   bool isOk();
   bool isErr();
   T unwrap();
+  E unwrapErr();
 }
 
 class Ok<T, E> extends Result<T, E> {
@@ -19,6 +20,9 @@ class Ok<T, E> extends Result<T, E> {
 
   @override
   T unwrap() => value;
+
+  @override
+  E unwrapErr() => throw "called `Result.unwrapErr()` on an `Ok` value: $value";
 }
 
 class Err<T, E> extends Result<T, E> {
@@ -34,4 +38,7 @@ class Err<T, E> extends Result<T, E> {
 
   @override
   T unwrap() => throw 'called `Result.unwrap()` on an `Err` value: $value';
+
+  @override
+  E unwrapErr() => value;
 }
