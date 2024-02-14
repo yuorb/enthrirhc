@@ -42,3 +42,17 @@ class Err<T, E> extends Result<T, E> {
   @override
   E unwrapErr() => value;
 }
+
+Result<List<T>, E> collectResultList<T, E>(List<Result<T, E>> list) {
+  final List<T> newList = List.empty(growable: true);
+  for (final result in list) {
+    switch (result) {
+      case Ok(value: final value):
+        newList.add(value);
+        break;
+      case Err(value: final err):
+        return Err(err);
+    }
+  }
+  return Ok(newList);
+}
