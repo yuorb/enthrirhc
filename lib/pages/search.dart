@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:enthrirhc/libs/result/mod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,23 @@ class _SearchPageState extends State<SearchPage> {
       }
       return null;
     }
-    return Lexicon.fromJson(decodedJson);
+
+    switch (Lexicon.fromJson(decodedJson)) {
+      case Ok(value: final value):
+        return value;
+      case Err(value: final err):
+        if (context.mounted) {
+          result.files[0].name;
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text("Error"),
+              content: Text("Parsing ${result.files[0].name}: $err"),
+            ),
+          );
+        }
+        return null;
+    }
   }
 
   @override
@@ -207,9 +224,14 @@ class _SearchPageState extends State<SearchPage> {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("Success"),
+                        title: const Text("Info"),
                         content: Text(
-                          "Imported ${lexicon.roots.length.toString()} roots successfully.",
+                          """Imported successfully.
+
+- Roots: ${lexicon.roots.length.toString()}
+- Standard Affixes:  ${lexicon.standardAffixes.length.toString()}
+- Case Accessor Affixes:  ${lexicon.caseAccessorAffixes.length.toString()}
+- Case Stacking Affixes:  ${lexicon.caseStackingAffixes.length.toString()}""",
                         ),
                         actions: [
                           TextButton(
