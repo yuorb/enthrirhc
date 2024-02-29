@@ -20,7 +20,7 @@ dependencies:
   flutter_svg: ^2.0.9
   url_launcher: ^6.2.5
   shared_preferences: ^2.2.2
-  flutter_markdown: ^0.6.19
+  flutter_markdown: ^0.6.20+1
   package_info_plus: 5.0.1
   vector_graphics: ^1.1.11+1
   prompt_dialog: ^1.0.15
