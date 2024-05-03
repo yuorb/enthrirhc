@@ -26,7 +26,7 @@ Root rowToRoot(RootItem row) {
 }
 
 @DataClassName('RootItem')
-class Roots extends Table {
+class RootTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get root => text()();
   TextColumn get refers => text().nullable()();
@@ -35,7 +35,19 @@ class Roots extends Table {
   TextColumn get see => text().nullable()();
 }
 
-@DriftDatabase(tables: [Roots])
+@DataClassName('AffixItem')
+class AffixTable extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text()();
+  TextColumn get description => text()();
+  TextColumn get gradientType => text()();
+  TextColumn get cs => text()();
+  BoolColumn get associatedRoot => boolean()();
+  TextColumn get degrees => text()();
+  TextColumn get notes => text().nullable()();
+}
+
+@DriftDatabase(tables: [RootTable, AffixTable])
 class Database extends _$Database {
   Database(QueryExecutor e) : super(e);
 
@@ -45,9 +57,9 @@ class Database extends _$Database {
   Future<void> insert(Lexicon lexicon) async {
     await batch((batch) {
       batch.insertAll(
-        roots,
+        rootTable,
         lexicon.roots.map(
-          (root) => RootsCompanion.insert(
+          (root) => RootTableCompanion.insert(
             root: root.root,
             refers: Value(root.refers),
             stems: Value(root.stems != null ? jsonEncode(root.stems) : null),
@@ -56,12 +68,25 @@ class Database extends _$Database {
           ),
         ),
       );
+      batch.insertAll(
+        affixTable,
+        lexicon.standardAffixes.map(
+          (affix) => AffixTableCompanion.insert(
+            name: affix.name,
+            description: affix.description,
+            gradientType: affix.gradientType.name,
+            cs: affix.cs,
+            associatedRoot: affix.associatedRoot,
+            degrees: jsonEncode(affix.degrees),
+          ),
+        ),
+      );
     });
   }
 
   Future<List<Root>> search(String keywords) async {
     // Get the roots whose `root` field matches keyword.
-    final statement1 = select(roots)..where((tbl) => tbl.root.contains(keywords.toUpperCase()));
+    final statement1 = select(rootTable)..where((tbl) => tbl.root.contains(keywords.toUpperCase()));
     final rows1 = await statement1.get();
     final list1 = rows1.map((row) => rowToRoot(row)).toList();
     // Move the exactly matched root to the head of the search result.
@@ -75,7 +100,7 @@ class Database extends _$Database {
     }
 
     // Get the roots whose `refers` field matches keyword.
-    final statement2 = select(roots)..where((tbl) => tbl.refers.contains(keywords));
+    final statement2 = select(rootTable)..where((tbl) => tbl.refers.contains(keywords));
     final rows2 = await statement2.get();
     final list2 = rows2.map((row) => rowToRoot(row)).toList();
     final escapedKeywords = escapeRegExp(keywords.toLowerCase());
@@ -111,7 +136,7 @@ class Database extends _$Database {
   Future<Root?> exactSearch(String root) async {
     // TODO: Currently we have duplicate roots, so we cannot use `getSingleOrNull` method, but only
     // limit the number of returned results to be one, until we eliminate all the duplicate roots.
-    final statement = select(roots)
+    final statement = select(rootTable)
       ..where((tbl) => tbl.root.equals(root))
       ..limit(1);
     final rows = await statement.get();
@@ -119,13 +144,21 @@ class Database extends _$Database {
   }
 
   Future<int> rootCount() async {
-    final countExpr = roots.id.count();
-    final query = selectOnly(roots)..addColumns([countExpr]);
+    final countExpr = rootTable.id.count();
+    final query = selectOnly(rootTable)..addColumns([countExpr]);
     final result = await query.map((row) => row.read(countExpr)).getSingle();
     return result!;
   }
 
-  Future<int> clearRoots() async {
-    return delete(roots).go();
+  Future<int> affixCount() async {
+    final countExpr = affixTable.id.count();
+    final query = selectOnly(affixTable)..addColumns([countExpr]);
+    final result = await query.map((row) => row.read(countExpr)).getSingle();
+    return result!;
+  }
+
+  Future<void> clearLexicon() async {
+    await delete(affixTable).go();
+    await delete(rootTable).go();
   }
 }

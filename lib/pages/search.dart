@@ -42,7 +42,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final SearchController controller = SearchController();
   int? rootCount;
-  int affixCount = 0;
+  int? affixCount;
 
   Future<Lexicon?> pickLexiconFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -92,11 +92,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<LexiconModel>()
-        .database
-        .rootCount()
-        .then((count) => setState(() => rootCount = count));
+    final database = context.read<LexiconModel>().database;
+    database.rootCount().then((count) => setState(() => rootCount = count));
+    database.affixCount().then((count) => setState(() => affixCount = count));
   }
 
   @override
@@ -217,7 +215,10 @@ class _SearchPageState extends State<SearchPage> {
                     // Save and update the lexicon data
                     if (!context.mounted) return;
                     await context.read<LexiconModel>().database.insert(lexicon);
-                    setState(() => rootCount = rootCount! + lexicon.roots.length);
+                    setState(() {
+                      rootCount = rootCount! + lexicon.roots.length;
+                      affixCount = affixCount! + lexicon.standardAffixes.length;
+                    });
 
                     // Pop up the success dialog
                     if (!context.mounted) return;
@@ -261,14 +262,17 @@ class _SearchPageState extends State<SearchPage> {
 
                     if (isConfirmed) {
                       if (!context.mounted) return;
-                      final count = await context.read<LexiconModel>().database.clearRoots();
-                      setState(() => rootCount = rootCount! - count);
+                      await context.read<LexiconModel>().database.clearLexicon();
+                      setState(() {
+                        rootCount = 0;
+                        affixCount = 0;
+                      });
                       if (!context.mounted) return;
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text("Success"),
-                          content: Text("$count roots have been cleared."),
+                          content: const Text("All roots and affixes have been cleared."),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),

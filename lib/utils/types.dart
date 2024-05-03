@@ -138,12 +138,20 @@ sealed class Degree {
 class MergedDegree extends Degree {
   final String degree;
   const MergedDegree(this.degree);
+
+  String toJson() {
+    return degree;
+  }
 }
 
 class SeparatedDegree extends Degree {
   final String type1;
   final String type2;
   const SeparatedDegree(this.type1, this.type2);
+
+  List<String> toJson() {
+    return [type1, type2];
+  }
 }
 
 class StandardAffix extends Affix {
