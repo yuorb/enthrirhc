@@ -13,6 +13,8 @@ import 'package:enthrirhc/utils/store.dart';
 import 'package:enthrirhc/utils/types.dart';
 import 'package:vector_graphics/vector_graphics_compat.dart';
 
+import 'affix.dart';
+
 class LexiconActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -153,20 +155,18 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                       onTap: () {
-                        switch (item) {
-                          case RootSRI(root: final root):
-                            Navigator.push(
-                              suggestionsContext,
-                              MaterialPageRoute(
-                                builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
-                                  value: provider,
-                                  builder: (context, child) => RootPage(root),
-                                ),
-                              ),
-                            );
-                          case AffixSRI(affix: final affix):
-                          // TODO: Add AffixPage
-                        }
+                        Navigator.push(
+                          suggestionsContext,
+                          MaterialPageRoute(
+                            builder: (_) => ChangeNotifierProvider<LexiconModel>.value(
+                              value: provider,
+                              builder: (context, child) => switch (item) {
+                                RootSRI(root: final root) => RootPage(root),
+                                AffixSRI(affix: final affix) => AffixPage(affix),
+                              },
+                            ),
+                          ),
+                        );
                       },
                     ),
                   );

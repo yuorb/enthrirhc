@@ -44,6 +44,16 @@ flutter:
     # Material Icons
     - assets/icons_compiled/airwave.svg.vec
     - assets/icons_compiled/communities.svg.vec
+    - assets/icons_compiled/counter_0.svg.vec
+    - assets/icons_compiled/counter_1.svg.vec
+    - assets/icons_compiled/counter_2.svg.vec
+    - assets/icons_compiled/counter_3.svg.vec
+    - assets/icons_compiled/counter_4.svg.vec
+    - assets/icons_compiled/counter_5.svg.vec
+    - assets/icons_compiled/counter_6.svg.vec
+    - assets/icons_compiled/counter_7.svg.vec
+    - assets/icons_compiled/counter_8.svg.vec
+    - assets/icons_compiled/counter_9.svg.vec
     - assets/icons_compiled/jump_to_element.svg.vec
     - assets/icons_compiled/line_start_circle.svg.vec
     - assets/icons_compiled/list_alt_add.svg.vec
