@@ -116,6 +116,7 @@ class Database extends _$Database {
             cs: affix.cs,
             associatedRoot: affix.associatedRoot,
             degrees: jsonEncode(affix.degrees),
+            notes: Value(affix.notes),
           ),
         ),
       );
