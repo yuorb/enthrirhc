@@ -81,9 +81,23 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                       label: Text(widget.affix.gradientType.toString()),
                       avatar: const Icon(Icons.gradient),
                     ),
-                    Chip(
+                    ActionChip(
                       label: Text(widget.affix.description),
                       avatar: const Icon(Icons.description),
+                      onPressed: () => showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Description"),
+                          content: Text(widget.affix.description),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("Ok"),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
