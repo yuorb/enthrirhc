@@ -1,14 +1,17 @@
 import 'dart:convert';
 
+import 'package:enthrirhc/database/shared.dart';
 import 'package:enthrirhc/libs/result/mod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import 'package:enthrirhc/libs/misc.dart';
 import 'package:enthrirhc/pages/root.dart';
 import 'package:enthrirhc/utils/store.dart';
 import 'package:enthrirhc/utils/types.dart';
+import 'package:vector_graphics/vector_graphics_compat.dart';
 
 class LexiconActionButton extends StatelessWidget {
   final IconData icon;
@@ -116,26 +119,54 @@ class _SearchPageState extends State<SearchPage> {
                   final provider = context.read<LexiconModel>();
                   final result = await provider.database.search(controller.text);
                   return result.map(
-                    (root) => ListTile(
-                      leading: const Icon(Icons.article),
-                      title: Text(root.root),
+                    (item) => ListTile(
+                      leading: switch (item) {
+                        RootSRI() => SvgPicture(
+                            const AssetBytesLoader('assets/icons_compiled/sweep.svg.vec'),
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSurfaceVariant,
+                              BlendMode.srcIn,
+                            ),
+                            width: 24,
+                          ),
+                        AffixSRI() => SvgPicture(
+                            const AssetBytesLoader('assets/icons_compiled/list_alt_add.svg.vec'),
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSurfaceVariant,
+                              BlendMode.srcIn,
+                            ),
+                            width: 24,
+                          ),
+                      },
+                      title: Text(switch (item) {
+                        RootSRI(root: final root) => root.root,
+                        AffixSRI(affix: final affix) => affix.cs,
+                      }),
                       subtitle: Text(
-                        root.refers ?? '',
+                        switch (item) {
+                          RootSRI(root: final root) => root.refers ?? '',
+                          AffixSRI(affix: final affix) => affix.description,
+                        },
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Theme.of(suggestionsContext).colorScheme.onSurfaceVariant,
                         ),
                       ),
                       onTap: () {
-                        Navigator.push(
-                          suggestionsContext,
-                          MaterialPageRoute(
-                            builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
-                              value: provider,
-                              builder: (context, child) => RootPage(root),
-                            ),
-                          ),
-                        );
+                        switch (item) {
+                          case RootSRI(root: final root):
+                            Navigator.push(
+                              suggestionsContext,
+                              MaterialPageRoute(
+                                builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
+                                  value: provider,
+                                  builder: (context, child) => RootPage(root),
+                                ),
+                              ),
+                            );
+                          case AffixSRI(affix: final affix):
+                          // TODO: Add AffixPage
+                        }
                       },
                     ),
                   );

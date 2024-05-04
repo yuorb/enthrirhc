@@ -8,7 +8,7 @@ export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.h
 
 part 'shared.g.dart';
 
-Root rowToRoot(RootItem row) {
+Root decodeRootRow(RootItem row) {
   final List<Stem>? stems;
   if (row.stems != null) {
     final List<dynamic> decodeStems = jsonDecode(row.stems!);
@@ -22,6 +22,30 @@ Root rowToRoot(RootItem row) {
     stems: stems,
     notes: row.notes,
     seeAlso: row.see,
+  );
+}
+
+StandardAffix decodeAffixRow(AffixItem row) {
+  final degreeList = jsonDecode(row.degrees) as List<dynamic>;
+  final degrees = degreeList.map((degree) {
+    if (degree is String) {
+      return MergedDegree(degree);
+    } else if (degree is List) {
+      return SeparatedDegree(degree[0], degree[1]);
+    } else {
+      assert(degree == null);
+      return null;
+    }
+  }).toList();
+
+  return StandardAffix(
+    name: row.name,
+    description: row.description,
+    gradientType: GradientType.from(row.gradientType).unwrap(),
+    cs: row.cs,
+    associatedRoot: row.associatedRoot,
+    degrees: degrees,
+    notes: row.notes,
   );
 }
 
@@ -47,9 +71,23 @@ class AffixTable extends Table {
   TextColumn get notes => text().nullable()();
 }
 
+sealed class SearchResultItem {
+  const SearchResultItem();
+}
+
+class RootSRI extends SearchResultItem {
+  final Root root;
+  const RootSRI(this.root);
+}
+
+class AffixSRI extends SearchResultItem {
+  final StandardAffix affix;
+  const AffixSRI(this.affix);
+}
+
 @DriftDatabase(tables: [RootTable, AffixTable])
 class Database extends _$Database {
-  Database(QueryExecutor e) : super(e);
+  Database(super.e);
 
   @override
   int get schemaVersion => 1;
@@ -74,7 +112,7 @@ class Database extends _$Database {
           (affix) => AffixTableCompanion.insert(
             name: affix.name,
             description: affix.description,
-            gradientType: affix.gradientType.name,
+            gradientType: affix.gradientType.toString(),
             cs: affix.cs,
             associatedRoot: affix.associatedRoot,
             degrees: jsonEncode(affix.degrees),
@@ -84,53 +122,92 @@ class Database extends _$Database {
     });
   }
 
-  Future<List<Root>> search(String keywords) async {
-    // Get the roots whose `root` field matches keyword.
-    final statement1 = select(rootTable)..where((tbl) => tbl.root.contains(keywords.toUpperCase()));
-    final rows1 = await statement1.get();
-    final list1 = rows1.map((row) => rowToRoot(row)).toList();
-    // Move the exactly matched root to the head of the search result.
-    for (int i = 0; i < list1.length; i++) {
-      if (list1[i].root == keywords.toUpperCase()) {
-        final temp = list1[0];
-        list1[0] = list1[i];
-        list1[i] = temp;
-        break;
+  Future<List<SearchResultItem>> search(String keywords) async {
+    final List<SearchResultItem> results = [];
+    final wholeWordRegex = "\\b${escapeRegExp(keywords)}\\b";
+
+    final statement1 = select(rootTable)..where((tbl) => tbl.root.equals(keywords.toUpperCase()));
+    final item1 = await statement1.getSingleOrNull();
+    if (item1 != null) {
+      results.add(RootSRI(decodeRootRow(item1)));
+    }
+
+    final statement2 = select(affixTable)..where((tbl) => tbl.cs.equals(keywords.toLowerCase()));
+    final item2 = await statement2.getSingleOrNull();
+    if (item2 != null) {
+      results.add(AffixSRI(decodeAffixRow(item2)));
+    }
+
+    final statement3 = select(affixTable)..where((tbl) => tbl.name.equals(keywords.toUpperCase()));
+    final item3 = await statement3.getSingleOrNull();
+    if (item3 != null) {
+      results.add(AffixSRI(decodeAffixRow(item3)));
+    }
+
+    // Get the roots whose `root` field contains keyword.
+    final statement4 = select(rootTable)..where((tbl) => tbl.root.contains(keywords));
+    final rows4 = await statement4.get();
+    results.addAll(
+      rows4.map((item) => RootSRI(decodeRootRow(item))).toList(),
+    );
+
+    // Get the affixes whose `cs` field contains keyword.
+    final statement5 = select(affixTable)..where((tbl) => tbl.cs.contains(keywords));
+    final rows5 = await statement5.get();
+    results.addAll(
+      rows5.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
+    );
+
+    // Get the roots whose `refers` field contains keyword.
+    final statement6 = select(rootTable)..where((tbl) => tbl.refers.regexp(wholeWordRegex));
+    final rows6 = await statement6.get();
+    results.addAll(
+      rows6.map((item) => RootSRI(decodeRootRow(item))).toList(),
+    );
+
+    // Get the affixes whose `description` field contains keyword.
+    final statement7 = select(affixTable)..where((tbl) => tbl.description.regexp(wholeWordRegex));
+    final rows7 = await statement7.get();
+    results.addAll(
+      rows7.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
+    );
+
+    // Get the roots whose `stems` field contains keyword.
+    final statement8 = select(rootTable)..where((tbl) => tbl.stems.regexp(wholeWordRegex));
+    final rows8 = await statement8.get();
+    results.addAll(
+      rows8.map((item) => RootSRI(decodeRootRow(item))).toList(),
+    );
+
+    // Get the affixes whose `degrees` field contains keyword.
+    final statement9 = select(affixTable)..where((tbl) => tbl.degrees.regexp(wholeWordRegex));
+    final rows9 = await statement9.get();
+    results.addAll(
+      rows9.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
+    );
+
+    final List<SearchResultItem> deduplicatedResults = [];
+    for (var i = 0; i < results.length; i++) {
+      final thisItem = results[i];
+      final hasDuplicatedElement = switch (thisItem) {
+        RootSRI(root: final thisRoot) => deduplicatedResults.any((item) => switch (item) {
+              RootSRI(root: final root) => root.root == thisRoot.root,
+              AffixSRI() => false,
+            }),
+        AffixSRI(affix: final thisAffix) => deduplicatedResults.any((item) => switch (item) {
+              RootSRI() => false,
+              AffixSRI(affix: final affix) => affix.cs == thisAffix.cs,
+            }),
+      };
+      if (!hasDuplicatedElement) {
+        deduplicatedResults.add(thisItem);
+      }
+      if (deduplicatedResults.length == 100) {
+        return deduplicatedResults;
       }
     }
 
-    // Get the roots whose `refers` field matches keyword.
-    final statement2 = select(rootTable)..where((tbl) => tbl.refers.contains(keywords));
-    final rows2 = await statement2.get();
-    final list2 = rows2.map((row) => rowToRoot(row)).toList();
-    final escapedKeywords = escapeRegExp(keywords.toLowerCase());
-    final keywordsRegExp = RegExp("(^|\\W)$escapedKeywords(\\W|\$)", caseSensitive: false);
-    int index = 0;
-    for (int i = 0; i < list2.length; i++) {
-      final refers = list2[i].refers;
-      if (refers == null) {
-        continue;
-      }
-      if (keywordsRegExp.hasMatch(refers)) {
-        final temp = list2[index];
-        list2[index] = list2[i];
-        list2[i] = temp;
-        index += 1;
-      }
-    }
-
-    final mergedList = list1..addAll(list2);
-    final List<Root> list = [];
-    for (final thisRoot in mergedList) {
-      if (!list.any((root) => root.root == thisRoot.root)) {
-        list.add(thisRoot);
-      }
-      if (list.length == 100) {
-        break;
-      }
-    }
-
-    return list;
+    return deduplicatedResults;
   }
 
   Future<Root?> exactSearch(String root) async {
@@ -140,7 +217,7 @@ class Database extends _$Database {
       ..where((tbl) => tbl.root.equals(root))
       ..limit(1);
     final rows = await statement.get();
-    return rows.isNotEmpty ? rowToRoot(rows[0]) : null;
+    return rows.isNotEmpty ? decodeRootRow(rows[0]) : null;
   }
 
   Future<int> rootCount() async {

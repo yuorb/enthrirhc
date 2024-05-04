@@ -108,6 +108,19 @@ enum GradientType {
       _ => Err('Invalid "gradient_type": $str'),
     };
   }
+
+  @override
+  String toString() {
+    return switch (this) {
+      zero => "0",
+      a1 => "A1",
+      a2 => "A2",
+      b => "B",
+      c => "C",
+      d1 => "D1",
+      d2 => "D2",
+    };
+  }
 }
 
 sealed class Degree {
