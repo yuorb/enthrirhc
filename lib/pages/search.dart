@@ -142,7 +142,7 @@ class _SearchPageState extends State<SearchPage> {
                       },
                       title: Text(switch (item) {
                         RootSRI(root: final root) => root.root,
-                        AffixSRI(affix: final affix) => affix.cs,
+                        AffixSRI(affix: final affix) => "${affix.cs} (${affix.name})",
                       }),
                       subtitle: Text(
                         switch (item) {
