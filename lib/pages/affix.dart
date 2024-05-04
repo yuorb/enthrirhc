@@ -129,7 +129,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                       ListTile(
                         leading: icon,
                         title: Text("Degree ${entry.$1}"),
-                        isThreeLine: true,
+                        // isThreeLine: true,
                         subtitle: MarkdownBody(
                           data: degree,
                           styleSheet: MarkdownStyleSheet(
@@ -147,7 +147,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                   SeparatedDegree(type1: final type1, type2: final type2) => [
                       ListTile(
                         leading: icon,
-                        title: Text("Degree ${entry.$1} Type-1"),
+                        title: const Text("Type-1"),
                         isThreeLine: true,
                         subtitle: MarkdownBody(
                           data: type1,
@@ -164,7 +164,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                       ),
                       ListTile(
                         leading: const Icon(null),
-                        title: Text("Degree ${entry.$1} Type-2"),
+                        title: const Text("Type-2"),
                         isThreeLine: true,
                         subtitle: MarkdownBody(
                           data: type2,
