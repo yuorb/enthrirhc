@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
 import 'package:enthrirhc/database/shared.dart';
 import 'package:enthrirhc/libs/result/mod.dart';
 import 'package:file_picker/file_picker.dart';
@@ -81,7 +83,6 @@ class _SearchPageState extends State<SearchPage> {
         return value;
       case Err(value: final err):
         if (context.mounted) {
-          result.files[0].name;
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -222,12 +223,79 @@ class _SearchPageState extends State<SearchPage> {
                 LexiconActionButton(
                   icon: Icons.cloud_download,
                   label: "Fetch lexicon from Github repository",
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (BuildContext context) => const AlertDialog(
-                      title: Text("WIP"),
-                    ),
-                  ),
+                  onPressed: () async {
+                    final res = http.get(Uri.parse(
+                      'https://github.com/yuorb/lexicon-json/releases/download/lastest/lexicon.json',
+                    ));
+                    late BuildContext dialogContext;
+                    res.then((res) async {
+                      if (!dialogContext.mounted) {
+                        return null;
+                      }
+                      Navigator.pop(dialogContext, false);
+
+                      Map<String, dynamic> decodedJson;
+                      try {
+                        decodedJson = jsonDecode(res.body);
+                      } catch (e) {
+                        if (context.mounted) {
+                          showErrorDialog(context, "Invalid JSON file (${e.runtimeType})");
+                        }
+                        return null;
+                      }
+
+                      Lexicon lexicon;
+                      switch (Lexicon.fromJson(decodedJson)) {
+                        case Ok(value: final value):
+                          lexicon = value;
+                          break;
+                        case Err(value: final err):
+                          if (context.mounted) {
+                            showErrorDialog(context, "Parsing Error: $err");
+                          }
+                          return null;
+                      }
+
+                      await context.read<LexiconModel>().database.insert(lexicon);
+                      setState(() {
+                        rootCount = rootCount! + lexicon.roots.length;
+                        affixCount = affixCount! + lexicon.standardAffixes.length;
+                      });
+
+                      if (!context.mounted) return;
+                      showInfoDialog(context, """Imported successfully.
+
+- Roots: ${lexicon.roots.length.toString()}
+- Standard Affixes:  ${lexicon.standardAffixes.length.toString()}
+- Case Accessor Affixes:  ${lexicon.caseAccessorAffixes.length.toString()}
+- Case Stacking Affixes:  ${lexicon.caseStackingAffixes.length.toString()}""");
+                    });
+
+                    // ignore: body_might_complete_normally_catch_error
+                    res.catchError((error) {
+                      if (dialogContext.mounted) {
+                        Navigator.pop(dialogContext, false);
+                        showErrorDialog(context, error.toString());
+                      }
+                    });
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        dialogContext = context;
+                        return AlertDialog(
+                          title: const Text("Downloading"),
+                          content: const LinearProgressIndicator(),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, false),
+                              child: const Text("Cancel"),
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(height: 8),
                 LexiconActionButton(
