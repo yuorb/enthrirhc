@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: 6.2.0
-  drift: 2.15.0
+  drift: 2.18.0
   path_provider: 2.1.2
   path: 1.9.0
   provider: 6.1.2
@@ -21,15 +21,15 @@ dependencies:
   url_launcher: ^6.2.5
   shared_preferences: ^2.2.2
   flutter_markdown: ^0.6.19
-  package_info_plus: 5.0.1
+  package_info_plus: 8.0.0
   vector_graphics: ^1.1.11+1
   prompt_dialog: ^1.0.15
   share_plus: ^7.2.2
 
 dev_dependencies:
-  flutter_lints: 3.0.1
-  drift_dev: 2.15.0
-  build_runner: 2.4.8
+  flutter_lints: 3.0.2
+  drift_dev: 2.18.0
+  build_runner: 2.4.9
 
 flutter:
   uses-material-design: true
