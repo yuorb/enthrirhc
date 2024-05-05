@@ -234,9 +234,10 @@ class _SearchPageState extends State<SearchPage> {
                       }
                       Navigator.pop(dialogContext, false);
 
+                      final text = utf8.decode(res.bodyBytes);
                       Map<String, dynamic> decodedJson;
                       try {
-                        decodedJson = jsonDecode(res.body);
+                        decodedJson = jsonDecode(text);
                       } catch (e) {
                         if (context.mounted) {
                           showErrorDialog(context, "Invalid JSON file (${e.runtimeType})");
