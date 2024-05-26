@@ -315,8 +315,14 @@ class Lexicon {
 
   static Result<Lexicon, String> fromJson(Map<String, dynamic> data) {
     final roots = (data['roots'] as List<dynamic>).map((e) => Root.fromJson(e)).toList();
+    final Map<String, dynamic> affixes;
+    try {
+      affixes = data['affixes'];
+    } catch (e) {
+      return const Err("`affixes` should be an object");
+    }
 
-    final standardAffixes1 = data['affixes']['standard'] as List<dynamic>;
+    final standardAffixes1 = affixes['standard'] as List<dynamic>;
     final standardAffixes2 = standardAffixes1.map((e) => StandardAffix.fromJson(e)).toList();
     final standardAffixes3 = collectResultList(standardAffixes2);
     if (standardAffixes3 is Err) {
@@ -324,7 +330,7 @@ class Lexicon {
     }
     final standardAffixes4 = standardAffixes3.unwrap();
 
-    final caseAccessorAffixes1 = data['affixes']['accessor'] as List;
+    final caseAccessorAffixes1 = affixes['accessor'] as List;
     final caseAccessorAffixes2 =
         caseAccessorAffixes1.map((affix) => CaseAccessorAffix.fromJson(affix)).toList();
     final caseAccessorAffixes3 = collectResultList(caseAccessorAffixes2);
@@ -333,7 +339,7 @@ class Lexicon {
     }
     final caseAccessorAffixes4 = caseAccessorAffixes3.unwrap();
 
-    final caseStackingAffixes1 = data['affixes']['stacking'] as List;
+    final caseStackingAffixes1 = affixes['stacking'] as List;
     final caseStackingAffixes2 =
         caseStackingAffixes1.map((affix) => CaseStackingAffix.fromJson(affix)).toList();
     final caseStackingAffixes3 = collectResultList(caseStackingAffixes2);
