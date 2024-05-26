@@ -67,7 +67,17 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                         spacing: 12,
                         children: widget.root.refers!
                             .split(' / ')
-                            .map((refer) => Chip(label: Text(refer)))
+                            .map((refer) => ActionChip(
+                                  label: Text(refer),
+                                  onPressed: () => showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text("Meaning"),
+                                      content: Text(refer),
+                                    ),
+                                  ),
+                                ))
                             .toList(),
                       ),
                     )
