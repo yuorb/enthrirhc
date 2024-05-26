@@ -10,7 +10,7 @@ import 'shared.dart';
 Database constructDb() {
   final db = LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
+    final file = File(p.join(dbFolder.path, 'Enthrirhc', 'db.sqlite'));
     return NativeDatabase(file);
   });
   return Database(db);
