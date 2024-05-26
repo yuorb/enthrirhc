@@ -160,28 +160,32 @@ class Database extends _$Database {
     );
 
     // Get the roots whose `refers` field contains keyword.
-    final statement6 = select(rootTable)..where((tbl) => tbl.refers.regexp(wholeWordRegex));
+    final statement6 = select(rootTable)
+      ..where((tbl) => tbl.refers.regexp(wholeWordRegex, caseSensitive: false));
     final rows6 = await statement6.get();
     results.addAll(
       rows6.map((item) => RootSRI(decodeRootRow(item))).toList(),
     );
 
     // Get the affixes whose `description` field contains keyword.
-    final statement7 = select(affixTable)..where((tbl) => tbl.description.regexp(wholeWordRegex));
+    final statement7 = select(affixTable)
+      ..where((tbl) => tbl.description.regexp(wholeWordRegex, caseSensitive: false));
     final rows7 = await statement7.get();
     results.addAll(
       rows7.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
     );
 
     // Get the roots whose `stems` field contains keyword.
-    final statement8 = select(rootTable)..where((tbl) => tbl.stems.regexp(wholeWordRegex));
+    final statement8 = select(rootTable)
+      ..where((tbl) => tbl.stems.regexp(wholeWordRegex, caseSensitive: false));
     final rows8 = await statement8.get();
     results.addAll(
       rows8.map((item) => RootSRI(decodeRootRow(item))).toList(),
     );
 
     // Get the affixes whose `degrees` field contains keyword.
-    final statement9 = select(affixTable)..where((tbl) => tbl.degrees.regexp(wholeWordRegex));
+    final statement9 = select(affixTable)
+      ..where((tbl) => tbl.degrees.regexp(wholeWordRegex, caseSensitive: false));
     final rows9 = await statement9.get();
     results.addAll(
       rows9.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
