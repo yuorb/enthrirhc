@@ -67,13 +67,7 @@ class _SearchPageState extends State<SearchPage> {
       decodedJson = jsonDecode(text);
     } catch (e) {
       if (context.mounted) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text("Error"),
-            content: Text("Invalid JSON file (${e.runtimeType})"),
-          ),
-        );
+        showErrorDialog(context, "Invalid JSON file (${e.runtimeType})");
       }
       return null;
     }
@@ -83,13 +77,7 @@ class _SearchPageState extends State<SearchPage> {
         return value;
       case Err(value: final err):
         if (context.mounted) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text("Error"),
-              content: Text("Parsing ${result.files[0].name}: $err"),
-            ),
-          );
+          showErrorDialog(context, 'Parsing "${result.files[0].name}": $err');
         }
         return null;
     }
