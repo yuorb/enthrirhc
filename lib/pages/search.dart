@@ -213,7 +213,7 @@ class _SearchPageState extends State<SearchPage> {
                   label: "Fetch lexicon from Github repository",
                   onPressed: () async {
                     final res = http.get(Uri.parse(
-                      'https://github.com/yuorb/lexicon-json/releases/download/lastest/lexicon.json',
+                      'https://raw.githubusercontent.com/yuorb/lexicon-json/bundled/lexicon.json',
                     ));
                     late BuildContext dialogContext;
                     res.then((res) async {
