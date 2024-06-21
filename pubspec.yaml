@@ -62,6 +62,10 @@ flutter:
     - assets/icons_compiled/steppers.svg.vec
     - assets/icons_compiled/sweep.svg.vec
     - assets/icons_compiled/transition_fade.svg.vec
+  fonts:
+    - family: NotoSansItalic
+      fonts:
+        - asset: assets/fonts/NotoSans-Italic.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

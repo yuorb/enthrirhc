@@ -40,6 +40,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.root.stems);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.root.root),
@@ -124,6 +125,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     strong: TextStyle(
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
+                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
                                   ),
                                 ),
                                 onLongPress: () => copyToClipboard(stem.bsc, context),
@@ -141,6 +143,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     strong: TextStyle(
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
+                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
                                   ),
                                 ),
                                 onLongPress: () => copyToClipboard(stem.cte, context),
@@ -158,6 +161,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     strong: TextStyle(
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
+                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
                                   ),
                                 ),
                                 onLongPress: () => copyToClipboard(stem.csv, context),
@@ -175,6 +179,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     strong: TextStyle(
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
+                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
                                   ),
                                 ),
                                 onLongPress: () => copyToClipboard(stem.obj, context),
@@ -193,6 +198,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                                     strong: TextStyle(
                                       color: Theme.of(context).colorScheme.primary,
                                     ),
+                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
                                   ),
                                 ),
                                 onLongPress: () => copyToClipboard(stem.value, context),

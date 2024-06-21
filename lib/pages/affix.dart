@@ -139,6 +139,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                             strong: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                             ),
+                            em: const TextStyle(fontFamily: "NotoSansItalic"),
                           ),
                         ),
                         onLongPress: () => copyToClipboard(degree, context),
@@ -158,6 +159,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                             strong: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                             ),
+                            em: const TextStyle(fontFamily: "NotoSansItalic"),
                           ),
                         ),
                         onLongPress: () => copyToClipboard(type1, context),
@@ -175,6 +177,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                             strong: TextStyle(
                               color: Theme.of(context).colorScheme.primary,
                             ),
+                            em: const TextStyle(fontFamily: "NotoSansItalic"),
                           ),
                         ),
                         onLongPress: () => copyToClipboard(type2, context),
