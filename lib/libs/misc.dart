@@ -10,7 +10,16 @@ dynamic tryParseString(String str) {
 }
 
 String colorToHex(Color color) {
-  return "#${color.value.toRadixString(16).substring(2)}";
+  final r = ((color.r * 255.0).round() & 0xff)
+      .toRadixString(16)
+      .padLeft(2, '0');
+  final g = ((color.g * 255.0).round() & 0xff)
+      .toRadixString(16)
+      .padLeft(2, '0');
+  final b = ((color.b * 255.0).round() & 0xff)
+      .toRadixString(16)
+      .padLeft(2, '0');
+  return "#$r$g$b";
 }
 
 extension StringExtension on String {

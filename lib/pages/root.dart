@@ -40,7 +40,6 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.root.stems);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.root.root),

@@ -25,6 +25,8 @@ dependencies:
   vector_graphics: 1.1.19
   prompt_dialog: 1.0.17
   share_plus: 11.0.0
+  web: ^1.1.1
+  http: ^1.4.0
 
 dev_dependencies:
   flutter_lints: 6.0.0

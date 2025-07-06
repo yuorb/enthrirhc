@@ -29,7 +29,7 @@ class License extends StatelessWidget {
           fontSize: 12,
           color: Theme.of(
             context,
-          ).textTheme.bodyMedium!.color!.withOpacity(0.6),
+          ).textTheme.bodyMedium!.color!.withValues(alpha: 0.6),
         ),
       ),
       onTap: () =>

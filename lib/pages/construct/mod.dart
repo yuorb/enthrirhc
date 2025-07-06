@@ -81,13 +81,17 @@ class _ConstructPageState extends State<ConstructPage>
                         format: ImageByteFormat.png,
                       ))!;
                       final bytes = byteData.buffer.asUint8List();
-                      Share.shareXFiles([
-                        XFile.fromData(
-                          bytes,
-                          name: 'writing.png',
-                          mimeType: 'image/png',
+                      SharePlus.instance.share(
+                        ShareParams(
+                          files: [
+                            XFile.fromData(
+                              bytes,
+                              name: 'writing.png',
+                              mimeType: 'image/png',
+                            ),
+                          ],
                         ),
-                      ]);
+                      );
                     },
             ),
             Platform.windows ||

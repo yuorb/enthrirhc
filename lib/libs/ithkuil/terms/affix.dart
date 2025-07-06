@@ -106,9 +106,9 @@ class CommonAffix extends Affix {
   });
 
   static Result<CommonAffix, String> from({
-    required affixType,
-    required degree,
-    required cs,
+    required AffixType affixType,
+    required Degree degree,
+    required String cs,
   }) {
     switch (Affix._isCsValid(cs)) {
       case Ok():
