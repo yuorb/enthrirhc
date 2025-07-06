@@ -24,12 +24,7 @@ Future<void> showInfoDialog(BuildContext context, String content) async {
     builder: (context) => AlertDialog(
       title: const Text("Info"),
       content: Text(content),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text("Ok"),
-        ),
-      ],
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text("Ok"))],
     ),
   );
 }
@@ -47,15 +42,10 @@ Future<void> showErrorDialog(BuildContext context, String content) async {
             Navigator.of(context).pop();
           },
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(
-              Theme.of(context).colorScheme.errorContainer,
-            ),
+            overlayColor: WidgetStateProperty.all(Theme.of(context).colorScheme.errorContainer),
           ),
-          child: Text(
-            "Ok",
-            style: TextStyle(color: Theme.of(context).colorScheme.error),
-          ),
-        )
+          child: Text("Ok", style: TextStyle(color: Theme.of(context).colorScheme.error)),
+        ),
       ],
     ),
   );
@@ -73,10 +63,7 @@ Future<bool> showConfirmDialog(BuildContext context, String content) async {
           onPressed: () => Navigator.pop(dialogContext, false),
           child: const Text("Cancel"),
         ),
-        TextButton(
-          onPressed: () => Navigator.pop(dialogContext, true),
-          child: const Text("Ok"),
-        )
+        TextButton(onPressed: () => Navigator.pop(dialogContext, true), child: const Text("Ok")),
       ],
     ),
   );
@@ -93,9 +80,7 @@ String escapeRegExp(String text) {
 void copyToClipboard(String text, BuildContext context) async {
   await Clipboard.setData(ClipboardData(text: text));
   if (!context.mounted) return;
-  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    content: Text('Copied to Clipboard'),
-  ));
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Copied to Clipboard')));
 }
 
 class Coord {

@@ -10,16 +10,13 @@ import 'utils/store.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
 
   final initialSettings = await SettingsProvider.init();
 
-  runApp(ChangeNotifierProvider(
-    create: (_) => initialSettings,
-    child: const App(),
-  ));
+  runApp(ChangeNotifierProvider(create: (_) => initialSettings, child: const App()));
 }
 
 ColorScheme createPureDarkColorScheme() {
@@ -46,11 +43,9 @@ ColorScheme createPureDarkColorScheme() {
     onError: baseColorScheme.onError,
     errorContainer: baseColorScheme.errorContainer,
     onErrorContainer: baseColorScheme.onErrorContainer,
-    background: Colors.black,
-    onBackground: baseColorScheme.onBackground,
     surface: Colors.black,
     onSurface: baseColorScheme.onSurface,
-    surfaceVariant: baseColorScheme.surfaceVariant,
+    surfaceContainerHighest: baseColorScheme.surfaceContainerHighest,
     onSurfaceVariant: baseColorScheme.onSurfaceVariant,
     outline: baseColorScheme.outline,
     outlineVariant: baseColorScheme.outlineVariant,
@@ -87,10 +82,7 @@ class App extends StatelessWidget {
                 brightness: Brightness.dark,
                 useMaterial3: true,
               ),
-        home: ChangeNotifierProvider(
-          create: (context) => LexiconModel(),
-          child: const RootPage(),
-        ),
+        home: ChangeNotifierProvider(create: (context) => LexiconModel(), child: const RootPage()),
       ),
     );
   }
@@ -111,27 +103,14 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: IndexedStack(
         index: _currentPageIndex,
-        children: const [
-          SearchPage(),
-          ConstructPage(),
-          SettingsPage(),
-        ],
+        children: const [SearchPage(), ConstructPage(), SettingsPage()],
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPageIndex,
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.construction),
-            label: 'Construct',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
+          NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
+          NavigationDestination(icon: Icon(Icons.construction), label: 'Construct'),
+          NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
         ],
         onDestinationSelected: (int index) {
           setState(() {
