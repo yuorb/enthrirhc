@@ -40,6 +40,11 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text("-${widget.affix.cs}"),
         actions: [
+          IconButton(
+            onPressed: () => copyToClipboard(widget.affix.cs, context),
+            icon: const Icon(Icons.copy),
+            tooltip: "Copy Cs",
+          ),
           associatedRoot != null
               ? IconButton(
                   onPressed: () => Navigator.push(

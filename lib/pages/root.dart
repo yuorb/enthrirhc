@@ -44,6 +44,11 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(widget.root.root),
         actions: [
+          IconButton(
+            onPressed: () => copyToClipboard(widget.root.root, context),
+            icon: const Icon(Icons.copy),
+            tooltip: "Copy Root",
+          ),
           seeAlso != null
               ? IconButton(
                   onPressed: () => Navigator.push(
