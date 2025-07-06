@@ -2,7 +2,7 @@ name: enthrirhc
 description: Enţrirç (Ithkuil Helper)
 publish_to: 'none'
 
-version: 0.3.1
+version: 0.3.2
 
 environment:
   sdk: '>=3.8.1 <4.0.0'
