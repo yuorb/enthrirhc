@@ -2,16 +2,10 @@ class Level {
   final Comparison comparison;
   final ComparisonOperator comparisonOperator;
 
-  const Level({
-    required this.comparison,
-    required this.comparisonOperator,
-  });
+  const Level({required this.comparison, required this.comparisonOperator});
 }
 
-enum Comparison {
-  absolute,
-  relative,
-}
+enum Comparison { absolute, relative }
 
 enum ComparisonOperator {
   /// Minimal
@@ -51,7 +45,7 @@ enum ComparisonOperator {
       sur => 'öe',
       spl => 'oe',
       spq => 'öa',
-      max => 'oa'
+      max => 'oa',
     };
   }
 

@@ -73,10 +73,7 @@ class UnframedVerb extends Relation {
   final Illocution illocution;
   final Validation? validation;
 
-  const UnframedVerb({
-    required this.illocution,
-    required this.validation,
-  });
+  const UnframedVerb({required this.illocution, required this.validation});
 
   @override
   String id() {
@@ -86,16 +83,16 @@ class UnframedVerb extends Relation {
   String romanized(bool omitOptionalAffixes) {
     return switch (illocution) {
       Illocution.asr => switch (validation!) {
-          Validation.obs => omitOptionalAffixes ? '' : 'a',
-          Validation.rec => 'ä',
-          Validation.pup => 'e',
-          Validation.rpr => 'i',
-          Validation.usp => 'ëi',
-          Validation.ima => 'ö',
-          Validation.cvn => 'o',
-          Validation.itu => 'ü',
-          Validation.inf => 'u',
-        },
+        Validation.obs => omitOptionalAffixes ? '' : 'a',
+        Validation.rec => 'ä',
+        Validation.pup => 'e',
+        Validation.rpr => 'i',
+        Validation.usp => 'ëi',
+        Validation.ima => 'ö',
+        Validation.cvn => 'o',
+        Validation.itu => 'ü',
+        Validation.inf => 'u',
+      },
       Illocution.dir => 'ai',
       Illocution.dec => 'au',
       Illocution.irg => 'ei',
@@ -103,7 +100,7 @@ class UnframedVerb extends Relation {
       Illocution.adm => 'ou',
       Illocution.pot => 'oi',
       Illocution.hor => 'iu',
-      Illocution.cnj => 'ui'
+      Illocution.cnj => 'ui',
     };
   }
 

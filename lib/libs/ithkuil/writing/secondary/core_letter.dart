@@ -2,11 +2,7 @@ import 'package:enthrirhc/libs/misc.dart';
 
 import '../../terms/mod.dart';
 
-enum AnchorType {
-  up,
-  left,
-  diag,
-}
+enum AnchorType { up, left, diag }
 
 enum AnchorOrientation {
   up(AnchorType.up, false),

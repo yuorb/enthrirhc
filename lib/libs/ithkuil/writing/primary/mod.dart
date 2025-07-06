@@ -44,24 +44,15 @@ class Primary with Character {
   });
 
   ComponentA componentA() {
-    return ComponentA(
-      essence: essence,
-      affiliation: affiliation,
-    );
+    return ComponentA(essence: essence, affiliation: affiliation);
   }
 
   ComponentB componentB() {
-    return ComponentB(
-      perspective: perspective,
-      extension: extension,
-    );
+    return ComponentB(perspective: perspective, extension: extension);
   }
 
   ComponentC componentC() {
-    return ComponentC(
-      separability: separability,
-      similarity: similarity,
-    );
+    return ComponentC(separability: separability, similarity: similarity);
   }
 
   ComponentD componentD() {

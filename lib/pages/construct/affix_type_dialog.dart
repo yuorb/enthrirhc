@@ -1,7 +1,10 @@
 import 'package:enthrirhc/libs/ithkuil/terms/affix_type.dart';
 import 'package:flutter/material.dart';
 
-Future<AffixType?> showAffixTypeDialog(BuildContext context, AffixType initialValue) {
+Future<AffixType?> showAffixTypeDialog(
+  BuildContext context,
+  AffixType initialValue,
+) {
   return showDialog<AffixType>(
     context: context,
     builder: (context) {
@@ -47,7 +50,7 @@ Future<AffixType?> showAffixTypeDialog(BuildContext context, AffixType initialVa
                     });
                   }
                 },
-              )
+              ),
             ],
           ),
           actions: [
@@ -60,7 +63,7 @@ Future<AffixType?> showAffixTypeDialog(BuildContext context, AffixType initialVa
                 Navigator.pop(context, selectedValue);
               },
               child: const Text("Ok"),
-            )
+            ),
           ],
         ),
       );

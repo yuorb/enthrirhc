@@ -53,7 +53,9 @@ sealed class Affix {
       }
       final coreLetter = CoreLetter.from(phoneme2);
       if (coreLetter == null) {
-        return Err('The second letter "${cs[1]}" cannot be converted into a core letter.');
+        return Err(
+          'The second letter "${cs[1]}" cannot be converted into a core letter.',
+        );
       }
       return const Ok(());
     }
@@ -114,52 +116,48 @@ class CommonAffix extends Affix {
       case Err(value: final value):
         return Err(value);
     }
-    return Ok(CommonAffix._(
-      affixType: affixType,
-      degree: degree,
-      cs: cs,
-    ));
+    return Ok(CommonAffix._(affixType: affixType, degree: degree, cs: cs));
   }
 
   @override
   String getVx(String charPrecedingThis) {
     return switch (affixType) {
       AffixType.type1 => switch (degree) {
-          Degree.d1 => 'a',
-          Degree.d2 => 'ä',
-          Degree.d3 => 'e',
-          Degree.d4 => 'i',
-          Degree.d5 => 'ëi',
-          Degree.d6 => 'ö',
-          Degree.d7 => 'o',
-          Degree.d8 => 'ü',
-          Degree.d9 => 'u',
-          Degree.d0 => 'ae',
-        },
+        Degree.d1 => 'a',
+        Degree.d2 => 'ä',
+        Degree.d3 => 'e',
+        Degree.d4 => 'i',
+        Degree.d5 => 'ëi',
+        Degree.d6 => 'ö',
+        Degree.d7 => 'o',
+        Degree.d8 => 'ü',
+        Degree.d9 => 'u',
+        Degree.d0 => 'ae',
+      },
       AffixType.type2 => switch (degree) {
-          Degree.d1 => 'ai',
-          Degree.d2 => 'au',
-          Degree.d3 => 'ei',
-          Degree.d4 => 'eu',
-          Degree.d5 => 'ëu',
-          Degree.d6 => 'ou',
-          Degree.d7 => 'oi',
-          Degree.d8 => 'iu',
-          Degree.d9 => 'ui',
-          Degree.d0 => 'ea',
-        },
+        Degree.d1 => 'ai',
+        Degree.d2 => 'au',
+        Degree.d3 => 'ei',
+        Degree.d4 => 'eu',
+        Degree.d5 => 'ëu',
+        Degree.d6 => 'ou',
+        Degree.d7 => 'oi',
+        Degree.d8 => 'iu',
+        Degree.d9 => 'ui',
+        Degree.d0 => 'ea',
+      },
       AffixType.type3 => switch (degree) {
-          Degree.d1 => charPrecedingThis == 'y' ? 'uä' : 'ia',
-          Degree.d2 => charPrecedingThis == 'y' ? 'uë' : 'ie',
-          Degree.d3 => charPrecedingThis == 'y' ? 'üä' : 'io',
-          Degree.d4 => charPrecedingThis == 'y' ? 'üë' : 'iö',
-          Degree.d5 => 'eë',
-          Degree.d6 => charPrecedingThis == 'w' ? 'öë' : 'uö',
-          Degree.d7 => charPrecedingThis == 'w' ? 'öä' : 'uo',
-          Degree.d8 => charPrecedingThis == 'w' ? 'ië' : 'ue',
-          Degree.d9 => charPrecedingThis == 'w' ? 'iä' : 'ua',
-          Degree.d0 => 'üo',
-        },
+        Degree.d1 => charPrecedingThis == 'y' ? 'uä' : 'ia',
+        Degree.d2 => charPrecedingThis == 'y' ? 'uë' : 'ie',
+        Degree.d3 => charPrecedingThis == 'y' ? 'üä' : 'io',
+        Degree.d4 => charPrecedingThis == 'y' ? 'üë' : 'iö',
+        Degree.d5 => 'eë',
+        Degree.d6 => charPrecedingThis == 'w' ? 'öë' : 'uö',
+        Degree.d7 => charPrecedingThis == 'w' ? 'öä' : 'uo',
+        Degree.d8 => charPrecedingThis == 'w' ? 'ië' : 'ue',
+        Degree.d9 => charPrecedingThis == 'w' ? 'iä' : 'ua',
+        Degree.d0 => 'üo',
+      },
     };
   }
 

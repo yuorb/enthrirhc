@@ -9,5 +9,5 @@ enum Stem {
   s3,
 
   /// Stem 0
-  s0;
+  s0,
 }

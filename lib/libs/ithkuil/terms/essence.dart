@@ -3,5 +3,5 @@ enum Essence {
   nrm,
 
   /// The Representative Essence
-  rpv;
+  rpv,
 }

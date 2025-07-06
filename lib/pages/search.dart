@@ -21,8 +21,12 @@ class LexiconActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onPressed;
-  const LexiconActionButton(
-      {super.key, required this.icon, required this.label, required this.onPressed});
+  const LexiconActionButton({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,9 @@ class LexiconActionButton extends StatelessWidget {
       style: FilledButton.styleFrom(
         minimumSize: const Size.fromHeight(64),
         alignment: const Alignment(-1, 0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
       ),
       label: Text("   $label"),
       icon: Icon(icon),
@@ -108,30 +114,37 @@ class _SearchPageState extends State<SearchPage> {
                 searchController: controller,
                 suggestionsBuilder: (suggestionsContext, controller) async {
                   final provider = context.read<LexiconModel>();
-                  final result = await provider.database.search(controller.text);
+                  final result = await provider.database.search(
+                    controller.text,
+                  );
                   return result.map(
                     (item) => ListTile(
                       leading: switch (item) {
                         RootSRI() => SvgPicture(
-                            const AssetBytesLoader('assets/icons_compiled/sweep.svg.vec'),
-                            colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.onSurfaceVariant,
-                              BlendMode.srcIn,
-                            ),
-                            width: 24,
+                          const AssetBytesLoader(
+                            'assets/icons_compiled/sweep.svg.vec',
                           ),
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onSurfaceVariant,
+                            BlendMode.srcIn,
+                          ),
+                          width: 24,
+                        ),
                         AffixSRI() => SvgPicture(
-                            const AssetBytesLoader('assets/icons_compiled/list_alt_add.svg.vec'),
-                            colorFilter: ColorFilter.mode(
-                              Theme.of(context).colorScheme.onSurfaceVariant,
-                              BlendMode.srcIn,
-                            ),
-                            width: 24,
+                          const AssetBytesLoader(
+                            'assets/icons_compiled/list_alt_add.svg.vec',
                           ),
+                          colorFilter: ColorFilter.mode(
+                            Theme.of(context).colorScheme.onSurfaceVariant,
+                            BlendMode.srcIn,
+                          ),
+                          width: 24,
+                        ),
                       },
                       title: Text(switch (item) {
                         RootSRI(root: final root) => root.root,
-                        AffixSRI(affix: final affix) => "${affix.cs} (${affix.name})",
+                        AffixSRI(affix: final affix) =>
+                          "${affix.cs} (${affix.name})",
                       }),
                       subtitle: Text(
                         switch (item) {
@@ -140,20 +153,25 @@ class _SearchPageState extends State<SearchPage> {
                         },
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Theme.of(suggestionsContext).colorScheme.onSurfaceVariant,
+                          color: Theme.of(
+                            suggestionsContext,
+                          ).colorScheme.onSurfaceVariant,
                         ),
                       ),
                       onTap: () {
                         Navigator.push(
                           suggestionsContext,
                           MaterialPageRoute(
-                            builder: (_) => ChangeNotifierProvider<LexiconModel>.value(
-                              value: provider,
-                              builder: (context, child) => switch (item) {
-                                RootSRI(root: final root) => RootPage(root),
-                                AffixSRI(affix: final affix) => AffixPage(affix),
-                              },
-                            ),
+                            builder: (_) =>
+                                ChangeNotifierProvider<LexiconModel>.value(
+                                  value: provider,
+                                  builder: (context, child) => switch (item) {
+                                    RootSRI(root: final root) => RootPage(root),
+                                    AffixSRI(affix: final affix) => AffixPage(
+                                      affix,
+                                    ),
+                                  },
+                                ),
                           ),
                         );
                       },
@@ -186,7 +204,9 @@ class _SearchPageState extends State<SearchPage> {
                         style: FilledButton.styleFrom(
                           minimumSize: const Size.fromHeight(64),
                           alignment: const Alignment(-1, 0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
                         ),
                         label: Text("Root: ${rootCount ?? "Loading..."}"),
                         icon: const Icon(Icons.article),
@@ -199,12 +219,14 @@ class _SearchPageState extends State<SearchPage> {
                         style: FilledButton.styleFrom(
                           minimumSize: const Size.fromHeight(64),
                           alignment: const Alignment(-1, 0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
                         ),
                         label: Text("Affixes: $affixCount"),
                         icon: const Icon(Icons.article),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -212,9 +234,11 @@ class _SearchPageState extends State<SearchPage> {
                   icon: Icons.cloud_download,
                   label: "Fetch lexicon from Github repository",
                   onPressed: () async {
-                    final res = http.get(Uri.parse(
-                      'https://raw.githubusercontent.com/yuorb/lexicon-json/bundled/lexicon.json',
-                    ));
+                    final res = http.get(
+                      Uri.parse(
+                        'https://raw.githubusercontent.com/yuorb/lexicon-json/bundled/lexicon.json',
+                      ),
+                    );
                     late BuildContext dialogContext;
                     res.then((res) async {
                       if (!dialogContext.mounted) {
@@ -228,7 +252,10 @@ class _SearchPageState extends State<SearchPage> {
                         decodedJson = jsonDecode(text);
                       } catch (e) {
                         if (context.mounted) {
-                          showErrorDialog(context, "Invalid JSON file (${e.runtimeType})");
+                          showErrorDialog(
+                            context,
+                            "Invalid JSON file (${e.runtimeType})",
+                          );
                         }
                         return null;
                       }
@@ -245,10 +272,13 @@ class _SearchPageState extends State<SearchPage> {
                           return null;
                       }
 
-                      await context.read<LexiconModel>().database.insert(lexicon);
+                      await context.read<LexiconModel>().database.insert(
+                        lexicon,
+                      );
                       setState(() {
                         rootCount = rootCount! + lexicon.roots.length;
-                        affixCount = affixCount! + lexicon.standardAffixes.length;
+                        affixCount =
+                            affixCount! + lexicon.standardAffixes.length;
                       });
 
                       if (!context.mounted) return;
@@ -279,7 +309,7 @@ class _SearchPageState extends State<SearchPage> {
                             TextButton(
                               onPressed: () => Navigator.pop(context, false),
                               child: const Text("Cancel"),
-                            )
+                            ),
                           ],
                         );
                       },
@@ -293,7 +323,9 @@ class _SearchPageState extends State<SearchPage> {
                   onPressed: () async {
                     if (rootCount == null) {
                       await showInfoDialog(
-                          context, "Please wait until roots and affixes are loaded first.");
+                        context,
+                        "Please wait until roots and affixes are loaded first.",
+                      );
                       return;
                     }
                     // Pick lexicon JSON file
@@ -314,14 +346,12 @@ class _SearchPageState extends State<SearchPage> {
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text("Info"),
-                        content: Text(
-                          """Imported successfully.
+                        content: Text("""Imported successfully.
 
 - Roots: ${lexicon.roots.length.toString()}
 - Standard Affixes:  ${lexicon.standardAffixes.length.toString()}
 - Case Accessor Affixes:  ${lexicon.caseAccessorAffixes.length.toString()}
-- Case Stacking Affixes:  ${lexicon.caseStackingAffixes.length.toString()}""",
-                        ),
+- Case Stacking Affixes:  ${lexicon.caseStackingAffixes.length.toString()}"""),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context),
@@ -339,7 +369,9 @@ class _SearchPageState extends State<SearchPage> {
                   onPressed: () async {
                     if (rootCount == null) {
                       await showInfoDialog(
-                          context, "Please wait until roots and affixes are loaded first.");
+                        context,
+                        "Please wait until roots and affixes are loaded first.",
+                      );
                       return;
                     }
 
@@ -350,7 +382,10 @@ class _SearchPageState extends State<SearchPage> {
 
                     if (isConfirmed) {
                       if (!context.mounted) return;
-                      await context.read<LexiconModel>().database.clearLexicon();
+                      await context
+                          .read<LexiconModel>()
+                          .database
+                          .clearLexicon();
                       setState(() {
                         rootCount = 0;
                         affixCount = 0;
@@ -360,7 +395,9 @@ class _SearchPageState extends State<SearchPage> {
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text("Success"),
-                          content: const Text("All roots and affixes have been cleared."),
+                          content: const Text(
+                            "All roots and affixes have been cleared.",
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
@@ -375,7 +412,7 @@ class _SearchPageState extends State<SearchPage> {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -52,7 +52,8 @@ const double horizontalGap = 10;
   for (final s in secondaries.whereType<RootSecondary>()) {
     final formativeType = s.formativeType;
     if (formativeType != null) {
-      usedRadicals[formativeType.idTopSecondary()] = formativeType.pathTopSecondary();
+      usedRadicals[formativeType.idTopSecondary()] = formativeType
+          .pathTopSecondary();
       final bottomId = formativeType.idBottomSecondary();
       if (bottomId != null) {
         usedRadicals[bottomId] = formativeType.pathBottomSecondary()!;
@@ -87,23 +88,35 @@ const double horizontalGap = 10;
       case NoConcatenation(relation: final relation):
         switch (relation) {
           case Noun noun:
-            usedRadicals[noun.case$.caseType.idQuaternary()] = noun.case$.caseType.pathQuaternary();
-            usedRadicals[noun.case$.caseNumber.idQuaternary()] =
-                noun.case$.caseNumber.pathQuaternary();
+            usedRadicals[noun.case$.caseType.idQuaternary()] = noun
+                .case$
+                .caseType
+                .pathQuaternary();
+            usedRadicals[noun.case$.caseNumber.idQuaternary()] = noun
+                .case$
+                .caseNumber
+                .pathQuaternary();
           case FramedVerb framedVerb:
-            usedRadicals[framedVerb.case$.caseType.idQuaternary()] =
-                framedVerb.case$.caseType.pathQuaternary();
+            usedRadicals[framedVerb.case$.caseType.idQuaternary()] = framedVerb
+                .case$
+                .caseType
+                .pathQuaternary();
             usedRadicals[framedVerb.case$.caseNumber.idQuaternary()] =
                 framedVerb.case$.caseNumber.pathQuaternary();
           case UnframedVerb verb:
-            usedRadicals[verb.illocution.idQuaternary()] = verb.illocution.pathQuaternary();
+            usedRadicals[verb.illocution.idQuaternary()] = verb.illocution
+                .pathQuaternary();
             if (verb.validation != null) {
-              usedRadicals[verb.validation!.idQuaternary()] = verb.validation!.pathQuaternary();
+              usedRadicals[verb.validation!.idQuaternary()] = verb.validation!
+                  .pathQuaternary();
             }
         }
-      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
-        usedRadicals[format.caseType.idQuaternary()] = format.caseType.pathQuaternary();
-        usedRadicals[format.caseNumber.idQuaternary()] = format.caseNumber.pathQuaternary();
+      case Type1Concatenation(format: final format) ||
+          Type2Concatenation(format: final format):
+        usedRadicals[format.caseType.idQuaternary()] = format.caseType
+            .pathQuaternary();
+        usedRadicals[format.caseNumber.idQuaternary()] = format.caseNumber
+            .pathQuaternary();
     }
 
     usedRadicals[q.cn.id()] = q.cn.path();
@@ -116,7 +129,11 @@ const double horizontalGap = 10;
   double leftCoord = horizontalPadding;
   for (final character in characters) {
     const centerY = verticalPadding + unitHeight * 2;
-    final (svgString, svgWidth) = character.getSvg(leftCoord, centerY, fillColor);
+    final (svgString, svgWidth) = character.getSvg(
+      leftCoord,
+      centerY,
+      fillColor,
+    );
     charImages.add(svgString);
     leftCoord += svgWidth + horizontalGap;
   }
@@ -124,15 +141,14 @@ const double horizontalGap = 10;
   const minWidth = 210;
 
   const double scaleRatio = 2.0;
-  final double width = (baseWidth < minWidth ? minWidth : baseWidth) * scaleRatio;
+  final double width =
+      (baseWidth < minWidth ? minWidth : baseWidth) * scaleRatio;
   const double height = (unitHeight * 6) * scaleRatio;
 
   return (
     '''<svg xmlns="http://www.w3.org/2000/svg" width="$width" height="$height">
       <defs>
-        ${usedRadicals.entries.map(
-          (e) => '<path stroke="none" id="${e.key}" d="${e.value}" />',
-        ).join('\n')}
+        ${usedRadicals.entries.map((e) => '<path stroke="none" id="${e.key}" d="${e.value}" />').join('\n')}
       </defs>
       <g transform="scale($scaleRatio $scaleRatio)">
         <rect x="0" y="0" height="${unitHeight * 6}" width="$width" style="fill: $backgroundColor" />
@@ -146,7 +162,7 @@ const double horizontalGap = 10;
         </g>
       </g>
     </svg>''',
-    (width, height)
+    (width, height),
   );
 }
 

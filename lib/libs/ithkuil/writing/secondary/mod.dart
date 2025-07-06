@@ -11,11 +11,7 @@ sealed class Secondary {
   final CoreLetter core;
   final ExtLetter? end;
 
-  const Secondary({
-    required this.start,
-    required this.core,
-    required this.end,
-  });
+  const Secondary({required this.start, required this.core, required this.end});
 
   String? getStartExtId() {
     if (start != null) {
@@ -29,7 +25,7 @@ sealed class Secondary {
     return switch (core.startAnchor.orientation.type) {
       AnchorType.up => start?.up,
       AnchorType.left => start?.left,
-      AnchorType.diag => start?.diag
+      AnchorType.diag => start?.diag,
     };
   }
 
@@ -45,7 +41,7 @@ sealed class Secondary {
     return switch (core.endAnchor.orientation.type) {
       AnchorType.up => end?.up,
       AnchorType.left => end?.left,
-      AnchorType.diag => end?.diag
+      AnchorType.diag => end?.diag,
     };
   }
 }
@@ -103,9 +99,9 @@ class RootSecondary extends Secondary with Character {
             : '',
         bottomId != null
             ? '<use href="#$bottomId" x="$centerX" y="${coreY + unitHeight * 2}" fill="$fillColor" />'
-            : ''
+            : '',
       ].join(''),
-      secondaryWidth
+      secondaryWidth,
     );
   }
 }
@@ -156,7 +152,7 @@ class CsVxAffix extends Secondary with Character {
       <use href="#${affix.topId()}" x="$coreCenterX" y="$topY" fill="$fillColor" />
       <use href="#${affix.bottomId()}" x="$coreCenterX" y="$bottomY" fill="$fillColor" />
     ''',
-      secondaryWidth
+      secondaryWidth,
     );
   }
 }
@@ -214,7 +210,7 @@ class VxCsAffix extends Secondary with Character {
       <use href="#${affix.topId()}" x="$coreCenterX" y="$topY" fill="$fillColor" />
       <use href="#${affix.bottomId()}" x="$coreCenterX" y="$bottomY" fill="$fillColor" />
     ''',
-      secondaryWidth
+      secondaryWidth,
     );
   }
 }

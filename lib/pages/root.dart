@@ -54,7 +54,7 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                   icon: const Icon(Icons.emoji_objects),
                   tooltip: "See Also",
                 )
-              : Container()
+              : Container(),
         ],
       ),
       body: NestedScrollView(
@@ -68,17 +68,19 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
                         spacing: 12,
                         children: widget.root.refers!
                             .split(' / ')
-                            .map((refer) => ActionChip(
-                                  label: Text(refer),
-                                  onPressed: () => showDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text("Meaning"),
-                                      content: Text(refer),
-                                    ),
+                            .map(
+                              (refer) => ActionChip(
+                                label: Text(refer),
+                                onPressed: () => showDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text("Meaning"),
+                                    content: Text(refer),
                                   ),
-                                ))
+                                ),
+                              ),
+                            )
                             .toList(),
                       ),
                     )
@@ -110,101 +112,142 @@ class _RootPageState extends State<RootPage> with TickerProviderStateMixin {
             ? TabBarView(
                 controller: _tabController,
                 children: widget.root.stems!
-                    .map((stem) => switch (stem) {
-                          Specs() => ListView(children: [
-                              ListTile(
-                                leading: const Icon(Icons.menu_book),
-                                title: const Text("BSC"),
-                                isThreeLine: true,
-                                subtitle: MarkdownBody(
-                                  data: stem.bsc,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
-                                    strong: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
+                    .map(
+                      (stem) => switch (stem) {
+                        Specs() => ListView(
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.menu_book),
+                              title: const Text("BSC"),
+                              isThreeLine: true,
+                              subtitle: MarkdownBody(
+                                data: stem.bsc,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                  ),
+                                  strong: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  em: const TextStyle(
+                                    fontFamily: "NotoSansItalic",
                                   ),
                                 ),
-                                onLongPress: () => copyToClipboard(stem.bsc, context),
                               ),
-                              ListTile(
-                                leading: const Icon(Icons.subject),
-                                title: const Text("CTE"),
-                                isThreeLine: true,
-                                subtitle: MarkdownBody(
-                                  data: stem.cte,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
-                                    strong: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
+                              onLongPress: () =>
+                                  copyToClipboard(stem.bsc, context),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.subject),
+                              title: const Text("CTE"),
+                              isThreeLine: true,
+                              subtitle: MarkdownBody(
+                                data: stem.cte,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                  ),
+                                  strong: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  em: const TextStyle(
+                                    fontFamily: "NotoSansItalic",
                                   ),
                                 ),
-                                onLongPress: () => copyToClipboard(stem.cte, context),
                               ),
-                              ListTile(
-                                leading: const Icon(Icons.import_contacts),
-                                title: const Text("CSV"),
-                                isThreeLine: true,
-                                subtitle: MarkdownBody(
-                                  data: stem.csv,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
-                                    strong: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
+                              onLongPress: () =>
+                                  copyToClipboard(stem.cte, context),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.import_contacts),
+                              title: const Text("CSV"),
+                              isThreeLine: true,
+                              subtitle: MarkdownBody(
+                                data: stem.csv,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                  ),
+                                  strong: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  em: const TextStyle(
+                                    fontFamily: "NotoSansItalic",
                                   ),
                                 ),
-                                onLongPress: () => copyToClipboard(stem.csv, context),
                               ),
-                              ListTile(
-                                leading: const Icon(Icons.book),
-                                title: const Text("OBJ"),
-                                isThreeLine: true,
-                                subtitle: MarkdownBody(
-                                  data: stem.obj,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
-                                    strong: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
+                              onLongPress: () =>
+                                  copyToClipboard(stem.csv, context),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.book),
+                              title: const Text("OBJ"),
+                              isThreeLine: true,
+                              subtitle: MarkdownBody(
+                                data: stem.obj,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                  ),
+                                  strong: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  em: const TextStyle(
+                                    fontFamily: "NotoSansItalic",
                                   ),
                                 ),
-                                onLongPress: () => copyToClipboard(stem.obj, context),
                               ),
-                            ]),
-                          StrStem() => ListView(children: [
-                              ListTile(
-                                leading: const Icon(Icons.info),
-                                title: const Text("General"),
-                                subtitle: MarkdownBody(
-                                  data: stem.value,
-                                  styleSheet: MarkdownStyleSheet(
-                                    p: TextStyle(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
-                                    strong: TextStyle(
-                                      color: Theme.of(context).colorScheme.primary,
-                                    ),
-                                    em: const TextStyle(fontFamily: "NotoSansItalic"),
+                              onLongPress: () =>
+                                  copyToClipboard(stem.obj, context),
+                            ),
+                          ],
+                        ),
+                        StrStem() => ListView(
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.info),
+                              title: const Text("General"),
+                              subtitle: MarkdownBody(
+                                data: stem.value,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                  ),
+                                  strong: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                                  em: const TextStyle(
+                                    fontFamily: "NotoSansItalic",
                                   ),
                                 ),
-                                onLongPress: () => copyToClipboard(stem.value, context),
-                              )
-                            ])
-                        })
+                              ),
+                              onLongPress: () =>
+                                  copyToClipboard(stem.value, context),
+                            ),
+                          ],
+                        ),
+                      },
+                    )
                     .toList(),
               )
             : Container(),

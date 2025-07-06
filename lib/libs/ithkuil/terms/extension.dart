@@ -15,5 +15,5 @@ enum Extension {
   gra,
 
   /// Depletive Extension
-  dpl;
+  dpl,
 }

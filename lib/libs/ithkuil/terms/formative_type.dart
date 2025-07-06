@@ -30,10 +30,10 @@ class NoConcatenation extends ConcatenationStatus {
 
   @override
   bool isCaseScope() => switch (relation) {
-        Noun() => true,
-        FramedVerb() => true,
-        UnframedVerb() => false,
-      };
+    Noun() => true,
+    FramedVerb() => true,
+    UnframedVerb() => false,
+  };
 
   @override
   String idTopSecondary() => relation.idTopSecondary();
@@ -57,7 +57,8 @@ class Type1Concatenation extends ConcatenationStatus {
   String id() => "type_1_concatenation";
 
   @override
-  String path() => 'M 5.00 -17.50 L -5.00 -7.50 -5.00 17.50 5.00 7.50 5.00 -17.50 Z';
+  String path() =>
+      'M 5.00 -17.50 L -5.00 -7.50 -5.00 17.50 5.00 7.50 5.00 -17.50 Z';
 
   @override
   bool isCaseScope() => true;

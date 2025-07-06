@@ -9,5 +9,5 @@ enum Affiliation {
   coa,
 
   /// The Variative Affiliation
-  var$;
+  var$,
 }

@@ -31,7 +31,10 @@ import 'core_letter.dart';
   return (left, right);
 }
 
-(double, double) getExtensionBoundary(String path, AnchorOrientation orientation) {
+(double, double) getExtensionBoundary(
+  String path,
+  AnchorOrientation orientation,
+) {
   final isToRotate = switch (orientation) {
     AnchorOrientation.up => false,
     AnchorOrientation.down => true,

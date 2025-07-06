@@ -3,5 +3,5 @@ enum Function$ {
   sta,
 
   /// The Dynamic Function
-  dyn;
+  dyn,
 }

@@ -18,63 +18,34 @@ Future<Degree?> showDegreeDialog(BuildContext context, Degree initialValue) {
               child: ListView(
                 // mainAxisSize: MainAxisSize.min,
                 controller: scrollController,
-                children: [
-                  {
-                    "value": Degree.d1,
-                    "title": "Degree 1",
-                  },
-                  {
-                    "value": Degree.d2,
-                    "title": "Degree 2",
-                  },
-                  {
-                    "value": Degree.d3,
-                    "title": "Degree 3",
-                  },
-                  {
-                    "value": Degree.d4,
-                    "title": "Degree 4",
-                  },
-                  {
-                    "value": Degree.d5,
-                    "title": "Degree 5",
-                  },
-                  {
-                    "value": Degree.d6,
-                    "title": "Degree 6",
-                  },
-                  {
-                    "value": Degree.d7,
-                    "title": "Degree 7",
-                  },
-                  {
-                    "value": Degree.d8,
-                    "title": "Degree 8",
-                  },
-                  {
-                    "value": Degree.d9,
-                    "title": "Degree 9",
-                  },
-                  {
-                    "value": Degree.d0,
-                    "title": "Degree 0",
-                  },
-                ].map((e) {
-                  final Degree value = e['value'] as Degree;
-                  final String title = e['title'] as String;
-                  return RadioListTile(
-                    value: value,
-                    groupValue: selectedValue,
-                    title: Text(title),
-                    onChanged: (degree) {
-                      if (degree != null) {
-                        setState(() {
-                          selectedValue = degree;
-                        });
-                      }
-                    },
-                  );
-                }).toList(),
+                children:
+                    [
+                      {"value": Degree.d1, "title": "Degree 1"},
+                      {"value": Degree.d2, "title": "Degree 2"},
+                      {"value": Degree.d3, "title": "Degree 3"},
+                      {"value": Degree.d4, "title": "Degree 4"},
+                      {"value": Degree.d5, "title": "Degree 5"},
+                      {"value": Degree.d6, "title": "Degree 6"},
+                      {"value": Degree.d7, "title": "Degree 7"},
+                      {"value": Degree.d8, "title": "Degree 8"},
+                      {"value": Degree.d9, "title": "Degree 9"},
+                      {"value": Degree.d0, "title": "Degree 0"},
+                    ].map((e) {
+                      final Degree value = e['value'] as Degree;
+                      final String title = e['title'] as String;
+                      return RadioListTile(
+                        value: value,
+                        groupValue: selectedValue,
+                        title: Text(title),
+                        onChanged: (degree) {
+                          if (degree != null) {
+                            setState(() {
+                              selectedValue = degree;
+                            });
+                          }
+                        },
+                      );
+                    }).toList(),
               ),
             ),
           ),
@@ -88,7 +59,7 @@ Future<Degree?> showDegreeDialog(BuildContext context, Degree initialValue) {
                 Navigator.pop(context, selectedValue);
               },
               child: const Text("Ok"),
-            )
+            ),
           ],
         ),
       );

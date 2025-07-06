@@ -12,18 +12,23 @@ class IthkuilSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String fillColor = colorToHex(Theme.of(context).textTheme.titleLarge!.color!);
+    final String fillColor = colorToHex(
+      Theme.of(context).textTheme.titleLarge!.color!,
+    );
     final String staffColor =
-        MediaQuery.of(context).platformBrightness == Brightness.light ? "#cccccc" : "#333333";
+        MediaQuery.of(context).platformBrightness == Brightness.light
+        ? "#cccccc"
+        : "#333333";
 
     final rawSvg = _generate(characters, fillColor, staffColor);
-    return SvgPicture.string(
-      rawSvg,
-      height: 160,
-    );
+    return SvgPicture.string(rawSvg, height: 160);
   }
 
-  String _generate(List<Character> characters, String fillColor, String staffColor) {
+  String _generate(
+    List<Character> characters,
+    String fillColor,
+    String staffColor,
+  ) {
     return ithkuilWriting(
       characters,
       fillColor: fillColor,

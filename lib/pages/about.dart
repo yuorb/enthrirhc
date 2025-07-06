@@ -27,13 +27,13 @@ class License extends StatelessWidget {
         "$link\n$license",
         style: TextStyle(
           fontSize: 12,
-          color: Theme.of(context).textTheme.bodyMedium!.color!.withOpacity(0.6),
+          color: Theme.of(
+            context,
+          ).textTheme.bodyMedium!.color!.withOpacity(0.6),
         ),
       ),
-      onTap: () => launchUrl(
-        Uri.parse(link),
-        mode: LaunchMode.externalApplication,
-      ),
+      onTap: () =>
+          launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication),
     );
   }
 }
@@ -49,9 +49,7 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("About"),
-      ),
+      appBar: AppBar(title: const Text("About")),
       body: ListView(
         children: [
           const SizedBox(height: 18),
@@ -67,19 +65,20 @@ class _AboutPageState extends State<AboutPage> {
           ),
           FutureBuilder<PackageInfo>(
             future: PackageInfo.fromPlatform(),
-            builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Text(
-                  snapshot.hasError
-                      ? "Error: ${snapshot.error}"
-                      : "Version: ${snapshot.data!.version}",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                );
-              } else {
-                return Container();
-              }
-            },
+            builder:
+                (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(
+                      snapshot.hasError
+                          ? "Error: ${snapshot.error}"
+                          : "Version: ${snapshot.data!.version}",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
           ),
           const ListGroupTitle("What's this"),
           Container(
@@ -131,7 +130,8 @@ class _AboutPageState extends State<AboutPage> {
           ),
           const License(
             name: "plus_plugins - fluttercommunity",
-            link: "https://github.com/fluttercommunity/plus_plugins/blob/main/LICENSE",
+            link:
+                "https://github.com/fluttercommunity/plus_plugins/blob/main/LICENSE",
             license: "BSD 3-Clause \"New\" or \"Revised\" License",
           ),
           const License(
@@ -146,7 +146,8 @@ class _AboutPageState extends State<AboutPage> {
           ),
           const License(
             name: "flutter_file_picker - miguelpruivo",
-            link: "https://github.com/miguelpruivo/flutter_file_picker/blob/master/LICENSE",
+            link:
+                "https://github.com/miguelpruivo/flutter_file_picker/blob/master/LICENSE",
             license: "MIT License",
           ),
           const License(
@@ -166,7 +167,8 @@ class _AboutPageState extends State<AboutPage> {
           ),
           const License(
             name: "simple-icons-website - simple-icons",
-            link: "https://github.com/simple-icons/simple-icons-website/blob/master/LICENSE.md",
+            link:
+                "https://github.com/simple-icons/simple-icons-website/blob/master/LICENSE.md",
             license: "Creative Commons Zero v1.0 Universal",
           ),
         ],

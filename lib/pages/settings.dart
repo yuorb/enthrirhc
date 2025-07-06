@@ -29,14 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onSelected: (int index) => theme.darkTheme = index,
               offset: const Offset(1, 0),
               itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-                const PopupMenuItem(
-                  value: 1,
-                  child: Text('Default'),
-                ),
-                const PopupMenuItem(
-                  value: 2,
-                  child: Text('Pure Black'),
-                ),
+                const PopupMenuItem(value: 1, child: Text('Default')),
+                const PopupMenuItem(value: 2, child: Text('Pure Black')),
               ],
               child: ListTile(
                 leading: const Icon(Icons.dark_mode),
@@ -79,7 +73,8 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text("Omit Optional Characters"),
               secondary: const Icon(Icons.draw),
               value: settings.omitOptionalCharacters,
-              onChanged: (bool value) => settings.omitOptionalCharacters = value,
+              onChanged: (bool value) =>
+                  settings.omitOptionalCharacters = value,
             );
           },
         ),
@@ -103,20 +98,21 @@ class _SettingsPageState extends State<SettingsPage> {
           title: const Text("About"),
           subtitle: FutureBuilder<PackageInfo>(
             future: PackageInfo.fromPlatform(),
-            builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Text(
-                  snapshot.hasError
-                      ? "Error: ${snapshot.error}"
-                      : "Version: ${snapshot.data!.version}",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
+            builder:
+                (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(
+                      snapshot.hasError
+                          ? "Error: ${snapshot.error}"
+                          : "Version: ${snapshot.data!.version}",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
           ),
           onTap: () => Navigator.push(
             context,

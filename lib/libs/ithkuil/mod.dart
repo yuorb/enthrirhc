@@ -56,136 +56,147 @@ class Formative {
             (extension == Extension.del &&
                 perspective == Perspective.n &&
                 essence == Essence.nrm) ||
-            (extension == Extension.del && perspective == Perspective.a && essence == Essence.nrm));
+            (extension == Extension.del &&
+                perspective == Perspective.a &&
+                essence == Essence.nrm));
   }
 
   String _romanizeSlotI(bool useShortCut) {
     if (useShortCut) {
-      final bool isW = extension == Extension.del &&
+      final bool isW =
+          extension == Extension.del &&
           ((perspective == Perspective.g) ||
               (perspective == Perspective.m && essence == Essence.nrm) ||
               (perspective == Perspective.n && essence == Essence.nrm));
       return switch (concatenationStatus) {
         NoConcatenation() => isW ? 'w' : 'y',
         Type1Concatenation() => isW ? 'hl' : 'hm',
-        Type2Concatenation() => isW ? 'hr' : 'hn'
+        Type2Concatenation() => isW ? 'hr' : 'hn',
       };
     } else {
       return switch (concatenationStatus) {
         NoConcatenation() => '',
         Type1Concatenation() => 'h',
-        Type2Concatenation() => 'hw'
+        Type2Concatenation() => 'hw',
       };
     }
   }
 
   String _getRawVv(bool useShortCut, bool omitOptionalAffixes, bool requireVv) {
     if (useShortCut) {
-      if ((extension == Extension.del && perspective == Perspective.m && essence == Essence.nrm) ||
-          (extension == Extension.prx && perspective == Perspective.m && essence == Essence.nrm)) {
+      if ((extension == Extension.del &&
+              perspective == Perspective.m &&
+              essence == Essence.nrm) ||
+          (extension == Extension.prx &&
+              perspective == Perspective.m &&
+              essence == Essence.nrm)) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => 'a',
-              Version.cpt => 'ä',
-            },
+            Version.prc => 'a',
+            Version.cpt => 'ä',
+          },
           Stem.s2 => switch (version) {
-              Version.prc => 'e',
-              Version.cpt => 'i',
-            },
+            Version.prc => 'e',
+            Version.cpt => 'i',
+          },
           Stem.s3 => switch (version) {
-              Version.prc => 'u',
-              Version.cpt => 'ü',
-            },
+            Version.prc => 'u',
+            Version.cpt => 'ü',
+          },
           Stem.s0 => switch (version) {
-              Version.prc => 'o',
-              Version.cpt => 'ö',
-            },
+            Version.prc => 'o',
+            Version.cpt => 'ö',
+          },
         };
       } else if ((extension == Extension.del &&
               perspective == Perspective.g &&
               essence == Essence.nrm) ||
-          (extension == Extension.del && perspective == Perspective.m && essence == Essence.rpv)) {
+          (extension == Extension.del &&
+              perspective == Perspective.m &&
+              essence == Essence.rpv)) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => 'ai',
-              Version.cpt => 'au',
-            },
+            Version.prc => 'ai',
+            Version.cpt => 'au',
+          },
           Stem.s2 => switch (version) {
-              Version.prc => 'ei',
-              Version.cpt => 'eu',
-            },
+            Version.prc => 'ei',
+            Version.cpt => 'eu',
+          },
           Stem.s3 => switch (version) {
-              Version.prc => 'ui',
-              Version.cpt => 'iu',
-            },
+            Version.prc => 'ui',
+            Version.cpt => 'iu',
+          },
           Stem.s0 => switch (version) {
-              Version.prc => 'oi',
-              Version.cpt => 'ou',
-            },
+            Version.prc => 'oi',
+            Version.cpt => 'ou',
+          },
         };
       } else if (extension == Extension.del &&
           perspective == Perspective.n &&
           essence == Essence.nrm) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => 'ia',
-              Version.cpt => 'ie',
-            },
+            Version.prc => 'ia',
+            Version.cpt => 'ie',
+          },
           Stem.s2 => switch (version) {
-              Version.prc => 'io',
-              Version.cpt => 'iö',
-            },
+            Version.prc => 'io',
+            Version.cpt => 'iö',
+          },
           Stem.s3 => switch (version) {
-              Version.prc => 'iä',
-              Version.cpt => 'ië',
-            },
+            Version.prc => 'iä',
+            Version.cpt => 'ië',
+          },
           Stem.s0 => switch (version) {
-              Version.prc => 'öä',
-              Version.cpt => 'öë',
-            },
+            Version.prc => 'öä',
+            Version.cpt => 'öë',
+          },
         };
       } else if (extension == Extension.del &&
           perspective == Perspective.a &&
           essence == Essence.nrm) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => 'uä',
-              Version.cpt => 'uë',
-            },
+            Version.prc => 'uä',
+            Version.cpt => 'uë',
+          },
           Stem.s2 => switch (version) {
-              Version.prc => 'üä',
-              Version.cpt => 'üë',
-            },
+            Version.prc => 'üä',
+            Version.cpt => 'üë',
+          },
           Stem.s3 => switch (version) {
-              Version.prc => 'ua',
-              Version.cpt => 'ue',
-            },
+            Version.prc => 'ua',
+            Version.cpt => 'ue',
+          },
           Stem.s0 => switch (version) {
-              Version.prc => 'uo',
-              Version.cpt => 'uö',
-            },
+            Version.prc => 'uo',
+            Version.cpt => 'uö',
+          },
         };
       } else if ((extension == Extension.del &&
               perspective == Perspective.g &&
               essence == Essence.rpv) ||
-          (extension == Extension.prx && perspective == Perspective.m && essence == Essence.rpv)) {
+          (extension == Extension.prx &&
+              perspective == Perspective.m &&
+              essence == Essence.rpv)) {
         return switch (stem) {
           Stem.s1 => switch (version) {
-              Version.prc => 'ao',
-              Version.cpt => 'aö',
-            },
+            Version.prc => 'ao',
+            Version.cpt => 'aö',
+          },
           Stem.s2 => switch (version) {
-              Version.prc => 'eo',
-              Version.cpt => 'eö',
-            },
+            Version.prc => 'eo',
+            Version.cpt => 'eö',
+          },
           Stem.s3 => switch (version) {
-              Version.prc => 'oa',
-              Version.cpt => 'öa',
-            },
+            Version.prc => 'oa',
+            Version.cpt => 'öa',
+          },
           Stem.s0 => switch (version) {
-              Version.prc => 'oe',
-              Version.cpt => 'öe',
-            },
+            Version.prc => 'oe',
+            Version.cpt => 'öe',
+          },
         };
       } else {
         throw "Unreachable";
@@ -193,23 +204,26 @@ class Formative {
     } else {
       return switch (stem) {
         Stem.s1 => switch (version) {
-            Version.prc => requireVv
+          Version.prc =>
+            requireVv
                 ? 'a'
-                : (omitOptionalAffixes && concatenationStatus is NoConcatenation ? '' : 'a'),
-            Version.cpt => 'ä',
-          },
+                : (omitOptionalAffixes && concatenationStatus is NoConcatenation
+                      ? ''
+                      : 'a'),
+          Version.cpt => 'ä',
+        },
         Stem.s2 => switch (version) {
-            Version.prc => 'e',
-            Version.cpt => 'i',
-          },
+          Version.prc => 'e',
+          Version.cpt => 'i',
+        },
         Stem.s3 => switch (version) {
-            Version.prc => 'u',
-            Version.cpt => 'ü',
-          },
+          Version.prc => 'u',
+          Version.cpt => 'ü',
+        },
         Stem.s0 => switch (version) {
-            Version.prc => 'o',
-            Version.cpt => 'ö',
-          },
+          Version.prc => 'o',
+          Version.cpt => 'ö',
+        },
       };
     }
   }
@@ -229,57 +243,57 @@ class Formative {
         ? ''
         : switch (function) {
             Function$.sta => switch (specification) {
-                Specification.bsc => switch (context) {
-                    Context.exs => 'a',
-                    Context.fnc => 'ai',
-                    Context.rps => root.phonemes.last == Phoneme.y ? 'uä' : 'ia',
-                    Context.amg => 'ao',
-                  },
-                Specification.cte => switch (context) {
-                    Context.exs => 'ä',
-                    Context.fnc => 'au',
-                    Context.rps => root.phonemes.last == Phoneme.y ? 'uë' : 'ie',
-                    Context.amg => 'aö',
-                  },
-                Specification.csv => switch (context) {
-                    Context.exs => 'e',
-                    Context.fnc => 'ei',
-                    Context.rps => root.phonemes.last == Phoneme.y ? 'üä' : 'io',
-                    Context.amg => 'eo',
-                  },
-                Specification.obj => switch (context) {
-                    Context.exs => 'i',
-                    Context.fnc => 'eu',
-                    Context.rps => root.phonemes.last == Phoneme.y ? 'üë' : 'iö',
-                    Context.amg => 'eö',
-                  },
+              Specification.bsc => switch (context) {
+                Context.exs => 'a',
+                Context.fnc => 'ai',
+                Context.rps => root.phonemes.last == Phoneme.y ? 'uä' : 'ia',
+                Context.amg => 'ao',
               },
+              Specification.cte => switch (context) {
+                Context.exs => 'ä',
+                Context.fnc => 'au',
+                Context.rps => root.phonemes.last == Phoneme.y ? 'uë' : 'ie',
+                Context.amg => 'aö',
+              },
+              Specification.csv => switch (context) {
+                Context.exs => 'e',
+                Context.fnc => 'ei',
+                Context.rps => root.phonemes.last == Phoneme.y ? 'üä' : 'io',
+                Context.amg => 'eo',
+              },
+              Specification.obj => switch (context) {
+                Context.exs => 'i',
+                Context.fnc => 'eu',
+                Context.rps => root.phonemes.last == Phoneme.y ? 'üë' : 'iö',
+                Context.amg => 'eö',
+              },
+            },
             Function$.dyn => switch (specification) {
-                Specification.bsc => switch (context) {
-                    Context.exs => 'u',
-                    Context.fnc => 'ui',
-                    Context.rps => root.phonemes.last == Phoneme.w ? 'iä' : 'ua',
-                    Context.amg => 'oa',
-                  },
-                Specification.cte => switch (context) {
-                    Context.exs => 'ü',
-                    Context.fnc => 'iu',
-                    Context.rps => root.phonemes.last == Phoneme.w ? 'ië' : 'ue',
-                    Context.amg => 'öa',
-                  },
-                Specification.csv => switch (context) {
-                    Context.exs => 'o',
-                    Context.fnc => 'oi',
-                    Context.rps => root.phonemes.last == Phoneme.w ? 'öä' : 'uo',
-                    Context.amg => 'oe',
-                  },
-                Specification.obj => switch (context) {
-                    Context.exs => 'ö',
-                    Context.fnc => 'ou',
-                    Context.rps => root.phonemes.last == Phoneme.w ? 'öë' : 'uö',
-                    Context.amg => 'öe',
-                  },
+              Specification.bsc => switch (context) {
+                Context.exs => 'u',
+                Context.fnc => 'ui',
+                Context.rps => root.phonemes.last == Phoneme.w ? 'iä' : 'ua',
+                Context.amg => 'oa',
               },
+              Specification.cte => switch (context) {
+                Context.exs => 'ü',
+                Context.fnc => 'iu',
+                Context.rps => root.phonemes.last == Phoneme.w ? 'ië' : 'ue',
+                Context.amg => 'öa',
+              },
+              Specification.csv => switch (context) {
+                Context.exs => 'o',
+                Context.fnc => 'oi',
+                Context.rps => root.phonemes.last == Phoneme.w ? 'öä' : 'uo',
+                Context.amg => 'oe',
+              },
+              Specification.obj => switch (context) {
+                Context.exs => 'ö',
+                Context.fnc => 'ou',
+                Context.rps => root.phonemes.last == Phoneme.w ? 'öë' : 'uö',
+                Context.amg => 'öe',
+              },
+            },
           };
   }
 
@@ -314,9 +328,7 @@ class Formative {
     return slot5;
   }
 
-  String _getRawCa(
-    String strPrecedingThis,
-  ) {
+  String _getRawCa(String strPrecedingThis) {
     if (configuration.plexity == Plexity.u &&
         extension == Extension.del &&
         perspective == Perspective.m &&
@@ -333,27 +345,31 @@ class Formative {
         extension == Extension.del) {
       return switch (perspective) {
         Perspective.m => switch (essence) {
-            Essence.nrm => 'l',
-            Essence.rpv => 'tļ',
-          },
+          Essence.nrm => 'l',
+          Essence.rpv => 'tļ',
+        },
         Perspective.g => switch (essence) {
-            Essence.nrm => 'r',
-            Essence.rpv => 'ř',
-          },
+          Essence.nrm => 'r',
+          Essence.rpv => 'ř',
+        },
         Perspective.n => switch (essence) {
-            Essence.nrm => 'v',
-            Essence.rpv =>
-              RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
-                  ? 'h'
-                  : 'm',
-          },
+          Essence.nrm => 'v',
+          Essence.rpv =>
+            RegExp(
+                  "[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$",
+                ).hasMatch(strPrecedingThis)
+                ? 'h'
+                : 'm',
+        },
         Perspective.a => switch (essence) {
-            Essence.nrm => 'j',
-            Essence.rpv =>
-              RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(strPrecedingThis)
-                  ? 'ç'
-                  : 'n',
-          },
+          Essence.nrm => 'j',
+          Essence.rpv =>
+            RegExp(
+                  "[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$",
+                ).hasMatch(strPrecedingThis)
+                ? 'ç'
+                : 'n',
+        },
       };
     }
     final romanizedAffiliation = switch (affiliation) {
@@ -373,31 +389,40 @@ class Formative {
     };
     final romanizedPerspectiveAndEssence = switch (perspective) {
       Perspective.m => switch (essence) {
-          Essence.nrm => '',
-          Essence.rpv => 'l',
-        },
+        Essence.nrm => '',
+        Essence.rpv => 'l',
+      },
       Perspective.g => switch (essence) {
-          Essence.nrm => 'r',
-          Essence.rpv => 'ř',
-        },
+        Essence.nrm => 'r',
+        Essence.rpv => 'ř',
+      },
       Perspective.n => switch (essence) {
-          Essence.nrm => 'w',
-          Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
-              strPrecedingThis + romanizedAffiliation + romanizedConfiguration + romanizedExtension,
-            )
-                ? 'h'
-                : 'm',
-        },
+        Essence.nrm => 'w',
+        Essence.rpv =>
+          RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
+                strPrecedingThis +
+                    romanizedAffiliation +
+                    romanizedConfiguration +
+                    romanizedExtension,
+              )
+              ? 'h'
+              : 'm',
+      },
       Perspective.a => switch (essence) {
-          Essence.nrm => 'y',
-          Essence.rpv => RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
-              strPrecedingThis + romanizedAffiliation + romanizedConfiguration + romanizedExtension,
-            )
-                ? 'ç'
-                : 'n',
-        },
+        Essence.nrm => 'y',
+        Essence.rpv =>
+          RegExp("[pbfvtdţd͕kgcẓszčjšžmnňçxhll͕rřyw][tpk]\$").hasMatch(
+                strPrecedingThis +
+                    romanizedAffiliation +
+                    romanizedConfiguration +
+                    romanizedExtension,
+              )
+              ? 'ç'
+              : 'n',
+      },
     };
-    final String rawCa = romanizedAffiliation +
+    final String rawCa =
+        romanizedAffiliation +
         romanizedConfiguration +
         romanizedExtension +
         romanizedPerspectiveAndEssence;
@@ -510,10 +535,7 @@ class Formative {
     return '[ERROR]';
   }
 
-  String _romanizeSlotVI(
-    bool shortCut,
-    String strPrecedingThis,
-  ) {
+  String _romanizeSlotVI(bool shortCut, String strPrecedingThis) {
     if (shortCut) {
       return '';
     }
@@ -583,7 +605,9 @@ class Formative {
       ValenceVn() || PhaseVn() || EffectVn() || LevelVn() => true,
       AspectVn() => false,
     };
-    final vnRomanized = vn.romanize(strPrecedingThis[strPrecedingThis.length - 1]);
+    final vnRomanized = vn.romanize(
+      strPrecedingThis[strPrecedingThis.length - 1],
+    );
     final cnRomanized = cn.romanize(isPattern1);
 
     final vnCn = "$vnRomanized$cnRomanized";
@@ -595,15 +619,18 @@ class Formative {
       case NoConcatenation noConcatenation:
         switch (noConcatenation.relation) {
           case Noun noun:
-            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
+            final charPrecedingThis =
+                strPrecedingThis[strPrecedingThis.length - 1];
             return noun.case$.romanized(charPrecedingThis, false);
           case FramedVerb framedVerb:
-            final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
+            final charPrecedingThis =
+                strPrecedingThis[strPrecedingThis.length - 1];
             return framedVerb.case$.romanized(charPrecedingThis, false);
           case UnframedVerb verb:
             return verb.romanized(omitOptionalAffixes);
         }
-      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
+      case Type1Concatenation(format: final format) ||
+          Type2Concatenation(format: final format):
         final charPrecedingThis = strPrecedingThis[strPrecedingThis.length - 1];
         return format.romanized(charPrecedingThis, true);
     }
@@ -625,9 +652,17 @@ class Formative {
     final String slot2 = _romanizeSlotII(useShortCut, omitSlot2);
     final String slot3 = root.toString();
     final String slot4 = _romanizeSlotIV(useShortCut);
-    final String slot5 = _romanizeSlotV(useShortCut, "$slot1$slot2$slot3$slot4");
-    final String slot6 = _romanizeSlotVI(useShortCut, "$slot1$slot2$slot3$slot4$slot5");
-    final String slot7 = _romanizeSlotVII("$slot1$slot2$slot3$slot4$slot5$slot6");
+    final String slot5 = _romanizeSlotV(
+      useShortCut,
+      "$slot1$slot2$slot3$slot4",
+    );
+    final String slot6 = _romanizeSlotVI(
+      useShortCut,
+      "$slot1$slot2$slot3$slot4$slot5",
+    );
+    final String slot7 = _romanizeSlotVII(
+      "$slot1$slot2$slot3$slot4$slot5$slot6",
+    );
     final String slot8 = _romanizeSlotVIII(
       "$slot1$slot2$slot3$slot4$slot5$slot6$slot7",
       omitSlot8,
@@ -647,10 +682,10 @@ class Formative {
   String _romanizeS2(bool preferShortCut, bool omitOptionalAffixes) {
     final requestAtLeast3Syllables = switch (concatenationStatus) {
       NoConcatenation(relation: final relation) => switch (relation) {
-          FramedVerb() => true,
-          _ => false,
-        },
-      _ => false
+        FramedVerb() => true,
+        _ => false,
+      },
+      _ => false,
     };
     final romanized1 = _romanizeS1(
       preferShortCut,
@@ -658,7 +693,8 @@ class Formative {
       omitSlot8: omitOptionalAffixes,
       omitSlot9: omitOptionalAffixes,
     );
-    final isRomanized1PhoneticallyLegal = !romanized1.startsWith('pp') &&
+    final isRomanized1PhoneticallyLegal =
+        !romanized1.startsWith('pp') &&
         !romanized1.startsWith('bb') &&
         !romanized1.startsWith('tt') &&
         !romanized1.startsWith('dd') &&
@@ -667,7 +703,8 @@ class Formative {
     if (!requestAtLeast3Syllables && isRomanized1PhoneticallyLegal) {
       return romanized1;
     }
-    if (getVowelIndexList(romanized1).length >= 3 && isRomanized1PhoneticallyLegal) {
+    if (getVowelIndexList(romanized1).length >= 3 &&
+        isRomanized1PhoneticallyLegal) {
       return romanized1;
     }
     final romanized2 = _romanizeS1(
@@ -718,13 +755,14 @@ class Formative {
           case _:
         }
         break;
-      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
+      case Type1Concatenation(format: final format) ||
+          Type2Concatenation(format: final format):
         if (vowelList.length > 1) {
           switch (format.caseType) {
             case CaseType.relational ||
-                  CaseType.affinitive ||
-                  CaseType.spatioTemporal1 ||
-                  CaseType.spatioTemporal2:
+                CaseType.affinitive ||
+                CaseType.spatioTemporal1 ||
+                CaseType.spatioTemporal2:
               final index = vowelList.last;
               romanizedSplit[index] = addAccentMark(romanized[index]).unwrap();
               break;
@@ -753,28 +791,26 @@ class Formative {
         stem: stem,
       ),
       ...root.toRootSecondaries(),
-      ...csVxAffixes.map(
-        (affix) {
-          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents();
-          return CsVxAffix(
-            start: startLetter,
-            core: coreLetter,
-            end: endLetter,
-            affix: affix,
-          );
-        },
-      ),
-      ...vxCsAffixes.map(
-        (affix) {
-          final (startLetter, coreLetter, endLetter) = affix.getSecondaryComponents();
-          return VxCsAffix(
-            start: startLetter,
-            core: coreLetter,
-            end: endLetter,
-            affix: affix,
-          );
-        },
-      ),
+      ...csVxAffixes.map((affix) {
+        final (startLetter, coreLetter, endLetter) = affix
+            .getSecondaryComponents();
+        return CsVxAffix(
+          start: startLetter,
+          core: coreLetter,
+          end: endLetter,
+          affix: affix,
+        );
+      }),
+      ...vxCsAffixes.map((affix) {
+        final (startLetter, coreLetter, endLetter) = affix
+            .getSecondaryComponents();
+        return VxCsAffix(
+          start: startLetter,
+          core: coreLetter,
+          end: endLetter,
+          affix: affix,
+        );
+      }),
     ];
 
     final tertiaryOmittable = switch (vn) {
@@ -799,10 +835,10 @@ class Formative {
           bottom: null,
           level: switch (vn) {
             LevelVn(level: final level) => Level(
-                // TODO: Parse affixes as absolute level.
-                comparison: Comparison.relative,
-                comparisonOperator: level,
-              ),
+              // TODO: Parse affixes as absolute level.
+              comparison: Comparison.relative,
+              comparisonOperator: level,
+            ),
             _ => null,
           },
         ),
@@ -814,12 +850,7 @@ class Formative {
     if (omitOptionalCharacters && quarternaryOmittable) {
       (characters[1] as RootSecondary).formativeType = concatenationStatus;
     } else {
-      characters.add(
-        Quarternary(
-          formativeType: concatenationStatus,
-          cn: cn,
-        ),
-      );
+      characters.add(Quarternary(formativeType: concatenationStatus, cn: cn));
     }
 
     return characters;

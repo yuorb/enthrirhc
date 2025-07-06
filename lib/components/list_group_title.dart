@@ -16,7 +16,7 @@ class ListGroupTitle extends StatelessWidget {
             title,
             style: TextStyle(color: Theme.of(context).colorScheme.primary),
           ),
-          trailing == null ? Container() : trailing!
+          trailing == null ? Container() : trailing!,
         ],
       ),
     );

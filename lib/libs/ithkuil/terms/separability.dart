@@ -6,5 +6,5 @@ enum Separability {
   c,
 
   /// The Fused Separability
-  f;
+  f,
 }

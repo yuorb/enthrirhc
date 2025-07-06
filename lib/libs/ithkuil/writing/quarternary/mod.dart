@@ -4,7 +4,8 @@ import 'package:enthrirhc/libs/misc.dart';
 
 import '../../terms/mod.dart';
 
-const String corePath = "M 10.00 -35.00 L 0.00 -25.00 0.00 35.00 10.00 25.00 10.00 -35.00 Z";
+const String corePath =
+    "M 10.00 -35.00 L 0.00 -25.00 0.00 35.00 10.00 25.00 10.00 -35.00 Z";
 
 const Coord coreTopAnchor = Coord(0.00, -25.00);
 const Coord coreBottomAnchor = Coord(10.00, 25.00);
@@ -43,7 +44,8 @@ class Quarternary with Character {
             break;
         }
         break;
-      case Type1Concatenation(format: final format) || Type2Concatenation(format: final format):
+      case Type1Concatenation(format: final format) ||
+          Type2Concatenation(format: final format):
         startExtId = format.caseType.idQuaternary();
         endExtId = format.caseNumber.idQuaternary();
         break;
@@ -65,8 +67,5 @@ class Quarternary with Character {
     );
   }
 
-  const Quarternary({
-    required this.formativeType,
-    required this.cn,
-  });
+  const Quarternary({required this.formativeType, required this.cn});
 }

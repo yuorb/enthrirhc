@@ -16,7 +16,9 @@ void main() async {
 
   final initialSettings = await SettingsProvider.init();
 
-  runApp(ChangeNotifierProvider(create: (_) => initialSettings, child: const App()));
+  runApp(
+    ChangeNotifierProvider(create: (_) => initialSettings, child: const App()),
+  );
 }
 
 ColorScheme createPureDarkColorScheme() {
@@ -82,7 +84,10 @@ class App extends StatelessWidget {
                 brightness: Brightness.dark,
                 useMaterial3: true,
               ),
-        home: ChangeNotifierProvider(create: (context) => LexiconModel(), child: const RootPage()),
+        home: ChangeNotifierProvider(
+          create: (context) => LexiconModel(),
+          child: const RootPage(),
+        ),
       ),
     );
   }
@@ -109,7 +114,10 @@ class _RootPageState extends State<RootPage> {
         selectedIndex: _currentPageIndex,
         destinations: const [
           NavigationDestination(icon: Icon(Icons.search), label: 'Search'),
-          NavigationDestination(icon: Icon(Icons.construction), label: 'Construct'),
+          NavigationDestination(
+            icon: Icon(Icons.construction),
+            label: 'Construct',
+          ),
           NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
         ],
         onDestinationSelected: (int index) {

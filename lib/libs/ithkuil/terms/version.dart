@@ -3,5 +3,5 @@ enum Version {
   prc,
 
   /// The Completive Version
-  cpt;
+  cpt,
 }

@@ -9,5 +9,5 @@ enum Perspective {
   n,
 
   /// Abstract Perspective
-  a;
+  a,
 }

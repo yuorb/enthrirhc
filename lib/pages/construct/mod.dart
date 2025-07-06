@@ -24,7 +24,8 @@ class ConstructPage extends StatefulWidget {
   State<ConstructPage> createState() => _ConstructPageState();
 }
 
-class _ConstructPageState extends State<ConstructPage> with TickerProviderStateMixin {
+class _ConstructPageState extends State<ConstructPage>
+    with TickerProviderStateMixin {
   List<Formative> formatives = [];
   late TabController _tabController;
 
@@ -45,7 +46,10 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
     final SettingsProvider settings = context.watch<SettingsProvider>();
 
     final characters = formatives
-        .map((formative) => formative.toCharacters(settings.omitOptionalCharacters))
+        .map(
+          (formative) =>
+              formative.toCharacters(settings.omitOptionalCharacters),
+        )
         .expand((element) => element)
         .toList()
         .omitPrimaryCharacter(settings.omitOptionalCharacters);
@@ -56,49 +60,58 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
         actions: [
           switch (Platform.get()) {
             Platform.android || Platform.webMobile => IconButton(
-                icon: const Icon(Icons.share),
-                tooltip: "Share the writing image",
-                onPressed: formatives.isEmpty
-                    ? null
-                    : () async {
-                        final (rawSvg, (width, height)) = ithkuilWriting(
-                          characters,
-                          backgroundColor: "white",
-                        );
-                        final pictureInfo = await vg.loadPicture(SvgStringLoader(rawSvg), null);
-                        final image = await pictureInfo.picture.toImage(
-                          width.toInt(),
-                          height.toInt(),
-                        );
-                        final byteData = (await image.toByteData(format: ImageByteFormat.png))!;
-                        final bytes = byteData.buffer.asUint8List();
-                        Share.shareXFiles([
-                          XFile.fromData(
-                            bytes,
-                            name: 'writing.png',
-                            mimeType: 'image/png',
-                          ),
-                        ]);
-                      },
-              ),
-            Platform.windows || Platform.linux || Platform.webDesktop => IconButton(
-                icon: const Icon(Icons.download),
-                tooltip: "Download the writing image as SVG",
-                onPressed: formatives.isEmpty
-                    ? null
-                    : () async {
-                        final (rawSvg, (_, _)) = ithkuilWriting(characters);
-                        final path = await saveTextFile(rawSvg, 'writing.svg');
-                        if (!context.mounted) {
-                          return;
-                        }
-                        if (path != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              icon: const Icon(Icons.share),
+              tooltip: "Share the writing image",
+              onPressed: formatives.isEmpty
+                  ? null
+                  : () async {
+                      final (rawSvg, (width, height)) = ithkuilWriting(
+                        characters,
+                        backgroundColor: "white",
+                      );
+                      final pictureInfo = await vg.loadPicture(
+                        SvgStringLoader(rawSvg),
+                        null,
+                      );
+                      final image = await pictureInfo.picture.toImage(
+                        width.toInt(),
+                        height.toInt(),
+                      );
+                      final byteData = (await image.toByteData(
+                        format: ImageByteFormat.png,
+                      ))!;
+                      final bytes = byteData.buffer.asUint8List();
+                      Share.shareXFiles([
+                        XFile.fromData(
+                          bytes,
+                          name: 'writing.png',
+                          mimeType: 'image/png',
+                        ),
+                      ]);
+                    },
+            ),
+            Platform.windows ||
+            Platform.linux ||
+            Platform.webDesktop => IconButton(
+              icon: const Icon(Icons.download),
+              tooltip: "Download the writing image as SVG",
+              onPressed: formatives.isEmpty
+                  ? null
+                  : () async {
+                      final (rawSvg, (_, _)) = ithkuilWriting(characters);
+                      final path = await saveTextFile(rawSvg, 'writing.svg');
+                      if (!context.mounted) {
+                        return;
+                      }
+                      if (path != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
                             content: Text('Successfully downloaded "$path"'),
-                          ));
-                        }
-                      },
-              ),
+                          ),
+                        );
+                      }
+                    },
+            ),
             Platform.unadapted => throw UnimplementedError(),
           },
           IconButton(
@@ -120,19 +133,24 @@ class _ConstructPageState extends State<ConstructPage> with TickerProviderStateM
       body: Column(
         children: [
           IthkuilSvg(characters),
-          Text(romanizeFormatives(
-                formatives,
-                settings.preferShortCut,
-                settings.omitOptionalAffixes,
-              ) ??
-              'NO FORMATIVES'),
+          Text(
+            romanizeFormatives(
+                  formatives,
+                  settings.preferShortCut,
+                  settings.omitOptionalAffixes,
+                ) ??
+                'NO FORMATIVES',
+          ),
           TabBar(
             tabAlignment: TabAlignment.center,
             isScrollable: true,
             controller: _tabController,
             tabs: formatives
                 .map(
-                    (formative) => Tab(child: Text("-${formative.root.toString().toUpperCase()}-")))
+                  (formative) => Tab(
+                    child: Text("-${formative.root.toString().toUpperCase()}-"),
+                  ),
+                )
                 .toList(),
           ),
           Expanded(

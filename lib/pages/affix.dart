@@ -45,14 +45,18 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider<LexiconModel>.value(
-                        value: provider,
-                        builder: (context, child) => RootPage(associatedRoot!),
-                      ),
+                      builder: (context) =>
+                          ChangeNotifierProvider<LexiconModel>.value(
+                            value: provider,
+                            builder: (context, child) =>
+                                RootPage(associatedRoot!),
+                          ),
                     ),
                   ),
                   icon: SvgPicture(
-                    const AssetBytesLoader('assets/icons_compiled/sweep.svg.vec'),
+                    const AssetBytesLoader(
+                      'assets/icons_compiled/sweep.svg.vec',
+                    ),
                     colorFilter: ColorFilter.mode(
                       Theme.of(context).colorScheme.onSurfaceVariant,
                       BlendMode.srcIn,
@@ -61,7 +65,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                   ),
                   tooltip: "See Associated Root",
                 )
-              : Container()
+              : Container(),
         ],
       ),
       body: NestedScrollView(
@@ -98,7 +102,7 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -117,7 +121,9 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
           children: widget.affix.degrees.indexed
               .map<List<ListTile>>((entry) {
                 final icon = SvgPicture(
-                  AssetBytesLoader('assets/icons_compiled/counter_${entry.$1}.svg.vec'),
+                  AssetBytesLoader(
+                    'assets/icons_compiled/counter_${entry.$1}.svg.vec',
+                  ),
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.onSurfaceVariant,
                     BlendMode.srcIn,
@@ -126,64 +132,70 @@ class _AffixPageState extends State<AffixPage> with TickerProviderStateMixin {
                 );
                 return switch (entry.$2) {
                   MergedDegree(degree: final degree) => [
-                      ListTile(
-                        leading: icon,
-                        title: Text("Degree ${entry.$1}"),
-                        // isThreeLine: true,
-                        subtitle: MarkdownBody(
-                          data: degree,
-                          styleSheet: MarkdownStyleSheet(
-                            p: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
-                            strong: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            em: const TextStyle(fontFamily: "NotoSansItalic"),
+                    ListTile(
+                      leading: icon,
+                      title: Text("Degree ${entry.$1}"),
+                      // isThreeLine: true,
+                      subtitle: MarkdownBody(
+                        data: degree,
+                        styleSheet: MarkdownStyleSheet(
+                          p: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                           ),
+                          strong: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          em: const TextStyle(fontFamily: "NotoSansItalic"),
                         ),
-                        onLongPress: () => copyToClipboard(degree, context),
                       ),
-                    ],
+                      onLongPress: () => copyToClipboard(degree, context),
+                    ),
+                  ],
                   SeparatedDegree(type1: final type1, type2: final type2) => [
-                      ListTile(
-                        leading: icon,
-                        title: const Text("Type-1"),
-                        isThreeLine: true,
-                        subtitle: MarkdownBody(
-                          data: type1,
-                          styleSheet: MarkdownStyleSheet(
-                            p: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
-                            strong: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            em: const TextStyle(fontFamily: "NotoSansItalic"),
+                    ListTile(
+                      leading: icon,
+                      title: const Text("Type-1"),
+                      isThreeLine: true,
+                      subtitle: MarkdownBody(
+                        data: type1,
+                        styleSheet: MarkdownStyleSheet(
+                          p: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                           ),
-                        ),
-                        onLongPress: () => copyToClipboard(type1, context),
-                      ),
-                      ListTile(
-                        leading: const Icon(null),
-                        title: const Text("Type-2"),
-                        isThreeLine: true,
-                        subtitle: MarkdownBody(
-                          data: type2,
-                          styleSheet: MarkdownStyleSheet(
-                            p: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
-                            strong: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            em: const TextStyle(fontFamily: "NotoSansItalic"),
+                          strong: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
                           ),
+                          em: const TextStyle(fontFamily: "NotoSansItalic"),
                         ),
-                        onLongPress: () => copyToClipboard(type2, context),
                       ),
-                    ],
-                  null => []
+                      onLongPress: () => copyToClipboard(type1, context),
+                    ),
+                    ListTile(
+                      leading: const Icon(null),
+                      title: const Text("Type-2"),
+                      isThreeLine: true,
+                      subtitle: MarkdownBody(
+                        data: type2,
+                        styleSheet: MarkdownStyleSheet(
+                          p: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                          ),
+                          strong: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          em: const TextStyle(fontFamily: "NotoSansItalic"),
+                        ),
+                      ),
+                      onLongPress: () => copyToClipboard(type2, context),
+                    ),
+                  ],
+                  null => [],
                 };
               })
               .expand((element) => element)

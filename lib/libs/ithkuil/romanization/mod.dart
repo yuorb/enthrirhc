@@ -12,17 +12,23 @@ String? romanizeFormatives(
   if (formatives.isEmpty) {
     return null;
   }
-  final romanizedInitialFormative =
-      formatives[0].romanize(preferShortCut, omitOptionalAffixes).capitalize();
+  final romanizedInitialFormative = formatives[0]
+      .romanize(preferShortCut, omitOptionalAffixes)
+      .capitalize();
   String sentence = switch (formatives[0].concatenationStatus) {
     NoConcatenation() => '$romanizedInitialFormative ',
-    Type1Concatenation() || Type2Concatenation() => '$romanizedInitialFormative-',
+    Type1Concatenation() ||
+    Type2Concatenation() => '$romanizedInitialFormative-',
   };
   for (int i = 1; i < formatives.length; i++) {
-    final thisFormative = formatives[i].romanize(preferShortCut, omitOptionalAffixes);
+    final thisFormative = formatives[i].romanize(
+      preferShortCut,
+      omitOptionalAffixes,
+    );
     sentence = switch (formatives[i].concatenationStatus) {
       NoConcatenation() => "$sentence$thisFormative ",
-      Type1Concatenation() || Type2Concatenation() => "$sentence$thisFormative-"
+      Type1Concatenation() ||
+      Type2Concatenation() => "$sentence$thisFormative-",
     };
   }
   if (sentence[sentence.length - 1] == ' ') {
@@ -71,7 +77,16 @@ bool isVowel(String char) {
 
 bool isDiphthong(String str) {
   return switch (str.toLowerCase()) {
-    "ai" || "ei" || "ëi" || "oi" || "ui" || "au" || "eu" || "ëu" || "ou" || "iu" => true,
+    "ai" ||
+    "ei" ||
+    "ëi" ||
+    "oi" ||
+    "ui" ||
+    "au" ||
+    "eu" ||
+    "ëu" ||
+    "ou" ||
+    "iu" => true,
     _ => false,
   };
 }
@@ -85,7 +100,8 @@ List<int> getVowelIndexList(String formative) {
     if (isVowel(formative[i])) {
       vowelList.add(i);
       if (i + 1 < formative.length) {
-        final potentialDiphthong = "${formative[i]}${formative[i + 1]}".toLowerCase();
+        final potentialDiphthong = "${formative[i]}${formative[i + 1]}"
+            .toLowerCase();
         if (isDiphthong(potentialDiphthong)) {
           i += 1;
         }

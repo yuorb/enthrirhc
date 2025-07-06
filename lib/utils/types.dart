@@ -30,12 +30,7 @@ class Specs extends Stem {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'BSC': bsc,
-      'CTE': cte,
-      'CSV': csv,
-      'OBJ': obj,
-    };
+    return {'BSC': bsc, 'CTE': cte, 'CSV': csv, 'OBJ': obj};
   }
 }
 
@@ -67,8 +62,9 @@ class Root {
     final List<Stem>? stems;
     if (data['stems'] != null) {
       final List<dynamic> stemsMap = data['stems'];
-      stems =
-          stemsMap.map((stem) => stem is String ? StrStem(stem) : Specs.fromJson(stem)).toList();
+      stems = stemsMap
+          .map((stem) => stem is String ? StrStem(stem) : Specs.fromJson(stem))
+          .toList();
     } else {
       stems = null;
     }
@@ -200,15 +196,17 @@ class StandardAffix extends Affix {
     }
     final degrees4 = degrees3.unwrap();
 
-    return Ok(StandardAffix(
-      name: data['name'],
-      description: data['description'],
-      gradientType: gradientType2,
-      cs: data['cs'],
-      associatedRoot: data['associated_root'],
-      degrees: degrees4,
-      notes: data['notes'],
-    ));
+    return Ok(
+      StandardAffix(
+        name: data['name'],
+        description: data['description'],
+        gradientType: gradientType2,
+        cs: data['cs'],
+        associatedRoot: data['associated_root'],
+        degrees: degrees4,
+        notes: data['notes'],
+      ),
+    );
   }
 }
 
@@ -217,21 +215,13 @@ class Case {
   final List<String> vx;
   final String description;
 
-  const Case({
-    required this.cs,
-    required this.vx,
-    required this.description,
-  });
+  const Case({required this.cs, required this.vx, required this.description});
 
   static Case fromJson(Map<String, dynamic> data) {
     final vx1 = data["vx"] as List;
     final vx2 = vx1.map((vx) => vx as String).toList();
 
-    return Case(
-      cs: data["cs"],
-      vx: vx2,
-      description: data["description"],
-    );
+    return Case(cs: data["cs"], vx: vx2, description: data["description"]);
   }
 }
 
@@ -256,15 +246,19 @@ class CaseAccessorAffix extends Affix {
     final gradientType2 = gradientType1.unwrap();
 
     final types1 = data["types"] as List;
-    final types2 =
-        types1.map((t) => t as List).map((t) => t.map((c) => Case.fromJson(c)).toList()).toList();
+    final types2 = types1
+        .map((t) => t as List)
+        .map((t) => t.map((c) => Case.fromJson(c)).toList())
+        .toList();
 
-    return Ok(CaseAccessorAffix(
-      name: data["name"],
-      description: data["description"],
-      gradientType: gradientType2,
-      types: types2,
-    ));
+    return Ok(
+      CaseAccessorAffix(
+        name: data["name"],
+        description: data["description"],
+        gradientType: gradientType2,
+        types: types2,
+      ),
+    );
   }
 }
 
@@ -291,12 +285,14 @@ class CaseStackingAffix extends Affix {
     final cases1 = data["cases"] as List;
     final cases2 = cases1.map((c) => Case.fromJson(c)).toList();
 
-    return Ok(CaseStackingAffix(
-      name: data["name"],
-      description: data["description"],
-      gradientType: gradientType2,
-      cases: cases2,
-    ));
+    return Ok(
+      CaseStackingAffix(
+        name: data["name"],
+        description: data["description"],
+        gradientType: gradientType2,
+        cases: cases2,
+      ),
+    );
   }
 }
 
@@ -314,7 +310,9 @@ class Lexicon {
   });
 
   static Result<Lexicon, String> fromJson(Map<String, dynamic> data) {
-    final roots = (data['roots'] as List<dynamic>).map((e) => Root.fromJson(e)).toList();
+    final roots = (data['roots'] as List<dynamic>)
+        .map((e) => Root.fromJson(e))
+        .toList();
     final Map<String, dynamic> affixes;
     try {
       affixes = data['affixes'];
@@ -323,7 +321,9 @@ class Lexicon {
     }
 
     final standardAffixes1 = affixes['standard'] as List<dynamic>;
-    final standardAffixes2 = standardAffixes1.map((e) => StandardAffix.fromJson(e)).toList();
+    final standardAffixes2 = standardAffixes1
+        .map((e) => StandardAffix.fromJson(e))
+        .toList();
     final standardAffixes3 = collectResultList(standardAffixes2);
     if (standardAffixes3 is Err) {
       return Err(standardAffixes3.unwrapErr());
@@ -331,8 +331,9 @@ class Lexicon {
     final standardAffixes4 = standardAffixes3.unwrap();
 
     final caseAccessorAffixes1 = affixes['accessor'] as List;
-    final caseAccessorAffixes2 =
-        caseAccessorAffixes1.map((affix) => CaseAccessorAffix.fromJson(affix)).toList();
+    final caseAccessorAffixes2 = caseAccessorAffixes1
+        .map((affix) => CaseAccessorAffix.fromJson(affix))
+        .toList();
     final caseAccessorAffixes3 = collectResultList(caseAccessorAffixes2);
     if (caseAccessorAffixes3 is Err) {
       return Err(caseAccessorAffixes3.unwrapErr());
@@ -340,19 +341,22 @@ class Lexicon {
     final caseAccessorAffixes4 = caseAccessorAffixes3.unwrap();
 
     final caseStackingAffixes1 = affixes['stacking'] as List;
-    final caseStackingAffixes2 =
-        caseStackingAffixes1.map((affix) => CaseStackingAffix.fromJson(affix)).toList();
+    final caseStackingAffixes2 = caseStackingAffixes1
+        .map((affix) => CaseStackingAffix.fromJson(affix))
+        .toList();
     final caseStackingAffixes3 = collectResultList(caseStackingAffixes2);
     if (caseStackingAffixes3 is Err) {
       return Err(caseStackingAffixes3.unwrapErr());
     }
     final caseStackingAffixes4 = caseStackingAffixes3.unwrap();
 
-    return Ok(Lexicon(
-      roots: roots,
-      standardAffixes: standardAffixes4,
-      caseAccessorAffixes: caseAccessorAffixes4,
-      caseStackingAffixes: caseStackingAffixes4,
-    ));
+    return Ok(
+      Lexicon(
+        roots: roots,
+        standardAffixes: standardAffixes4,
+        caseAccessorAffixes: caseAccessorAffixes4,
+        caseStackingAffixes: caseStackingAffixes4,
+      ),
+    );
   }
 }

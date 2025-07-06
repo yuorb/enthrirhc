@@ -45,7 +45,10 @@ class SettingsProvider extends ChangeNotifier {
     _omitOptionalCharacters = newOmitOptionalCharacters;
     notifyListeners();
     SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool('construct.omitOptionalCharacters', newOmitOptionalCharacters);
+      prefs.setBool(
+        'construct.omitOptionalCharacters',
+        newOmitOptionalCharacters,
+      );
     });
   }
 
@@ -54,17 +57,19 @@ class SettingsProvider extends ChangeNotifier {
     required bool preferShortCut,
     required bool omitOptionalAffixes,
     required bool omitOptionalCharacters,
-  })  : _darkTheme = darkTheme,
-        _preferShortCut = preferShortCut,
-        _omitOptionalAffixes = omitOptionalAffixes,
-        _omitOptionalCharacters = omitOptionalCharacters;
+  }) : _darkTheme = darkTheme,
+       _preferShortCut = preferShortCut,
+       _omitOptionalAffixes = omitOptionalAffixes,
+       _omitOptionalCharacters = omitOptionalCharacters;
 
   static Future<SettingsProvider> init() async {
     final prefs = await SharedPreferences.getInstance();
     final darkTheme = prefs.getInt('darkTheme') ?? 1;
     final preferShortCut = prefs.getBool('construct.preferShortCut') ?? false;
-    final omitOptionalAffixes = prefs.getBool('construct.omitOptionalAffixes') ?? true;
-    final omitOptionalCharacters = prefs.getBool('construct.omitOptionalCharacters') ?? true;
+    final omitOptionalAffixes =
+        prefs.getBool('construct.omitOptionalAffixes') ?? true;
+    final omitOptionalCharacters =
+        prefs.getBool('construct.omitOptionalCharacters') ?? true;
     return SettingsProvider(
       darkTheme: darkTheme,
       preferShortCut: preferShortCut,

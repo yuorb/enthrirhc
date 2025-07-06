@@ -6,5 +6,5 @@ enum Similarity {
   d,
 
   /// The Fuzzy Similarity
-  f;
+  f,
 }

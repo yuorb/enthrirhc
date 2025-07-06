@@ -10,10 +10,18 @@ import '../utils.dart';
   final componentCPath = primary.componentC().path();
   final componentDPath = primary.componentD().path();
   final (coreLeft, coreRight) = getCoreBoundary(primary.specification.path());
-  final (componentALeft, componentARight) = getExtensionBoundary(componentAPath);
-  final (componentBLeft, componentBRight) = getExtensionBoundary(componentBPath);
-  final (componentCLeft, componentCRight) = getExtensionBoundary(componentCPath);
-  final (componentDLeft, componentDRight) = getExtensionBoundary(componentDPath);
+  final (componentALeft, componentARight) = getExtensionBoundary(
+    componentAPath,
+  );
+  final (componentBLeft, componentBRight) = getExtensionBoundary(
+    componentBPath,
+  );
+  final (componentCLeft, componentCRight) = getExtensionBoundary(
+    componentCPath,
+  );
+  final (componentDLeft, componentDRight) = getExtensionBoundary(
+    componentDPath,
+  );
 
   final left = [
     coreLeft,

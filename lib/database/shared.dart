@@ -4,7 +4,9 @@ import 'package:drift/drift.dart';
 import 'package:enthrirhc/libs/misc.dart';
 import '../utils/types.dart';
 
-export 'unsupported.dart' if (dart.library.ffi) 'native.dart' if (dart.library.html) 'web.dart';
+export 'unsupported.dart'
+    if (dart.library.ffi) 'native.dart'
+    if (dart.library.html) 'web.dart';
 
 part 'shared.g.dart';
 
@@ -127,33 +129,36 @@ class Database extends _$Database {
     final List<SearchResultItem> results = [];
     final wholeWordRegex = "\\b${escapeRegExp(keywords)}\\b";
 
-    final statement1 = select(rootTable)..where((tbl) => tbl.root.equals(keywords.toUpperCase()));
+    final statement1 = select(rootTable)
+      ..where((tbl) => tbl.root.equals(keywords.toUpperCase()));
     final item1 = await statement1.getSingleOrNull();
     if (item1 != null) {
       results.add(RootSRI(decodeRootRow(item1)));
     }
 
-    final statement2 = select(affixTable)..where((tbl) => tbl.cs.equals(keywords.toLowerCase()));
+    final statement2 = select(affixTable)
+      ..where((tbl) => tbl.cs.equals(keywords.toLowerCase()));
     final item2 = await statement2.getSingleOrNull();
     if (item2 != null) {
       results.add(AffixSRI(decodeAffixRow(item2)));
     }
 
-    final statement3 = select(affixTable)..where((tbl) => tbl.name.equals(keywords.toUpperCase()));
+    final statement3 = select(affixTable)
+      ..where((tbl) => tbl.name.equals(keywords.toUpperCase()));
     final item3 = await statement3.getSingleOrNull();
     if (item3 != null) {
       results.add(AffixSRI(decodeAffixRow(item3)));
     }
 
     // Get the roots whose `root` field contains keyword.
-    final statement4 = select(rootTable)..where((tbl) => tbl.root.contains(keywords));
+    final statement4 = select(rootTable)
+      ..where((tbl) => tbl.root.contains(keywords));
     final rows4 = await statement4.get();
-    results.addAll(
-      rows4.map((item) => RootSRI(decodeRootRow(item))).toList(),
-    );
+    results.addAll(rows4.map((item) => RootSRI(decodeRootRow(item))).toList());
 
     // Get the affixes whose `cs` field contains keyword.
-    final statement5 = select(affixTable)..where((tbl) => tbl.cs.contains(keywords));
+    final statement5 = select(affixTable)
+      ..where((tbl) => tbl.cs.contains(keywords));
     final rows5 = await statement5.get();
     results.addAll(
       rows5.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
@@ -163,13 +168,13 @@ class Database extends _$Database {
     final statement6 = select(rootTable)
       ..where((tbl) => tbl.refers.regexp(wholeWordRegex, caseSensitive: false));
     final rows6 = await statement6.get();
-    results.addAll(
-      rows6.map((item) => RootSRI(decodeRootRow(item))).toList(),
-    );
+    results.addAll(rows6.map((item) => RootSRI(decodeRootRow(item))).toList());
 
     // Get the affixes whose `description` field contains keyword.
     final statement7 = select(affixTable)
-      ..where((tbl) => tbl.description.regexp(wholeWordRegex, caseSensitive: false));
+      ..where(
+        (tbl) => tbl.description.regexp(wholeWordRegex, caseSensitive: false),
+      );
     final rows7 = await statement7.get();
     results.addAll(
       rows7.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
@@ -179,13 +184,12 @@ class Database extends _$Database {
     final statement8 = select(rootTable)
       ..where((tbl) => tbl.stems.regexp(wholeWordRegex, caseSensitive: false));
     final rows8 = await statement8.get();
-    results.addAll(
-      rows8.map((item) => RootSRI(decodeRootRow(item))).toList(),
-    );
+    results.addAll(rows8.map((item) => RootSRI(decodeRootRow(item))).toList());
 
     // Get the affixes whose `degrees` field contains keyword.
-    final statement9 = select(affixTable)
-      ..where((tbl) => tbl.degrees.regexp(wholeWordRegex, caseSensitive: false));
+    final statement9 = select(
+      affixTable,
+    )..where((tbl) => tbl.degrees.regexp(wholeWordRegex, caseSensitive: false));
     final rows9 = await statement9.get();
     results.addAll(
       rows9.map((item) => AffixSRI(decodeAffixRow(item))).toList(),
@@ -195,14 +199,18 @@ class Database extends _$Database {
     for (var i = 0; i < results.length; i++) {
       final thisItem = results[i];
       final hasDuplicatedElement = switch (thisItem) {
-        RootSRI(root: final thisRoot) => deduplicatedResults.any((item) => switch (item) {
-              RootSRI(root: final root) => root.root == thisRoot.root,
-              AffixSRI() => false,
-            }),
-        AffixSRI(affix: final thisAffix) => deduplicatedResults.any((item) => switch (item) {
-              RootSRI() => false,
-              AffixSRI(affix: final affix) => affix.cs == thisAffix.cs,
-            }),
+        RootSRI(root: final thisRoot) => deduplicatedResults.any(
+          (item) => switch (item) {
+            RootSRI(root: final root) => root.root == thisRoot.root,
+            AffixSRI() => false,
+          },
+        ),
+        AffixSRI(affix: final thisAffix) => deduplicatedResults.any(
+          (item) => switch (item) {
+            RootSRI() => false,
+            AffixSRI(affix: final affix) => affix.cs == thisAffix.cs,
+          },
+        ),
       };
       if (!hasDuplicatedElement) {
         deduplicatedResults.add(thisItem);
